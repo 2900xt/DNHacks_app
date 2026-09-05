@@ -1,4 +1,4 @@
-# dnhacks26 — root orchestration.
+# DNHacks_app — root orchestration.
 # Targets no-op gracefully when a component hasn't picked a stack yet.
 
 .DEFAULT_GOAL := help
@@ -8,7 +8,7 @@ COMPONENTS := firmware ml services/api web
 
 .PHONY: help
 help: ## Show this help
-	@echo "dnhacks26 — targets:"
+	@echo "DNHacks_app — targets:"
 	@grep -hE '^[a-zA-Z_/-]+:.*?## ' $(MAKEFILE_LIST) \
 	  | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 	@echo
@@ -28,7 +28,7 @@ check: ## Cheap sanity pass: contracts parse, env keys present
 
 .PHONY: demo
 demo: ## Bring up exactly what the demo path needs. Edit me once the path is locked.
-	@echo "TODO: wire this to the demo path in ../dnhacks26-brain/strategy/DEMO_PATH.md"
+	@echo "TODO: wire this to the demo path in ../DNHacks_brain/strategy/DEMO_PATH.md"
 	@$(MAKE) dev
 
 .PHONY: status

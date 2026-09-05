@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://dnhacks26/schemas/telemetry.schema.json",
+  "$id": "https://dnhacks26.invalid/schemas/telemetry.schema.json",
   "title": "Telemetry",
   "description": "One reading emitted by a device. PLACEHOLDER - replace with real fields once the idea is locked.",
   "type": "object",

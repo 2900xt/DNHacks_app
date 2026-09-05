@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://dnhacks26/schemas/detection.schema.json",
+  "$id": "https://dnhacks26.invalid/schemas/detection.schema.json",
   "title": "Detection",
   "description": "One model output the operator UI renders. PLACEHOLDER - replace once the idea is locked.",
   "type": "object",

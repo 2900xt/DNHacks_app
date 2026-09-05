@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: dnhacks26 API
+  title: DNHacks_app API
   version: 0.1.0
   description: |
     HTTP surface of `services/api`. PLACEHOLDER SPINE — replace paths with the real

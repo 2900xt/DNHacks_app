@@ -8,7 +8,7 @@ ok()   { printf '  \033[32m✓\033[0m %s\n' "$1"; }
 skip() { printf '  \033[90m·\033[0m %s\n' "$1"; }
 warn() { printf '  \033[33m!\033[0m %s\n' "$1"; }
 
-echo "bootstrapping dnhacks26..."
+echo "bootstrapping DNHacks_app..."
 
 [ -f .env ] || { cp .env.example .env && ok "created .env from .env.example"; }
 
