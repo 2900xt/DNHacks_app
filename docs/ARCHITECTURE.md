@@ -11,7 +11,7 @@ _TBD — what the system does, in the words you'd use on stage._
 
 | Component | Stack | Chosen because | Decided at |
 |-----------|-------|----------------|------------|
-| `hardware/m5stack-node/` | PlatformIO + Arduino-ESP32 | flash speed | Sat 16:45 |
+| `hardware/m5stack-node/` | M5Stack Core · PlatformIO + Arduino-ESP32 | flash speed, and the LCD is the demo's first visual | Sat 16:45 |
 | `hardware/laptop-server/` | host config for `services/api` | no Pi yet | Sat |
 | `hardware/pi-server/` | Raspberry Pi AP + host config | venue wifi is not trustworthy | planned |
 | `ml/` | TBD | | |

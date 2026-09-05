@@ -53,7 +53,12 @@ static void buildDeviceId() {
 }
 
 static bool initBme() {
-  if (!bme.begin(BME680_ADDR, &Wire) && !bme.begin(0x76, &Wire)) return false;
+  // Both straps. Adafruit breakouts sit at 0x77, most clones at 0x76, and which
+  // one is in the box tonight is not worth a reflash to find out.
+  // (The second argument is `bool initSettings`, NOT a bus pointer — passing
+  // &Wire here compiled, meant `true`, and selected nothing. The bus comes from
+  // the constructor, which defaults to Wire.)
+  if (!bme.begin(BME680_ADDR, true) && !bme.begin(0x76, true)) return false;
 
   // 1x oversampling and filter off. The BME680 self-heats when oversampled
   // hard, and on a 20-25 C band a 1-2 C offset is the difference between
@@ -162,25 +167,29 @@ void setup() {
   Serial.begin(115200);
   delay(200);
 
-  display::begin(NODE_ID);
-  pinMode(STATUS_LED, OUTPUT);
+  display::begin(NODE_ID);   // M5.begin() lives in here, and Port A's pins and
+                             // its 5V rail are only valid once it has run.
 
 #if MQ2_ENABLED
   analogSetPinAttenuation(MQ2_ANALOG_PIN, ADC_11db);  // full ~0-3.1V span
 #endif
 
   buildDeviceId();
-  Wire.begin(I2C_SDA, I2C_SCL);
+  const int sda = i2cSdaPin(), scl = i2cSclPin();
+  Wire.begin(sda, scl);
   bmeOk = initBme();
   dht.begin();
 
-  Serial.printf("# depot-node %s node=%s bme680=%s dht11=GPIO%d mq2=GPIO%d\n",
-                deviceId, NODE_ID, bmeOk ? "ok" : "MISSING", DHT_PIN,
+  // Print the pins we actually used, not the ones we meant to. The whole reason
+  // this line exists is that the two were different for an evening.
+  Serial.printf("# depot-node %s node=%s bme680=%s i2c=SDA%d/SCL%d dht11=GPIO%d mq2=GPIO%d\n",
+                deviceId, NODE_ID, bmeOk ? "ok" : "MISSING", sda, scl, DHT_PIN,
                 MQ2_ENABLED ? MQ2_ANALOG_PIN : -1);
   display::boot(bmeOk ? "bme680  ok" : "bme680  MISSING");
-  display::boot("dht11   ok");
+  display::boot("dht11   init");   // begin() has no failure to report
   if (!bmeOk) {
-    Serial.println("# BME680 not found. Check SDA=21 SCL=22 and addr 0x77/0x76.");
+    Serial.printf("# BME680 not found on SDA=%d SCL=%d at 0x77/0x76. If this is a\n"
+                  "# Core2, Port A is 32/33 — 21/22 is the internal bus.\n", sda, scl);
     Serial.println("# Without it this node cannot certify anything — the DHT11 is");
     Serial.println("# a cross-check, not a fallback.");
     display::boot("cannot certify without bme680");
@@ -190,6 +199,7 @@ void setup() {
   bool wifiUp = connectWifi(WIFI_TIMEOUT_MS);
   display::boot(wifiUp ? "wifi    ok" : "wifi    DOWN (serial fallback)");
   display::boot(API_BASE);
+  display::bootHold(bmeOk && wifiUp);
 }
 
 void loop() {
@@ -204,7 +214,7 @@ void loop() {
   Reading r = sample();
 
   if (!r.bmeValid) {
-    digitalWrite(STATUS_LED, LOW);
+    display::health(false);
     bmeOk = initBme();   // hot-replug recovery; a jostled Grove cable is the
                          // single most likely hardware failure tonight
   }
@@ -215,7 +225,7 @@ void loop() {
   Serial.println(body);      // NDJSON fallback path — always, unconditionally
   int code = post(body);
 
-  digitalWrite(STATUS_LED, code == 202 ? HIGH : LOW);
+  display::health(code == 202);
   display::update(r, code, seq);   // the seq just sent, before it advances
   seq++;
   if (code != 202) Serial.printf("# post failed: %d\n", code);

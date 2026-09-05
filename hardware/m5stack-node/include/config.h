@@ -3,12 +3,12 @@
 // reflashing this from a laptop that is not the one running the API.
 
 // --- network ---------------------------------------------------------------
-#define WIFI_SSID       "CHANGEME"
-#define WIFI_PASS       "CHANGEME"
+#define WIFI_SSID       "DNHacks"
+#define WIFI_PASS       "ExceptionalAmbition"
 
 // The Pi's AP address, not localhost. When the venue wifi dies at 13:00 this is
 // the line you will be glad is configurable.
-#define API_BASE        "http://192.168.4.1:8000"
+#define API_BASE  "http://192.168.9.66:8000"
 
 // --- identity --------------------------------------------------------------
 // node_id is the BIN. Devices are swappable; bins are not. Must match a node_id
