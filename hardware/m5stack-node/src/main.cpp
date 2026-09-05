@@ -32,10 +32,8 @@
 
 #include "pins.h"
 #include "config.h"
-
-#ifdef USE_M5STACK
-#include <M5Stack.h>
-#endif
+#include "reading.h"
+#include "display.h"
 
 static Adafruit_BME680 bme;
 static DHT             dht(DHT_PIN, DHT_KIND);
@@ -50,7 +48,7 @@ static void buildDeviceId() {
   // eFuse MAC, not an index — per the contract. Two devices sharing an id
   // silently overwrite each other's readings, which is a miserable 4am bug.
   uint64_t mac = ESP.getEfuseMac();
-  snprintf(deviceId, sizeof(deviceId), "esp32-%04x%08x",
+  snprintf(deviceId, sizeof(deviceId), "depot-%04x%08x",
            (uint16_t)(mac >> 32), (uint32_t)mac);
 }
 
@@ -84,18 +82,6 @@ static bool connectWifi(uint32_t timeoutMs) {
 }
 
 // ---------------------------------------------------------------------------
-
-struct Reading {
-  float tempC;        // BME680 — authoritative
-  float rhPct;        // BME680 — authoritative
-  float pressureHpa;
-  float gasOhms;      // BME680 VOC plate resistance; lower = more VOC
-  float tempXcheck;   // DHT11
-  float rhXcheck;     // DHT11
-  float mq2Mv;        // divider-corrected millivolts at the MQ-2 AOUT
-  bool  bmeValid;
-  bool  dhtValid;
-};
 
 static Reading sample() {
   Reading r{NAN, NAN, NAN, NAN, NAN, NAN, NAN, false, false};
@@ -172,53 +158,11 @@ static int post(const char *body) {
 
 // ---------------------------------------------------------------------------
 
-#ifdef USE_M5STACK
-static void draw(const Reading &r, int httpCode) {
-  M5.Lcd.fillScreen(BLACK);
-  M5.Lcd.setTextColor(WHITE, BLACK);
-  M5.Lcd.setTextSize(2);
-  M5.Lcd.setCursor(8, 8);
-  M5.Lcd.print(NODE_ID);
-
-  M5.Lcd.setTextSize(5);
-  M5.Lcd.setCursor(8, 46);
-  if (r.bmeValid) M5.Lcd.printf("%.1f C", r.tempC); else M5.Lcd.print("-- C");
-
-  M5.Lcd.setTextSize(3);
-  M5.Lcd.setCursor(8, 108);
-  if (r.bmeValid) M5.Lcd.printf("%.0f%% RH", r.rhPct);
-
-  // Cross-check delta, so a diverging DHT11 is visible on the bench before the
-  // API ever flags it.
-  M5.Lcd.setTextSize(2);
-  M5.Lcd.setCursor(8, 152);
-  if (r.bmeValid && r.dhtValid) {
-    float d = fabsf(r.tempC - r.tempXcheck);
-    M5.Lcd.setTextColor(d > 3.0f ? RED : DARKGREY, BLACK);
-    M5.Lcd.printf("xcheck %.1f C  d=%.1f", r.tempXcheck, d);
-  } else {
-    M5.Lcd.setTextColor(DARKGREY, BLACK);
-    M5.Lcd.print("xcheck --");
-  }
-
-  // The device shows what it MEASURED. It does not render a verdict — the API
-  // decides that, and a device that draws its own pass/fail will disagree with
-  // the screen at the worst possible moment.
-  M5.Lcd.setTextSize(2);
-  M5.Lcd.setCursor(8, 208);
-  M5.Lcd.setTextColor(httpCode == 202 ? GREEN : RED, BLACK);
-  M5.Lcd.printf("api %s", httpCode == 202 ? "ok " : "DOWN");
-}
-#endif
-
 void setup() {
   Serial.begin(115200);
   delay(200);
 
-#ifdef USE_M5STACK
-  M5.begin();
-  M5.Power.begin();
-#endif
+  display::begin(NODE_ID);
   pinMode(STATUS_LED, OUTPUT);
 
 #if MQ2_ENABLED
@@ -233,19 +177,25 @@ void setup() {
   Serial.printf("# depot-node %s node=%s bme680=%s dht11=GPIO%d mq2=GPIO%d\n",
                 deviceId, NODE_ID, bmeOk ? "ok" : "MISSING", DHT_PIN,
                 MQ2_ENABLED ? MQ2_ANALOG_PIN : -1);
+  display::boot(bmeOk ? "bme680  ok" : "bme680  MISSING");
+  display::boot("dht11   ok");
   if (!bmeOk) {
     Serial.println("# BME680 not found. Check SDA=21 SCL=22 and addr 0x77/0x76.");
     Serial.println("# Without it this node cannot certify anything — the DHT11 is");
     Serial.println("# a cross-check, not a fallback.");
+    display::boot("cannot certify without bme680");
   }
 
-  connectWifi(WIFI_TIMEOUT_MS);
+  display::boot("wifi    connecting...");
+  bool wifiUp = connectWifi(WIFI_TIMEOUT_MS);
+  display::boot(wifiUp ? "wifi    ok" : "wifi    DOWN (serial fallback)");
+  display::boot(API_BASE);
 }
 
 void loop() {
-#ifdef USE_M5STACK
-  M5.update();
-#endif
+  // Polled every iteration, not every sample: the buttons must feel immediate
+  // even though a reading is only taken every SAMPLE_MS.
+  display::tick();
 
   static uint32_t last = 0;
   if (millis() - last < SAMPLE_MS) return;
@@ -264,11 +214,9 @@ void loop() {
 
   Serial.println(body);      // NDJSON fallback path — always, unconditionally
   int code = post(body);
-  seq++;
 
   digitalWrite(STATUS_LED, code == 202 ? HIGH : LOW);
-#ifdef USE_M5STACK
-  draw(r, code);
-#endif
+  display::update(r, code, seq);   // the seq just sent, before it advances
+  seq++;
   if (code != 202) Serial.printf("# post failed: %d\n", code);
 }

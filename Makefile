@@ -4,7 +4,7 @@
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
-COMPONENTS := hardware/esp32-node hardware/pi-server hardware/laptop-server ml services/api web
+COMPONENTS := hardware/m5stack-node hardware/pi-server hardware/laptop-server ml services/api web
 
 .PHONY: help
 help: ## Show this help
@@ -38,7 +38,7 @@ depot-demo: ## Replay 24h of storage history into a running API (no hardware nee
 	@# sample with receipt time and the 24h window collapses to a few seconds.
 	@curl -sf $${API:-http://localhost:8000}/health >/dev/null \
 	  || { echo "API not up — run 'make dev' first"; exit 1; }
-	@./hardware/esp32-node/replay.py --api $${API:-http://localhost:8000} \
+	@./hardware/m5stack-node/replay.py --api $${API:-http://localhost:8000} \
 	  synth --scenario $${SCENARIO:-breach}
 
 .PHONY: status

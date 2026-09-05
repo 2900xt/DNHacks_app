@@ -4,7 +4,7 @@ Everything physical, plus the machine the physical thing talks to.
 
 | Path | What it is | State |
 |---|---|---|
-| [`esp32-node/`](esp32-node/) | The ESP32 / M5Stack depot node — BME680 + DHT11 + MQ-2, posts `Telemetry` | Compiles both envs. **Never flashed.** |
+| [`m5stack-node/`](m5stack-node/) | The ESP32 / M5Stack depot node — BME680 + DHT11 + MQ-2, posts `Telemetry` | Compiles both envs. **Never flashed.** |
 | [`laptop-server/`](laptop-server/) | Runs the API off a laptop, reachable by the node | **Use this now.** |
 | [`pi-server/`](pi-server/) | Runs the API off a Raspberry Pi acting as its own AP | Planned. No Pi exists yet. |
 
@@ -21,7 +21,7 @@ in `services/api/depot.py`, where it can be changed without a reflash.
 ## The one line that joins them
 
 ```c
-// hardware/esp32-node/include/config.h
+// hardware/m5stack-node/include/config.h
 #define API_BASE  "http://192.168.4.1:8000"
 ```
 
@@ -39,4 +39,4 @@ API from a laptop to a Pi is a one-line edit and a reflash — which is exactly 
 Right now, the laptop. The Pi is the venue-day insurance policy: it removes the
 last dependency on wifi you do not control. Neither is needed for
 `make depot-demo`, which replays 24h of history with no radio at all — see
-[`esp32-node/README.md`](esp32-node/README.md).
+[`m5stack-node/README.md`](m5stack-node/README.md).

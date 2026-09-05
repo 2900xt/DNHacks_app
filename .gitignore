@@ -83,9 +83,9 @@ CMakeCache.txt
 *.MOV
 !docs/assets/*.gif
 
-# platformio / esp32-node build + IDE scaffolding
-hardware/esp32-node/.pio/
-hardware/esp32-node/.vscode/
-!hardware/esp32-node/.vscode/extensions.json
-hardware/esp32-node/CMakeListsPrivate.txt
-hardware/esp32-node/compile_commands.json
+# platformio / m5stack-node build + IDE scaffolding
+hardware/m5stack-node/.pio/
+hardware/m5stack-node/.vscode/
+!hardware/m5stack-node/.vscode/extensions.json
+hardware/m5stack-node/CMakeListsPrivate.txt
+hardware/m5stack-node/compile_commands.json
