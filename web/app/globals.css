@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: #fff;
+  color: #111;
+  font: 14px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+
+h1 { font-size: 18px; margin: 0 0 4px; }
+h2 { font-size: 14px; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: .06em; color: #666; }
+
+table { border-collapse: collapse; width: 100%; max-width: 760px; }
+th, td { text-align: left; padding: 5px 12px 5px 0; vertical-align: top; }
+th { font-weight: 600; color: #555; width: 220px; }
+td { font-variant-numeric: tabular-nums; }
+
+.status { font-weight: 700; text-transform: uppercase; }
+.status[data-s="ok"] { color: #0a7a45; }
+.status[data-s="excursion"] { color: #b06000; }
+.status[data-s="mkt_breach"] { color: #c00; }
+.status[data-s="sensor_fault"] { color: #6b3fd4; }
+.status[data-s="stale"], .status[data-s="offline"] { color: #777; }
+
+.reason { margin: 4px 0 0; color: #333; }
+hr { border: 0; border-top: 1px solid #ddd; margin: 24px 0; }
+button { font: inherit; padding: 4px 10px; cursor: pointer; }
+code { background: #f2f2f2; padding: 1px 4px; }

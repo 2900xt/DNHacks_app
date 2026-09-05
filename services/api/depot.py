@@ -219,6 +219,19 @@ class Bin:
     def mkt(self) -> Optional[float]:
         return mean_kinetic_temperature(list(self.history))
 
+    def mean_c(self) -> Optional[float]:
+        """Plain arithmetic mean over the same window as mkt().
+
+        Not a compliance criterion and never used as one. It exists so the UI can
+        show it BESIDE the MKT: on a real history with one hot hour, this reads
+        comfortably in band while the MKT has already condemned the stock. That
+        gap is the entire argument for using the metric a regulator uses, and it
+        is not demonstrable unless both numbers are on screen at once.
+        """
+        if not self.history:
+            return None
+        return sum(t for _, t in self.history) / len(self.history)
+
     def status(self, now: Optional[float] = None) -> tuple[str, Optional[str]]:
         now = now if now is not None else time.time()
         spec = self.spec()
@@ -263,6 +276,7 @@ class Bin:
             if self.out_of_band_since is not None else None
         )
         mkt = self.mkt()
+        mean = self.mean_c()
         return {
             "node_id": self.node_id,
             "label": self.label,
@@ -273,6 +287,8 @@ class Bin:
             "reason": reason,
             "latest": self.latest or None,
             "mkt_c": round(mkt, 2) if mkt is not None else None,
+            "mean_c": round(mean, 2) if mean is not None else None,
+            "n_samples": len(self.history),
             "window_h": round(self._span() / 3600.0, 4) if self.history else None,
             "mkt_provisional": self._span() < self.min_window_s,
             "excursion_s": excursion_s,

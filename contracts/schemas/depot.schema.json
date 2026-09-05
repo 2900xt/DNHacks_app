@@ -201,6 +201,18 @@
       ],
       "description": "Mean kinetic temperature over `window_h`, per USP <1079> / ICH Q1A, dH = 83.144 kJ/mol."
     },
+    "mean_c": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Plain arithmetic mean temperature over the same window as `mkt_c`. NOT a compliance criterion and must never be rendered as one. It is carried so the UI can show it beside the MKT: on a history with one hot hour it reads comfortably in band while the MKT has already condemned the stock. The gap between the two IS the argument for using the regulator's metric."
+    },
+    "n_samples": {
+      "type": "integer",
+      "description": "Number of readings currently in the window. Context for `mkt_c` - a breach computed from six samples is not the same claim as one computed from three hundred.",
+      "minimum": 0
+    },
     "window_h": {
       "type": [
         "number",

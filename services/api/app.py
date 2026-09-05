@@ -131,6 +131,28 @@ def get_node(node_id: str) -> dict[str, Any]:
     return b.to_node()
 
 
+@app.get("/depot/nodes/{node_id}/history")
+def get_history(node_id: str, limit: int = 2000) -> dict[str, Any]:
+    """Temperature history for the chart.
+
+    The stream only carries state CHANGES, so a UI that plots what it has seen
+    since it connected draws nothing after a page refresh — and someone will
+    refresh mid-demo. This lets the chart repaint the whole window from scratch.
+    Downsamples by striding rather than truncating: a chart that silently drops
+    the hot hour off the front is worse than no chart.
+    """
+    b = BINS.get(node_id)
+    if b is None:
+        raise HTTPException(status_code=404, detail=f"no such bin: {node_id}")
+    pts = list(b.history)
+    stride = max(1, len(pts) // limit)
+    return {
+        "node_id": node_id,
+        "stride": stride,
+        "points": [{"ts": ts, "temp_c": t} for ts, t in pts[::stride]],
+    }
+
+
 @app.post("/depot/nodes/{node_id}/reset")
 def reset_node(node_id: str) -> dict[str, Any]:
     """Clear latched MKT breach between demo runs. You WILL need this between judges."""

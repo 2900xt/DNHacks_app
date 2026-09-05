@@ -117,6 +117,40 @@ paths:
             text/event-stream:
               schema: { type: string }
 
+  /depot/nodes/{node_id}/history:
+    get:
+      summary: |
+        Temperature history for one bin, for the UI chart. The stream carries only
+        state CHANGES, so a chart that plots what it has seen since connecting draws
+        nothing after a page refresh - and someone will refresh mid-demo.
+      parameters:
+        - in: path
+          name: node_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 2000 }
+          description: Target point count. Exceeding it strides the series rather than truncating it, so the hot hour never falls off the front.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  node_id: { type: string }
+                  stride: { type: integer }
+                  points:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ts: { type: number, description: Unix seconds }
+                        temp_c: { type: number }
+        "404": { description: No such bin }
+
   /depot/nodes/{node_id}/reset:
     post:
       summary: |
