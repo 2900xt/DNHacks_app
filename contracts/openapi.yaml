@@ -70,3 +70,98 @@ paths:
           content:
             text/event-stream:
               schema: { type: string }
+
+  /depot/nodes:
+    get:
+      summary: |
+        Every physical storage location, as graph nodes. The web UI renders these
+        alongside the sourcing nodes — same graph, but these ones have a status
+        that came from a sensor instead of from a sourcing model.
+      responses:
+        "200":
+          description: All known depot bins, ordered worst-status first.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas/depot.schema.json"
+
+  /depot/nodes/{node_id}:
+    get:
+      summary: One bin. Use for the detail panel when a judge clicks the node.
+      parameters:
+        - in: path
+          name: node_id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./schemas/depot.schema.json"
+        "404": { description: No such bin }
+
+  /depot/stream:
+    get:
+      summary: |
+        Server-sent events of `DepotNode`, one event per state change. This is what
+        makes the excursion land live on stage — the node turns amber while the
+        judge is still holding their thumb on the sensor.
+      responses:
+        "200":
+          description: text/event-stream of DepotNode objects
+          content:
+            text/event-stream:
+              schema: { type: string }
+
+  /depot/nodes/{node_id}/history:
+    get:
+      summary: |
+        Temperature history for one bin, for the UI chart. The stream carries only
+        state CHANGES, so a chart that plots what it has seen since connecting draws
+        nothing after a page refresh - and someone will refresh mid-demo.
+      parameters:
+        - in: path
+          name: node_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 2000 }
+          description: Target point count. Exceeding it strides the series rather than truncating it, so the hot hour never falls off the front.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  node_id: { type: string }
+                  stride: { type: integer }
+                  points:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ts: { type: number, description: Unix seconds }
+                        temp_c: { type: number }
+        "404": { description: No such bin }
+
+  /depot/nodes/{node_id}/reset:
+    post:
+      summary: |
+        Clear latched state (MKT breach, excursion timer, history) for one bin.
+        Demo affordance — you will need it between judges. Not a production
+        disposition: real condemned stock stays condemned until a human signs it off.
+      parameters:
+        - in: path
+          name: node_id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Reset }
+        "404": { description: No such bin }

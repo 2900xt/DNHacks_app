@@ -1,0 +1,405 @@
+// The M5Stack Core's LCD, as the depot node's instrument face.
+//
+// Everything M5Stack-specific is contained here. main.cpp calls display::*
+// unconditionally; on the headless esp32dev fallback the whole implementation
+// collapses to empty functions at the bottom of this file.
+//
+// Built on M5Unified rather than the M5Stack library. That is not a preference:
+// M5Stack@0.4.x is Core Basic/Gray/Fire only. It compiles clean for a Core2 and
+// then talks to an IP5306 that is not there (a Core2 has an AXP192), which is
+// how a board-model mismatch reaches you as an I2C error rather than as a build
+// failure. M5Unified detects the board at runtime, so this file is the same on
+// both Cores and main.cpp never learns which one it is on.
+//
+// Two rules this file follows, both of them load-bearing:
+//
+//   1. It draws MEASUREMENTS, never a verdict. No green "COMPLIANT" banner. The
+//      API owns bands, dwell and MKT (services/api/depot.py) so they can change
+//      without a reflash — and a device that renders its own pass/fail will
+//      eventually contradict the dashboard behind it while a judge is watching.
+//      The two thresholds here, XCHECK_HINT_C and AQ_HINT, only colour numbers
+//      the device already measured. They do not decide anything.
+//
+//   2. It never repaints the whole screen. fillScreen() every 2 s is a visible
+//      black flash, which on a table reads as "it crashed and came back". Static
+//      chrome is drawn once; values are printed with an opaque background so
+//      each glyph overwrites its predecessor, which is why every format string
+//      below is fixed-width.
+
+#include "display.h"
+
+#ifdef USE_M5STACK
+
+#include <M5Unified.h>
+#include <WiFi.h>
+#include <math.h>
+#include <stdarg.h>
+
+#include "config.h"
+
+namespace {
+
+// --- palette ---------------------------------------------------------------
+// Built with color565 rather than the library's BLACK/RED/... macros so the
+// scheme is one block to edit, and so nothing depends on which display driver
+// M5Stack ships this week.
+uint16_t C_BG, C_INK, C_DIM, C_BAR, C_GRID, C_TEMP, C_RH, C_VOC, C_GOOD, C_BAD;
+
+// --- layout (the panel is 320x240) -----------------------------------------
+constexpr int W = 320, H = 240;
+constexpr int HEADER_H = 24;
+constexpr int BIG_Y    = 32;                 // size 5 -> 30x40 per glyph
+constexpr int UNIT_X   = 162, UNIT_Y = 48;
+constexpr int RH_Y     = 80;                 // size 3 -> 18x24
+constexpr int COL_X    = 186;                // right-hand VOC column
+constexpr int BLBL_Y   = 32,  BVAL_Y = 44;   // BME680 half of the air index
+constexpr int MLBL_Y   = 66,  MVAL_Y = 78;   // MQ-2 half
+constexpr int PLOT_X   = 8,   PLOT_Y = 108, PLOT_W = 304, PLOT_H = 66;
+constexpr int STATUS_Y = 184;
+constexpr int XCHK_Y   = 206;                // demoted temperature cross-check
+constexpr int BTN_Y    = 228;
+
+// Bench hint only. The real tolerance lives in DEPOT_XCHECK_TOLERANCE_C on the
+// server; this exists so a diverging DHT11 is obvious on the desk before the
+// API has enough samples to raise sensor_fault.
+constexpr float XCHECK_HINT_C = 3.0f;
+
+// Likewise a bench hint, and likewise decides nothing. The air index has no
+// band to be out of — there is no USP chapter on how much a warehouse may smell
+// — so this only picks the colour of a number the device already measured.
+constexpr float AQ_HINT = 60.0f;
+
+// --- history ---------------------------------------------------------------
+// One pixel column per 4 px of plot: 76 samples, which at SAMPLE_MS = 2000 is
+// about two and a half minutes of context. Long enough to watch a thumb warm
+// the part and the trace come back down; short enough to redraw whole.
+constexpr int PLOT_STEP = 4;
+constexpr int HIST_N    = PLOT_W / PLOT_STEP;
+
+Reading hist[HIST_N];
+int      histCount = 0;   // saturates at HIST_N
+int      histHead  = 0;   // next write index
+
+const Reading &histAt(int i) {          // i = 0 is the oldest kept sample
+  int start = (histCount < HIST_N) ? 0 : histHead;
+  return hist[(start + i) % HIST_N];
+}
+
+void histPush(const Reading &r) {
+  hist[histHead] = r;
+  histHead = (histHead + 1) % HIST_N;
+  if (histCount < HIST_N) histCount++;
+}
+
+// --- plottable series ------------------------------------------------------
+// Each carries a minimum span. Without one, autoscale on a stable bin amplifies
+// ADC noise into a seismograph and the trace looks broken.
+struct Metric {
+  const char *label;
+  const char *fmt;
+  float (*get)(const Reading &);
+  float minSpan;
+  bool  nonNegative;   // quantity has a hard floor at 0; see drawPlot()
+  uint16_t *color;
+};
+
+float mTemp(const Reading &r) { return r.bmeValid ? r.tempC  : NAN; }
+float mRh  (const Reading &r) { return r.bmeValid ? r.rhPct  : NAN; }
+float mGas (const Reading &r) { return r.bmeValid ? r.gasOhms / 1000.0f : NAN; }
+float mMq2 (const Reading &r) { return r.mq2Mv; }
+float mVoc (const Reading &r) { return r.vocIndex; }
+
+// AIR (VOC) is the blended BME680 + MQ-2 index from reading.h, and it is the
+// series worth showing: neither element means much alone, and they fail in
+// different directions. The raw GAS and MQ-2 traces stay in the rotation
+// underneath it, because when the blend does something surprising the first
+// question is always which half moved.
+//
+// Its minSpan is deliberately wide. On a 0-100 index a still room sits within a
+// point or two of zero, and autoscaling that hard would turn ADC noise into a
+// seismograph — the same failure the other three are protected from.
+const Metric METRICS[] = {
+  {"TEMP C",          "%.1f", mTemp, 2.0f,   false, &C_TEMP},
+  {"RH %",            "%.0f", mRh,   5.0f,   true,  &C_RH},
+  {"AIR (VOC) 0-100", "%.0f", mVoc,  25.0f,  true,  &C_VOC},
+  {"GAS kOhm",        "%.0f", mGas,  10.0f,  true,  &C_DIM},
+  {"MQ-2 mV",         "%.0f", mMq2,  100.0f, true,  &C_DIM},
+};
+constexpr int N_METRICS = sizeof(METRICS) / sizeof(METRICS[0]);
+int metric = 0;
+
+const uint8_t BRIGHT[] = {80, 160, 255};
+int brightIdx = 2;
+
+bool  live     = false;   // has the boot screen been replaced yet
+int   bootY    = 0;
+Reading lastReading{};
+int   lastCode = -1;
+uint32_t lastSeq = 0;
+
+// --- helpers ---------------------------------------------------------------
+
+void text(int x, int y, int size, uint16_t fg, uint16_t bg, const char *s) {
+  M5.Lcd.setTextSize(size);
+  M5.Lcd.setTextColor(fg, bg);
+  M5.Lcd.setCursor(x, y);
+  M5.Lcd.print(s);
+}
+
+void textf(int x, int y, int size, uint16_t fg, uint16_t bg, const char *fmt, ...) {
+  char buf[48];
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(buf, sizeof(buf), fmt, ap);
+  va_end(ap);
+  text(x, y, size, fg, bg, buf);
+}
+
+void drawChrome() {
+  M5.Lcd.fillScreen(C_BG);
+
+  M5.Lcd.fillRect(0, 0, W, HEADER_H, C_BAR);
+  text(6, 5, 2, C_INK, C_BAR, NODE_ID);
+
+  text(UNIT_X, UNIT_Y, 3, C_DIM, C_BG, "C");
+  text(COL_X, BLBL_Y, 1, C_DIM, C_BG, "BME VOC");
+  text(COL_X, MLBL_Y, 1, C_DIM, C_BG, "MQ-2 VOC");
+
+  M5.Lcd.drawRect(PLOT_X - 1, PLOT_Y - 1, PLOT_W + 2, PLOT_H + 2, C_GRID);
+
+  // Button legend. The caps sit under the physical buttons, so the thirds line
+  // up with A / B / C left to right.
+  M5.Lcd.drawFastHLine(0, BTN_Y - 6, W, C_GRID);
+  text(14,  BTN_Y, 1, C_DIM, C_BG, "A series");
+  text(126, BTN_Y, 1, C_DIM, C_BG, "B bright");
+  text(232, BTN_Y, 1, C_DIM, C_BG, "C redraw");
+}
+
+void drawPlot() {
+  const Metric &m = METRICS[metric];
+
+  M5.Lcd.fillRect(PLOT_X, PLOT_Y, PLOT_W, PLOT_H, C_BG);
+
+  float lo = INFINITY, hi = -INFINITY;
+  int valid = 0;
+  for (int i = 0; i < histCount; i++) {
+    float v = m.get(histAt(i));
+    if (isnan(v)) continue;
+    lo = fminf(lo, v);
+    hi = fmaxf(hi, v);
+    valid++;
+  }
+
+  text(PLOT_X + 3, PLOT_Y + 2, 1, *m.color, C_BG, m.label);
+
+  if (valid < 2) {
+    text(PLOT_X + 8, PLOT_Y + PLOT_H / 2 - 4, 1, C_DIM, C_BG, "collecting...");
+    return;
+  }
+
+  // Widen a too-narrow window symmetrically about its centre.
+  if (hi - lo < m.minSpan) {
+    float mid = (hi + lo) / 2.0f;
+    lo = mid - m.minSpan / 2.0f;
+    hi = mid + m.minSpan / 2.0f;
+  }
+  // Then slide it back up if that pushed a floored quantity below zero — which
+  // it always does for the air index, because a still room sits at 0 and the
+  // minSpan is 25. An axis reading -13 on a 0-100 index invites exactly one
+  // question from a judge, which is one more than it is worth.
+  if (m.nonNegative && lo < 0.0f) { hi -= lo; lo = 0.0f; }
+
+  M5.Lcd.drawFastHLine(PLOT_X, PLOT_Y + PLOT_H / 2, PLOT_W, C_GRID);
+  char buf[16];
+  snprintf(buf, sizeof(buf), m.fmt, hi);
+  textf(PLOT_X + PLOT_W - 6 * (int)strlen(buf) - 2, PLOT_Y + 1, 1, C_DIM, C_BG, "%s", buf);
+  snprintf(buf, sizeof(buf), m.fmt, lo);
+  textf(PLOT_X + PLOT_W - 6 * (int)strlen(buf) - 2, PLOT_Y + PLOT_H - 9, 1, C_DIM, C_BG, "%s", buf);
+
+  auto yOf = [&](float v) {
+    float f = (v - lo) / (hi - lo);
+    return PLOT_Y + PLOT_H - 1 - (int)(f * (PLOT_H - 2));
+  };
+
+  // Right-align the trace so the newest sample is always at the right edge and
+  // a partly-filled history grows leftward instead of stretching.
+  int x0 = PLOT_X + PLOT_W - histCount * PLOT_STEP;
+  if (x0 < PLOT_X) x0 = PLOT_X;
+
+  bool havePrev = false;
+  int px = 0, py = 0;
+  for (int i = 0; i < histCount; i++) {
+    float v = m.get(histAt(i));
+    int x = x0 + i * PLOT_STEP;
+    if (isnan(v)) { havePrev = false; continue; }   // a gap is a gap; do not bridge it
+    int y = yOf(v);
+    if (havePrev) M5.Lcd.drawLine(px, py, x, y, *m.color);
+    else          M5.Lcd.drawPixel(x, y, *m.color);
+    px = x; py = y; havePrev = true;
+  }
+}
+
+void drawValues(const Reading &r, int code, uint32_t seq) {
+  textf(W - 6 * 7 - 4, 9, 1, C_DIM, C_BAR, "#%06lu", (unsigned long)seq);
+
+  if (r.bmeValid) textf(8, BIG_Y, 5, C_TEMP, C_BG, "%5.1f", r.tempC);
+  else            text (8, BIG_Y, 5, C_BAD,  C_BG, " --.-");
+
+  if (r.bmeValid) textf(8, RH_Y, 3, C_RH,  C_BG, "%3.0f%% RH", r.rhPct);
+  else            text (8, RH_Y, 3, C_DIM, C_BG, " --% RH");
+
+  // The two halves of the air index, stacked on one 0-100 scale so they can be
+  // read against each other at a glance. This column used to hold the
+  // temperature cross-check, and it is carrying the same idea: neither element
+  // can certify air on its own, so what you actually want to see is whether
+  // they agree. A BME680 climbing while the MQ-2 sits still is usually rising
+  // humidity depressing the plate, not volatiles — see the note in reading.h.
+  if (!isnan(r.vocBme))
+    textf(COL_X, BVAL_Y, 2, r.vocBme > AQ_HINT ? C_BAD : C_VOC, C_BG, "%3.0f", r.vocBme);
+  else
+    text (COL_X, BVAL_Y, 2, C_DIM, C_BG, " --");
+
+  if (!isnan(r.vocMq2))
+    textf(COL_X, MVAL_Y, 2, r.vocMq2 > AQ_HINT ? C_BAD : C_VOC, C_BG, "%3.0f", r.vocMq2);
+  else
+    text (COL_X, MVAL_Y, 2, C_DIM, C_BG, " --");
+
+  bool up = (code == 202);
+  textf(8, STATUS_Y, 2, up ? C_GOOD : C_BAD, C_BG, "api %-4s", up ? "ok" : "DOWN");
+  if (WiFi.status() == WL_CONNECTED)
+    textf(190, STATUS_Y, 2, C_DIM, C_BG, "%4ddBm", WiFi.RSSI());
+  else
+    text (190, STATUS_Y, 2, C_BAD, C_BG, "no wifi");
+
+  // Demoted from the column above, NOT deleted. The DHT11 divergence is what
+  // raises sensor_fault upstream, and a bin whose reading you cannot trust is
+  // not a compliant bin — so it still has to be legible from across a table,
+  // just not in the space the VOC pair now earns.
+  if (!isnan(r.vocIndex))
+    textf(8, XCHK_Y, 1, r.vocIndex > AQ_HINT ? C_BAD : C_DIM, C_BG, "air %3.0f", r.vocIndex);
+  else
+    text (8, XCHK_Y, 1, C_DIM, C_BG, "air  --");
+
+  if (r.bmeValid && r.dhtValid) {
+    float d = fabsf(r.tempC - r.tempXcheck);
+    textf(80, XCHK_Y, 1, d > XCHECK_HINT_C ? C_BAD : C_DIM, C_BG,
+          "xcheck %5.1f C  div %4.1f C", r.tempXcheck, d);
+  } else {
+    text(80, XCHK_Y, 1, C_DIM, C_BG, "xcheck  --.- C  div --.- C");
+  }
+}
+
+void repaint() {
+  drawChrome();
+  drawValues(lastReading, lastCode, lastSeq);
+  drawPlot();
+}
+
+}  // namespace
+
+// ---------------------------------------------------------------------------
+
+namespace display {
+
+void begin(const char *nodeId) {
+  auto cfg = M5.config();
+
+  // serial_baudrate 0: main.cpp already called Serial.begin, and letting M5
+  // re-init it mid-stream truncates the first NDJSON lines.
+  cfg.serial_baudrate = 0;
+  cfg.internal_spk    = false;   // the Core2 amp idles with an audible hiss
+  cfg.internal_mic    = false;
+  cfg.internal_imu    = false;   // nothing here plots acceleration
+  cfg.internal_rtc    = false;
+  // MUST stay true. On a Core2 the 5V on Grove Port A is boosted by the AXP192,
+  // not fed straight from USB — with output_power off the BME680 is unpowered
+  // and you get exactly the same "sensor missing" line as a wrong pin map.
+  cfg.output_power    = true;
+
+  M5.begin(cfg);
+
+  C_BG   = M5.Lcd.color565(  8,  10,  14);
+  C_INK  = M5.Lcd.color565(232, 236, 242);
+  C_DIM  = M5.Lcd.color565(120, 128, 142);
+  C_BAR  = M5.Lcd.color565( 22,  30,  46);
+  C_GRID = M5.Lcd.color565( 44,  50,  64);
+  C_TEMP = M5.Lcd.color565(255, 190,  70);
+  C_RH   = M5.Lcd.color565( 90, 200, 225);
+  C_VOC  = M5.Lcd.color565(196, 142, 240);
+  C_GOOD = M5.Lcd.color565( 70, 205, 120);
+  C_BAD  = M5.Lcd.color565(240,  80,  70);
+
+  M5.Lcd.setBrightness(BRIGHT[brightIdx]);
+  M5.Lcd.fillScreen(C_BG);
+  M5.Lcd.fillRect(0, 0, W, HEADER_H, C_BAR);
+  text(6, 5, 2, C_INK, C_BAR, nodeId);
+  text(8, 40, 1, C_DIM, C_BG, "CHOKEPOINT depot-node");
+  bootY = 56;
+  live  = false;
+}
+
+void boot(const char *line) {
+  if (live || bootY > 210) return;
+  text(8, bootY, 1, C_DIM, C_BG, line);
+  bootY += 12;
+}
+
+void bootHold(bool healthy) {
+  if (!live) delay(healthy ? 900 : 2500);
+}
+
+void update(const Reading &r, int httpCode, uint32_t seq) {
+  histPush(r);
+  lastReading = r;
+  lastCode    = httpCode;
+  lastSeq     = seq;
+
+  if (!live) { live = true; drawChrome(); }
+
+  drawValues(r, httpCode, seq);
+  drawPlot();
+}
+
+void health(bool ok) {
+  // A Core2 has no user-addressable LED — GPIO2, the DevKit's onboard LED, is
+  // the I2S data line to its amplifier here. The green power LED hangs off the
+  // AXP192 instead, and M5Unified routes setLed() to whatever the board has.
+  M5.Power.setLed(ok ? 255 : 0);
+}
+
+void tick() {
+  M5.update();
+
+  if (M5.BtnA.wasPressed()) {
+    metric = (metric + 1) % N_METRICS;
+    if (live) drawPlot();
+  }
+  if (M5.BtnB.wasPressed()) {
+    brightIdx = (brightIdx + 1) % (int)(sizeof(BRIGHT) / sizeof(BRIGHT[0]));
+    M5.Lcd.setBrightness(BRIGHT[brightIdx]);
+  }
+  // A garbled panel is usually one dropped SPI frame, not a crash. Redrawing is
+  // cheaper than power-cycling a node someone is about to demo.
+  if (M5.BtnC.wasPressed() && live) repaint();
+}
+
+}  // namespace display
+
+#else   // ---------------------------------------------------------------------
+// Headless build (esp32dev). Same source, no panel: the node still emits NDJSON
+// on serial and still POSTs, which is the whole fallback path. Here the status
+// LED really is a GPIO, so health() is the one function with a body.
+
+#include <Arduino.h>
+#include "pins.h"
+
+namespace display {
+void begin(const char *) {}
+void boot(const char *) {}
+void health(bool ok) { digitalWrite(STATUS_LED, ok ? HIGH : LOW); }
+void bootHold(bool) {}
+void update(const Reading &, int, uint32_t) {}
+void tick() {}
+}  // namespace display
+
+#endif

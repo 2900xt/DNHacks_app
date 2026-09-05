@@ -7,7 +7,7 @@ two people building against different assumptions about the same JSON.
 
 ## Rules
 
-1. If data moves between `firmware/`, `ml/`, `services/api/`, or `web/`, its shape
+1. If data moves between `hardware/`, `ml/`, `services/api/`, or `web/`, its shape
    is defined **here** — not in a component.
 2. Change the contract **before** the code that depends on it.
 3. Announce every contract change in the team channel *and* run

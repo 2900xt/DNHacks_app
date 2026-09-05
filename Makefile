@@ -4,7 +4,7 @@
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
-COMPONENTS := firmware ml services/api web
+COMPONENTS := hardware/m5stack-node hardware/pi-server hardware/laptop-server ml services/api web
 
 .PHONY: help
 help: ## Show this help
@@ -31,9 +31,19 @@ demo: ## Bring up exactly what the demo path needs. Edit me once the path is loc
 	@echo "TODO: wire this to the demo path in ../DNHacks_brain/strategy/DEMO_PATH.md"
 	@$(MAKE) dev
 
+.PHONY: depot-demo
+depot-demo: ## Replay 24h of storage history into a running API (no hardware needed)
+	@# DEPOT_TRUST_DEVICE_TS is read by the SERVER, not by this client. It lives in
+	@# .env so `make dev` picks it up. Without it the API stamps every replayed
+	@# sample with receipt time and the 24h window collapses to a few seconds.
+	@curl -sf $${API:-http://localhost:8000}/health >/dev/null \
+	  || { echo "API not up — run 'make dev' first"; exit 1; }
+	@./hardware/m5stack-node/replay.py --api $${API:-http://localhost:8000} \
+	  synth --scenario $${SCENARIO:-breach}
+
 .PHONY: status
 status: ## What actually exists in this repo right now
 	@for c in $(COMPONENTS); do \
 	  n=$$(find $$c -type f -not -name 'README.md' -not -name '.gitkeep' 2>/dev/null | wc -l); \
-	  printf "  %-14s %s files\n" "$$c" "$$n"; \
+	  printf "  %-26s %s files\n" "$$c" "$$n"; \
 	done
