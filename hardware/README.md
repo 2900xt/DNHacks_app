@@ -4,7 +4,7 @@ Everything physical, plus the machine the physical thing talks to.
 
 | Path | What it is | State |
 |---|---|---|
-| [`m5stack-node/`](m5stack-node/) | The ESP32 / M5Stack depot node — BME680 + DHT11 + MQ-2, posts `Telemetry` | Compiles both envs. **Never flashed.** |
+| [`m5stack-node/`](m5stack-node/) | The M5Stack Core depot node — BME680 + DHT11 + MQ-2, posts `Telemetry`, reads its own state out on the LCD | Compiles. **Never flashed.** |
 | [`laptop-server/`](laptop-server/) | Runs the API off a laptop, reachable by the node | **Use this now.** |
 | [`pi-server/`](pi-server/) | Runs the API off a Raspberry Pi acting as its own AP | Planned. No Pi exists yet. |
 

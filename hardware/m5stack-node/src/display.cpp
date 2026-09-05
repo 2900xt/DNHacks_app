@@ -4,6 +4,13 @@
 // unconditionally; on the headless esp32dev fallback the whole implementation
 // collapses to empty functions at the bottom of this file.
 //
+// Built on M5Unified rather than the M5Stack library. That is not a preference:
+// M5Stack@0.4.x is Core Basic/Gray/Fire only. It compiles clean for a Core2 and
+// then talks to an IP5306 that is not there (a Core2 has an AXP192), which is
+// how a board-model mismatch reaches you as an I2C error rather than as a build
+// failure. M5Unified detects the board at runtime, so this file is the same on
+// both Cores and main.cpp never learns which one it is on.
+//
 // Two rules this file follows, both of them load-bearing:
 //
 //   1. It draws MEASUREMENTS, never a verdict. No green "COMPLIANT" banner. The
@@ -23,7 +30,7 @@
 
 #ifdef USE_M5STACK
 
-#include <M5Stack.h>
+#include <M5Unified.h>
 #include <WiFi.h>
 #include <math.h>
 #include <stdarg.h>
@@ -255,14 +262,21 @@ void repaint() {
 namespace display {
 
 void begin(const char *nodeId) {
-  // SD off: there is no card, and probing it costs a second of boot on a shared
-  // SPI bus. Serial off: main.cpp already called Serial.begin, and letting M5
-  // re-init it mid-stream truncates the first NDJSON lines. I2C off: we drive
-  // Wire ourselves with the explicit 21/22 pins from pins.h.
-  M5.begin(/*LCD*/ true, /*SD*/ false, /*Serial*/ false, /*I2C*/ false);
-  M5.Power.begin();
-  M5.Speaker.begin();
-  M5.Speaker.mute();      // the Core's amp idles with an audible hiss otherwise
+  auto cfg = M5.config();
+
+  // serial_baudrate 0: main.cpp already called Serial.begin, and letting M5
+  // re-init it mid-stream truncates the first NDJSON lines.
+  cfg.serial_baudrate = 0;
+  cfg.internal_spk    = false;   // the Core2 amp idles with an audible hiss
+  cfg.internal_mic    = false;
+  cfg.internal_imu    = false;   // nothing here plots acceleration
+  cfg.internal_rtc    = false;
+  // MUST stay true. On a Core2 the 5V on Grove Port A is boosted by the AXP192,
+  // not fed straight from USB — with output_power off the BME680 is unpowered
+  // and you get exactly the same "sensor missing" line as a wrong pin map.
+  cfg.output_power    = true;
+
+  M5.begin(cfg);
 
   C_BG   = M5.Lcd.color565(  8,  10,  14);
   C_INK  = M5.Lcd.color565(232, 236, 242);
@@ -289,6 +303,10 @@ void boot(const char *line) {
   bootY += 12;
 }
 
+void bootHold(bool healthy) {
+  if (!live) delay(healthy ? 900 : 2500);
+}
+
 void update(const Reading &r, int httpCode, uint32_t seq) {
   histPush(r);
   lastReading = r;
@@ -299,6 +317,13 @@ void update(const Reading &r, int httpCode, uint32_t seq) {
 
   drawValues(r, httpCode, seq);
   drawPlot();
+}
+
+void health(bool ok) {
+  // A Core2 has no user-addressable LED — GPIO2, the DevKit's onboard LED, is
+  // the I2S data line to its amplifier here. The green power LED hangs off the
+  // AXP192 instead, and M5Unified routes setLed() to whatever the board has.
+  M5.Power.setLed(ok ? 255 : 0);
 }
 
 void tick() {
@@ -321,11 +346,17 @@ void tick() {
 
 #else   // ---------------------------------------------------------------------
 // Headless build (esp32dev). Same source, no panel: the node still emits NDJSON
-// on serial and still POSTs, which is the whole fallback path.
+// on serial and still POSTs, which is the whole fallback path. Here the status
+// LED really is a GPIO, so health() is the one function with a body.
+
+#include <Arduino.h>
+#include "pins.h"
 
 namespace display {
 void begin(const char *) {}
 void boot(const char *) {}
+void health(bool ok) { digitalWrite(STATUS_LED, ok ? HIGH : LOW); }
+void bootHold(bool) {}
 void update(const Reading &, int, uint32_t) {}
 void tick() {}
 }  // namespace display
