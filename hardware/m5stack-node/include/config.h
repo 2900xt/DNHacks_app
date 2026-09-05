@@ -26,12 +26,36 @@
 //
 // The assumption this rests on is that boot air is clean. On a demo table that
 // is true right up until someone tests it with a lighter, which is the point.
-#define AQ_CAL_MS         6000  // baseline window
+#define AQ_CAL_MS         6000  // opening baseline window
 #define AQ_CAL_PERIOD_MS   250
 // The BME680 plate resistance CLIMBS toward its clean-air value over the first
 // few heater cycles, so early samples read dirty. Drop them, then keep the
 // maximum — a settling plate only ever reads low.
 #define AQ_CAL_BME_DISCARD   4
+
+// ...and the boot capture is only a STARTING POINT, because six seconds is not
+// remotely enough for a BME680 gas plate. It keeps climbing toward its true
+// clean-air resistance for tens of minutes, so a baseline frozen at boot is far
+// too low and every later reading looks "cleaner than clean" — which clamps to
+// exactly 0.0 and stays there. That is not a hypothetical; it is what the first
+// build did.
+//
+// So the reference RATCHETS: it rises to meet any cleaner reading immediately,
+// and only ever falls by AQ_BASELINE_DECAY per sample. Both elements are
+// resistive and only volatiles push resistance DOWN, so the running maximum is
+// the best available estimate of clean air — and it tracks warm-up for free
+// instead of waiting it out.
+//
+// 0.9998 per 2 s sample is a ~1.9 h half-life: a two-minute VOC event moves the
+// reference by about 1%, while a genuinely changed room is followed within an
+// afternoon.
+#define AQ_BASELINE_DECAY 0.9998f
+
+// Below this raw count the ESP32's ADC is not measuring, it is bottoming out.
+// With 11 dB attenuation raw 0 calibrates to ~142 mV, which through the 10k/15k
+// divider is a rock-steady 237 mV that looks exactly like a real reading. An
+// unconnected MQ-2 must report null, not a plausible number.
+#define MQ2_ADC_FLOOR_RAW   8
 
 // The MQ-2 is assumed already warm: heater on for minutes at least, ideally the
 // 24h the datasheet wants. A cold element reads high, which would anchor the

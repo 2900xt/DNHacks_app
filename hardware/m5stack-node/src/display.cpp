@@ -17,8 +17,8 @@
 //      API owns bands, dwell and MKT (services/api/depot.py) so they can change
 //      without a reflash — and a device that renders its own pass/fail will
 //      eventually contradict the dashboard behind it while a judge is watching.
-//      The one threshold here is XCHECK_HINT_C, and it colours a number the
-//      device already measured. It does not decide anything.
+//      The two thresholds here, XCHECK_HINT_C and AQ_HINT, only colour numbers
+//      the device already measured. They do not decide anything.
 //
 //   2. It never repaints the whole screen. fillScreen() every 2 s is a visible
 //      black flash, which on a table reads as "it crashed and came back". Static
@@ -51,12 +51,12 @@ constexpr int HEADER_H = 24;
 constexpr int BIG_Y    = 32;                 // size 5 -> 30x40 per glyph
 constexpr int UNIT_X   = 162, UNIT_Y = 48;
 constexpr int RH_Y     = 80;                 // size 3 -> 18x24
-constexpr int COL_X    = 186;                // right-hand cross-check column
-constexpr int XLBL_Y   = 32,  XVAL_Y = 44;
-constexpr int DLBL_Y   = 66,  DVAL_Y = 78;
+constexpr int COL_X    = 186;                // right-hand VOC column
+constexpr int BLBL_Y   = 32,  BVAL_Y = 44;   // BME680 half of the air index
+constexpr int MLBL_Y   = 66,  MVAL_Y = 78;   // MQ-2 half
 constexpr int PLOT_X   = 8,   PLOT_Y = 108, PLOT_W = 304, PLOT_H = 66;
 constexpr int STATUS_Y = 184;
-constexpr int MQ2_Y    = 206;
+constexpr int XCHK_Y   = 206;                // demoted temperature cross-check
 constexpr int BTN_Y    = 228;
 
 // Bench hint only. The real tolerance lives in DEPOT_XCHECK_TOLERANCE_C on the
@@ -162,8 +162,8 @@ void drawChrome() {
   text(6, 5, 2, C_INK, C_BAR, NODE_ID);
 
   text(UNIT_X, UNIT_Y, 3, C_DIM, C_BG, "C");
-  text(COL_X, XLBL_Y, 1, C_DIM, C_BG, "CROSS-CHECK");
-  text(COL_X, DLBL_Y, 1, C_DIM, C_BG, "DIVERGENCE");
+  text(COL_X, BLBL_Y, 1, C_DIM, C_BG, "BME VOC");
+  text(COL_X, MLBL_Y, 1, C_DIM, C_BG, "MQ-2 VOC");
 
   M5.Lcd.drawRect(PLOT_X - 1, PLOT_Y - 1, PLOT_W + 2, PLOT_H + 2, C_GRID);
 
@@ -248,17 +248,21 @@ void drawValues(const Reading &r, int code, uint32_t seq) {
   if (r.bmeValid) textf(8, RH_Y, 3, C_RH,  C_BG, "%3.0f%% RH", r.rhPct);
   else            text (8, RH_Y, 3, C_DIM, C_BG, " --% RH");
 
-  if (r.dhtValid) textf(COL_X, XVAL_Y, 2, C_INK, C_BG, "%5.1f C", r.tempXcheck);
-  else            text (COL_X, XVAL_Y, 2, C_DIM, C_BG, " --.- C");
+  // The two halves of the air index, stacked on one 0-100 scale so they can be
+  // read against each other at a glance. This column used to hold the
+  // temperature cross-check, and it is carrying the same idea: neither element
+  // can certify air on its own, so what you actually want to see is whether
+  // they agree. A BME680 climbing while the MQ-2 sits still is usually rising
+  // humidity depressing the plate, not volatiles — see the note in reading.h.
+  if (!isnan(r.vocBme))
+    textf(COL_X, BVAL_Y, 2, r.vocBme > AQ_HINT ? C_BAD : C_VOC, C_BG, "%3.0f", r.vocBme);
+  else
+    text (COL_X, BVAL_Y, 2, C_DIM, C_BG, " --");
 
-  // Divergence is the honest headline number on this screen: it is the one
-  // thing the device can say about whether its own reading deserves trust.
-  if (r.bmeValid && r.dhtValid) {
-    float d = fabsf(r.tempC - r.tempXcheck);
-    textf(COL_X, DVAL_Y, 2, d > XCHECK_HINT_C ? C_BAD : C_GOOD, C_BG, "%5.1f C", d);
-  } else {
-    text(COL_X, DVAL_Y, 2, C_DIM, C_BG, " --.- C");
-  }
+  if (!isnan(r.vocMq2))
+    textf(COL_X, MVAL_Y, 2, r.vocMq2 > AQ_HINT ? C_BAD : C_VOC, C_BG, "%3.0f", r.vocMq2);
+  else
+    text (COL_X, MVAL_Y, 2, C_DIM, C_BG, " --");
 
   bool up = (code == 202);
   textf(8, STATUS_Y, 2, up ? C_GOOD : C_BAD, C_BG, "api %-4s", up ? "ok" : "DOWN");
@@ -267,16 +271,21 @@ void drawValues(const Reading &r, int code, uint32_t seq) {
   else
     text (190, STATUS_Y, 2, C_BAD, C_BG, "no wifi");
 
-  // The blend AND both contributors. A fused number you cannot decompose is a
-  // number nobody on stage will believe — and when bme and mq2 disagree badly,
-  // that is a finding about the sensors, not about the air.
-  if (!isnan(r.vocIndex)) {
-    textf(8, MQ2_Y, 1, r.vocIndex > AQ_HINT ? C_BAD : C_DIM, C_BG,
-          "air %3.0f  bme %3.0f / mq2 %3.0f  index, not ppm ",
-          r.vocIndex, r.vocBme, r.vocMq2);
+  // Demoted from the column above, NOT deleted. The DHT11 divergence is what
+  // raises sensor_fault upstream, and a bin whose reading you cannot trust is
+  // not a compliant bin — so it still has to be legible from across a table,
+  // just not in the space the VOC pair now earns.
+  if (!isnan(r.vocIndex))
+    textf(8, XCHK_Y, 1, r.vocIndex > AQ_HINT ? C_BAD : C_DIM, C_BG, "air %3.0f", r.vocIndex);
+  else
+    text (8, XCHK_Y, 1, C_DIM, C_BG, "air  --");
+
+  if (r.bmeValid && r.dhtValid) {
+    float d = fabsf(r.tempC - r.tempXcheck);
+    textf(80, XCHK_Y, 1, d > XCHECK_HINT_C ? C_BAD : C_DIM, C_BG,
+          "xcheck %5.1f C  div %4.1f C", r.tempXcheck, d);
   } else {
-    text(8, MQ2_Y, 1, C_DIM, C_BG,
-         "air  --   no clean-air baseline captured        ");
+    text(80, XCHK_Y, 1, C_DIM, C_BG, "xcheck  --.- C  div --.- C");
   }
 }
 

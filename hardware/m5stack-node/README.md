@@ -51,7 +51,8 @@ excursion never requires a reflash — at 4am you want to edit JSON, not C++.
 | BME680 addr | tries `0x77` then `0x76`. Adafruit ships 0x77, clones strap 0x76 |
 | DHT11 | GPIO **27** on a Core2; **26** on a Core Basic, where 27 is the LCD's D/C line. Needs a 4.7k–10k pull-up to 3V3 on the data line — breakout boards have it, bare 4-pin parts do not. 1 Hz max sample rate, so a repeated value is cached, not stuck |
 | MQ-2 | GPIO **35**, ADC1_CH7. Guarded by `#error` in `include/pins.h` |
-| Air baseline | ~6 s at boot, before WiFi, in whatever air is in the room. BME680: discard 4 settling cycles then keep the **max** (a warming plate only reads low). MQ-2: **mean** (assumed already warm, so noisy rather than settling). Printed as `# air baseline: ...` on serial |
+| Air baseline | Seeded by ~6 s at boot, then **ratcheted every sample**: it rises to meet any cleaner reading and decays 0.02 %/sample (~1.9 h half-life). Six seconds is nowhere near enough for a BME680 plate — it climbs for tens of minutes — and a frozen baseline makes every later reading "cleaner than clean", which clamps to 0.0 forever. Printed as `# air baseline: ...` on serial |
+| MQ-2 absent | Detected, not faked. Raw ADC ≤ 8 means the pin is bottomed out; `analogReadMilliVolts` would map raw 0 to ~142 mV (a steady **237 mV** through the divider) and hide a disconnected sensor behind a plausible number. Reports null and says so on serial |
 | MQ-2 R<sub>L</sub> | Never needed. It appears in both R<sub>s</sub> and R<sub>0</sub> and cancels in every ratio — fortunate, since on most modules it is an unmeasured trimpot |
 
 ### MQ-2 needs a divider — do not skip this
@@ -97,34 +98,50 @@ rm -rf ~/.platformio/packages/tool-esptoolpy   # clear the half-installed one
 ## The screen
 
 `src/display.cpp` is the only file that knows M5Stack exists. `main.cpp` calls
-four functions — `begin` / `boot` / `update` / `tick` — and contains no `#ifdef`
+five functions — `begin` / `boot` / `update` / `health` / `tick` — and contains no `#ifdef`
 at all; on the headless fallback env the whole implementation compiles to empty
 bodies. That is the point of the split: one source, two boards, no conditional
 logic in the measurement path.
 
 ```
  sns-depot-01-bin-a                    #000412   <- node id (the BIN), sequence
-                          CROSS-CHECK
-  23.4 C                   22.9 C                <- BME680 big, DHT11 beside it
-                          DIVERGENCE
-  57% RH                    0.5 C                <- green under 3 C, red over
+                          BME VOC
+  23.4 C                    63                   <- BME680 temp big; beside it the
+                          MQ-2 VOC                  two halves of the air index,
+  57% RH                    43                      same 0-100 scale, red over 60
  ┌──────────────────────────────────────────┐
- │TEMP C                              24.1  │   <- ~2.5 min of rolling history,
+ │AIR (VOC) 0-100                       55  │   <- ~2.5 min of rolling history,
  │        ╭──╮                              │      autoscaled, newest at the right
- │────────╯──╰──────────────────────  22.1  │
+ │────────╯──╰──────────────────────     0  │
  └──────────────────────────────────────────┘
  api ok                            -52dBm
- mq-2   812 mV  (trend only, uncalibrated)
+ air  55   xcheck  22.9 C  div  0.5 C
  ─────────────────────────────────────────────
    A series        B bright       C redraw
 ```
 
+**The right-hand column is the two halves of the air index, not the blend.** The
+blend is the trace; what you want beside it is whether the two elements agree,
+because neither can certify air alone. It is the same reasoning the temperature
+cross-check used to occupy that column with — a BME680 climbing while the MQ-2
+sits still is usually rising humidity depressing the plate, not volatiles.
+
+**A on the bezel cycles the trace:** TEMP → RH → **AIR (VOC)** → GAS kΩ → MQ-2 mV.
+The raw GAS and MQ-2 series stay in the rotation underneath the blend, because
+when the blend does something surprising the first question is which half moved.
+
+**The temperature cross-check moved to the bottom line, demoted not deleted.**
+DHT11 divergence is what raises `sensor_fault` upstream, and a bin whose reading
+you cannot trust is not a compliant bin, so it still has to be legible from
+across a table — just not in the space the VOC pair now earns.
+
 **It shows measurements, never a verdict.** No green COMPLIANT banner. Bands,
 dwell and MKT live in `../../services/api/depot.py` so they can change without a
 reflash, and a device that renders its own pass/fail will eventually contradict
-the dashboard behind it while a judge is watching. The single threshold on this
-screen is a 3 °C divergence hint, and it only colours a number the device
-already measured.
+the dashboard behind it while a judge is watching. The two thresholds on this
+screen are a 3 °C divergence hint and a 60-point air-index hint, and both only
+colour a number the device already measured. The air index in particular has no
+band to be out of — there is no USP chapter on how much a warehouse may smell.
 
 **Why the trace matters more than the number.** A thumb on the BME680 moves the
 big digits, but the plot is what makes the movement legible from three feet away
@@ -204,11 +221,15 @@ Beat 2 is the one that lands. Beat 1 is what makes a judge believe beat 2.
   onboard LED — is the I2S data line to the Core2's amplifier, so `STATUS_LED`
   is deliberately left undefined on M5 builds and a stray `digitalWrite()` to it
   will not compile.
-- **The air index is a baseline, not a calibration.** `calibrateAir()` assumes
-  the room is clean at boot. Move the node to a different room and it is void;
-  reflash or power-cycle to recapture. It buys comparability with itself over a
-  few hours and nothing more, which is exactly enough to watch a lighter or an
-  alcohol wipe move the trace on stage. Never put a ppm on a slide.
+- **The air index is a baseline, not a calibration.** It assumes the room is
+  clean, and because the reference ratchets, it re-learns a new room within an
+  afternoon rather than needing a reflash. It buys comparability with itself
+  over a few hours and nothing more, which is exactly enough to watch a lighter
+  or an alcohol wipe move the trace on stage. Never put a ppm on a slide.
+- **A ratcheting reference cannot see a slow, monotonic rise.** Contamination
+  that arrives over hours is followed by the baseline and reads as 0. This
+  detects *events*, not drift — which is the right trade for a smoke signal and
+  the wrong one for anything you would certify with, hence "advisory".
 - **The BME680 gas plate is humidity-sensitive.** Rising RH depresses
   `gas_ohms`, which this index reads as volatiles. Real compensation is what
   BSEC exists for; we do not do it. If `voc_bme` climbs while `voc_mq2` sits
