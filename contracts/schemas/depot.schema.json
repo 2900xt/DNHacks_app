@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dnhacks26.invalid/schemas/depot.schema.json",
+  "title": "DepotNode",
+  "description": "Derived state of one physical storage location in the graph. A depot node's health is PHYSICAL (storage conditions) rather than GEOPOLITICAL (sourcing concentration) - it is the only node type whose status comes from a sensor instead of from a sourcing model. Emitted by services/api, consumed by web/ as a graph node.",
+  "type": "object",
+  "required": [
+    "node_id",
+    "label",
+    "storage_class",
+    "status",
+    "covers_drugs"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "description": "Stable bin identifier, e.g. 'sns-depot-01-bin-a'.",
+      "minLength": 1
+    },
+    "label": {
+      "type": "string",
+      "description": "Human label rendered on the graph node, e.g. 'SNS Depot 01 - Bin A (6-APA)'."
+    },
+    "material": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "What is in the bin. For the demo: '6-APA'. Free text; not a controlled vocabulary."
+    },
+    "storage_class": {
+      "type": "string",
+      "enum": [
+        "crt",
+        "cool",
+        "refrigerated",
+        "frozen"
+      ],
+      "description": "USP <659> storage class. Determines the band in `spec`."
+    },
+    "spec": {
+      "type": "object",
+      "description": "The band this bin is held to. Server-supplied so the device never has to be reflashed to change policy.",
+      "additionalProperties": false,
+      "properties": {
+        "temp_c_min": {
+          "type": "number"
+        },
+        "temp_c_max": {
+          "type": "number"
+        },
+        "temp_c_excursion_min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Brief excursions permitted down to this, per USP <659>."
+        },
+        "temp_c_excursion_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Brief excursions permitted up to this, per USP <659>."
+        },
+        "mkt_c_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Mean kinetic temperature ceiling. THIS is the criterion that condemns stock, not an instantaneous reading."
+        },
+        "rh_pct_max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "ICH Q1A long-term RH ceiling. Beta-lactams hydrolyse; moisture is the real degradation driver for 6-APA."
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "excursion",
+        "mkt_breach",
+        "sensor_fault",
+        "stale",
+        "offline"
+      ],
+      "description": "ok = in band. excursion = out of band longer than dwell_s. mkt_breach = time-weighted heat load has condemned the stock; this one does not clear when the room cools. sensor_fault = the authoritative sensor is silent, or it disagrees with the cross-check beyond tolerance - the bin cannot be certified either way. stale = no reading within stale_after_s. offline = never reported. Precedence: mkt_breach > sensor_fault > excursion > stale > offline > ok."
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "One sentence, demo-legible. Rendered directly in the UI."
+    },
+    "latest": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Most recent reading. Null before first contact.",
+      "additionalProperties": false,
+      "properties": {
+        "ts": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "temp_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "rh_pct": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "pressure_hpa": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "RECORDED, NOT SCORED. A single absolute barometer cannot certify a storage area; cleanroom pressure cascades are differential. Kept for the two-sensor upgrade and to detect HVAC loss."
+        },
+        "gas_ohms": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "BME680 VOC plate resistance in ohms; LOWER means more volatiles. Needs burn-in for absolute meaning - trend only. Warehouse-smoke signal, never a storage criterion."
+        },
+        "temp_c_xcheck": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "DHT11 temperature. NOT authoritative - +/-2 C is 40% of a 20-25 C band. Exists so that disagreement with the BME680 can raise sensor_fault."
+        },
+        "rh_pct_xcheck": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "DHT11 humidity. Cross-check only; DHT11 is only rated 20-80% RH."
+        },
+        "mq2_mv": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MQ-2 AOUT in millivolts, divider-corrected and eFuse-calibrated. Uncalibrated against any gas standard - trend only. Never report a ppm."
+        }
+      }
+    },
+    "mkt_c": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Mean kinetic temperature over `window_h`, per USP <1079> / ICH Q1A, dH = 83.144 kJ/mol."
+    },
+    "window_h": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Hours of history the MKT was computed over. Short in demo mode; say so on stage."
+    },
+    "mkt_provisional": {
+      "type": "boolean",
+      "description": "True when the observation window is shorter than the bin's min_window_s. MKT is still reported but MUST NOT be treated as a storage determination - a mean kinetic temperature over four minutes is a thermometer with extra steps. The service refuses to latch a breach while this is true."
+    },
+    "excursion_s": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Seconds continuously out of band. Resets on return to band; MKT does not."
+    },
+    "covers_drugs": {
+      "type": "array",
+      "description": "Drug nodes downstream of this bin. This is the edge that makes a thermometer a graph node: a spoiled bin fails the same drugs a shut plant would.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "device_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Which device last reported for this bin."
+    },
+    "battery_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    }
+  }
+}

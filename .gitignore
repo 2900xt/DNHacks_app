@@ -82,3 +82,10 @@ CMakeCache.txt
 *.mov
 *.MOV
 !docs/assets/*.gif
+
+# platformio / firmware build + IDE scaffolding
+firmware/.pio/
+firmware/.vscode/
+!firmware/.vscode/extensions.json
+firmware/CMakeListsPrivate.txt
+firmware/compile_commands.json
