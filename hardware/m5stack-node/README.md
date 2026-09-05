@@ -20,7 +20,8 @@ because a warehouse got hot.
 |---|---|---|
 | **BME680** | I2C `0x77`, Grove **Port A** (Core2 32/33, Core Basic 21/22 — resolved at runtime) | **Authoritative.** ±1 °C, ±3 % RH. Every compliance determination comes from this part. Also gives VOC plate resistance |
 | **DHT11** | GPIO **27** (Core2) / **26** (Core Basic, where 27 is TFT_DC) | **Cross-check only.** ±2 °C is 40 % of a 20–25 °C band — it cannot certify anything alone. Its job is to *disagree*: two independent sensors diverging is how a failed part announces itself |
-| **MQ-2** | GPIO **35** (ADC1_CH7), analog | Trend only. Uncalibrated, no burn-in. Warehouse-smoke signal, never a storage criterion |
+| **MQ-2** | GPIO **35** (ADC1_CH7), analog | Trend only. Uncalibrated. Warehouse-smoke signal, never a storage criterion |
+| **AIR (VOC)** | *derived* | The BME680 plate and the MQ-2 blended into one 0-100 index. Both elements are resistive and both fall as volatiles rise, so `100*(1 - R/R_clean)` scores either one identically; the trace is `0.6*bme + 0.4*mq2`. **Advisory.** 0 means "the air at boot", not "clean" |
 
 Sensor disagreement past `DEPOT_XCHECK_TOLERANCE_C` (default 3.0 °C = 2 + 1 worst
 case) raises `sensor_fault` — neither a pass nor a fail. A bin whose reading you
@@ -50,6 +51,8 @@ excursion never requires a reflash — at 4am you want to edit JSON, not C++.
 | BME680 addr | tries `0x77` then `0x76`. Adafruit ships 0x77, clones strap 0x76 |
 | DHT11 | GPIO **27** on a Core2; **26** on a Core Basic, where 27 is the LCD's D/C line. Needs a 4.7k–10k pull-up to 3V3 on the data line — breakout boards have it, bare 4-pin parts do not. 1 Hz max sample rate, so a repeated value is cached, not stuck |
 | MQ-2 | GPIO **35**, ADC1_CH7. Guarded by `#error` in `include/pins.h` |
+| Air baseline | ~6 s at boot, before WiFi, in whatever air is in the room. BME680: discard 4 settling cycles then keep the **max** (a warming plate only reads low). MQ-2: **mean** (assumed already warm, so noisy rather than settling). Printed as `# air baseline: ...` on serial |
+| MQ-2 R<sub>L</sub> | Never needed. It appears in both R<sub>s</sub> and R<sub>0</sub> and cancels in every ratio — fortunate, since on most modules it is an unmeasured trimpot |
 
 ### MQ-2 needs a divider — do not skip this
 
@@ -201,6 +204,19 @@ Beat 2 is the one that lands. Beat 1 is what makes a judge believe beat 2.
   onboard LED — is the I2S data line to the Core2's amplifier, so `STATUS_LED`
   is deliberately left undefined on M5 builds and a stray `digitalWrite()` to it
   will not compile.
+- **The air index is a baseline, not a calibration.** `calibrateAir()` assumes
+  the room is clean at boot. Move the node to a different room and it is void;
+  reflash or power-cycle to recapture. It buys comparability with itself over a
+  few hours and nothing more, which is exactly enough to watch a lighter or an
+  alcohol wipe move the trace on stage. Never put a ppm on a slide.
+- **The BME680 gas plate is humidity-sensitive.** Rising RH depresses
+  `gas_ohms`, which this index reads as volatiles. Real compensation is what
+  BSEC exists for; we do not do it. If `voc_bme` climbs while `voc_mq2` sits
+  still and RH is moving, believe the humidity, not the smell. Both halves are
+  sent separately so that call is possible at all.
+- **A railed MQ-2 divider is discarded, not read as clean.** Below 50 mV or
+  above V<sub>cc</sub>-50 mV means the divider is saturated, which says nothing
+  about the air; `voc_index` falls back to the BME680 alone.
 - **The Core2's A/B/C buttons are touch zones on the bezel**, not switches. The
   on-screen legend still lines up with them; `M5.BtnA.wasPressed()` is unchanged.
 - **Power it from a USB battery pack, not the Core's internal cell.** ~150 mAh

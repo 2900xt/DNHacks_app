@@ -43,7 +43,7 @@ namespace {
 // Built with color565 rather than the library's BLACK/RED/... macros so the
 // scheme is one block to edit, and so nothing depends on which display driver
 // M5Stack ships this week.
-uint16_t C_BG, C_INK, C_DIM, C_BAR, C_GRID, C_TEMP, C_RH, C_GOOD, C_BAD;
+uint16_t C_BG, C_INK, C_DIM, C_BAR, C_GRID, C_TEMP, C_RH, C_VOC, C_GOOD, C_BAD;
 
 // --- layout (the panel is 320x240) -----------------------------------------
 constexpr int W = 320, H = 240;
@@ -63,6 +63,11 @@ constexpr int BTN_Y    = 228;
 // server; this exists so a diverging DHT11 is obvious on the desk before the
 // API has enough samples to raise sensor_fault.
 constexpr float XCHECK_HINT_C = 3.0f;
+
+// Likewise a bench hint, and likewise decides nothing. The air index has no
+// band to be out of — there is no USP chapter on how much a warehouse may smell
+// — so this only picks the colour of a number the device already measured.
+constexpr float AQ_HINT = 60.0f;
 
 // --- history ---------------------------------------------------------------
 // One pixel column per 4 px of plot: 76 samples, which at SAMPLE_MS = 2000 is
@@ -94,6 +99,7 @@ struct Metric {
   const char *fmt;
   float (*get)(const Reading &);
   float minSpan;
+  bool  nonNegative;   // quantity has a hard floor at 0; see drawPlot()
   uint16_t *color;
 };
 
@@ -101,12 +107,23 @@ float mTemp(const Reading &r) { return r.bmeValid ? r.tempC  : NAN; }
 float mRh  (const Reading &r) { return r.bmeValid ? r.rhPct  : NAN; }
 float mGas (const Reading &r) { return r.bmeValid ? r.gasOhms / 1000.0f : NAN; }
 float mMq2 (const Reading &r) { return r.mq2Mv; }
+float mVoc (const Reading &r) { return r.vocIndex; }
 
+// AIR (VOC) is the blended BME680 + MQ-2 index from reading.h, and it is the
+// series worth showing: neither element means much alone, and they fail in
+// different directions. The raw GAS and MQ-2 traces stay in the rotation
+// underneath it, because when the blend does something surprising the first
+// question is always which half moved.
+//
+// Its minSpan is deliberately wide. On a 0-100 index a still room sits within a
+// point or two of zero, and autoscaling that hard would turn ADC noise into a
+// seismograph — the same failure the other three are protected from.
 const Metric METRICS[] = {
-  {"TEMP C",   "%.1f", mTemp, 2.0f,   &C_TEMP},
-  {"RH %",     "%.0f", mRh,   5.0f,   &C_RH},
-  {"GAS kOhm", "%.0f", mGas,  10.0f,  &C_DIM},
-  {"MQ-2 mV",  "%.0f", mMq2,  100.0f, &C_DIM},
+  {"TEMP C",          "%.1f", mTemp, 2.0f,   false, &C_TEMP},
+  {"RH %",            "%.0f", mRh,   5.0f,   true,  &C_RH},
+  {"AIR (VOC) 0-100", "%.0f", mVoc,  25.0f,  true,  &C_VOC},
+  {"GAS kOhm",        "%.0f", mGas,  10.0f,  true,  &C_DIM},
+  {"MQ-2 mV",         "%.0f", mMq2,  100.0f, true,  &C_DIM},
 };
 constexpr int N_METRICS = sizeof(METRICS) / sizeof(METRICS[0]);
 int metric = 0;
@@ -186,6 +203,11 @@ void drawPlot() {
     lo = mid - m.minSpan / 2.0f;
     hi = mid + m.minSpan / 2.0f;
   }
+  // Then slide it back up if that pushed a floored quantity below zero — which
+  // it always does for the air index, because a still room sits at 0 and the
+  // minSpan is 25. An axis reading -13 on a 0-100 index invites exactly one
+  // question from a judge, which is one more than it is worth.
+  if (m.nonNegative && lo < 0.0f) { hi -= lo; lo = 0.0f; }
 
   M5.Lcd.drawFastHLine(PLOT_X, PLOT_Y + PLOT_H / 2, PLOT_W, C_GRID);
   char buf[16];
@@ -245,8 +267,17 @@ void drawValues(const Reading &r, int code, uint32_t seq) {
   else
     text (190, STATUS_Y, 2, C_BAD, C_BG, "no wifi");
 
-  if (!isnan(r.mq2Mv)) textf(8, MQ2_Y, 1, C_DIM, C_BG, "mq-2 %5.0f mV  (trend only, uncalibrated)", r.mq2Mv);
-  else                 text (8, MQ2_Y, 1, C_DIM, C_BG, "mq-2  ---- mV  (trend only, uncalibrated)");
+  // The blend AND both contributors. A fused number you cannot decompose is a
+  // number nobody on stage will believe — and when bme and mq2 disagree badly,
+  // that is a finding about the sensors, not about the air.
+  if (!isnan(r.vocIndex)) {
+    textf(8, MQ2_Y, 1, r.vocIndex > AQ_HINT ? C_BAD : C_DIM, C_BG,
+          "air %3.0f  bme %3.0f / mq2 %3.0f  index, not ppm ",
+          r.vocIndex, r.vocBme, r.vocMq2);
+  } else {
+    text(8, MQ2_Y, 1, C_DIM, C_BG,
+         "air  --   no clean-air baseline captured        ");
+  }
 }
 
 void repaint() {
@@ -285,6 +316,7 @@ void begin(const char *nodeId) {
   C_GRID = M5.Lcd.color565( 44,  50,  64);
   C_TEMP = M5.Lcd.color565(255, 190,  70);
   C_RH   = M5.Lcd.color565( 90, 200, 225);
+  C_VOC  = M5.Lcd.color565(196, 142, 240);
   C_GOOD = M5.Lcd.color565( 70, 205, 120);
   C_BAD  = M5.Lcd.color565(240,  80,  70);
 
