@@ -9,7 +9,7 @@ work in parallel without colliding.
 | Path            | Component                        | Owner | Stack |
 |-----------------|----------------------------------|-------|-------|
 | `hardware/`     | Device + the host it reports to  | TBD   | see below |
-| ├ `esp32-node/` | ESP32 / M5Stack depot node       | TBD   | PlatformIO + Arduino-ESP32 |
+| ├ `m5stack-node/` | ESP32 / M5Stack depot node       | TBD   | PlatformIO + Arduino-ESP32 |
 | ├ `laptop-server/` | Host the API off a laptop (now) | TBD | bash + NetworkManager |
 | └ `pi-server/`  | Host the API off a Pi AP (later) | TBD   | bash + systemd + hostapd |
 | `ml/`           | Models, training, inference      | TBD   | TBD   |

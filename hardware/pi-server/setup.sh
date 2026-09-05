@@ -35,7 +35,7 @@ sudo -u "$RUN_USER" bash -c "
 [ -f "$REPO/.env" ] || sudo -u "$RUN_USER" cp "$REPO/.env.example" "$REPO/.env"
 
 # --- 3. the access point ---------------------------------------------------
-# 192.168.4.1 is pinned to match API_BASE in hardware/esp32-node/include/config.h.
+# 192.168.4.1 is pinned to match API_BASE in hardware/m5stack-node/include/config.h.
 # Pi OS Bookworm ships NetworkManager, so this is nmcli rather than the old
 # hostapd + dnsmasq pair. If this Pi runs Bullseye or older, that pair is the
 # fallback and this block will not apply cleanly.
@@ -71,7 +71,7 @@ if curl -sf http://127.0.0.1:8000/health >/dev/null; then
   PASS      $PASS
   This Pi   192.168.4.1:8000
 
-  hardware/esp32-node/include/config.h already points here:
+  hardware/m5stack-node/include/config.h already points here:
       #define API_BASE  "http://192.168.4.1:8000"
 
   Logs: journalctl -u chokepoint-api -f

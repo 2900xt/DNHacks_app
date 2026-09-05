@@ -30,7 +30,7 @@ if [ -z "${LAN_IP:-}" ]; then
 fi
 
 printf '\n  API   http://%s:%s\n' "$LAN_IP" "$PORT"
-printf '  Flash this into hardware/esp32-node/include/config.h:\n\n'
+printf '  Flash this into hardware/m5stack-node/include/config.h:\n\n'
 printf '      #define API_BASE  "http://%s:%s"\n\n' "$LAN_IP" "$PORT"
 
 # A firewall that drops :8000 looks exactly like broken firmware from the node.

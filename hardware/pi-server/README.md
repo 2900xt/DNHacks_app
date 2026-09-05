@@ -47,7 +47,7 @@ Override the network with `HOTSPOT_SSID=… HOTSPOT_PASS=… IFACE=… sudo -E .
 
 ## Why 192.168.4.1 specifically
 
-Because [`../esp32-node/include/config.h`](../esp32-node/include/config.h) already
+Because [`../m5stack-node/include/config.h`](../m5stack-node/include/config.h) already
 says so, and a flashed binary is expensive to correct at a venue. Pinning the Pi
 to the address the firmware already believes in means the laptop → Pi migration
 is a power cable, not a reflash. `laptop-server/hotspot.sh` uses the same address

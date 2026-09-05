@@ -40,7 +40,7 @@ the demo path wins — say so and flag it.
 - Secrets go in `.env` (gitignored). Add every new key to `.env.example`.
 - Each component owns its own toolchain; do not add a root-level package manager
   unless the team agrees. Wire new components into the root `Makefile` instead.
-- Commit messages: `<component>: <what changed>` — e.g. `esp32-node: add IMU sampling`.
+- Commit messages: `<component>: <what changed>` — e.g. `m5stack-node: add IMU sampling`.
 
 ## Do not
 

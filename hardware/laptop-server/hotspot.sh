@@ -41,7 +41,7 @@ cat <<TXT
   PASS      $PASS
   This host 192.168.4.1
 
-  hardware/esp32-node/include/config.h:
+  hardware/m5stack-node/include/config.h:
       #define WIFI_SSID  "$SSID"
       #define WIFI_PASS  "$PASS"
       #define API_BASE   "http://192.168.4.1:8000"

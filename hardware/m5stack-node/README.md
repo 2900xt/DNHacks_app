@@ -1,4 +1,4 @@
-# hardware/esp32-node/
+# hardware/m5stack-node/
 
 Embedded / device-side code. The thing on the table.
 

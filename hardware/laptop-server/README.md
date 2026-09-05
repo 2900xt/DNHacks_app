@@ -14,7 +14,7 @@ This directory is two scripts that put it on an address an ESP32 can dial.
 ```
 
 `up.sh` prints the exact line to paste into
-[`../esp32-node/include/config.h`](../esp32-node/include/config.h), then execs
+[`../m5stack-node/include/config.h`](../m5stack-node/include/config.h), then execs
 `services/api/dev.sh` bound to `0.0.0.0`.
 
 ## When to reach for the hotspot
@@ -43,7 +43,7 @@ moving to the Pi later does not invalidate a flashed binary.
   anything you have flashed.
 - **The replay path needs none of this.** `make depot-demo` works with no radio,
   no node, and no network. Keep it as the fallback — see
-  [`../esp32-node/README.md`](../esp32-node/README.md).
+  [`../m5stack-node/README.md`](../m5stack-node/README.md).
 
 ## Verify the node can reach you
 
