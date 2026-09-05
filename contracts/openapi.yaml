@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info:
+  title: dnhacks26 API
+  version: 0.1.0
+  description: |
+    HTTP surface of `services/api`. PLACEHOLDER SPINE — replace paths with the real
+    ones once the idea is locked, but keep this file as the single source of truth
+    for what the web UI is allowed to call.
+
+servers:
+  - url: http://localhost:8000
+    description: local dev
+
+paths:
+  /health:
+    get:
+      summary: Liveness. The demo laptop will need this at 3am.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  version: { type: string }
+
+  /telemetry:
+    post:
+      summary: Device pushes a reading.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/telemetry.schema.json"
+      responses:
+        "202": { description: Accepted }
+        "400": { description: Schema violation }
+
+  /detections:
+    get:
+      summary: Operator UI polls (or replace with the /stream websocket below).
+      parameters:
+        - in: query
+          name: since
+          schema: { type: string, format: date-time }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 100, maximum: 1000 }
+      responses:
+        "200":
+          description: Newest first
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas/detection.schema.json"
+
+  /stream:
+    get:
+      summary: |
+        Server-sent events of `Detection`. Prefer this over polling for the demo —
+        a live-updating screen reads as far more impressive than a refresh button.
+      responses:
+        "200":
+          description: text/event-stream of Detection objects
+          content:
+            text/event-stream:
+              schema: { type: string }

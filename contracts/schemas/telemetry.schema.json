@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dnhacks26/schemas/telemetry.schema.json",
+  "title": "Telemetry",
+  "description": "One reading emitted by a device. PLACEHOLDER - replace with real fields once the idea is locked.",
+  "type": "object",
+  "required": ["device_id", "ts", "readings"],
+  "additionalProperties": false,
+  "properties": {
+    "device_id": {
+      "type": "string",
+      "description": "Stable per-device identifier. Use the MCU serial, not an index.",
+      "minLength": 1
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC, RFC3339. Device clocks drift - the service may overwrite this with receipt time."
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Monotonic counter. Lets the service detect dropped packets."
+    },
+    "readings": {
+      "type": "object",
+      "description": "Sensor payload. Keys are stack-specific; keep them flat and numeric.",
+      "additionalProperties": { "type": ["number", "boolean", "string", "null"] }
+    },
+    "location": {
+      "type": ["object", "null"],
+      "required": ["lat", "lon"],
+      "additionalProperties": false,
+      "properties": {
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+        "alt_m": { "type": ["number", "null"] },
+        "accuracy_m": { "type": ["number", "null"] }
+      }
+    },
+    "battery_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 100 }
+  }
+}

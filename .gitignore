@@ -1,0 +1,84 @@
+# --- secrets ---
+.env
+.env.local
+*.pem
+*.key
+credentials.json
+secrets/
+
+# --- os / editor ---
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/settings.json.example
+
+# --- node / web ---
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+.vite/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- python / ml ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# --- ml artifacts (keep the repo cloneable in 10 seconds) ---
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.h5
+*.ckpt
+*.safetensors
+wandb/
+runs/
+mlruns/
+checkpoints/
+data/raw/
+data/processed/
+*.csv
+!contracts/**/*.csv
+!**/sample*.csv
+
+# --- rust ---
+target/
+Cargo.lock
+
+# --- c / c++ / embedded ---
+*.o
+*.a
+*.so
+*.elf
+*.bin
+*.hex
+*.map
+*.d
+.pio/
+.pioenvs/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+
+# --- media (big; put demo footage in cloud storage, link it in docs/DEMO.md) ---
+*.mp4
+*.mov
+*.MOV
+!docs/assets/*.gif
