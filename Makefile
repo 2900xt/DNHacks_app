@@ -4,7 +4,7 @@
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
-COMPONENTS := firmware ml services/api web
+COMPONENTS := hardware/esp32-node hardware/pi-server hardware/laptop-server ml services/api web
 
 .PHONY: help
 help: ## Show this help
@@ -38,12 +38,12 @@ depot-demo: ## Replay 24h of storage history into a running API (no hardware nee
 	@# sample with receipt time and the 24h window collapses to a few seconds.
 	@curl -sf $${API:-http://localhost:8000}/health >/dev/null \
 	  || { echo "API not up — run 'make dev' first"; exit 1; }
-	@./firmware/replay.py --api $${API:-http://localhost:8000} \
+	@./hardware/esp32-node/replay.py --api $${API:-http://localhost:8000} \
 	  synth --scenario $${SCENARIO:-breach}
 
 .PHONY: status
 status: ## What actually exists in this repo right now
 	@for c in $(COMPONENTS); do \
 	  n=$$(find $$c -type f -not -name 'README.md' -not -name '.gitkeep' 2>/dev/null | wc -l); \
-	  printf "  %-14s %s files\n" "$$c" "$$n"; \
+	  printf "  %-26s %s files\n" "$$c" "$$n"; \
 	done

@@ -7,7 +7,7 @@ The demo's insurance policy. Two modes, neither needs a working radio:
 
 `synth` fabricates a storage history and plays it into the API faster than real
 time, so you can rehearse the excursion beat without waiting for a room to warm
-up. `serial` is the 20-line bridge from firmware/README.md: the device prints
+up. `serial` is the 20-line bridge from this directory's README.md: the device prints
 NDJSON unconditionally, this forwards it.
 
 Scenarios:

@@ -12,7 +12,7 @@ echo "bootstrapping DNHacks_app..."
 
 [ -f .env ] || { cp .env.example .env && ok "created .env from .env.example"; }
 
-for d in web services/api ml firmware; do
+for d in web services/api ml hardware/esp32-node; do
   [ -d "$d" ] || continue
   if   [ -f "$d/pnpm-lock.yaml" ]; then (cd "$d" && pnpm install)      && ok "$d (pnpm)"
   elif [ -f "$d/package.json" ];   then (cd "$d" && npm install)       && ok "$d (npm)"

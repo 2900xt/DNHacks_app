@@ -1,0 +1,23 @@
+# Installed by setup.sh, which substitutes __REPO__ and __USER__.
+# Do not enable this file directly — the paths are placeholders.
+[Unit]
+Description=CHOKEPOINT API (depot node ingest)
+# The AP is not a hard dependency: the API must come up even if the radio does
+# not, so a judge can still see the replay over ethernet or on the Pi itself.
+After=network.target
+Wants=network.target
+
+[Service]
+Type=exec
+User=__USER__
+WorkingDirectory=__REPO__/services/api
+EnvironmentFile=-__REPO__/.env
+Environment=API_HOST=0.0.0.0
+Environment=API_PORT=8000
+# No --reload: the reloader forks, which makes systemd's restart accounting lie.
+ExecStart=__REPO__/services/api/.venv/bin/python -m uvicorn app:app --host ${API_HOST} --port ${API_PORT}
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
