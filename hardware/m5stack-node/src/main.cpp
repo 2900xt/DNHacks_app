@@ -42,8 +42,9 @@ static bool     bmeOk    = false;
 static uint32_t seq      = 0;
 static char     deviceId[24];
 
-// Clean-air baselines, captured once at boot by calibrateAir(). NAN until then,
-// which is why every consumer below checks rather than assuming.
+// Clean-air references. Seeded by calibrateAir() at boot and then ratcheted by
+// trackClean() on every sample — see the note on AQ_BASELINE_DECAY in config.h.
+// NAN until seeded, which is why every consumer below checks rather than assumes.
 static float gasClean   = NAN;   // BME680 plate resistance in clean air, ohms
 static float mq2CleanRs = NAN;   // MQ-2 Rs/RL in clean air (see mq2RsOverRl)
 
@@ -96,6 +97,18 @@ static float mq2RsOverRl(float mv) {
   return (MQ2_VCC_MV - mv) / mv;
 }
 
+// Raise the clean-air reference to meet any cleaner reading, and otherwise let
+// it sag very slowly. Resistance only falls with volatiles, so the running
+// maximum IS the clean-air estimate, and this tracks a warming element instead
+// of freezing a baseline taken before it had settled.
+//
+// fmaxf(x, NAN) returns x, so this also self-seeds if calibrateAir() came up
+// empty — a node with no opening baseline still converges, just less gracefully.
+static void trackClean(float &clean, float now) {
+  if (isnan(now) || now <= 0.0f) return;
+  clean = fmaxf(now, clean * AQ_BASELINE_DECAY);
+}
+
 // The one formula both sensing elements share: how far resistance has fallen
 // away from its clean-air value, as 0-100. Clamped, because a baseline captured
 // in slightly dirty air would otherwise produce negative "cleaner than clean".
@@ -108,6 +121,15 @@ static float contamination(float now, float clean) {
 // Boot-time baseline capture. Blocking on purpose: it runs before WiFi, so the
 // radio is not yet perturbing anything, and six seconds of a still room is the
 // most representative air this node will ever see.
+// Divider-corrected AOUT in millivolts, or NAN when the ADC is bottomed out
+// rather than measuring. The raw count is the honest check: analogReadMilliVolts
+// applies the eFuse calibration curve, which maps raw 0 to a confident-looking
+// ~142 mV and hides a disconnected sensor behind a steady number.
+static float mq2Millivolts() {
+  if (analogRead(MQ2_ANALOG_PIN) <= MQ2_ADC_FLOOR_RAW) return NAN;
+  return analogReadMilliVolts(MQ2_ANALOG_PIN) * MQ2_DIVIDER;
+}
+
 static void calibrateAir() {
   float gasMax = NAN, mq2Sum = 0.0f;
   int   bmeN = 0, mq2N = 0;
@@ -127,7 +149,7 @@ static void calibrateAir() {
 #if MQ2_ENABLED
     // The MQ-2 is assumed already warm, so it is not settling — it is just
     // noisy. Average rather than take an extreme.
-    float rs = mq2RsOverRl(analogReadMilliVolts(MQ2_ANALOG_PIN) * MQ2_DIVIDER);
+    float rs = mq2RsOverRl(mq2Millivolts());
     if (!isnan(rs)) { mq2Sum += rs; mq2N++; }
 #endif
     delay(AQ_CAL_PERIOD_MS);
@@ -140,6 +162,13 @@ static void calibrateAir() {
                 "mq2_rs_rl_clean=%.3f (%d samples)\n",
                 gasClean, bmeN > AQ_CAL_BME_DISCARD ? bmeN - AQ_CAL_BME_DISCARD : 0,
                 mq2CleanRs, mq2N);
+#if MQ2_ENABLED
+  if (isnan(mq2CleanRs))
+    Serial.printf("# MQ-2 reads below the ADC floor on GPIO%d — treating it as\n"
+                  "# ABSENT, not as clean air. Check AOUT, the 10k/15k divider, and\n"
+                  "# that the heater has 5V: it will not run off 3V3.\n",
+                  MQ2_ANALOG_PIN);
+#endif
   if (isnan(gasClean) && isnan(mq2CleanRs))
     Serial.println("# no air baseline — voc_index will be null. Trend is lost, "
                    "temperature compliance is not.");
@@ -184,9 +213,10 @@ static Reading sample() {
   // matters here: the raw ESP32 ADC is badly non-linear and uncalibrated counts
   // are not comparable between two boards. Undo the divider to recover the
   // voltage actually present at AOUT.
-  r.mq2Mv = analogReadMilliVolts(MQ2_ANALOG_PIN) * MQ2_DIVIDER;
+  r.mq2Mv = mq2Millivolts();
 
   float rs = mq2RsOverRl(r.mq2Mv);
+  trackClean(mq2CleanRs, rs);
   if (!isnan(rs) && !isnan(mq2CleanRs) && mq2CleanRs > 0.0f) {
     // Reported in the datasheet's own units so it can be read against a curve.
     // R0 here is our boot air divided by the datasheet clean-air ratio, so this
@@ -196,7 +226,10 @@ static Reading sample() {
   }
 #endif
 
-  if (r.bmeValid) r.vocBme = contamination(r.gasOhms, gasClean);
+  if (r.bmeValid) {
+    trackClean(gasClean, r.gasOhms);
+    r.vocBme = contamination(r.gasOhms, gasClean);
+  }
 
   // Blend what we have. Either part alone still gives a usable trace, so a dead
   // MQ-2 degrades the index rather than deleting it — the same way the DHT11
