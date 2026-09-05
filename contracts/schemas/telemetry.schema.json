@@ -2,15 +2,26 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://dnhacks26.invalid/schemas/telemetry.schema.json",
   "title": "Telemetry",
-  "description": "One reading emitted by a device. PLACEHOLDER - replace with real fields once the idea is locked.",
+  "description": "One reading emitted by a device. Envelope is generic on purpose; `readings` keys are stack-specific. The depot-node stack emits temp_c, rh_pct, pressure_hpa (+ gas_raw if an MQ-2 is fitted).",
   "type": "object",
-  "required": ["device_id", "ts", "readings"],
+  "required": [
+    "device_id",
+    "ts",
+    "readings"
+  ],
   "additionalProperties": false,
   "properties": {
     "device_id": {
       "type": "string",
       "description": "Stable per-device identifier. Use the MCU serial, not an index.",
       "minLength": 1
+    },
+    "node_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Which physical location this device is reporting for (see depot.schema.json). Devices are swappable; bins are not. Null for devices not bound to a location."
     },
     "ts": {
       "type": "string",
@@ -25,19 +36,57 @@
     "readings": {
       "type": "object",
       "description": "Sensor payload. Keys are stack-specific; keep them flat and numeric.",
-      "additionalProperties": { "type": ["number", "boolean", "string", "null"] }
-    },
-    "location": {
-      "type": ["object", "null"],
-      "required": ["lat", "lon"],
-      "additionalProperties": false,
-      "properties": {
-        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
-        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
-        "alt_m": { "type": ["number", "null"] },
-        "accuracy_m": { "type": ["number", "null"] }
+      "additionalProperties": {
+        "type": [
+          "number",
+          "boolean",
+          "string",
+          "null"
+        ]
       }
     },
-    "battery_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 100 }
+    "location": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "alt_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "accuracy_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "battery_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    }
   }
 }
