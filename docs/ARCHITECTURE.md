@@ -11,7 +11,9 @@ _TBD — what the system does, in the words you'd use on stage._
 
 | Component | Stack | Chosen because | Decided at |
 |-----------|-------|----------------|------------|
-| `firmware/` | TBD | | |
+| `hardware/m5stack-node/` | M5Stack Core · PlatformIO + Arduino-ESP32 | flash speed, and the LCD is the demo's first visual | Sat 16:45 |
+| `hardware/laptop-server/` | host config for `services/api` | no Pi yet | Sat |
+| `hardware/pi-server/` | Raspberry Pi AP + host config | venue wifi is not trustworthy | planned |
 | `ml/` | TBD | | |
 | `services/api/` | TBD | | |
 | `web/` | TBD | | |
@@ -19,11 +21,11 @@ _TBD — what the system does, in the words you'd use on stage._
 ## Data flow
 
 ```
-[ device ] --telemetry--> [ services/api ] --window--> [ ml ]
-                                 |                       |
-                                 |<------detection-------+
-                                 v
-                            [ web UI ]
+[ m5stack-node ] --telemetry--> [ services/api ] --window--> [ ml ]
+       ^                             |                       |
+       |                             |<------detection-------+
+   laptop hotspot now,               v
+   Pi AP later                  [ web UI ]
 ```
 
 Every arrow above is a contract in [`../contracts/`](../contracts/). If you draw a

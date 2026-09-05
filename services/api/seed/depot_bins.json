@@ -1,0 +1,23 @@
+[
+  {
+    "node_id": "sns-depot-01-bin-a",
+    "label": "SNS Depot 01 — Bin A (6-APA)",
+    "material": "6-APA",
+    "storage_class": "crt",
+    "covers_drugs": [
+      "amoxicillin",
+      "ampicillin",
+      "piperacillin",
+      "dicloxacillin",
+      "nafcillin",
+      "oxacillin"
+    ]
+  },
+  {
+    "node_id": "sns-depot-01-bin-c",
+    "label": "SNS Depot 01 — Bin C (cold room)",
+    "material": "biologics — contrast set",
+    "storage_class": "refrigerated",
+    "covers_drugs": []
+  }
+]

@@ -8,7 +8,10 @@ work in parallel without colliding.
 
 | Path            | Component                        | Owner | Stack |
 |-----------------|----------------------------------|-------|-------|
-| `firmware/`     | Embedded / sensor / device       | TBD   | TBD   |
+| `hardware/`     | Device + the host it reports to  | TBD   | see below |
+| ├ `m5stack-node/` | M5Stack Core depot node + LCD face | TBD | PlatformIO + Arduino-ESP32 |
+| ├ `laptop-server/` | Host the API off a laptop (now) | TBD | bash + NetworkManager |
+| └ `pi-server/`  | Host the API off a Pi AP (later) | TBD   | bash + systemd + hostapd |
 | `ml/`           | Models, training, inference      | TBD   | TBD   |
 | `services/api/` | Backend, ingest, orchestration   | TBD   | TBD   |
 | `web/`          | Operator UI / dashboard / demo   | TBD   | TBD   |

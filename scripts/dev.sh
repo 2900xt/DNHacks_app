@@ -11,7 +11,7 @@ trap cleanup INT TERM EXIT
 start() { # start <label> <cmd...>
   local label="$1"; shift
   echo "→ $label: $*"
-  ( "$@" 2>&1 | sed "s/^/[$label] /" ) &
+  ( "$@" 2>&1 | awk -v p="[$label] " '{ print p $0; fflush() }' ) &
   pids+=($!)
 }
 
