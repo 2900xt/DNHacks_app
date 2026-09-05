@@ -1,6 +1,6 @@
-# firmware/
+# hardware/esp32-node/
 
-Embedded / device-side code.
+Embedded / device-side code. The thing on the table.
 
 **Stack:** PlatformIO + Arduino-ESP32. Chosen for flash speed, not elegance.
 
@@ -25,14 +25,14 @@ cannot trust is not a bin you can certify, and saying so is the honest answer.
 
 ## Contract
 
-Emits `Telemetry` ([`../contracts/schemas/telemetry.schema.json`](../contracts/schemas/telemetry.schema.json))
+Emits `Telemetry` ([`../../contracts/schemas/telemetry.schema.json`](../../contracts/schemas/telemetry.schema.json))
 to `POST /telemetry`, with `node_id` naming the **bin** — devices are swappable,
 bins are not. The API turns that into a `DepotNode`
-([`../contracts/schemas/depot.schema.json`](../contracts/schemas/depot.schema.json))
+([`../../contracts/schemas/depot.schema.json`](../../contracts/schemas/depot.schema.json))
 for the graph.
 
 **All policy lives server-side.** Bands, dwell, and the MKT ceiling are in
-`services/api/depot.py` and `seed/depot_bins.json`. Changing what counts as an
+`../../services/api/depot.py` and `seed/depot_bins.json`. Changing what counts as an
 excursion never requires a reflash — at 4am you want to edit JSON, not C++.
 
 ## Board, flash command, serial port
@@ -94,7 +94,7 @@ Neither mode needs a working radio.
 
 ```bash
 # No hardware at all. 24h of history, played back in ~3 seconds.
-DEPOT_TRUST_DEVICE_TS=1 make -C .. depot-demo
+DEPOT_TRUST_DEVICE_TS=1 make -C ../.. depot-demo
 
 # Real sensor, dead WiFi: the device prints NDJSON unconditionally, this forwards it.
 ./replay.py serial --port /dev/ttyUSB0 --api http://localhost:8000
