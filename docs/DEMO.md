@@ -6,7 +6,7 @@ the code and have no idea what happened during the 26 hours.
 **If you want them to know it, it must be in the demo.**
 
 The authoritative demo script lives in the brain repo:
-[`../../dnhacks26-brain/strategy/DEMO_PATH.md`](../../dnhacks26-brain/strategy/DEMO_PATH.md).
+[`../../DNHacks_brain/strategy/DEMO_PATH.md`](../../DNHacks_brain/strategy/DEMO_PATH.md).
 
 This file is the *operational* side: how to actually make the demo run.
 

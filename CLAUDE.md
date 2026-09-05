@@ -1,4 +1,4 @@
-# CLAUDE.md — dnhacks26 (application repo)
+# CLAUDE.md — DNHacks_app (application repo)
 
 ## What this is
 
@@ -9,22 +9,22 @@ Sept 6 2026**).
 ## Sibling brain repo
 
 Strategy, demo path, team assignments, and decision history live in the **brain**
-repo at `../dnhacks26-brain`. It is a separate git repo, checked out as a sibling:
+repo at `../DNHacks_brain`. It is a separate git repo, checked out as a sibling:
 
 ```
 DNHacks26/
-├── dnhacks26/        <- you are here
-└── dnhacks26-brain/  <- strategy, agents, team coordination
+├── DNHacks_app/    <- you are here
+└── DNHacks_brain/  <- strategy, agents, team coordination
 ```
 
-Before making a non-trivial decision, read `../dnhacks26-brain/status/STATUS.md` and
-`../dnhacks26-brain/strategy/DEMO_PATH.md`. If those files disagree with the code,
+Before making a non-trivial decision, read `../DNHacks_brain/status/STATUS.md` and
+`../DNHacks_brain/strategy/DEMO_PATH.md`. If those files disagree with the code,
 the demo path wins — say so and flag it.
 
 ## Working rules under hackathon time pressure
 
 1. **The demo path is the spec.** Anything not on the demo path in
-   `../dnhacks26-brain/strategy/DEMO_PATH.md` is a nice-to-have. Do not build it
+   `../DNHacks_brain/strategy/DEMO_PATH.md` is a nice-to-have. Do not build it
    until the must-haves work end to end.
 2. **Simplify, don't stall.** If something is blocked for more than ~30 minutes,
    propose a degraded version that still demos, and say what was given up.

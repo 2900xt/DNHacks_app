@@ -1,4 +1,4 @@
-# dnhacks26
+# DNHacks_app
 
 Project repository for **DNHacks 2026** (Sept 5–6, 2026 · Station DC · Defense track).
 
@@ -35,5 +35,5 @@ make dev           # run everything that has a dev target
 
 ## Related
 
-The **brain** repo (`../dnhacks26-brain`) holds strategy, demo path, team assignments,
+The **brain** repo (`../DNHacks_brain`) holds strategy, demo path, team assignments,
 and the Claude Code agents that coordinate this build. Start there when you're lost.
