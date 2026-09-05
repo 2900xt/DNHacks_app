@@ -154,6 +154,16 @@ class Bin:
             "temp_c_xcheck": xtemp,
             "rh_pct_xcheck": _num(readings.get("rh_pct_xcheck")),
             "mq2_mv": _num(readings.get("mq2_mv")),
+            # Volatiles, ADVISORY ONLY. Passed through to the UI and never read
+            # by _in_band(), status() or the MKT: 0 on this index means "the air
+            # the node booted in", not "clean", and nothing in it is calibrated
+            # against a gas standard. A bin is condemned by heat and moisture,
+            # not by a smell. It earns its place by making a warehouse-smoke
+            # event visible early, which is a different job from certifying.
+            "mq2_rs_r0": _num(readings.get("mq2_rs_r0")),
+            "voc_index": _num(readings.get("voc_index")),
+            "voc_bme": _num(readings.get("voc_bme")),
+            "voc_mq2": _num(readings.get("voc_mq2")),
         }
 
         # Cross-check BEFORE anything else uses the reading. The DHT11 is not a

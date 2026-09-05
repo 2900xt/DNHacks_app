@@ -42,6 +42,11 @@ static bool     bmeOk    = false;
 static uint32_t seq      = 0;
 static char     deviceId[24];
 
+// Clean-air baselines, captured once at boot by calibrateAir(). NAN until then,
+// which is why every consumer below checks rather than assuming.
+static float gasClean   = NAN;   // BME680 plate resistance in clean air, ohms
+static float mq2CleanRs = NAN;   // MQ-2 Rs/RL in clean air (see mq2RsOverRl)
+
 // ---------------------------------------------------------------------------
 
 static void buildDeviceId() {
@@ -77,6 +82,69 @@ static bool initBme() {
   return true;
 }
 
+// --- volatiles -------------------------------------------------------------
+
+// Rs/RL from the divider-corrected AOUT voltage, via the MQ-2's divider:
+// Vout = Vcc * RL/(Rs+RL), so Rs/RL = (Vcc - Vout)/Vout.
+//
+// RL never appears in anything downstream. It is present in both Rs and R0 and
+// cancels in every ratio we take — which is fortunate, because on these modules
+// it is often a trimpot nobody has measured.
+static float mq2RsOverRl(float mv) {
+  // Rails mean the divider is saturated, not that the air is remarkable.
+  if (isnan(mv) || mv < 50.0f || mv > MQ2_VCC_MV - 50.0f) return NAN;
+  return (MQ2_VCC_MV - mv) / mv;
+}
+
+// The one formula both sensing elements share: how far resistance has fallen
+// away from its clean-air value, as 0-100. Clamped, because a baseline captured
+// in slightly dirty air would otherwise produce negative "cleaner than clean".
+static float contamination(float now, float clean) {
+  if (isnan(now) || isnan(clean) || clean <= 0.0f) return NAN;
+  float f = 100.0f * (1.0f - now / clean);
+  return f < 0.0f ? 0.0f : (f > 100.0f ? 100.0f : f);
+}
+
+// Boot-time baseline capture. Blocking on purpose: it runs before WiFi, so the
+// radio is not yet perturbing anything, and six seconds of a still room is the
+// most representative air this node will ever see.
+static void calibrateAir() {
+  float gasMax = NAN, mq2Sum = 0.0f;
+  int   bmeN = 0, mq2N = 0;
+
+  uint32_t start = millis();
+  while (millis() - start < AQ_CAL_MS) {
+    if (bmeOk && bme.performReading()) {
+      // Discard the settling cycles, then keep the MAXIMUM. The plate only ever
+      // reads low while it warms, so the highest resistance seen is the best
+      // estimate of clean air — an average would drag the baseline down and
+      // make the room look permanently contaminated afterwards.
+      if (++bmeN > AQ_CAL_BME_DISCARD) {
+        float g = (float)bme.gas_resistance;
+        if (g > 0.0f && (isnan(gasMax) || g > gasMax)) gasMax = g;
+      }
+    }
+#if MQ2_ENABLED
+    // The MQ-2 is assumed already warm, so it is not settling — it is just
+    // noisy. Average rather than take an extreme.
+    float rs = mq2RsOverRl(analogReadMilliVolts(MQ2_ANALOG_PIN) * MQ2_DIVIDER);
+    if (!isnan(rs)) { mq2Sum += rs; mq2N++; }
+#endif
+    delay(AQ_CAL_PERIOD_MS);
+  }
+
+  gasClean   = gasMax;
+  mq2CleanRs = (mq2N > 0) ? mq2Sum / mq2N : NAN;
+
+  Serial.printf("# air baseline: bme680_gas_clean=%.0f ohm (%d samples) "
+                "mq2_rs_rl_clean=%.3f (%d samples)\n",
+                gasClean, bmeN > AQ_CAL_BME_DISCARD ? bmeN - AQ_CAL_BME_DISCARD : 0,
+                mq2CleanRs, mq2N);
+  if (isnan(gasClean) && isnan(mq2CleanRs))
+    Serial.println("# no air baseline — voc_index will be null. Trend is lost, "
+                   "temperature compliance is not.");
+}
+
 static bool connectWifi(uint32_t timeoutMs) {
   if (WiFi.status() == WL_CONNECTED) return true;
   WiFi.mode(WIFI_STA);
@@ -89,7 +157,7 @@ static bool connectWifi(uint32_t timeoutMs) {
 // ---------------------------------------------------------------------------
 
 static Reading sample() {
-  Reading r{NAN, NAN, NAN, NAN, NAN, NAN, NAN, false, false};
+  Reading r{};
 
   if (bmeOk && bme.performReading()) {
     r.tempC       = bme.temperature;
@@ -117,7 +185,26 @@ static Reading sample() {
   // are not comparable between two boards. Undo the divider to recover the
   // voltage actually present at AOUT.
   r.mq2Mv = analogReadMilliVolts(MQ2_ANALOG_PIN) * MQ2_DIVIDER;
+
+  float rs = mq2RsOverRl(r.mq2Mv);
+  if (!isnan(rs) && !isnan(mq2CleanRs) && mq2CleanRs > 0.0f) {
+    // Reported in the datasheet's own units so it can be read against a curve.
+    // R0 here is our boot air divided by the datasheet clean-air ratio, so this
+    // starts near 9.8 by construction and falls as combustibles arrive.
+    r.mq2RsR0 = MQ2_CLEAN_AIR_RATIO * rs / mq2CleanRs;
+    r.vocMq2  = contamination(rs, mq2CleanRs);
+  }
 #endif
+
+  if (r.bmeValid) r.vocBme = contamination(r.gasOhms, gasClean);
+
+  // Blend what we have. Either part alone still gives a usable trace, so a dead
+  // MQ-2 degrades the index rather than deleting it — the same way the DHT11
+  // degrades the cross-check rather than the reading.
+  bool b = !isnan(r.vocBme), m = !isnan(r.vocMq2);
+  if      (b && m) r.vocIndex = AQ_W_BME * r.vocBme + AQ_W_MQ2 * r.vocMq2;
+  else if (b)      r.vocIndex = r.vocBme;
+  else if (m)      r.vocIndex = r.vocMq2;
 
   return r;
 }
@@ -146,7 +233,22 @@ static void encode(char *buf, size_t n, const Reading &r) {
   if (!isnan(r.mq2Mv) && off < n) {
     off += snprintf(buf + off, n - off, ",\"mq2_mv\":%.0f", r.mq2Mv);
   }
+  if (!isnan(r.mq2RsR0) && off < n) {
+    off += snprintf(buf + off, n - off, ",\"mq2_rs_r0\":%.2f", r.mq2RsR0);
+  }
 #endif
+  // The blended index and both contributors. Sending the parts as well as the
+  // whole is deliberate: a fused number nobody can decompose is a number nobody
+  // will believe, and if the two halves disagree that is itself a finding.
+  if (!isnan(r.vocIndex) && off < n) {
+    off += snprintf(buf + off, n - off, ",\"voc_index\":%.1f", r.vocIndex);
+  }
+  if (!isnan(r.vocBme) && off < n) {
+    off += snprintf(buf + off, n - off, ",\"voc_bme\":%.1f", r.vocBme);
+  }
+  if (!isnan(r.vocMq2) && off < n) {
+    off += snprintf(buf + off, n - off, ",\"voc_mq2\":%.1f", r.vocMq2);
+  }
   if (off < n) snprintf(buf + off, n - off, "}}");
 }
 
@@ -195,6 +297,13 @@ void setup() {
     display::boot("cannot certify without bme680");
   }
 
+  // Baseline BEFORE the radio comes up: the room is still, nothing is hot, and
+  // a six-second pause here is invisible next to a WiFi association.
+  display::boot("calib   air baseline 6s...");
+  calibrateAir();
+  display::boot(isnan(gasClean) && isnan(mq2CleanRs) ? "calib   NO BASELINE"
+                                                     : "calib   ok");
+
   display::boot("wifi    connecting...");
   bool wifiUp = connectWifi(WIFI_TIMEOUT_MS);
   display::boot(wifiUp ? "wifi    ok" : "wifi    DOWN (serial fallback)");
@@ -219,7 +328,8 @@ void loop() {
                          // single most likely hardware failure tonight
   }
 
-  char body[384];
+  char body[512];   // grew with the voc_* keys; snprintf truncates, it does
+                    // not overflow, but a truncated line is invalid JSON
   encode(body, sizeof(body), r);
 
   Serial.println(body);      // NDJSON fallback path — always, unconditionally

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://dnhacks26.invalid/schemas/telemetry.schema.json",
   "title": "Telemetry",
-  "description": "One reading emitted by a device. Envelope is generic on purpose; `readings` keys are stack-specific. The depot-node stack emits temp_c, rh_pct, pressure_hpa (+ gas_raw if an MQ-2 is fitted).",
+  "description": "One reading emitted by a device. Envelope is generic on purpose; `readings` keys are stack-specific. The depot-node stack emits temp_c, rh_pct, pressure_hpa, gas_ohms, temp_c_xcheck, rh_pct_xcheck, mq2_mv, mq2_rs_r0, voc_index, voc_bme and voc_mq2. Any key may be absent or null: the device omits what it could not measure rather than substituting a plausible value.",
   "type": "object",
   "required": [
     "device_id",

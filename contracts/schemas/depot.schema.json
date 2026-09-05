@@ -157,6 +157,40 @@
             "null"
           ],
           "description": "MQ-2 AOUT in millivolts, divider-corrected and eFuse-calibrated. Uncalibrated against any gas standard - trend only. Never report a ppm."
+        },
+        "mq2_rs_r0": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "MQ-2 sensing resistance over its clean-air reference, in the datasheet's own convention: ~9.8 in clean air, falling as combustibles arrive. R0 is derived from a baseline the device captures at boot, so this is comparable with ITSELF over a few hours and with nothing else."
+        },
+        "voc_index": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Blended volatiles index, 0-100, higher = more volatiles. 0.6*voc_bme + 0.4*voc_mq2 where both are present, otherwise whichever is. ADVISORY, never a storage criterion: 0 means 'the air the node booted in', not 'clean', and no part of it is calibrated against a gas standard. It exists to make a warehouse-smoke event visible early, not to certify anything."
+        },
+        "voc_bme": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100,
+          "description": "The BME680 half of voc_index: 100*(1 - gas_ohms/gas_ohms_clean). Sent alongside the blend so the fused number can be decomposed - and because the two halves disagreeing is a finding about the sensors, not the air. Note the BME680 plate is humidity-sensitive; a rising RH depresses gas_ohms and reads here as volatiles."
+        },
+        "voc_mq2": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100,
+          "description": "The MQ-2 half of voc_index, same formula on Rs. Responds to combustibles - LPG, CO, smoke - that the BME680's VOC plate barely registers, which is the entire reason the blend is not just the BME680."
         }
       }
     },
