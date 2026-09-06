@@ -90,6 +90,10 @@ hardware/m5stack-node/.vscode/
 hardware/m5stack-node/CMakeListsPrivate.txt
 hardware/m5stack-node/compile_commands.json
 
+# --- ml / loaders ---
+ml/.venv/
+ml/cache/
+
 # --- Layer 1c signal cache (ml/signals/) ---
 # Pin the small artifacts so the demo survives venue wifi; the bulk downloads
 # are re-fetched by the loaders. See docs in each loader module.

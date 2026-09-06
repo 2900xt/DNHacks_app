@@ -7506,7 +7506,8 @@
       "classification": "OAI",
       "firm": "Jiangsu Hansoh Pharmaceutical Group Co., Ltd",
       "city": "Lianyungang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -7522,7 +7523,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Huahai Pharmaceutical Co., Ltd.",
       "city": "Linhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -7790,7 +7792,8 @@
       "classification": "OAI",
       "firm": "Shoolin Pharma Chem LLP",
       "city": "Kadi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -7950,7 +7953,8 @@
       "classification": "OAI",
       "firm": "USV Private Limited",
       "city": "Dabhel, Daman",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -10000,7 +10004,8 @@
       "classification": "OAI",
       "firm": "Reliance Life Sciences Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -10700,7 +10705,8 @@
       "classification": "OAI",
       "firm": "Almon Healthcare Private Limited",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -11310,7 +11316,8 @@
       "classification": "OAI",
       "firm": "BioMylz Pvt. Ltd.",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -11326,7 +11333,8 @@
       "classification": "OAI",
       "firm": "Auriga Research Private Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -11342,7 +11350,8 @@
       "classification": "OAI",
       "firm": "Eugia Pharma Specialities Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -11898,7 +11907,8 @@
       "classification": "OAI",
       "firm": "Centrient Pharmaceuticals India Private Limited",
       "city": "Nawashahr",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -11968,7 +11978,8 @@
       "classification": "OAI",
       "firm": "Shimoga Chemicals",
       "city": "Sangli",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -12434,7 +12445,8 @@
       "classification": "OAI",
       "firm": "Dabur India Limited",
       "city": "Dadra And Nagar Haveli",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -14286,7 +14298,8 @@
       "classification": "OAI",
       "firm": "SMS Pharmaceuticals Limited",
       "city": "Vizianagaram",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -14896,7 +14909,8 @@
       "classification": "OAI",
       "firm": "Wizcure Pharmaa Private Limited",
       "city": "Alwar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -15416,7 +15430,8 @@
       "classification": "OAI",
       "firm": "Alchymars ICM SM Private Limited",
       "city": "Alathur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -15792,7 +15807,8 @@
       "classification": "OAI",
       "firm": "Gland Chemicals Private Limited",
       "city": "Chennai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -16294,7 +16310,8 @@
       "classification": "OAI",
       "firm": "Hunan Xiangyikang Pharmaceutical Co., Ltd.",
       "city": "Yiyang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -16742,7 +16759,8 @@
       "classification": "OAI",
       "firm": "EUGIA Pharma Specialities Limited",
       "city": "Riico Industrial Area",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -17388,7 +17406,8 @@
       "classification": "OAI",
       "firm": "Harbin Jixianglong Biotech Co., Ltd.",
       "city": "Haerbin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -17404,7 +17423,8 @@
       "classification": "OAI",
       "firm": "Hubei Gedian Humanwell Pharmaceutical Co., Ltd.",
       "city": "Ezhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -18410,7 +18430,8 @@
       "classification": "OAI",
       "firm": "Foshan Miwei Cosmetics Co., Ltd.",
       "city": "Foshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -18444,7 +18465,8 @@
       "classification": "OAI",
       "firm": "Yangzhou H&R Plastic Daily Chemical Co., Ltd.",
       "city": "Yangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -19846,7 +19868,8 @@
       "classification": "OAI",
       "firm": "Abryl Laboratories Private Limited",
       "city": "Dera Bassi SAS Nagar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -20528,7 +20551,8 @@
       "classification": "OAI",
       "firm": "Inventaa Chemicals Private Limited",
       "city": "Bodavada",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -20562,7 +20586,8 @@
       "classification": "OAI",
       "firm": "Immacule Lifesciences Private Limited",
       "city": "Nalagarh",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -20758,7 +20783,8 @@
       "classification": "OAI",
       "firm": "Intas Pharmaceuticals Ltd.",
       "city": "Selaqui",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -20846,7 +20872,8 @@
       "classification": "OAI",
       "firm": "Flowchem Pharma Private Limited",
       "city": "Hindupur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -21240,7 +21267,8 @@
       "classification": "OAI",
       "firm": "Aurobindo Pharma Limited",
       "city": "Medchal",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -21850,7 +21878,8 @@
       "classification": "OAI",
       "firm": "Megsan Labs Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -22118,7 +22147,8 @@
       "classification": "OAI",
       "firm": "Xiamen Kang Zhongyuan Biotechnology Co., Ltd.",
       "city": "Xiamen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -22764,7 +22794,8 @@
       "classification": "OAI",
       "firm": "Chemspec Chemicals Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -24454,7 +24485,8 @@
       "classification": "OAI",
       "firm": "Patcos Cosmetics (India) Private Limited",
       "city": "Daman",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -24470,7 +24502,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Pithampur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -25386,7 +25419,8 @@
       "classification": "OAI",
       "firm": "Sri Krishna Pharmaceuticals Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -26374,7 +26408,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Ltd.",
       "city": "Halol",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -28100,7 +28135,8 @@
       "classification": "OAI",
       "firm": "Seema International",
       "city": "New Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -28818,7 +28854,8 @@
       "classification": "OAI",
       "firm": "Mukesh B. Chandre, MD MBBS",
       "city": "Ulhasnagar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -29734,7 +29771,8 @@
       "classification": "OAI",
       "firm": "Cdymax (India) Pharma Private Limited",
       "city": "Bangalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -30218,7 +30256,8 @@
       "classification": "OAI",
       "firm": "Blossom Pharmaceuticals",
       "city": "Bardej, Goa",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -30864,7 +30903,8 @@
       "classification": "OAI",
       "firm": "Guangxi Yulin Pharmaceutical Group Co. Ltd.",
       "city": "Yulin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -30880,7 +30920,8 @@
       "classification": "OAI",
       "firm": "Sourav K. Mishra, M.D.",
       "city": "Bhubaneswar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -31076,7 +31117,8 @@
       "classification": "OAI",
       "firm": "Taizhou Kangping Medical Science And Technology Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -31272,7 +31314,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Minsheng Binjiang Pharmaceutical Co., Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -31486,7 +31529,8 @@
       "classification": "OAI",
       "firm": "Anhui Hanbon Daily Chemical Co., Ltd.",
       "city": "Huainan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -31628,7 +31672,8 @@
       "classification": "OAI",
       "firm": "Somerset Therapeutics Private Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -31734,7 +31779,8 @@
       "classification": "OAI",
       "firm": "Glenmark Pharmaceuticals Limited",
       "city": "Dhar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -31966,7 +32012,8 @@
       "classification": "OAI",
       "firm": "Hikal Limited",
       "city": "Jigani",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -32396,7 +32443,8 @@
       "classification": "OAI",
       "firm": "P. Damodara Kumaran, M.D.",
       "city": "Pondicherry",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -32430,7 +32478,8 @@
       "classification": "OAI",
       "firm": "Shiva Analyticals (India) Pvt. Ltd.",
       "city": "Hoskote Bangaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -32446,7 +32495,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Huahai Pharmaceutical Co., Ltd.",
       "city": "Linhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -33938,7 +33988,8 @@
       "classification": "OAI",
       "firm": "Healwell Homeo Private Limited",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -34332,7 +34383,8 @@
       "classification": "OAI",
       "firm": "KENIL HEALTHCARE PRIVATE LIMITED",
       "city": "Mehsana",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -34816,7 +34868,8 @@
       "classification": "OAI",
       "firm": "Hindustan Mint & Agro Products Private Ltd",
       "city": "Chandausi, Moradabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -35282,7 +35335,8 @@
       "classification": "OAI",
       "firm": "Taizhou Jingshang Cosmetics Technology Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -35514,7 +35568,8 @@
       "classification": "OAI",
       "firm": "Wuxi Medical lnstrument Factory Co., Ltd.",
       "city": "Wuxi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -35836,7 +35891,8 @@
       "classification": "OAI",
       "firm": "Aopline Health Industry Technology (Guangzhou) Co., Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -36860,7 +36916,8 @@
       "classification": "OAI",
       "firm": "Yiling Pharmaceutical Ltd.",
       "city": "Shijiazhuang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -37434,7 +37491,8 @@
       "classification": "OAI",
       "firm": "Yangzhou Sion Commodity Co., Ltd.",
       "city": "Yangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -37450,7 +37508,8 @@
       "classification": "OAI",
       "firm": "Phoenix Innovative Healthcare Manufacturers Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -37538,7 +37597,8 @@
       "classification": "OAI",
       "firm": "Mentha & Allied Products Private Ltd.",
       "city": "Rampur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -37950,7 +38010,8 @@
       "classification": "OAI",
       "firm": "Aspen Biopharma Labs Pvt., Ltd.",
       "city": "Medchal Malkajgiri",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -37966,7 +38027,8 @@
       "classification": "OAI",
       "firm": "China Pharmaceutical University",
       "city": "Nanjing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -38234,7 +38296,8 @@
       "classification": "OAI",
       "firm": "Shree Jaya Laboratories Private Limited",
       "city": "Yadadri, Bhuvanagiri District",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -38520,7 +38583,8 @@
       "classification": "OAI",
       "firm": "MACSEN DRUGS",
       "city": "Udaipur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -38536,7 +38600,8 @@
       "classification": "OAI",
       "firm": "Wuhu Nuowei Chemistry Co., Ltd",
       "city": "Wuhu",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -38876,7 +38941,8 @@
       "classification": "OAI",
       "firm": "Shantou S.E.Z Baojie Industry Co., Ltd.",
       "city": "Shantou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -38928,7 +38994,8 @@
       "classification": "OAI",
       "firm": "Huangshi Hygienic Material Medicine Co., Ltd.",
       "city": "Huang Shi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -39520,7 +39587,8 @@
       "classification": "OAI",
       "firm": "Chemspec Chemicals Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -39752,7 +39820,8 @@
       "classification": "OAI",
       "firm": "Tyche Industries Ltd.",
       "city": "Kakinada",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -40902,7 +40971,8 @@
       "classification": "OAI",
       "firm": "Global Calcium Pvt. Limited",
       "city": "Hosur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -41224,7 +41294,8 @@
       "classification": "OAI",
       "firm": "Bhargava Phytolab Private Limited",
       "city": "Bhiwadi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -43508,7 +43579,8 @@
       "classification": "OAI",
       "firm": "Srikem Laboratories Private Ltd.",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -44208,7 +44280,8 @@
       "classification": "OAI",
       "firm": "Calyx Chemicals & Pharmaceuticals Limited",
       "city": "Palghar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -44368,7 +44441,8 @@
       "classification": "OAI",
       "firm": "Unexo Life Sciences Private Limited",
       "city": "New Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -44726,7 +44800,8 @@
       "classification": "OAI",
       "firm": "EUGIA Pharma Specialities Limited",
       "city": "Riico Industrial Area",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -45174,7 +45249,8 @@
       "classification": "OAI",
       "firm": "Zydus Lifesciences Limited",
       "city": "Jarod",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -45226,7 +45302,8 @@
       "classification": "OAI",
       "firm": "Micro Orgo Chem",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -45872,7 +45949,8 @@
       "classification": "OAI",
       "firm": "Jagsonpal Pharmaceuticals Ltd.",
       "city": "Alwar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -45960,7 +46038,8 @@
       "classification": "OAI",
       "firm": "MMC HEALTHCARE LTD.",
       "city": "Chennai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -46192,7 +46271,8 @@
       "classification": "OAI",
       "firm": "Zydus Lifesciences Limited",
       "city": "Matoda",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -46262,7 +46342,8 @@
       "classification": "OAI",
       "firm": "Tianjin Darentang Jingwanhong Pharmaceutical Co., Ltd.",
       "city": "Tianjin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -47160,7 +47241,8 @@
       "classification": "OAI",
       "firm": "Shriram Institute for Industrial Research",
       "city": "Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -47734,7 +47816,8 @@
       "classification": "OAI",
       "firm": "Eugia Pharma Specialities Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -48002,7 +48085,8 @@
       "classification": "OAI",
       "firm": "Brassica Pharma Private Ltd",
       "city": "Thane",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -48216,7 +48300,8 @@
       "classification": "OAI",
       "firm": "Jiangsu Hengrui Pharmaceuticals Co., Ltd. (Huanghe Road Site)",
       "city": "Lianyungang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -48952,7 +49037,8 @@
       "classification": "OAI",
       "firm": "Landy International",
       "city": "Xia Men",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -48968,7 +49054,8 @@
       "classification": "OAI",
       "firm": "Laurus Synthesis Private Limited",
       "city": "Visakhapatnam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -48984,7 +49071,8 @@
       "classification": "OAI",
       "firm": "GFA Production Xiamen Co., Ltd.",
       "city": "Xiamen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49000,7 +49088,8 @@
       "classification": "OAI",
       "firm": "Guangzhou Baiyunshan Jingxiutang Pharmaceutical Co. Ltd.",
       "city": "Foshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49016,7 +49105,8 @@
       "classification": "OAI",
       "firm": "Micro Labs Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49032,7 +49122,8 @@
       "classification": "OAI",
       "firm": "Lin Shen, M.D.",
       "city": "Haidian District",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -49048,7 +49139,8 @@
       "classification": "OAI",
       "firm": "Kilitch Healthcare India Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49064,7 +49156,8 @@
       "classification": "OAI",
       "firm": "Panacea Biotec Pharma Limited",
       "city": "Malpur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49080,7 +49173,8 @@
       "classification": "OAI",
       "firm": "Fresenius Kabi Oncology Limited",
       "city": "Baddi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49096,7 +49190,8 @@
       "classification": "OAI",
       "firm": "Sichuan Deebio Pharmaceutical Co., Ltd.",
       "city": "Guanghan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49112,7 +49207,8 @@
       "classification": "OAI",
       "firm": "SRI Krishna Pharmaceuticals Ltd",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49128,7 +49224,8 @@
       "classification": "OAI",
       "firm": "Indrayani Hospital and Cancer Institute",
       "city": "Alandi Devachi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -49144,7 +49241,8 @@
       "classification": "OAI",
       "firm": "Zhuhai United Laboratories Co. Ltd.",
       "city": "Zhuhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49160,7 +49258,8 @@
       "classification": "OAI",
       "firm": "BE Pharmaceuticals Private Ltd.",
       "city": "Tehsil, Paonta Sahib",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49176,7 +49275,8 @@
       "classification": "OAI",
       "firm": "Astral SteriTech Private Ltd.",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49192,7 +49292,8 @@
       "classification": "OAI",
       "firm": "Aarti Phosphates",
       "city": "Ambernath",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49208,7 +49309,8 @@
       "classification": "OAI",
       "firm": "Sri Krishna Pharmaceuticals Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49224,7 +49326,8 @@
       "classification": "OAI",
       "firm": "Rxhomeo Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49240,7 +49343,8 @@
       "classification": "OAI",
       "firm": "Raptim Research Pvt. Ltd.",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -49256,7 +49360,8 @@
       "classification": "OAI",
       "firm": "Xylo Chem Industries",
       "city": "Nadiad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49272,7 +49377,8 @@
       "classification": "OAI",
       "firm": "Ceph Lifesciences Private Limited",
       "city": "Tehsil Baddi, Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49288,7 +49394,8 @@
       "classification": "OAI",
       "firm": "Global Pharma Healthcare Private Limited",
       "city": "Chennai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49304,7 +49411,8 @@
       "classification": "OAI",
       "firm": "Indoco Remedies Limited",
       "city": "Verna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49320,7 +49428,8 @@
       "classification": "OAI",
       "firm": "Cipla Limited",
       "city": "Pithampur, District Dhar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49336,7 +49445,8 @@
       "classification": "OAI",
       "firm": "Centaur Pharmaceuticals Private Ltd.",
       "city": "Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49352,7 +49462,8 @@
       "classification": "OAI",
       "firm": "MEDGEL PRIVATE LIMITED",
       "city": "Pithampur, Dhar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49368,7 +49479,8 @@
       "classification": "OAI",
       "firm": "Baxter Pharmaceuticals India Pvt Ltd",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49384,7 +49496,8 @@
       "classification": "OAI",
       "firm": "Anicare Pharmaceuticals Pvt Ltd.",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49400,7 +49513,8 @@
       "classification": "OAI",
       "firm": "Intas Pharmaceuticals Limited",
       "city": "Sanand",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49416,7 +49530,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Mandideep",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49432,7 +49547,8 @@
       "classification": "OAI",
       "firm": "Centaur Pharmaceuticals Private Ltd.",
       "city": "Thane",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49448,7 +49564,8 @@
       "classification": "OAI",
       "firm": "USV Private Limited",
       "city": "Dabhel, Daman",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49464,7 +49581,8 @@
       "classification": "OAI",
       "firm": "Madhu Instruments Private Limited",
       "city": "New Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49480,7 +49598,8 @@
       "classification": "OAI",
       "firm": "Torrent Pharmaceuticals Limited",
       "city": "Indrad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49496,7 +49615,8 @@
       "classification": "OAI",
       "firm": "Cipla Limited",
       "city": "Salcette",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49512,7 +49632,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Limited",
       "city": "Mohali",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49528,7 +49649,8 @@
       "classification": "OAI",
       "firm": "Jubilant Generics Limited",
       "city": "Roorkee",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49544,7 +49666,8 @@
       "classification": "OAI",
       "firm": "Centrient Pharmaceuticals India Private Limited",
       "city": "Nawashahr",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49560,7 +49683,8 @@
       "classification": "OAI",
       "firm": "Glenmark Pharmaceuticals Limited",
       "city": "Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49576,7 +49700,8 @@
       "classification": "OAI",
       "firm": "Panacea Biotec Pharma Limited",
       "city": "Malpur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49592,7 +49717,8 @@
       "classification": "OAI",
       "firm": "Glenmark Pharmaceuticals Limited",
       "city": "Colvale",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49608,7 +49734,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Ltd.",
       "city": "Halol",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49624,7 +49751,8 @@
       "classification": "OAI",
       "firm": "Beijing Xinggu Lvsan Technology Co., Ltd",
       "city": "Beijing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49640,7 +49768,8 @@
       "classification": "OAI",
       "firm": "Somerset Therapeutics Private Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49656,7 +49785,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Tarapur, Thane",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49672,7 +49802,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Tianyu Pharmaceutical Co Ltd",
       "city": "Taizhoushi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49688,7 +49819,8 @@
       "classification": "OAI",
       "firm": "Macleods Pharmaceuticals Limited",
       "city": "Tehsil Baddi, District Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49704,7 +49836,8 @@
       "classification": "OAI",
       "firm": "Xinxiang Tuoxin Pharmaceutical Co. Ltd",
       "city": "Xinxiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49720,7 +49853,8 @@
       "classification": "OAI",
       "firm": "Hetero Labs Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49736,7 +49870,8 @@
       "classification": "OAI",
       "firm": "Apitoria Pharma Private Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49752,7 +49887,8 @@
       "classification": "OAI",
       "firm": "Indiana Chem-Port",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49768,7 +49904,8 @@
       "classification": "OAI",
       "firm": "Hubei Kangzheng Pharmaceutical Co., Ltd.",
       "city": "Anlu",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49784,7 +49921,8 @@
       "classification": "OAI",
       "firm": "BBC Group Limited",
       "city": "Zhangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49800,7 +49938,8 @@
       "classification": "OAI",
       "firm": "Jubilant Generics Limited",
       "city": "Roorkee",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49816,7 +49955,8 @@
       "classification": "OAI",
       "firm": "Solara Active Pharma Sciences Limited",
       "city": "Cuddalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49832,7 +49972,8 @@
       "classification": "OAI",
       "firm": "Megafine Pharma (P) Limited",
       "city": "Nashik",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49848,7 +49989,8 @@
       "classification": "OAI",
       "firm": "Shilpa Medicare Limited",
       "city": "Jadcherla, Mahabubnagar District",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49864,7 +50006,8 @@
       "classification": "OAI",
       "firm": "Megafine Pharma (P) Limited",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49880,7 +50023,8 @@
       "classification": "OAI",
       "firm": "Mayon's Pharmaceuticals Private Ltd",
       "city": "Nagpur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49896,7 +50040,8 @@
       "classification": "OAI",
       "firm": "Somerset Therapeutics Private Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49912,7 +50057,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Ltd.",
       "city": "Halol",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49928,7 +50074,8 @@
       "classification": "OAI",
       "firm": "Vega Life Sciences",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -49944,7 +50091,8 @@
       "classification": "OAI",
       "firm": "Panexcell Clinical Lab PVT. LTD.",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -49960,7 +50108,8 @@
       "classification": "OAI",
       "firm": "Synchron Research Services Pvt. Ltd.",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -49976,7 +50125,8 @@
       "classification": "OAI",
       "firm": "Synchron Research Services Pvt. Ltd.",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -49992,7 +50142,8 @@
       "classification": "OAI",
       "firm": "Canton Laboratories Private Ltd.",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50008,7 +50159,8 @@
       "classification": "OAI",
       "firm": "Kumar Organic Products Limited",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50024,7 +50176,8 @@
       "classification": "OAI",
       "firm": "Jubilant Generics Limited",
       "city": "Roorkee",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50040,7 +50193,8 @@
       "classification": "OAI",
       "firm": "Megsan Labs Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50056,7 +50210,8 @@
       "classification": "OAI",
       "firm": "Shriram Institute for Industrial Research",
       "city": "Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50072,7 +50227,8 @@
       "classification": "OAI",
       "firm": "Aurobindo Pharma Limited",
       "city": "Jedcherla Mandal, Mahabubnagar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50088,7 +50244,8 @@
       "classification": "OAI",
       "firm": "Cipla Limited",
       "city": "Salcette",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50104,7 +50261,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Tarapur, Thane",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50120,7 +50278,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Linkeweier Daily Chemicals Co., Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50136,7 +50295,8 @@
       "classification": "OAI",
       "firm": "NEW WORLD HEALTHCARE PRIVATE LIMITED",
       "city": "Mehsana",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50152,7 +50312,8 @@
       "classification": "OAI",
       "firm": "ESSND GLOBAL",
       "city": "Sinnar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50168,7 +50329,8 @@
       "classification": "OAI",
       "firm": "Pfizer Healthcare India Private Limited",
       "city": "Visakhapatnam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50184,7 +50346,8 @@
       "classification": "OAI",
       "firm": "Windlas Healthcare Private Limited",
       "city": "Dehradun",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50200,7 +50363,8 @@
       "classification": "OAI",
       "firm": "Ipca Laboratories Limited",
       "city": "Silvassa",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50216,7 +50380,8 @@
       "classification": "OAI",
       "firm": "JHS SVENDGAARD LABORATORIES LTD",
       "city": "Johron",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50232,7 +50397,8 @@
       "classification": "OAI",
       "firm": "Madhu Instruments Private Limited",
       "city": "New Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50248,7 +50414,8 @@
       "classification": "OAI",
       "firm": "Lake Chemicals Private Limited",
       "city": "Bangalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50264,7 +50431,8 @@
       "classification": "OAI",
       "firm": "Yibin Lihao Bio-technical Co., Ltd.",
       "city": "Yibin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50280,7 +50448,8 @@
       "classification": "OAI",
       "firm": "Guangzhou Tinci Materials Technology Co., Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50296,7 +50465,8 @@
       "classification": "OAI",
       "firm": "Zhuhai Aofute Medical Technology Co., Ltd.",
       "city": "Zhuhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50312,7 +50482,8 @@
       "classification": "OAI",
       "firm": "Zhuhai United Laboratories Co. Ltd.",
       "city": "Zhuhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50328,7 +50499,8 @@
       "classification": "OAI",
       "firm": "Huaian Zongheng Bio-Tech Co., Ltd",
       "city": "Huaian",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50344,7 +50516,8 @@
       "classification": "OAI",
       "firm": "Sunstar Guangzhou Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50360,7 +50533,8 @@
       "classification": "OAI",
       "firm": "GPT Pharmaceuticals Private Ltd",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50376,7 +50550,8 @@
       "classification": "OAI",
       "firm": "Evertogen Life Sciences Ltd.",
       "city": "Mahabubnagar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50392,7 +50567,8 @@
       "classification": "OAI",
       "firm": "Ningbo BST Clean and Care Products Co., Ltd",
       "city": "Ningbo",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50408,7 +50584,8 @@
       "classification": "OAI",
       "firm": "Xinxiang Tuoxin Pharmaceutical Co. Ltd",
       "city": "Xinxiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50424,7 +50601,8 @@
       "classification": "OAI",
       "firm": "Matrix Pharmacorp Private Limited",
       "city": "Vizianagaram",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50440,7 +50618,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Huahai Pharmaceutical Co., Ltd.",
       "city": "Linhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50456,7 +50635,8 @@
       "classification": "OAI",
       "firm": "Taizhou Taifa Pharmaceuticals Co., Ltd.",
       "city": "Xianju, Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50472,7 +50652,8 @@
       "classification": "OAI",
       "firm": "Hetero Labs Ltd. - Unit IX",
       "city": "Visakhapatnam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50488,7 +50669,8 @@
       "classification": "OAI",
       "firm": "Sentiss Pharma Private Ltd.",
       "city": "District Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50504,7 +50686,8 @@
       "classification": "OAI",
       "firm": "Zydus Lifesciences Limited",
       "city": "Taluka Sanand, Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50520,7 +50703,8 @@
       "classification": "OAI",
       "firm": "Linhai Tianyu Pharmaceutical Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50536,7 +50720,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Tianyu Pharmaceutical Co Ltd",
       "city": "Taizhoushi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50552,7 +50737,8 @@
       "classification": "OAI",
       "firm": "Jiangsu NHWA Pharmaceutical Co., Ltd.",
       "city": "Xuzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50568,7 +50754,8 @@
       "classification": "OAI",
       "firm": "Yino, Inc. (Trading Company)",
       "city": "Chongqing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50584,7 +50771,8 @@
       "classification": "OAI",
       "firm": "Shanghai Co-Fun Biotech Corp., Ltd.",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50600,7 +50788,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Badi Daily Use Chemical Company",
       "city": "Huzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50616,7 +50805,8 @@
       "classification": "OAI",
       "firm": "APARNA ORGANICS LIMITED",
       "city": "Srikakulam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50632,7 +50822,8 @@
       "classification": "OAI",
       "firm": "Henan Kangdi Medical Devices Co. Ltd",
       "city": "Zhoukou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50648,7 +50839,8 @@
       "classification": "OAI",
       "firm": "Ningbo Pulisi Daily Chemical Products Co., Ltd",
       "city": "Yuyao City",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50664,7 +50856,8 @@
       "classification": "OAI",
       "firm": "Emcure Pharmaceuticals Limited",
       "city": "Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50680,7 +50873,8 @@
       "classification": "OAI",
       "firm": "Apitoria Pharma Private Limited",
       "city": "Srikakulam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50696,7 +50890,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Verna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50712,7 +50907,8 @@
       "classification": "OAI",
       "firm": "Strides Pharma Science Limited",
       "city": "Puducherry",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50728,7 +50924,8 @@
       "classification": "OAI",
       "firm": "Apitoria Pharma Private Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50744,7 +50941,8 @@
       "classification": "OAI",
       "firm": "Apitoria Pharma Private Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50760,7 +50958,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Pithampur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50776,7 +50975,8 @@
       "classification": "OAI",
       "firm": "Xi'an Livingbond Nonwoven Products Corp., Ltd.",
       "city": "Xian",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50792,7 +50992,8 @@
       "classification": "OAI",
       "firm": "Glint Cosmetics Private Ltd",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50808,7 +51009,8 @@
       "classification": "OAI",
       "firm": "Jubilant Pharmova Limited",
       "city": "Mysore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50824,7 +51026,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Mandideep",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50840,7 +51043,8 @@
       "classification": "OAI",
       "firm": "Contacare Ophthalmics & Diagnostics",
       "city": "Dabhasa",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50856,7 +51060,8 @@
       "classification": "OAI",
       "firm": "Livzon Group (Ningxia) Pharmaceutical Co., Ltd.",
       "city": "Shizuishan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50872,7 +51077,8 @@
       "classification": "OAI",
       "firm": "Alchymars ICM SM Private Limited",
       "city": "Alathur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50888,7 +51094,8 @@
       "classification": "OAI",
       "firm": "Dong Yuan Technology Co., Ltd.",
       "city": "Linyi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50904,7 +51111,8 @@
       "classification": "OAI",
       "firm": "Hetero Labs Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50920,7 +51128,8 @@
       "classification": "OAI",
       "firm": "Vital Laboratories Pvt Ltd Plant II",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50936,7 +51145,8 @@
       "classification": "OAI",
       "firm": "B. JAIN PHARMACEUTICALS PRIVATE LIMITED",
       "city": "Khushkhara, Bhiwadi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50952,7 +51162,8 @@
       "classification": "OAI",
       "firm": "Hangzhou SunKing Nonwovens Co., Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50968,7 +51179,8 @@
       "classification": "OAI",
       "firm": "Anicare Pharmaceuticals Pvt Ltd.",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -50984,7 +51196,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Huahai Pharmaceutical",
       "city": "Linhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51000,7 +51213,8 @@
       "classification": "OAI",
       "firm": "CAO Medical Equipment Co., Ltd.",
       "city": "Langfang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51016,7 +51230,8 @@
       "classification": "OAI",
       "firm": "Megafine Pharma (P) Limited",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51032,7 +51247,8 @@
       "classification": "OAI",
       "firm": "Avon Manufacturing (Guangzhou) Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51048,7 +51264,8 @@
       "classification": "OAI",
       "firm": "Jinan Jinda Pharmaceutical Chemistry Co., Ltd.",
       "city": "Jinan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51064,7 +51281,8 @@
       "classification": "OAI",
       "firm": "Megafine Pharma (P) Limited",
       "city": "Nashik",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51080,7 +51298,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Zhongbo Industrial Co., Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51096,7 +51315,8 @@
       "classification": "OAI",
       "firm": "Zhengzhou Minzhong Pharmaceutical Co., Ltd.",
       "city": "Zhengzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51112,7 +51332,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Guoguang Touring Commodity Co.,Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51128,7 +51349,8 @@
       "classification": "OAI",
       "firm": "Longbow First Aid Products Manufactory",
       "city": "Foshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51144,7 +51366,8 @@
       "classification": "OAI",
       "firm": "Centrient Pharmaceuticals India Private Limited",
       "city": "Nawashahr",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51160,7 +51383,8 @@
       "classification": "OAI",
       "firm": "Gland Chemicals Private Limited",
       "city": "Chennai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51176,7 +51400,8 @@
       "classification": "OAI",
       "firm": "Ruby Hall Clinic Ser. Private Limited",
       "city": "Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -51192,7 +51417,8 @@
       "classification": "OAI",
       "firm": "Dr. Rajendra Kashinath Shimpi",
       "city": "Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -51208,7 +51434,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Karic Commodities Co., Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51224,7 +51451,8 @@
       "classification": "OAI",
       "firm": "Shandong Analysis and Test Center",
       "city": "Jinan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51240,7 +51468,8 @@
       "classification": "OAI",
       "firm": "Tata Memorial Centre",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -51256,7 +51485,8 @@
       "classification": "OAI",
       "firm": "JT Cosmetics & Chemicals Pvt Ltd.",
       "city": "Panchmahal",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51272,7 +51502,8 @@
       "classification": "OAI",
       "firm": "Vipor Chemicals Private Ltd.",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51288,7 +51519,8 @@
       "classification": "OAI",
       "firm": "Vista Pharmaceuticals Limited",
       "city": "Nalgonda District",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51304,7 +51536,8 @@
       "classification": "OAI",
       "firm": "Indoco Remedies Limited (Plant I)",
       "city": "Verna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51320,7 +51553,8 @@
       "classification": "OAI",
       "firm": "Henan Lihua Pharmaceutical Co., Ltd.",
       "city": "Anyang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51336,7 +51570,8 @@
       "classification": "OAI",
       "firm": "Aarti Drugs Limited",
       "city": "Palghar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51352,7 +51587,8 @@
       "classification": "OAI",
       "firm": "Health Biotech Limited",
       "city": "Baddi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51368,7 +51604,8 @@
       "classification": "OAI",
       "firm": "Chongqing Carelife Pharmaceutical Co., Ltd.",
       "city": "Chongqing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51384,7 +51621,8 @@
       "classification": "OAI",
       "firm": "Macleods Pharmaceuticals Limited",
       "city": "Tehsil Baddi, District Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51400,7 +51638,8 @@
       "classification": "OAI",
       "firm": "Goran Pharma Private Ltd",
       "city": "Sihor",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51416,7 +51655,8 @@
       "classification": "OAI",
       "firm": "Jilin Shulan Synthetic Pharmaceutical Co. Ltd.",
       "city": "Jilin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51432,7 +51672,8 @@
       "classification": "OAI",
       "firm": "Reine Lifescience",
       "city": "Ankleshwar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51448,7 +51689,8 @@
       "classification": "OAI",
       "firm": "Sichuan Friendly Pharmaceutical Co., Ltd.",
       "city": "Neijiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51464,7 +51706,8 @@
       "classification": "OAI",
       "firm": "Lijiang Yinghua Biochemical and Pharmaceutical Co., Ltd.",
       "city": "Lijiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51480,7 +51723,8 @@
       "classification": "OAI",
       "firm": "Kopalle Pharma Chemicals Pvt Ltd.",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51496,7 +51740,8 @@
       "classification": "OAI",
       "firm": "Beijing Rimeng Biological Technology Co. Ltd.",
       "city": "Beijing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51512,7 +51757,8 @@
       "classification": "OAI",
       "firm": "Longood Medicine (Beijing) Co Ltd",
       "city": "Beijing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51528,7 +51774,8 @@
       "classification": "OAI",
       "firm": "Unimark Remedies Limited",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51544,7 +51791,8 @@
       "classification": "OAI",
       "firm": "Sichuan Emeishan Pharmaceutical Co., Ltd.",
       "city": "Leshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51560,7 +51808,8 @@
       "classification": "OAI",
       "firm": "Nox Bellcow Cosmetics Co., Ltd.",
       "city": "Zhongshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51576,7 +51825,8 @@
       "classification": "OAI",
       "firm": "Zhuhai United Laboratories Co. Ltd.",
       "city": "Zhuhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51592,7 +51842,8 @@
       "classification": "OAI",
       "firm": "Alchymars ICM SM Private Limited",
       "city": "Alathur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51608,7 +51859,8 @@
       "classification": "OAI",
       "firm": "Nanjing Pharmaceutical Factory Co., Ltd.",
       "city": "Nanjing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51624,7 +51876,8 @@
       "classification": "OAI",
       "firm": "Yicheng Goto Pharmaceuticals Co., Ltd",
       "city": "Xiangyang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51640,7 +51893,8 @@
       "classification": "OAI",
       "firm": "Malladi Drugs and Pharmaceuticals Ltd.",
       "city": "Vellore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51656,7 +51910,8 @@
       "classification": "OAI",
       "firm": "Mentha & Allied Products Private Ltd.",
       "city": "Rampur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51672,7 +51927,8 @@
       "classification": "OAI",
       "firm": "Foshan Jinxiong Technology Co., Ltd.",
       "city": "Foshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51688,7 +51944,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Ludao Technology Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51704,7 +51961,8 @@
       "classification": "OAI",
       "firm": "MFCI (Huanggang) Co., Ltd.",
       "city": "Huanggang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51720,7 +51978,8 @@
       "classification": "OAI",
       "firm": "Emcure Pharmaceuticals Limited",
       "city": "Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51736,7 +51995,8 @@
       "classification": "OAI",
       "firm": "Ming Fai Industrial (Shenzhen) Co LTD",
       "city": "Shenzhen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51752,7 +52012,8 @@
       "classification": "OAI",
       "firm": "Hubei Danao Pharmaceutical Co., Ltd.",
       "city": "Shiyan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51768,7 +52029,8 @@
       "classification": "OAI",
       "firm": "Baxter Pharmaceuticals India Pvt Ltd",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51784,7 +52046,8 @@
       "classification": "OAI",
       "firm": "Shanwei Honghui Daily Appliance Co., Ltd.",
       "city": "Shanwei",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51800,7 +52063,8 @@
       "classification": "OAI",
       "firm": "Hunan Norchem Pharmaceutical Co. Ltd.",
       "city": "Jin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51816,7 +52080,8 @@
       "classification": "OAI",
       "firm": "Yicheng Chemical Corp.",
       "city": "Changzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51832,7 +52097,8 @@
       "classification": "OAI",
       "firm": "Jiangsu YongAn Pharmaceutical Co., Ltd",
       "city": "Huaian",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51848,7 +52114,8 @@
       "classification": "OAI",
       "firm": "Shenzhen Senton Science & Technology Co.,Ltd.",
       "city": "Shenzhen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51864,7 +52131,8 @@
       "classification": "OAI",
       "firm": "Hangzhou Facecare Cosmetics Co., Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51880,7 +52148,8 @@
       "classification": "OAI",
       "firm": "Kim Chemicals Private Ltd.",
       "city": "Taloja, Raigad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51896,7 +52165,8 @@
       "classification": "OAI",
       "firm": "Keshava Organics Private Ltd.",
       "city": "Tarapur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51912,7 +52182,8 @@
       "classification": "OAI",
       "firm": "Wuhan Chinese Moxibustion Technology Dev. Co., Ltd.",
       "city": "Wuhan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51928,7 +52199,8 @@
       "classification": "OAI",
       "firm": "Bicooya Cosmetics Limited",
       "city": "Jinhua",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51944,7 +52216,8 @@
       "classification": "OAI",
       "firm": "Guangzhou Baiyunshan Pharmaceutical Co., Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51960,7 +52233,8 @@
       "classification": "OAI",
       "firm": "Fresenius Kabi Oncology Limited",
       "city": "Nadia",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51976,7 +52250,8 @@
       "classification": "OAI",
       "firm": "Sentiss Pharma Private Ltd.",
       "city": "District Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -51992,7 +52267,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Pithampur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52008,7 +52284,8 @@
       "classification": "OAI",
       "firm": "Guangdong Zhanjiang Jimin Pharmaceutical Co., Ltd.",
       "city": "Zhangjiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52024,7 +52301,8 @@
       "classification": "OAI",
       "firm": "Fleming Laboratories Limited",
       "city": "Medak district",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52040,7 +52318,8 @@
       "classification": "OAI",
       "firm": "Fuan Pharmaceutical Group Chongqing Bosen Pharma. Co., LTD",
       "city": "Zhongqing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52056,7 +52335,8 @@
       "classification": "OAI",
       "firm": "Zhengzhou Minzhong Pharmaceutical Co., Ltd.",
       "city": "Zhengzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52072,7 +52352,8 @@
       "classification": "OAI",
       "firm": "Shandong Vianor Biotech Co., Ltd.",
       "city": "Linyi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52088,7 +52369,8 @@
       "classification": "OAI",
       "firm": "Yangzhou Pioneer Household Products Co., Ltd.",
       "city": "Yangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52104,7 +52386,8 @@
       "classification": "OAI",
       "firm": "Shanghai Weierya Daily Chemicals Factory",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52120,7 +52403,8 @@
       "classification": "OAI",
       "firm": "Fresenius Kabi Oncology Limited",
       "city": "Baddi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52136,7 +52420,8 @@
       "classification": "OAI",
       "firm": "Kreative Organics Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52152,7 +52437,8 @@
       "classification": "OAI",
       "firm": "Vital Laboratories Pvt Ltd Plant II",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52168,7 +52454,8 @@
       "classification": "OAI",
       "firm": "Contacare Ophthalmics & Diagnostics",
       "city": "Dabhasa",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52184,7 +52471,8 @@
       "classification": "OAI",
       "firm": "Dr. Reddy's Laboratories Limited CTO VI",
       "city": "Srikakulam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52200,7 +52488,8 @@
       "classification": "OAI",
       "firm": "Wuxi Medical lnstrument Factory Co., Ltd.",
       "city": "Wuxi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52216,7 +52505,8 @@
       "classification": "OAI",
       "firm": "Jiangmen Nowadays Daily Goods Co., Ltd.",
       "city": "Jiangmen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52232,7 +52522,8 @@
       "classification": "OAI",
       "firm": "Dr. Reddy's Laboratories Ltd.",
       "city": "Visakhapatnam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52248,7 +52539,8 @@
       "classification": "OAI",
       "firm": "Galentic Pharma (India) Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52264,7 +52556,8 @@
       "classification": "OAI",
       "firm": "Galentic Pharma (India) Pvt. Ltd",
       "city": "Gandhidham",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52280,7 +52573,8 @@
       "classification": "OAI",
       "firm": "Mahendra Chemicals",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52296,7 +52590,8 @@
       "classification": "OAI",
       "firm": "Foshan Flying Medical Products Co., Ltd.",
       "city": "Foshan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52312,7 +52607,8 @@
       "classification": "OAI",
       "firm": "Changzhou Jintan Qianyao Pharmaceutical Raw Materials",
       "city": "Jintan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52328,7 +52624,8 @@
       "classification": "OAI",
       "firm": "Mylan Laboratories Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52344,7 +52641,8 @@
       "classification": "OAI",
       "firm": "Hetero Labs Limited (Unit V)",
       "city": "Mahabubnagar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52360,7 +52658,8 @@
       "classification": "OAI",
       "firm": "Xiamen Nature Caring Products Co., Ltd",
       "city": "Xiamen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52376,7 +52675,8 @@
       "classification": "OAI",
       "firm": "Divi's Laboratories Ltd. (Unit II)",
       "city": "Visakhapatnam District",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52392,7 +52692,8 @@
       "classification": "OAI",
       "firm": "Qinhuangdao Zizhu Pharmaceutical Co., Ltd.",
       "city": "Qinhuangdao",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52408,7 +52709,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Ltd.",
       "city": "Halol",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52424,7 +52726,8 @@
       "classification": "OAI",
       "firm": "Hetero Labs Ltd. Unit VI",
       "city": "Mahaboob Nagar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52440,7 +52743,8 @@
       "classification": "OAI",
       "firm": "Gauke Healthcare Co., Ltd.",
       "city": "Huanggang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52456,7 +52760,8 @@
       "classification": "OAI",
       "firm": "Hisun Pharmaceutical Hangzhou Co., Ltd",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52472,7 +52777,8 @@
       "classification": "OAI",
       "firm": "Vikshara Trading & Investment Ltd.",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52488,7 +52794,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Jiuzhou Pharmaceutical Sci-Tech Co., Ltd",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52504,7 +52811,8 @@
       "classification": "OAI",
       "firm": "Lumis Global Pharmaceuticals Co. Ltd.",
       "city": "Wuhan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52520,7 +52828,8 @@
       "classification": "OAI",
       "firm": "Megafine Pharma (P) Limited",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52536,7 +52845,8 @@
       "classification": "OAI",
       "firm": "Vista Pharmaceuticals Limited",
       "city": "Nalgonda District",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52552,7 +52862,8 @@
       "classification": "OAI",
       "firm": "Mylan Laboratories Limited",
       "city": "Nashik",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52568,7 +52879,8 @@
       "classification": "OAI",
       "firm": "Indoco Remedies Limited",
       "city": "Verna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52584,7 +52896,8 @@
       "classification": "OAI",
       "firm": "Tianjin Tianyao Pharmaceuticals Co., Ltd.",
       "city": "Tianjin Economic-Technological",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52600,7 +52913,8 @@
       "classification": "OAI",
       "firm": "Badrivishal Chemicals & Pharmaceuticals",
       "city": "Dist. Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52616,7 +52930,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Bangli Medical Products Co., Ltd",
       "city": "Yongkang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52632,7 +52947,8 @@
       "classification": "OAI",
       "firm": "Ausmetics Daily Chemicals (Guangzhou) Co. Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52648,7 +52964,8 @@
       "classification": "OAI",
       "firm": "Cadila Pharmaceuticals Limited",
       "city": "Ankleshwar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52664,7 +52981,8 @@
       "classification": "OAI",
       "firm": "Sal Pharma",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52680,7 +52998,8 @@
       "classification": "OAI",
       "firm": "USV Private Limited",
       "city": "Dabhel, Daman",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52696,7 +53015,8 @@
       "classification": "OAI",
       "firm": "Baoying County Fukang Medical Appliance Co., Ltd.",
       "city": "Yangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52712,7 +53032,8 @@
       "classification": "OAI",
       "firm": "Suzhou Pharmaceutical Technology Co.,Ltd",
       "city": "Suzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52728,7 +53049,8 @@
       "classification": "OAI",
       "firm": "Jinan Jinda Pharmaceutical Chemistry Co., Ltd.",
       "city": "Jinan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52744,7 +53066,8 @@
       "classification": "OAI",
       "firm": "Chongqing Carelife Pharmaceutical Co., Ltd.",
       "city": "Chongqing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52760,7 +53083,8 @@
       "classification": "OAI",
       "firm": "Cixi Zhixin Bird Clean-Care Product Co., Ltd.",
       "city": "Ningbo",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52776,7 +53100,8 @@
       "classification": "OAI",
       "firm": "Resonance Laboratories Private Limited",
       "city": "Doddaballapur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52792,7 +53117,8 @@
       "classification": "OAI",
       "firm": "Novacyl Wuxi Pharmaceutical Co., Ltd.",
       "city": "Wuxi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52808,7 +53134,8 @@
       "classification": "OAI",
       "firm": "S. Shamanna* Srikanta",
       "city": "Bangalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -52824,7 +53151,8 @@
       "classification": "OAI",
       "firm": "Dr. A. Sharda",
       "city": "Bangalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -52840,7 +53168,8 @@
       "classification": "OAI",
       "firm": "Jiangxi Yuneng Pharmaceutical Co., Ltd.",
       "city": "Jian",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52856,7 +53185,8 @@
       "classification": "OAI",
       "firm": "Chongqing Lummy Pharmaceutical Co. Ltd.",
       "city": "Chongqing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52872,7 +53202,8 @@
       "classification": "OAI",
       "firm": "Yunnan Hande Bio-Tech Co., Ltd.",
       "city": "Kunming",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52888,7 +53219,8 @@
       "classification": "OAI",
       "firm": "CTX Lifesciences Private Ltd.",
       "city": "Surat",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52904,7 +53236,8 @@
       "classification": "OAI",
       "firm": "Tianjin Zhongan Pharmaceutical Co., Ltd.",
       "city": "Tianjin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52920,7 +53253,8 @@
       "classification": "OAI",
       "firm": "Arbro Pharmaceuticals Limited",
       "city": "New Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52936,7 +53270,8 @@
       "classification": "OAI",
       "firm": "Yangzhou Hengyuan Daily Chemical Plastic Co., Ltd",
       "city": "Yangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52952,7 +53287,8 @@
       "classification": "OAI",
       "firm": "Xiamen Origin Biotech Co. Ltd.",
       "city": "Xiamen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52968,7 +53304,8 @@
       "classification": "OAI",
       "firm": "Taizhou Xinyou Pharmaceutical & Chemical Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -52984,7 +53321,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53000,7 +53338,8 @@
       "classification": "OAI",
       "firm": "Srikem Laboratories Private Ltd.",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53016,7 +53355,8 @@
       "classification": "OAI",
       "firm": "Vital Laboratories Pvt Ltd  Plant I",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53032,7 +53372,8 @@
       "classification": "OAI",
       "firm": "Wockhardt, Ltd.",
       "city": "Ankleshwar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53048,7 +53389,8 @@
       "classification": "OAI",
       "firm": "Pan Drugs Limited",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53064,7 +53406,8 @@
       "classification": "OAI",
       "firm": "Beijing Taiyang Pharmaceutical Industry Company Ltd",
       "city": "Beijing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53080,7 +53423,8 @@
       "classification": "OAI",
       "firm": "Beyond Technology Corporation Nanchang",
       "city": "Nanchang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53096,7 +53440,8 @@
       "classification": "OAI",
       "firm": "USV Private Limited",
       "city": "Govandi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53112,7 +53457,8 @@
       "classification": "OAI",
       "firm": "Dongying Tiandong Pharmaceutical Co Ltd",
       "city": "Dongying",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53128,7 +53474,8 @@
       "classification": "OAI",
       "firm": "Sunshine Lake Pharma Co., Ltd",
       "city": "Dongguan",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53144,7 +53491,8 @@
       "classification": "OAI",
       "firm": "Huzhou Aupower Sanitary Commodity",
       "city": "Huzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53160,7 +53508,8 @@
       "classification": "OAI",
       "firm": "Xinxiang Tuoxin Pharmaceutical Co. Ltd",
       "city": "Xinxiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53176,7 +53525,8 @@
       "classification": "OAI",
       "firm": "Hainan Hailing Chemipharma Corporation Limited",
       "city": "Haikou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53192,7 +53542,8 @@
       "classification": "OAI",
       "firm": "Xinxiang Pharmaceutical Co., Ltd.",
       "city": "Xinxiang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53208,7 +53559,8 @@
       "classification": "OAI",
       "firm": "OneSource Specialty Pharma Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53224,7 +53576,8 @@
       "classification": "OAI",
       "firm": "Yuxing Biotechnology (Group) Co., Ltd.",
       "city": "Xingtai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53240,7 +53593,8 @@
       "classification": "OAI",
       "firm": "Unimark Remedies Limited",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53256,7 +53610,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Hisoar Pharmaceutical Co. Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53272,7 +53627,8 @@
       "classification": "OAI",
       "firm": "Concept Products Limited",
       "city": "Xiqing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53288,7 +53644,8 @@
       "classification": "OAI",
       "firm": "SPH Sine Pharmaceutical Laboratories Co., Ltd.",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53304,7 +53661,8 @@
       "classification": "OAI",
       "firm": "Guangzhou Haishi Biological Technology Co., Ltd.",
       "city": "Guangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53320,7 +53678,8 @@
       "classification": "OAI",
       "firm": "Malwa Oxygen & Industrial Gases Pvt. Ltd.",
       "city": "Ratlam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53336,7 +53695,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Medicine Co. Ltd. Xinchang Pharmaceutical Factory",
       "city": "Xinchang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53352,7 +53712,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53368,7 +53729,8 @@
       "classification": "OAI",
       "firm": "Fresenius Kabi Oncology Limited",
       "city": "Baddi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53384,7 +53746,8 @@
       "classification": "OAI",
       "firm": "Unimark Remedies Limited",
       "city": "Vapi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53400,7 +53763,8 @@
       "classification": "OAI",
       "firm": "Megafine Pharma (P) Limited",
       "city": "Nashik",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53416,7 +53780,8 @@
       "classification": "OAI",
       "firm": "Tai Heng Industry Co., Ltd.",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53432,7 +53797,8 @@
       "classification": "OAI",
       "firm": "Porus Laboratories Pvt. Ltd- Unit I",
       "city": "Kodad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53448,7 +53814,8 @@
       "classification": "OAI",
       "firm": "Shanghai Desano Chemical Pharmaceutical Co., Ltd.",
       "city": "Pudong District",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53464,7 +53831,8 @@
       "classification": "OAI",
       "firm": "Canton Laboratories Private Ltd.",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53480,7 +53848,8 @@
       "classification": "OAI",
       "firm": "Suchem Laboratories",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53496,7 +53865,8 @@
       "classification": "OAI",
       "firm": "Valens Molecules Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53512,7 +53882,8 @@
       "classification": "OAI",
       "firm": "Zhuhai United Laboratories Co. Ltd.",
       "city": "Zhuhai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53528,7 +53899,8 @@
       "classification": "OAI",
       "firm": "Polydrug Laboratories Pvt. Ltd.",
       "city": "Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53544,7 +53916,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53560,7 +53933,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Hisun Pharmaceutical Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53576,7 +53950,8 @@
       "classification": "OAI",
       "firm": "Dr. Reddy's Laboratories Ltd.",
       "city": "Visakhapatnam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53592,7 +53967,8 @@
       "classification": "OAI",
       "firm": "Fresenius Kabi Oncology Limited",
       "city": "Nadia",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53608,7 +53984,8 @@
       "classification": "OAI",
       "firm": "Mylan Laboratories Limited",
       "city": "Anekal Taluk, Bangalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53624,7 +54001,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53640,7 +54018,8 @@
       "classification": "OAI",
       "firm": "Emcure Pharmaceuticals Limited",
       "city": "Pune",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53656,7 +54035,8 @@
       "classification": "OAI",
       "firm": "Dr. Reddy's Laboratories Limited",
       "city": "Nalgonda",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53672,7 +54052,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Pithampur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53688,7 +54069,8 @@
       "classification": "OAI",
       "firm": "Ipca Laboratories Limited",
       "city": "Silvassa",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53704,7 +54086,8 @@
       "classification": "OAI",
       "firm": "Zydus Lifesciences Limited",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53720,7 +54103,8 @@
       "classification": "OAI",
       "firm": "Sri Krishna Pharmaceuticals Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53736,7 +54120,8 @@
       "classification": "OAI",
       "firm": "Dr. Reddy's Laboratories Limited CTO VI",
       "city": "Srikakulam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53752,7 +54137,8 @@
       "classification": "OAI",
       "firm": "Ipca Laboratories Limited",
       "city": "Dhar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53768,7 +54154,8 @@
       "classification": "OAI",
       "firm": "Mylan Laboratories Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53784,7 +54171,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Ltd.",
       "city": "Halol",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53800,7 +54188,8 @@
       "classification": "OAI",
       "firm": "Zydus Lifesciences Limited",
       "city": "Taluka Sanand, Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53816,7 +54205,8 @@
       "classification": "OAI",
       "firm": "Yicheng Goto Pharmaceuticals Co., Ltd",
       "city": "Xiangyang",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53832,7 +54222,8 @@
       "classification": "OAI",
       "firm": "Sandoz Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53848,7 +54239,8 @@
       "classification": "OAI",
       "firm": "Xian Lijun Pharmaceutical Co., Ltd",
       "city": "Xian",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53864,7 +54256,8 @@
       "classification": "OAI",
       "firm": "Aarti Drugs Limited",
       "city": "Palghar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53880,7 +54273,8 @@
       "classification": "OAI",
       "firm": "Nantong Tianlong Animal By-products Co., Ltd",
       "city": "Nantong",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53896,7 +54290,8 @@
       "classification": "OAI",
       "firm": "OneSource Specialty Pharma Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53912,7 +54307,8 @@
       "classification": "OAI",
       "firm": "Sentiss Pharma Private Ltd.",
       "city": "District Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53928,7 +54324,8 @@
       "classification": "OAI",
       "firm": "Pan Drugs Ltd.",
       "city": "Nandesari, Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53944,7 +54341,8 @@
       "classification": "OAI",
       "firm": "Ipca Laboratories Limited",
       "city": "Ratlam",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53960,7 +54358,8 @@
       "classification": "OAI",
       "firm": "Apotex Research Private Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -53976,7 +54375,8 @@
       "classification": "OAI",
       "firm": "Cipla Limited",
       "city": "Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -53992,7 +54392,8 @@
       "classification": "OAI",
       "firm": "BE Pharmaceuticals Private Ltd.",
       "city": "Tehsil, Paonta Sahib",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54008,7 +54409,8 @@
       "classification": "OAI",
       "firm": "Mahendra Chemicals",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54024,7 +54426,8 @@
       "classification": "OAI",
       "firm": "Micro Labs Limited",
       "city": "Verna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54040,7 +54443,8 @@
       "classification": "OAI",
       "firm": "Kreative Organics Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54056,7 +54460,8 @@
       "classification": "OAI",
       "firm": "Keshava Organics Private Ltd.",
       "city": "Tarapur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54072,7 +54477,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Qianfei Enterprise Co. Ltd.",
       "city": "Jinhua",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54088,7 +54494,8 @@
       "classification": "OAI",
       "firm": "Yunnan Hande Bio-Tech Co., Ltd.",
       "city": "Kunming",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54104,7 +54511,8 @@
       "classification": "OAI",
       "firm": "China Resources Sanjiu Medical & Pharmaceutical Co., Ltd.",
       "city": "Shenzhen",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54120,7 +54528,8 @@
       "classification": "OAI",
       "firm": "Cadila Pharmaceuticals Limited",
       "city": "Ankleshwar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54136,7 +54545,8 @@
       "classification": "OAI",
       "firm": "Unimark Remedies Ltd.",
       "city": "Kerala",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54152,7 +54562,8 @@
       "classification": "OAI",
       "firm": "Sharp Global Limited",
       "city": "New Delhi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54168,7 +54579,8 @@
       "classification": "OAI",
       "firm": "Sipra Labs Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54184,7 +54596,8 @@
       "classification": "OAI",
       "firm": "Beijing Shunxin Meihua Bio-technical Co., Ltd.",
       "city": "Shunyi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54200,7 +54613,8 @@
       "classification": "OAI",
       "firm": "Apotex Pharmachem India Pvt Ltd.",
       "city": "Bangalore",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54216,7 +54630,8 @@
       "classification": "OAI",
       "firm": "Hainan Hailing Chemipharma Corporation Limited",
       "city": "Haikou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54232,7 +54647,8 @@
       "classification": "OAI",
       "firm": "Ceph Lifesciences Private Limited",
       "city": "Mohali",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54248,7 +54664,8 @@
       "classification": "OAI",
       "firm": "Ceph Lifesciences Private Limited",
       "city": "Tehsil Baddi, Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54264,7 +54681,8 @@
       "classification": "OAI",
       "firm": "Gland Chemicals Private Limited",
       "city": "Chennai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54280,7 +54698,8 @@
       "classification": "OAI",
       "firm": "Ningbo Unichem Bio Technology Co., Ltd.",
       "city": "Ningbo",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54296,7 +54715,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Limited - Karkhadi",
       "city": "Padra",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54312,7 +54732,8 @@
       "classification": "OAI",
       "firm": "Amanta Healthcare  Ltd.",
       "city": "Kheda",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54328,7 +54749,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Jiuzhou Pharmaceutical Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54344,7 +54766,8 @@
       "classification": "OAI",
       "firm": "Smruthi Organics Limited",
       "city": "Solapur District, Maharashtra",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54360,7 +54783,8 @@
       "classification": "OAI",
       "firm": "Novacyl Wuxi Pharmaceutical Co., Ltd.",
       "city": "Wuxi",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54376,7 +54800,8 @@
       "classification": "OAI",
       "firm": "Tianjin Zhongan Pharmaceutical Co., Ltd.",
       "city": "Tianjin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54392,7 +54817,8 @@
       "classification": "OAI",
       "firm": "Indoco Remedies Limited",
       "city": "Verna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54408,7 +54834,8 @@
       "classification": "OAI",
       "firm": "Reliance Life Sciences Private Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54424,7 +54851,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54440,7 +54868,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54456,7 +54885,8 @@
       "classification": "OAI",
       "firm": "Mylan Laboratories Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54472,7 +54902,8 @@
       "classification": "OAI",
       "firm": "USV Private Limited",
       "city": "Govandi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54488,7 +54919,8 @@
       "classification": "OAI",
       "firm": "USV Private Limited",
       "city": "Govandi",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Postmarket Surv. and Epidemiology"
     }
@@ -54504,7 +54936,8 @@
       "classification": "OAI",
       "firm": "Shilpa Pharma Lifesciences Limited",
       "city": "Chicksugur, Raichur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54520,7 +54953,8 @@
       "classification": "OAI",
       "firm": "Canton Laboratories Private Ltd.",
       "city": "Vadodara",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54536,7 +54970,8 @@
       "classification": "OAI",
       "firm": "Sentiss Pharma Private Ltd.",
       "city": "District Solan",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54552,7 +54987,8 @@
       "classification": "OAI",
       "firm": "Shanghai Life-Beauty Cosmetics Co., Ltd.",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54568,7 +55004,8 @@
       "classification": "OAI",
       "firm": "Wockhardt Limited",
       "city": "Aurangabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54584,7 +55021,8 @@
       "classification": "OAI",
       "firm": "Valens Molecules Private Limited",
       "city": "Hyderabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54600,7 +55038,8 @@
       "classification": "OAI",
       "firm": "RPG Life Sciences Limited",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54616,7 +55055,8 @@
       "classification": "OAI",
       "firm": "Unique Chemicals",
       "city": "Navi Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54632,7 +55072,8 @@
       "classification": "OAI",
       "firm": "Fresenius Kabi Oncology Limited",
       "city": "Nadia",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54648,7 +55089,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries, Inc.",
       "city": "Punjab",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54664,7 +55106,8 @@
       "classification": "OAI",
       "firm": "Sun Pharmaceutical Industries Limited",
       "city": "Mohali",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54680,7 +55123,8 @@
       "classification": "OAI",
       "firm": "RPG Life Sciences Limited",
       "city": "Ankleshwar, Bharuch",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54696,7 +55140,8 @@
       "classification": "OAI",
       "firm": "Aarti Drugs Ltd",
       "city": "Tarapur",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54712,7 +55157,8 @@
       "classification": "OAI",
       "firm": "Aarti Drugs Limited",
       "city": "Palghar",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54728,7 +55174,8 @@
       "classification": "OAI",
       "firm": "Gland Chemicals Private Limited",
       "city": "Chennai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54744,7 +55191,8 @@
       "classification": "OAI",
       "firm": "Fercy Personal Care Products Co., Ltd",
       "city": "Jinhua",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54760,7 +55208,8 @@
       "classification": "OAI",
       "firm": "Ningbo Unichem Bio Technology Co., Ltd.",
       "city": "Ningbo",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54776,7 +55225,8 @@
       "classification": "OAI",
       "firm": "Taizhou Kanglin Health Protection Products Co., Ltd.",
       "city": "Taizhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54792,7 +55242,8 @@
       "classification": "OAI",
       "firm": "Nantong Strip Medical Supply Co Ltd",
       "city": "Nantong",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54808,7 +55259,8 @@
       "classification": "OAI",
       "firm": "Shanghai Huhui Daily Use Chemical Products Co., Ltd.",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54824,7 +55276,8 @@
       "classification": "OAI",
       "firm": "Shiyao Wu MD",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -54840,7 +55293,8 @@
       "classification": "OAI",
       "firm": "Amsal Chem Pvt. Ltd.",
       "city": "Ankleshwar Gujarat",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54856,7 +55310,8 @@
       "classification": "OAI",
       "firm": "Somerset Therapeutics Private Limited",
       "city": "Bengaluru",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54872,7 +55327,8 @@
       "classification": "OAI",
       "firm": "Jianerkang Medical Co., Ltd",
       "city": "Changzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54888,7 +55344,8 @@
       "classification": "OAI",
       "firm": "Xylo Chem Industries",
       "city": "Nadiad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54904,7 +55361,8 @@
       "classification": "OAI",
       "firm": "Yag Mag Labs Private Limited",
       "city": "Medak District",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54920,7 +55378,8 @@
       "classification": "OAI",
       "firm": "Nivedita Chemicals Pvt. Ltd.",
       "city": "Mumbai",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54936,7 +55395,8 @@
       "classification": "OAI",
       "firm": "Zydus Lifesciences Limited",
       "city": "Taluka Sanand, Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54952,7 +55412,8 @@
       "classification": "OAI",
       "firm": "Aurobindo Pharma Limited",
       "city": "Sangareddy",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54968,7 +55429,8 @@
       "classification": "OAI",
       "firm": "Zhejiang G&f Foreign Trading Company",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -54984,7 +55446,8 @@
       "classification": "OAI",
       "firm": "Zhejiang Casing Animal By-Products Co.,Ltd.",
       "city": "Hangzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55000,7 +55463,8 @@
       "classification": "OAI",
       "firm": "Ningbo Smart Pharmaceutical Co., Ltd.",
       "city": "Ningbo",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55016,7 +55480,8 @@
       "classification": "OAI",
       "firm": "Nanjing Maohai Biotech Co.",
       "city": "Nanjing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55032,7 +55497,8 @@
       "classification": "OAI",
       "firm": "Aurobindo Pharma Ltd",
       "city": "Medchal",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55048,7 +55514,8 @@
       "classification": "OAI",
       "firm": "Synbiotics Limited",
       "city": "Luna",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55064,7 +55531,8 @@
       "classification": "OAI",
       "firm": "Sichuan Pharmaceutical Co., Ltd.",
       "city": "Chengdou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55080,7 +55548,8 @@
       "classification": "OAI",
       "firm": "Baxter Pharmaceuticals India Pvt Ltd",
       "city": "Ahmedabad",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55096,7 +55565,8 @@
       "classification": "OAI",
       "firm": "Yunnan Hande Bio-Tech Co., Ltd.",
       "city": "Kunming",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55112,7 +55582,8 @@
       "classification": "OAI",
       "firm": "Choksi Laboratory",
       "city": "Panchkula, Haryana",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55128,7 +55599,8 @@
       "classification": "OAI",
       "firm": "Stericon Pharma Pvt. Ltd.",
       "city": "Bommasandra",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55144,7 +55616,8 @@
       "classification": "OAI",
       "firm": "Qingdao Jiulong Biopharmaceutical Co. Ltd.",
       "city": "Qingdao",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55160,7 +55633,8 @@
       "classification": "OAI",
       "firm": "Nanjing Pharmaceutical Factory Co., Ltd.",
       "city": "Nanjing",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55176,7 +55650,8 @@
       "classification": "OAI",
       "firm": "Jilin Shulan Synthetic Pharmaceutical Co. Ltd.",
       "city": "Jilin",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55192,7 +55667,8 @@
       "classification": "OAI",
       "firm": "Xi'an Libang Pharmaceutical Co Ltd. API Plant",
       "city": "Xian",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55208,7 +55684,8 @@
       "classification": "OAI",
       "firm": "Kunshan Oriental Pharmaceutical Co., Ltd.",
       "city": "Suzhou",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }
@@ -55224,7 +55701,8 @@
       "classification": "OAI",
       "firm": "Qing Ming Yang, MD - Rui Jin Hospital Shanghai Second",
       "city": "Shanghai",
-      "country": "China",
+      "country": "CN",
+      "country_name": "China",
       "product_type": "Drugs",
       "project_area": "Bioresearch Monitoring"
     }
@@ -55240,7 +55718,8 @@
       "classification": "OAI",
       "firm": "Lupin Limited",
       "city": "Mandideep",
-      "country": "India",
+      "country": "IN",
+      "country_name": "India",
       "product_type": "Drugs",
       "project_area": "Drug Quality Assurance"
     }

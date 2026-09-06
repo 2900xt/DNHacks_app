@@ -26,10 +26,14 @@ from .qlik import WebSocket
 APP_TXT = "https://datadashboard.fda.gov/content/Apps/app.txt"
 WS = "wss://datadashboard.fda.gov/hdr/app/{app_id}"
 
+# `[Country Code]` is pulled alongside `[Country Name]` deliberately: the name form
+# ("China") does not compare against the ISO-2 the rest of the graph uses ("cn"),
+# and mixing the two silently defeated the entity-resolution country guard -
+# every inspection-derived bridge was refused for the wrong reason.
 FIELDS = ["[Inspection ID]", "[FEI Number]", "[Legal Name]", "[City Name]",
-          "[Country Name]", "[Street Address Line 1]", "[Inspection End Date]",
-          "[Classification Code]", "[Product Type]", "[Center]",
-          "[Project Area]", "[Posted Citations]"]
+          "[Country Name]", "[Country Code]", "[Street Address Line 1]",
+          "[Inspection End Date]", "[Classification Code]", "[Product Type]",
+          "[Center]", "[Project Area]", "[Posted Citations]"]
 
 #: Selections applied to the session BEFORE paging. Order matters: selections are
 #: session-wide, so they must precede the object we page.
@@ -37,7 +41,7 @@ SELECTIONS = [("Country Code", ["CN", "IN"]),
               ("Product Type", ["Drugs"]),
               ("Classification Code", ["OAI"])]
 
-PAGE_ROWS = 700          # 700 x 12 = 8,400 cells, under the 10,000-cell limit
+PAGE_ROWS = 700          # 700 x 13 = 9,100 cells, under the 10,000-cell limit
 
 
 def _app_id() -> str:
@@ -116,7 +120,8 @@ def load(*, refresh: bool = False) -> list[Signal]:
             payload={"classification": (r.get("Classification Code") or "").strip(),
                      "firm": (r.get("Legal Name") or "").strip(),
                      "city": (r.get("City Name") or "").strip(),
-                     "country": (r.get("Country Name") or "").strip(),
+                     "country": (r.get("Country Code") or "").strip().upper(),
+                     "country_name": (r.get("Country Name") or "").strip(),
                      "product_type": (r.get("Product Type") or "").strip(),
                      "project_area": (r.get("Project Area") or "").strip()},
         ))
