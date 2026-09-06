@@ -1,0 +1,1940 @@
+[
+  {
+    "id": "facility:fei:2000021110",
+    "type": "facility",
+    "label": "CSPC Ouyi Pharmaceutical Co., Ltd.",
+    "country": "cn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "2000021110",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "CSPC Ouyi Pharmaceutical Co., Ltd."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3000538793",
+    "type": "facility",
+    "label": "Fersinsa GB, SA de CV",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3000538793",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "Fersinsa GB, SA de CV"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3001027464",
+    "type": "facility",
+    "label": "UNKNOWN",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3001027464",
+      "city": null,
+      "signal_count": 20,
+      "ingredients": [
+        "AMOXICILLIN",
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "UNKNOWN"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3001124132",
+    "type": "facility",
+    "label": "Unknown",
+    "country": "ht",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3001124132",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Unknown"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3002128313",
+    "type": "facility",
+    "label": "SANUM-Kehlbeck GmbH & Co. KG",
+    "country": "de",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3002128313",
+      "city": null,
+      "signal_count": 6,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "SANUM-Kehlbeck GmbH & Co. KG"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3002138892",
+    "type": "facility",
+    "label": "Laboratorio Chile S.A.",
+    "country": "cl",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3002138892",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Laboratorio Chile S.A."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3002807772",
+    "type": "facility",
+    "label": "Novartis Pharma AG",
+    "country": "ch",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3002807772",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Novartis Pharma AG"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3002807977",
+    "type": "facility",
+    "label": "Sun Pharmaceutical Industries (prev. Ranbaxy)",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3002807977",
+      "city": null,
+      "signal_count": 7,
+      "ingredients": [
+        "AMOXICILLIN",
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "Sun Pharmaceutical Industries (prev. Ranbaxy)"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3002809586",
+    "type": "facility",
+    "label": "Sun Pharmaceutical Industries Ltd.",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3002809586",
+      "city": "Halol",
+      "signal_count": 45,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Sun Pharmaceutical Industries Ltd."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003196232",
+    "type": "facility",
+    "label": "CSPC Zhongnuo Pharmaceutical (Shijiazhuang) Co. Ltd",
+    "country": "cn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003196232",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "CSPC Zhongnuo Pharmaceutical (Shijiazhuang) Co. Ltd"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003339540",
+    "type": "facility",
+    "label": "Unipharm S.A",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003339540",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "Unipharm S.A"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003603933",
+    "type": "facility",
+    "label": "Antibioticos de Mexico S.A. de C.V.",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003603933",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Antibioticos de Mexico S.A. de C.V."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003646068",
+    "type": "facility",
+    "label": "M&H Manufacure Co.",
+    "country": "th",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003646068",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "M&H Manufacure Co."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003701036",
+    "type": "facility",
+    "label": "Novag Infancia S.A. de C.V.",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003701036",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "Novag Infancia S.A. de C.V."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003777306",
+    "type": "facility",
+    "label": "ESKAY THERAPEUTICS LTD",
+    "country": "gh",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003777306",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "ESKAY THERAPEUTICS LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003849441",
+    "type": "facility",
+    "label": "Reyoung Pharmaceutical Company, Ltd.",
+    "country": "cn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003849441",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "Reyoung Pharmaceutical Company, Ltd."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003893445",
+    "type": "facility",
+    "label": "Bayer, S.A.",
+    "country": "sv",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003893445",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "Bayer, S.A."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3003975165",
+    "type": "facility",
+    "label": "Bayer S.A.",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3003975165",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Bayer S.A."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3004021253",
+    "type": "facility",
+    "label": "Apitoria Pharma Private Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3004021253",
+      "city": "Sangareddy",
+      "signal_count": 2,
+      "ingredients": [],
+      "name_variants": [
+        "Apitoria Pharma Private Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3004446312",
+    "type": "facility",
+    "label": "Aurobindo Pharma Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3004446312",
+      "city": "Medchal",
+      "signal_count": 1,
+      "ingredients": [],
+      "name_variants": [
+        "Aurobindo Pharma Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3004497364",
+    "type": "facility",
+    "label": "Centrient Pharmaceuticals India Private Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3004497364",
+      "city": "Nawashahr",
+      "signal_count": 3,
+      "ingredients": [],
+      "name_variants": [
+        "Centrient Pharmaceuticals India Private Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3004611182",
+    "type": "facility",
+    "label": "Apitoria Pharma Private Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3004611182",
+      "city": "Srikakulam",
+      "signal_count": 1,
+      "ingredients": [],
+      "name_variants": [
+        "Apitoria Pharma Private Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3004993131",
+    "type": "facility",
+    "label": "Mankind Pharma Ltd.",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3004993131",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Mankind Pharma Ltd."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3005035920",
+    "type": "facility",
+    "label": "Caplin Steriles Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3005035920",
+      "city": null,
+      "signal_count": 5,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Caplin Steriles Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3005347358",
+    "type": "facility",
+    "label": "Selectepharma",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3005347358",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Selectepharma"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3005355215",
+    "type": "facility",
+    "label": "Laboratorios Lamfer",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3005355215",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AMOXICILLIN",
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "Laboratorios Lamfer"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3005943980",
+    "type": "facility",
+    "label": "Psicofarma S.A. de C.V.",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3005943980",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "Psicofarma S.A. de C.V."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3006370489",
+    "type": "facility",
+    "label": "Apitoria Pharma Private Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3006370489",
+      "city": "Sangareddy",
+      "signal_count": 1,
+      "ingredients": [],
+      "name_variants": [
+        "Apitoria Pharma Private Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3006585372",
+    "type": "facility",
+    "label": "Alkem Laboratories Ltd",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3006585372",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Alkem Laboratories Ltd"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3006812843",
+    "type": "facility",
+    "label": "Laproff",
+    "country": "co",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3006812843",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Laproff"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3008460260",
+    "type": "facility",
+    "label": "Umedica Laboratories Pvt. Ltd.",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3008460260",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Umedica Laboratories Pvt. Ltd."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3008616366",
+    "type": "facility",
+    "label": "Laboratorios Tornel, S.A.",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3008616366",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "Laboratorios Tornel, S.A."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3010875009",
+    "type": "facility",
+    "label": "Laborate Pharmaceutical (India)",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3010875009",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "Laborate Pharmaceutical (India)"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3010986279",
+    "type": "facility",
+    "label": "Tecnoquimicas Jamundi",
+    "country": "co",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3010986279",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Tecnoquimicas Jamundi"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3011105378",
+    "type": "facility",
+    "label": "Innova Captab Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3011105378",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "Innova Captab Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3011558880",
+    "type": "facility",
+    "label": "Pure And Cure Healthcare Pvt Ltd",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3011558880",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [],
+      "name_variants": [
+        "Pure And Cure Healthcare Pvt Ltd"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012092641",
+    "type": "facility",
+    "label": "East Asia Laboratories Inc",
+    "country": "ph",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012092641",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "East Asia Laboratories Inc"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012112224",
+    "type": "facility",
+    "label": "Acme Generics Private Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012112224",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Acme Generics Private Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012147269",
+    "type": "facility",
+    "label": "Alkem Health Science",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012147269",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "Alkem Health Science"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012189024",
+    "type": "facility",
+    "label": "Alkem Laboratories Pvt Ltd",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012189024",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Alkem Laboratories Pvt Ltd"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012387732",
+    "type": "facility",
+    "label": "LABORATORIOS RAAM DE SAHUAYO",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012387732",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "LABORATORIOS RAAM DE SAHUAYO"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012412295",
+    "type": "facility",
+    "label": "MAVI FARMACEUTICA S.A. DE C.V.",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012412295",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "MAVI FARMACEUTICA S.A. DE C.V."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012479877",
+    "type": "facility",
+    "label": "MEDREICH LTC",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012479877",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "MEDREICH LTC"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012835385",
+    "type": "facility",
+    "label": "PRODUCTOS FARMACEUTICOS COLLINS",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012835385",
+      "city": null,
+      "signal_count": 3,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "PRODUCTOS FARMACEUTICOS COLLINS"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3012849044",
+    "type": "facility",
+    "label": "ALEMBIC PHARAMACEUTICALS LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3012849044",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "ALEMBIC PHARAMACEUTICALS LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013034037",
+    "type": "facility",
+    "label": "CIPLA LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013034037",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "CIPLA LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013133263",
+    "type": "facility",
+    "label": "MERCK S A",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013133263",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "MERCK S A"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013172450",
+    "type": "facility",
+    "label": "PISA SA DE CV",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013172450",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "PISA SA DE CV"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013321590",
+    "type": "facility",
+    "label": "MEDREICH LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013321590",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "MEDREICH LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013358245",
+    "type": "facility",
+    "label": "LABORATORIOS MAVER DE MEXICO SA",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013358245",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "LABORATORIOS MAVER DE MEXICO SA"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013683027",
+    "type": "facility",
+    "label": "PRODUCTOS FARMACEUTICOS COLLINSSA",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013683027",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "PRODUCTOS FARMACEUTICOS COLLINSSA"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3013852651",
+    "type": "facility",
+    "label": "ANTIBIOTICOS DE MEXICO, S.A. DE",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3013852651",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "ANTIBIOTICOS DE MEXICO, S.A. DE"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3014203060",
+    "type": "facility",
+    "label": "Caplin Point Laboratories Limited",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3014203060",
+      "city": null,
+      "signal_count": 4,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Caplin Point Laboratories Limited"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3014215404",
+    "type": "facility",
+    "label": "Cipla Ltd.",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3014215404",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Cipla Ltd."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3014336016",
+    "type": "facility",
+    "label": "PRODUCTOS MAWER SA DE CV",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3014336016",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "PRODUCTOS MAWER SA DE CV"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3014467385",
+    "type": "facility",
+    "label": "LABORATORIOS SAVAL SA",
+    "country": "cl",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3014467385",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "LABORATORIOS SAVAL SA"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3014608010",
+    "type": "facility",
+    "label": "MEMPHIS",
+    "country": "co",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3014608010",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "MEMPHIS"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3015097566",
+    "type": "facility",
+    "label": "LAB BRULUAGSA SA DE",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3015097566",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "LAB BRULUAGSA SA DE"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3016660757",
+    "type": "facility",
+    "label": "ALKEM HEALTH SCIENCE",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3016660757",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "ALKEM HEALTH SCIENCE"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3016795085",
+    "type": "facility",
+    "label": "MEDIRICH LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3016795085",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "MEDIRICH LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3016902178",
+    "type": "facility",
+    "label": "LABORATORY CAPLIN POINT",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3016902178",
+      "city": null,
+      "signal_count": 4,
+      "ingredients": [
+        "AZITHROMYCIN",
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "LABORATORY CAPLIN POINT"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3017276614",
+    "type": "facility",
+    "label": "ZENTIVA SANOFI CO",
+    "country": "ng",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3017276614",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "ZENTIVA SANOFI CO"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3017358227",
+    "type": "facility",
+    "label": "MELTIC HEALTHCARE PVT. LTD.",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3017358227",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "MELTIC HEALTHCARE PVT. LTD."
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3017508628",
+    "type": "facility",
+    "label": "MEDOCHEMIE FAR EAST LTD",
+    "country": "vn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3017508628",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "MEDOCHEMIE FAR EAST LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3017586799",
+    "type": "facility",
+    "label": "SMITH KLINE BEECHAM",
+    "country": "gb",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3017586799",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "SMITH KLINE BEECHAM"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3018261369",
+    "type": "facility",
+    "label": "IPCA LABORATORIES LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3018261369",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "IPCA LABORATORIES LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3019640743",
+    "type": "facility",
+    "label": "A.C. Drugs LTD",
+    "country": "ng",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3019640743",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "A.C. Drugs LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3019967180",
+    "type": "facility",
+    "label": "Luoxin Aurovitas Pharma (Chengdu) Co., Ltd",
+    "country": "cn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3019967180",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "Luoxin Aurovitas Pharma (Chengdu) Co., Ltd"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3020027856",
+    "type": "facility",
+    "label": "PURE&PURE HEALTH CARE PVT LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3020027856",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "PURE&PURE HEALTH CARE PVT LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3021074016",
+    "type": "facility",
+    "label": "A & G SOLUTIONS GLOBAL LIMITED",
+    "country": "ng",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3021074016",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AMOXICILLIN",
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "A & G SOLUTIONS GLOBAL LIMITED"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3021180239",
+    "type": "facility",
+    "label": "AMSA ANTIBIOTICS OF MEXICO",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3021180239",
+      "city": null,
+      "signal_count": 3,
+      "ingredients": [
+        "AMOXICILLIN",
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "AMSA ANTIBIOTICS OF MEXICO"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3022720943",
+    "type": "facility",
+    "label": "OYINGBO MARKET",
+    "country": "ng",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3022720943",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "OYINGBO MARKET"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3023217365",
+    "type": "facility",
+    "label": "BYAL FHARMA LABORATORY",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3023217365",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "BYAL FHARMA LABORATORY"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3023724177",
+    "type": "facility",
+    "label": "HIKMA PHARMA ALGERIE",
+    "country": "dz",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3023724177",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "HIKMA PHARMA ALGERIE"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3024402565",
+    "type": "facility",
+    "label": "SMITHCLINE BEECHAM",
+    "country": "gb",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3024402565",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "SMITHCLINE BEECHAM"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3025995724",
+    "type": "facility",
+    "label": "Eskay Therapeutics",
+    "country": "gh",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3025995724",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Eskay Therapeutics"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3026480311",
+    "type": "facility",
+    "label": "AAVUGARI SURYA KIRAN",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3026480311",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "AAVUGARI SURYA KIRAN"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3027307557",
+    "type": "facility",
+    "label": "WASHINGTON SA LABORATORY",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3027307557",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "WASHINGTON SA LABORATORY"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3028782968",
+    "type": "facility",
+    "label": "ERNEST CHEMIST LTD",
+    "country": "gh",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3028782968",
+      "city": null,
+      "signal_count": 4,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "ERNEST CHEMIST LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030101032",
+    "type": "facility",
+    "label": "MEDICEF PHARMA",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030101032",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "MEDICEF PHARMA"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030135490",
+    "type": "facility",
+    "label": "Qiao Chen",
+    "country": "cn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030135490",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Qiao Chen"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030141467",
+    "type": "facility",
+    "label": "LABORATORIOS BRULUOGSA",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030141467",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "LABORATORIOS BRULUOGSA"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030298020",
+    "type": "facility",
+    "label": "LABORATORIES SAIMED SA DE CV",
+    "country": "sv",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030298020",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "LABORATORIES SAIMED SA DE CV"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030535151",
+    "type": "facility",
+    "label": "PFIZER",
+    "country": "dz",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030535151",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "PFIZER"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030579778",
+    "type": "facility",
+    "label": "MADREICH LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030579778",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "MADREICH LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030865907",
+    "type": "facility",
+    "label": "KAPLAN PHARMACEUTICAL LLC",
+    "country": "us",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030865907",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "KAPLAN PHARMACEUTICAL LLC"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3030952960",
+    "type": "facility",
+    "label": "CAPLIN POINT LABORATORIES LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3030952960",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "CAPLIN POINT LABORATORIES LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3031252682",
+    "type": "facility",
+    "label": "PRODUCTOS FARMACEUTICOS COLLINS",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3031252682",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMPICILLIN"
+      ],
+      "name_variants": [
+        "PRODUCTOS FARMACEUTICOS COLLINS"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3031342835",
+    "type": "facility",
+    "label": "laboratorio Qualipharm",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3031342835",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "PENICILLIN"
+      ],
+      "name_variants": [
+        "laboratorio Qualipharm"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3032004281",
+    "type": "facility",
+    "label": "CAPLIN POINT",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3032004281",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "CAPLIN POINT"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3032875160",
+    "type": "facility",
+    "label": "HONG KONG ZOEY TRADING CO.,LIMITED",
+    "country": "hk",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3032875160",
+      "city": null,
+      "signal_count": 7,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "HONG KONG ZOEY TRADING CO.,LIMITED"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3032967400",
+    "type": "facility",
+    "label": "PARKSLEY GLOBAL PRIVATE LIMITED",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3032967400",
+      "city": null,
+      "signal_count": 10,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "PARKSLEY GLOBAL PRIVATE LIMITED"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3033653789",
+    "type": "facility",
+    "label": "CADILA PHARMACEUTICALS LTD",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3033653789",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "CADILA PHARMACEUTICALS LTD"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3033931396",
+    "type": "facility",
+    "label": "AMSA LABORATORIES",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3033931396",
+      "city": null,
+      "signal_count": 2,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "AMSA LABORATORIES"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3035184258",
+    "type": "facility",
+    "label": "GRUPO COLLINS",
+    "country": "mx",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3035184258",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "GRUPO COLLINS"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3038291042",
+    "type": "facility",
+    "label": "OPHALAC",
+    "country": "co",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3038291042",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "OPHALAC"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3038310144",
+    "type": "facility",
+    "label": "LABORATORIES OF COSTA RICA",
+    "country": "cr",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3038310144",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "LABORATORIES OF COSTA RICA"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3038474344",
+    "type": "facility",
+    "label": "ARCO LIFESCIENCES",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3038474344",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "ARCO LIFESCIENCES"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3038627434",
+    "type": "facility",
+    "label": "PANDRE RAHUL",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3038627434",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "PANDRE RAHUL"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3038759586",
+    "type": "facility",
+    "label": "Home Furever",
+    "country": "ca",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3038759586",
+      "city": null,
+      "signal_count": 3,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Home Furever"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3039504604",
+    "type": "facility",
+    "label": "MR SURJIT SINGH",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3039504604",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "MR SURJIT SINGH"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3040659260",
+    "type": "facility",
+    "label": "Mo Fernando",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3040659260",
+      "city": null,
+      "signal_count": 3,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "Mo Fernando"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3041851827",
+    "type": "facility",
+    "label": "Ana Paula Lopes",
+    "country": "br",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3041851827",
+      "city": null,
+      "signal_count": 13,
+      "ingredients": [
+        "AZITHROMYCIN"
+      ],
+      "name_variants": [
+        "Ana Paula Lopes"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3043546502",
+    "type": "facility",
+    "label": "ARGUS SALUD PHARMA LLP",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3043546502",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "CEPHALOSPORIN"
+      ],
+      "name_variants": [
+        "ARGUS SALUD PHARMA LLP"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3043685760",
+    "type": "facility",
+    "label": "VERMA MEDICAL STORE",
+    "country": "in",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3043685760",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "VERMA MEDICAL STORE"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3044929420",
+    "type": "facility",
+    "label": "GENFAR",
+    "country": "co",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3044929420",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "GENFAR"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3045367857",
+    "type": "facility",
+    "label": "DROGUER A SAIMED DE HONDURAS",
+    "country": "hn",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3045367857",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "DROGUER A SAIMED DE HONDURAS"
+      ]
+    }
+  },
+  {
+    "id": "facility:fei:3046374010",
+    "type": "facility",
+    "label": "GRUPP PHENIEL JOSUE MONROY SUCES",
+    "country": "gt",
+    "resolved_by": "fei",
+    "attrs": {
+      "fei": "3046374010",
+      "city": null,
+      "signal_count": 1,
+      "ingredients": [
+        "AMOXICILLIN"
+      ],
+      "name_variants": [
+        "GRUPP PHENIEL JOSUE MONROY SUCES"
+      ]
+    }
+  }
+]
