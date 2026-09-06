@@ -1,0 +1,1537 @@
+{
+  "run_at": "2026-09-06",
+  "rule": "next-failure-v1",
+  "rule_text": "Logistic model on nine features of a plant's FDA inspection and import-refusal history at a cutoff, trained on every actively inspected drug establishment; predicts a failed inspection or a manufacturing import refusal in the following 12 months.",
+  "horizon_days": 365,
+  "trained_at": "2025-08-01",
+  "bands": {
+    "low": "<2%",
+    "raised": "2\u20136%",
+    "high": ">6%"
+  },
+  "model": {
+    "features": [
+      "oai_all",
+      "oai_3y",
+      "months_since_oai",
+      "vai_3y",
+      "refusal_mfg_3y",
+      "refusal_paper_3y",
+      "refusal_trend",
+      "country_cn",
+      "country_in"
+    ],
+    "intercept": -4.176813869096613,
+    "coefficients": {
+      "oai_all": 0.2651968709221826,
+      "oai_3y": 0.08353095054377319,
+      "months_since_oai": -0.28019367112229027,
+      "vai_3y": 0.2583638554117798,
+      "refusal_mfg_3y": 0.25868673692995076,
+      "refusal_paper_3y": 0.30083701012836234,
+      "refusal_trend": -0.030670816971826022,
+      "country_cn": 0.07897915227921798,
+      "country_in": -0.08037395106168721
+    },
+    "standardisation": {
+      "oai_all": {
+        "mu": 0.12442813607037793,
+        "sd": 0.32025933055517775
+      },
+      "oai_3y": {
+        "mu": 0.05488610299175914,
+        "sd": 0.19643068581814688
+      },
+      "months_since_oai": {
+        "mu": 109.59907685311505,
+        "sd": 29.733237074018838
+      },
+      "vai_3y": {
+        "mu": 0.2775573510519054,
+        "sd": 0.3494304527657157
+      },
+      "refusal_mfg_3y": {
+        "mu": 0.019246767362474035,
+        "sd": 0.16750382513772555
+      },
+      "refusal_paper_3y": {
+        "mu": 0.017541291820474716,
+        "sd": 0.13259059623136285
+      },
+      "refusal_trend": {
+        "mu": -0.008321964529331514,
+        "sd": 0.506505072862485
+      },
+      "country_cn": {
+        "mu": 0.05266030013642565,
+        "sd": 0.22335441102867706
+      },
+      "country_in": {
+        "mu": 0.10354706684856753,
+        "sd": 0.304672072556094
+      }
+    }
+  },
+  "not_modelled": [
+    "export bans and trade actions",
+    "fires, floods and other physical loss",
+    "a firm quietly leaving the US market",
+    "anything not in an FDA record \u2014 public records lag events by months"
+  ],
+  "plants": {
+    "company:name:teva-pharmaceutical-industries-ltd": {
+      "fei": "3002721084",
+      "label": "Teva Pharmaceutical Industries Ltd.",
+      "country": "IL",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 39 months ago"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:teva-pharmaceutical-industries-ltd"
+    },
+    "facility:fei:3002721084": {
+      "fei": "3002721084",
+      "label": "Teva Pharmaceutical Industries Ltd.",
+      "country": "IL",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 39 months ago"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3002721084"
+    },
+    "company:name:acs-dobfar-spa": {
+      "fei": "3002806298",
+      "label": "ACS DOBFAR SPA",
+      "country": "IT",
+      "p12": 0.0154,
+      "band": "low",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 33 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.307,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:acs-dobfar-spa"
+    },
+    "facility:fei:3002806293": {
+      "fei": "3002806293",
+      "label": "ACS DOBFAR SPA",
+      "country": "IT",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 47 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3002806293"
+    },
+    "facility:fei:3002806297": {
+      "fei": "3002806297",
+      "label": "ACS DOBFAR SPA",
+      "country": "IT",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 39 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3002806297"
+    },
+    "facility:fei:3002806298": {
+      "fei": "3002806298",
+      "label": "ACS DOBFAR SPA",
+      "country": "IT",
+      "p12": 0.0154,
+      "band": "low",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 33 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.307,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3002806298"
+    },
+    "company:name:sandoz-gmbh": {
+      "fei": "3004828473",
+      "label": "Sandoz GmbH",
+      "country": "AT",
+      "p12": 0.0664,
+      "band": "high",
+      "evidence": [
+        "1 shipment refused at the border on paperwork in three years",
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 30 months ago",
+        "border refusals are rising year on year"
+      ],
+      "drivers": {
+        "refusal_paper_3y": 1.533,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.6931,
+        "refusal_trend": 1.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:sandoz-gmbh",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "Nothing found \u2014 searches on Sandoz's Austrian sites (Kundl/Schaftenau) surfaced only capacity-expansion and investment news, no disruption events; note that my search budget was exhausted after a few queries, so this is a partial rather than exhaustive scan and a follow-up run is advisable.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3002806523": {
+      "fei": "3002806523",
+      "label": "Sandoz GmbH",
+      "country": "AT",
+      "p12": 0.0664,
+      "band": "high",
+      "evidence": [
+        "1 shipment refused at the border on paperwork in three years",
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 33 months ago",
+        "border refusals are rising year on year"
+      ],
+      "drivers": {
+        "refusal_paper_3y": 1.533,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.6931,
+        "refusal_trend": 1.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3002806523",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "No findings reported: the web search tool returned 'server tool use limit exceeded' on every attempt, so no news could be retrieved or identity-verified for Sandoz GmbH (AT, FEI 3002806523) \u2014 this is an inconclusive result rather than a confirmed clean record, and the search should be re-run.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa": {
+      "fei": "3002807242",
+      "label": "Istituto Biochimico Italiano Giovanni Lorenzini",
+      "country": "IT",
+      "p12": 0.0396,
+      "band": "raised",
+      "evidence": [
+        "2 inspections in the last three years found problems short of enforcement",
+        "1 failed FDA inspection on record, the most recent 110 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.607,
+        "oai_all": 0.471,
+        "refusal_paper_3y": -0.04
+      },
+      "features": {
+        "oai_all": 0.6931,
+        "oai_3y": 0.0,
+        "months_since_oai": 110.0667,
+        "vai_3y": 1.0986,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "nothing found - searches on Istituto Biochimico Italiano Giovanni Lorenzini (IBI/IBIGEN group, Italy) surfaced only company-profile material with no credible reports of fire, closure, recall, non-US regulatory action, market exit, or insolvency tied to this firm or FEI 3002807242 in the last 18 months; note that the search tool hit its usage limit, so coverage of Italian-language sources was partial and a re-run is advisable before treating this as exhaustive.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3002807242": {
+      "fei": "3002807242",
+      "label": "Istituto Biochimico Italiano Giovanni Lorenzini",
+      "country": "IT",
+      "p12": 0.0396,
+      "band": "raised",
+      "evidence": [
+        "2 inspections in the last three years found problems short of enforcement",
+        "1 failed FDA inspection on record, the most recent 110 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.607,
+        "oai_all": 0.471,
+        "refusal_paper_3y": -0.04
+      },
+      "features": {
+        "oai_all": 0.6931,
+        "oai_3y": 0.0,
+        "months_since_oai": 110.0667,
+        "vai_3y": 1.0986,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3002807242",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "nothing found - searches on Istituto Biochimico Italiano Giovanni Lorenzini (IBI/IBIGEN group, Italy) surfaced only company-profile material with no credible reports of fire, closure, recall, non-US regulatory action, market exit, or insolvency tied to this firm or FEI 3002807242 in the last 18 months; note that the search tool hit its usage limit, so coverage of Italian-language sources was partial and a re-run is advisable before treating this as exhaustive.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "company:name:yuhan-chemical-inc": {
+      "fei": "3008853591",
+      "label": "Yuhan Chemical Inc.",
+      "country": "KR",
+      "p12": 0.0154,
+      "band": "low",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 31 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.307,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:yuhan-chemical-inc"
+    },
+    "facility:fei:3004015296": {
+      "fei": "3004015296",
+      "label": "Yuhan Chemical Inc.",
+      "country": "KR",
+      "p12": 0.0154,
+      "band": "low",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 18 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.307,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3004015296"
+    },
+    "company:name:apitoria-pharma-private-ltd": {
+      "fei": "3004021253",
+      "label": "Apitoria Pharma Private Limited",
+      "country": "IN",
+      "p12": 0.0497,
+      "band": "raised",
+      "evidence": [
+        "2 failed FDA inspections on record, the most recent 60 months ago",
+        "1 inspection in the last three years found problems short of enforcement"
+      ],
+      "drivers": {
+        "oai_all": 0.807,
+        "months_since_oai": 0.46,
+        "vai_3y": 0.307
+      },
+      "features": {
+        "oai_all": 1.0986,
+        "oai_3y": 0.0,
+        "months_since_oai": 60.8,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "company:name:apitoria-pharma-private-ltd",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "Nothing found \u2014 searches surfaced only Aurobindo Pharma's transfer of its API business to its wholly-owned subsidiary Apitoria Pharma and routine FDA inspection notices (which are excluded from scope); no confirmed fire, closure, recall, non-US regulatory action, export ban, or financial-distress event tied to this company at FEI 3004021253, though search depth was limited by tool quota so coverage is not exhaustive.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3004021253": {
+      "fei": "3004021253",
+      "label": "Apitoria Pharma Private Limited",
+      "country": "IN",
+      "p12": 0.0497,
+      "band": "raised",
+      "evidence": [
+        "2 failed FDA inspections on record, the most recent 60 months ago",
+        "1 inspection in the last three years found problems short of enforcement"
+      ],
+      "drivers": {
+        "oai_all": 0.807,
+        "months_since_oai": 0.46,
+        "vai_3y": 0.307
+      },
+      "features": {
+        "oai_all": 1.0986,
+        "oai_3y": 0.0,
+        "months_since_oai": 60.8,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3004021253",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "Nothing found \u2014 searches surfaced only Aurobindo Pharma's transfer of its API business to its wholly-owned subsidiary Apitoria Pharma and routine FDA inspection notices (which are excluded from scope); no confirmed fire, closure, recall, non-US regulatory action, export ban, or financial-distress event tied to this company at FEI 3004021253, though search depth was limited by tool quota so coverage is not exhaustive.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3004051616": {
+      "fei": "3004051616",
+      "label": "Apitoria Pharma Private Limited",
+      "country": "IN",
+      "p12": 0.016,
+      "band": "low",
+      "evidence": [
+        "2 inspections in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 8 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.607,
+        "country_in": -0.236,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 1.0986,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3004051616"
+    },
+    "facility:fei:3004086884": {
+      "fei": "3004086884",
+      "label": "Apitoria Pharma Private Limited",
+      "country": "IN",
+      "p12": 0.0119,
+      "band": "low",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 23 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.307,
+        "country_in": -0.236,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3004086884"
+    },
+    "company:name:shandong-anxin-pharmaceutical-co-ltd": {
+      "fei": "3004229375",
+      "label": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 83 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:shandong-anxin-pharmaceutical-co-ltd"
+    },
+    "facility:fei:3004229375": {
+      "fei": "3004229375",
+      "label": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 83 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3004229375"
+    },
+    "company:name:centrient-pharmaceuticals-netherlands-bv": {
+      "fei": "3004497364",
+      "label": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
+      "country": "IN",
+      "p12": 0.0812,
+      "band": "high",
+      "evidence": [
+        "3 failed FDA inspections on record, the most recent 7 months ago"
+      ],
+      "drivers": {
+        "oai_all": 1.045,
+        "months_since_oai": 0.964,
+        "oai_3y": 0.271
+      },
+      "features": {
+        "oai_all": 1.3863,
+        "oai_3y": 0.6931,
+        "months_since_oai": 7.3,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "company:name:centrient-pharmaceuticals-netherlands-bv",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "No credible, site-specific supply-disruption news found for Centrient Pharmaceuticals India Pvt Ltd (Toansa, Nawanshahr, Punjab; FEI 3004497364) in the last ~18 months; the only company items surfaced were routine ESG/UN Global Compact announcements from the Dutch parent, an unconfirmed report of a Bain Capital sale process at parent level (not attributable to this site), and the 2022 FDA warning letter which is out of scope and out of window.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3004497364": {
+      "fei": "3004497364",
+      "label": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
+      "country": "IN",
+      "p12": 0.0812,
+      "band": "high",
+      "evidence": [
+        "3 failed FDA inspections on record, the most recent 7 months ago"
+      ],
+      "drivers": {
+        "oai_all": 1.045,
+        "months_since_oai": 0.964,
+        "oai_3y": 0.271
+      },
+      "features": {
+        "oai_all": 1.3863,
+        "oai_3y": 0.6931,
+        "months_since_oai": 7.3,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3004497364",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "No credible, site-specific supply-disruption news found for Centrient Pharmaceuticals India Pvt Ltd (Toansa, Nawanshahr, Punjab; FEI 3004497364) in the last ~18 months; the only company items surfaced were routine ESG/UN Global Compact announcements from the Dutch parent, an unconfirmed report of a Bain Capital sale process at parent level (not attributable to this site), and the 2022 FDA warning letter which is out of scope and out of window.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3004828473": {
+      "fei": "3004828473",
+      "label": "Sandoz GmbH",
+      "country": "AT",
+      "p12": 0.0664,
+      "band": "high",
+      "evidence": [
+        "1 shipment refused at the border on paperwork in three years",
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 30 months ago",
+        "border refusals are rising year on year"
+      ],
+      "drivers": {
+        "refusal_paper_3y": 1.533,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.6931,
+        "refusal_trend": 1.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3004828473",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "Nothing found \u2014 searches on Sandoz's Austrian sites (Kundl/Schaftenau) surfaced only capacity-expansion and investment news, no disruption events; note that my search budget was exhausted after a few queries, so this is a partial rather than exhaustive scan and a follow-up run is advisable.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "company:name:sandoz-industrial-products-sa": {
+      "fei": "3005403245",
+      "label": "Sandoz Industrial Products S.A",
+      "country": "ES",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 49 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:sandoz-industrial-products-sa"
+    },
+    "facility:fei:3005403245": {
+      "fei": "3005403245",
+      "label": "Sandoz Industrial Products S.A",
+      "country": "ES",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 49 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3005403245"
+    },
+    "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd": {
+      "fei": "3006272230",
+      "label": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 21 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd"
+    },
+    "facility:fei:3006272230": {
+      "fei": "3006272230",
+      "label": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 21 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3006272230"
+    },
+    "company:name:zhuhai-united-laboratories-co-ltd": {
+      "fei": "3006531950",
+      "label": "Zhuhai United Laboratories Co., Ltd",
+      "country": "CN",
+      "p12": 0.0997,
+      "band": "high",
+      "evidence": [
+        "4 failed FDA inspections on record, the most recent 37 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "oai_all": 1.23,
+        "months_since_oai": 0.683,
+        "country_cn": 0.335
+      },
+      "features": {
+        "oai_all": 1.6094,
+        "oai_3y": 0.0,
+        "months_since_oai": 37.1,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:zhuhai-united-laboratories-co-ltd",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "nothing found \u2014 searches for Zhuhai United Laboratories (FEI 3006531950) surfaced only patent/pipeline and routine corporate items, with no confirmable reports of fire, closure, recall, non-US regulatory action, export ban, market exit, or financial distress at this site in the last 18 months (note: search quota was exhausted before Chinese-language recall/shutdown queries could be completed, so coverage is partial).",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3006531950": {
+      "fei": "3006531950",
+      "label": "Zhuhai United Laboratories Co., Ltd",
+      "country": "CN",
+      "p12": 0.0997,
+      "band": "high",
+      "evidence": [
+        "4 failed FDA inspections on record, the most recent 37 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "oai_all": 1.23,
+        "months_since_oai": 0.683,
+        "country_cn": 0.335
+      },
+      "features": {
+        "oai_all": 1.6094,
+        "oai_3y": 0.0,
+        "months_since_oai": 37.1,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3006531950",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "nothing found \u2014 searches for Zhuhai United Laboratories (FEI 3006531950) surfaced only patent/pipeline and routine corporate items, with no confirmable reports of fire, closure, recall, non-US regulatory action, export ban, market exit, or financial distress at this site in the last 18 months (note: search quota was exhausted before Chinese-language recall/shutdown queries could be completed, so coverage is partial).",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "company:name:pure-and-cure-healthcare-private-ltd": {
+      "fei": "3007577941",
+      "label": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+      "country": "IN",
+      "p12": 0.0072,
+      "band": "low",
+      "evidence": [
+        "no FDA inspection on record",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_in": -0.236,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "company:name:pure-and-cure-healthcare-private-ltd"
+    },
+    "facility:fei:3007577941": {
+      "fei": "3007577941",
+      "label": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+      "country": "IN",
+      "p12": 0.0072,
+      "band": "low",
+      "evidence": [
+        "no FDA inspection on record",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_in": -0.236,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3007577941"
+    },
+    "facility:fei:3008176882": {
+      "fei": "3008176882",
+      "label": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+      "country": "IN",
+      "p12": 0.0072,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 131 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_in": -0.236,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3008176882"
+    },
+    "company:name:jiangxi-fushine-pharmaceutical-co-ltd": {
+      "fei": "3008177143",
+      "label": "Jiangxi Fushine Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0218,
+      "band": "raised",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 12 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:jiangxi-fushine-pharmaceutical-co-ltd",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "No credible disruption events (fire, closure, recall, export ban, non-US regulatory action, or financial distress) were found for Jiangxi Fushine Pharmaceutical (SZSE: 300497, Jingdezhen/Shangrao, Jiangxi) in the last 18 months; searches returned only routine company-profile and stock-listing pages, and note that search-tool quota was exhausted after limited queries, so coverage of Chinese-language sources was incomplete.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3008177143": {
+      "fei": "3008177143",
+      "label": "Jiangxi Fushine Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0218,
+      "band": "raised",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 12 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3008177143",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "No credible disruption events (fire, closure, recall, export ban, non-US regulatory action, or financial distress) were found for Jiangxi Fushine Pharmaceutical (SZSE: 300497, Jingdezhen/Shangrao, Jiangxi) in the last 18 months; searches returned only routine company-profile and stock-listing pages, and note that search-tool quota was exhausted after limited queries, so coverage of Chinese-language sources was incomplete.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "company:name:shandong-ruiying-pioneer-pharmaceutical-co-ltd": {
+      "fei": "3008320758",
+      "label": "Shandong Ruiying Pioneer Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0218,
+      "band": "raised",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 18 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:shandong-ruiying-pioneer-pharmaceutical-co-ltd"
+    },
+    "facility:fei:3008320758": {
+      "fei": "3008320758",
+      "label": "Shandong Ruiying Pioneer Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0218,
+      "band": "raised",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 18 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3008320758"
+    },
+    "facility:fei:3008853591": {
+      "fei": "3008853591",
+      "label": "Yuhan Chemical Inc.",
+      "country": "KR",
+      "p12": 0.0154,
+      "band": "low",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 31 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": 0.307,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3008853591"
+    },
+    "company:name:sinopharm-weiqida-pharmaceutical-co-ltd": {
+      "fei": "3010166430",
+      "label": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 39 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd"
+    },
+    "facility:fei:3010166430": {
+      "fei": "3010166430",
+      "label": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 39 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3010166430"
+    },
+    "company:name:the-united-laboratories-inner-mongolia-co-ltd": {
+      "fei": "3010166895",
+      "label": "The United Laboratories (Inner Mongolia) Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0218,
+      "band": "raised",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 3 months ago"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:the-united-laboratories-inner-mongolia-co-ltd"
+    },
+    "facility:fei:3010166895": {
+      "fei": "3010166895",
+      "label": "The United Laboratories (Inner Mongolia) Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0218,
+      "band": "raised",
+      "evidence": [
+        "1 inspection in the last three years found problems short of enforcement",
+        "no failed FDA inspection on record; last inspected 3 months ago"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": 0.307,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.6931,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3010166895"
+    },
+    "company:name:sterile-india-pvt-ltd": {
+      "fei": "3012144557",
+      "label": "Sharp Sterile Manufacturing, LLC",
+      "country": "US",
+      "p12": 0.084,
+      "band": "high",
+      "evidence": [
+        "2 failed FDA inspections on record, the most recent 6 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "months_since_oai": 0.976,
+        "oai_all": 0.807,
+        "oai_3y": 0.271
+      },
+      "features": {
+        "oai_all": 1.0986,
+        "oai_3y": 0.6931,
+        "months_since_oai": 6.0333,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:sterile-india-pvt-ltd",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "Nothing found \u2014 searches on Sharp Sterile Manufacturing, LLC (the Lee, Massachusetts fill/finish site formerly Berkshire Sterile Manufacturing, rebranded under Sharp Services after its October 2023 acquisition) surfaced only routine corporate news, including a $100 million network-wide capacity investment announced in October 2025 that adds $28 million of isolator-based sterile filling capacity at the Lee, MA site \u2014 an expansion, not a disruption; no fire, closure, recall, non-US regulatory action, product-line exit, sanction, or financial distress tied to this company at this site was identified.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "facility:fei:3012144557": {
+      "fei": "3012144557",
+      "label": "Sharp Sterile Manufacturing, LLC",
+      "country": "US",
+      "p12": 0.084,
+      "band": "high",
+      "evidence": [
+        "2 failed FDA inspections on record, the most recent 6 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "months_since_oai": 0.976,
+        "oai_all": 0.807,
+        "oai_3y": 0.271
+      },
+      "features": {
+        "oai_all": 1.0986,
+        "oai_3y": 0.6931,
+        "months_since_oai": 6.0333,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3012144557",
+      "news": {
+        "checked": true,
+        "findings": [],
+        "suggested_adjustment": 0.0,
+        "rationale": "Nothing found \u2014 searches on Sharp Sterile Manufacturing, LLC (the Lee, Massachusetts fill/finish site formerly Berkshire Sterile Manufacturing, rebranded under Sharp Services after its October 2023 acquisition) surfaced only routine corporate news, including a $100 million network-wide capacity investment announced in October 2025 that adds $28 million of isolator-based sterile filling capacity at the Lee, MA site \u2014 an expansion, not a disruption; no fire, closure, recall, non-US regulatory action, product-line exit, sanction, or financial distress tied to this company at this site was identified.",
+        "applied": false,
+        "searches": 4,
+        "parse_failed": false,
+        "note": "p12 is the model's number. News is evidence for a human, not an input to the score."
+      }
+    },
+    "company:name:shandong-anshun-pharmaceutical-co-ltd": {
+      "fei": "3015326904",
+      "label": "Shandong Anshun Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 35 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:shandong-anshun-pharmaceutical-co-ltd"
+    },
+    "facility:fei:3015326904": {
+      "fei": "3015326904",
+      "label": "Shandong Anshun Pharmaceutical Co., Ltd.",
+      "country": "CN",
+      "p12": 0.0132,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 35 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_cn": 0.335,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 1.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3015326904"
+    },
+    "company:name:fresenius-kabi-ipsum-srl": {
+      "fei": "3017296713",
+      "label": "FRESENIUS KABI IPSUM SRL",
+      "country": "IT",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 58 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "company:name:fresenius-kabi-ipsum-srl"
+    },
+    "facility:fei:3017296713": {
+      "fei": "3017296713",
+      "label": "FRESENIUS KABI IPSUM SRL",
+      "country": "IT",
+      "p12": 0.0093,
+      "band": "low",
+      "evidence": [
+        "no failed FDA inspection on record; last inspected 58 months ago",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "vai_3y": -0.205,
+        "oai_all": -0.103,
+        "months_since_oai": -0.098
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 0.0
+      },
+      "node_id": "facility:fei:3017296713"
+    },
+    "facility:fei:3024206690": {
+      "fei": "3024206690",
+      "label": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+      "country": "IN",
+      "p12": 0.0072,
+      "band": "low",
+      "evidence": [
+        "no FDA inspection on record",
+        "no shipments refused at the US border"
+      ],
+      "drivers": {
+        "country_in": -0.236,
+        "vai_3y": -0.205,
+        "oai_all": -0.103
+      },
+      "features": {
+        "oai_all": 0.0,
+        "oai_3y": 0.0,
+        "months_since_oai": 120.0,
+        "vai_3y": 0.0,
+        "refusal_mfg_3y": 0.0,
+        "refusal_paper_3y": 0.0,
+        "refusal_trend": 0.0,
+        "country_cn": 0.0,
+        "country_in": 1.0
+      },
+      "node_id": "facility:fei:3024206690"
+    }
+  },
+  "news_checked_at": "2026-09-06"
+}
