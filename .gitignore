@@ -103,3 +103,4 @@ data/cache/federal-register/text-*.txt
 !data/cache/federal-register/text-2026-11571.txt
 !data/cache/fda-inspections/*.csv
 data/cache/dmf/*.xlsx
+data/cache/openfda/ndc_bulk.zip
