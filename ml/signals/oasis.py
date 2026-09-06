@@ -43,6 +43,13 @@ SIGNAL_CHARGES = {"27": ("cGMP adulteration", "high"),
 PAPERWORK_CHARGES = {"118": ("not listed with FDA", "low"),
                      "472": ("labeling not in English", "low")}
 
+#: Countries the chokepoint graph is about. A refusal in Guatemala on an
+#: unrelated drug is a real refusal but not a chokepoint signal - it lands on a
+#: facility with no relationship to our six drugs, so it can never render and
+#: only costs bundle size and validator noise. Scope at the source rather than
+#: shipping 1,806 signals nothing can attach to.
+CHOKEPOINT_COUNTRIES = {"CN", "IN"}
+
 #: Ingredients the graph cares about. Substring matching on the product
 #: description is safe here (it is a controlled FDA vocabulary), EXCEPT for
 #: oxacillin - see below.
@@ -115,6 +122,11 @@ def load() -> list[Signal]:
             stats["no_fei"] += 1
             continue
 
+        country = (r.get("ISO_CNTRY_CODE") or "").strip().upper()
+        if country not in CHOKEPOINT_COUNTRIES and not ingredient:
+            stats["out_of_scope"] += 1
+            continue
+
         dedupe_key = (fei, r["REFUSAL_DATE"], code, (r.get("PRODUCT_CODE") or "").strip())
         if dedupe_key in merged:
             merged[dedupe_key].payload["entry_lines"] += 1
@@ -127,7 +139,7 @@ def load() -> list[Signal]:
             observed_at=iso(r["REFUSAL_DATE"], "%d-%b-%y"),   # e.g. 24-Jul-26
             url="https://www.accessdata.fda.gov/scripts/importrefusals/",
             payload={"firm": (r.get("LGL_NAME") or "").strip(),
-                     "country": (r.get("ISO_CNTRY_CODE") or "").strip(),
+                     "country": country,
                      "product": (r.get("PRDCT_CODE_DESC_TEXT") or "").strip(),
                      "product_code": (r.get("PRODUCT_CODE") or "").strip(),
                      "charge": code, "charge_label": label,
@@ -137,7 +149,8 @@ def load() -> list[Signal]:
     out = list(merged.values())
     print(f"  rows {stats['total']:,} -> drug {stats['drug']:,} -> "
           f"supply-chain {stats['signal']:,} + ingredient-gated paperwork "
-          f"{stats['paperwork']:,} -> {len(out):,} after collapsing entry lines")
+          f"{stats['paperwork']:,} -> out of scope {stats['out_of_scope']:,} "
+          f"-> {len(out):,} after collapsing entry lines")
     return require(out, "oasis", minimum=100)
 
 
