@@ -3,10 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { API_BASE, type DepotNode, type HistoryPoint } from "./depot";
 
-type Link = "connecting" | "live" | "down";
+export type Link = "connecting" | "live" | "down";
 
 /**
- * One connection to the depot service.
+ * One connection to the depot service. Called ONCE, by the console, which
+ * hands each country's slice to the depot section under that country — the
+ * stream is global, the depots are not.
  *
  * `/depot/stream` emits a single node per event, only when that node's state
  * actually changes, so this merges by node_id rather than replacing a list.

@@ -55,12 +55,21 @@ def main() -> int:
     for b in json.loads(SEED.read_text()):
         covers = []
         for name in b.get("covers_drugs") or []:
-            drug_id = io.drug_id(name)
+            # The seed carried BARE NAMES until route-ui switched it to `drug:` ids
+            # so the API and the graph agree without a translation step. Accept both:
+            # io.drug_id() on an already-prefixed id yields `drug:drug-oxacillin`,
+            # which is why step 10/10 of run_all.sh started refusing to write.
+            drug_id = name if str(name).startswith("drug:") else io.drug_id(name)
             if drug_id not in declared:
                 missing.append((b["node_id"], name, drug_id))
                 continue
             covers.append(drug_id)
-        bins.append({"id": b["node_id"], "label": b.get("label"), "covers_drugs": covers})
+        bins.append({
+            "id": b["node_id"], "label": b.get("label"), "covers_drugs": covers,
+            # ISO-2 of the point of interest the bin sits in. Depots are local to a
+            # country, and the console lists a bin only under its own.
+            "country": b.get("country"),
+        })
 
     for node_id, name, drug_id in missing:
         print(f"  ERROR {node_id}: covers_drugs {name!r} -> {drug_id} is not a declared node")

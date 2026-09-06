@@ -31,7 +31,7 @@ cannot trust is not a bin you can certify, and saying so is the honest answer.
 
 Emits `Telemetry` ([`../../contracts/schemas/telemetry.schema.json`](../../contracts/schemas/telemetry.schema.json))
 to `POST /telemetry`, with `node_id` naming the **bin** — devices are swappable,
-bins are not. The API turns that into a `DepotNode`
+bins are not — and `country` naming the **depot** it sits in (see below). The API turns that into a `DepotNode`
 ([`../../contracts/schemas/depot.schema.json`](../../contracts/schemas/depot.schema.json))
 for the graph.
 
@@ -77,7 +77,20 @@ is GPIO 0/2/4/12–15/25–27; GPIO19 is VSPI MISO with no ADC attached, and
 either — they stop working the moment WiFi comes up. `include/pins.h` fails the
 build with an explanation if anyone moves the pin off ADC1.
 
-Edit [`include/config.h`](include/config.h) for WiFi, `API_BASE`, and `NODE_ID`.
+Edit [`include/config.h`](include/config.h) for WiFi, `API_BASE`, `NODE_ID`, and
+`DEPOT_COUNTRY`.
+
+### The node says where it is
+
+Depots are **local**, not global. Each point of interest the supplies flow in and
+out of — a country node in the graph — has its own depot, and a bin belongs to
+exactly one of them. `DEPOT_COUNTRY` (ISO-2, e.g. `"us"`) rides on every reading
+as `country`; the API homes the bin there, and the console lists it **only** in
+that country's depot section — under the US, never under China or India. Carry
+the node to another depot: change the one constant, reflash. The seed in
+`services/api/seed/depot_bins.json` carries a default per bin, but what the
+device says wins, because the device is the one thing that is actually where it
+is. The face shows it on the second line (`depot US`).
 
 **Verified compiling** on both envs: `m5stack` 1040 KB flash / 50 KB RAM,
 `esp32dev` 957 KB / 48 KB. Untested against real hardware — nobody has flashed a

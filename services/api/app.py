@@ -84,6 +84,9 @@ class Telemetry(BaseModel):
 
     device_id: str = Field(min_length=1)
     node_id: Optional[str] = None
+    # ISO-2 of the depot's country. The device is configured with it
+    # (DEPOT_COUNTRY) and repeats it on every reading — see depot.Bin.country.
+    country: Optional[str] = Field(default=None, min_length=2, max_length=2)
     ts: Optional[str] = None
     seq: Optional[int] = None
     readings: dict[str, Any]
@@ -106,19 +109,32 @@ def post_telemetry(t: Telemetry) -> dict[str, Any]:
     b = BINS.get(node_id)
     if b is None:
         # A device flashed at 4am with a typo'd node_id must SHOW UP, not 404.
+        # It still lands in the country it says it is in, so it is findable
+        # under that depot rather than lost in a global list.
         b = Bin(node_id=node_id, label=f"Unregistered — {node_id}", storage_class="crt")
         _tune(b)
         BINS[node_id] = b
 
-    b.ingest(t.readings, now, device_id=t.device_id, battery_pct=t.battery_pct)
+    b.ingest(t.readings, now, device_id=t.device_id, battery_pct=t.battery_pct,
+             country=t.country)
     status, _ = b.status(now)
     return {"accepted": True, "node_id": node_id, "status": status}
 
 
 @app.get("/depot/nodes")
-def list_nodes() -> list[dict[str, Any]]:
+def list_nodes(country: Optional[str] = None) -> list[dict[str, Any]]:
+    """Every bin, or only the bins in one country's depot.
+
+    Depots are local to a point of interest — the country where the supplies
+    flow in and out — not one global list. The console asks per country, so a
+    node reporting from the US is listed under the US and under nothing else.
+    """
     now = time.time()
-    nodes = [b.to_node(now) for b in BINS.values()]
+    want = country.strip().lower() if country else None
+    nodes = [
+        b.to_node(now) for b in BINS.values()
+        if want is None or (b.country or "").lower() == want
+    ]
     nodes.sort(key=lambda n: (STATUS_RANK.get(n["status"], 9), n["node_id"]))
     return nodes
 

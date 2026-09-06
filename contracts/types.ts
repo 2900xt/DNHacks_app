@@ -47,9 +47,25 @@ export interface Signal {
 
 export interface Compliance {
   node_id: NodeId
-  taa_pass?: boolean
-  on_1260h?: boolean
+  /** true = pass · false = fail · null/absent = honestly undetermined. */
+  taa_pass?: boolean | null
+  on_1260h?: boolean | null
   evidence?: Record<string, unknown>
+}
+
+/** web/data/jurisdictions.json — the buyer-side rule table, emitted by
+ *  `ml/compliance.py --jurisdictions`. Two rule sets carry a citation: the US
+ *  (TAA + 1260H, precomputed into compliance.json) and WTO GPA reciprocity
+ *  (party list = the "WTO GPA country" bucket of FAR 25.003). Any other buyer
+ *  is 'none' — an honest gap, not a verdict. */
+export interface Jurisdictions {
+  generated_at?: string
+  source?: Record<string, unknown>
+  /** ISO-2, lowercased. Includes 'us'. */
+  gpa_parties: string[]
+  /** What the buyer picker offers, in display order. */
+  buyers: { iso2: string; label: string }[]
+  rules?: Record<string, { label: string; checks: string[]; citation?: string }>
 }
 
 export interface Bin {
@@ -57,6 +73,9 @@ export interface Bin {
   label?: string
   /** `drug:` ids. The hardware -> graph seam. */
   covers_drugs: NodeId[]
+  /** ISO-2, lowercased — the `country:` node whose depot this bin sits in.
+   *  Depots are local to a point of interest, not global. */
+  country?: string
 }
 
 /** Live only — in-memory ring buffer in the API, never written to disk. */

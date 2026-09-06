@@ -62,6 +62,23 @@ interface Plant {
   city: string | null
 }
 
+/** Three letters for a plant's city, the way a departures board would write
+ *  it. Default is the first three letters of the DECRS city; the overrides
+ *  are the places where that reads as the wrong town or as nothing at all. */
+const CITY_CODE: Record<string, string> = {
+  huhehaote: 'HOH',        // Hohhot
+  'bayan nur': 'BYN',
+  'kfar saba': 'KFS',
+  'ansan-si': 'ANS',
+  "albano sant'alessandro": 'ALB',
+}
+function cityCode(city: string | null, country: string | null | undefined): string {
+  if (!city) return (country ?? '').toUpperCase()
+  const key = city.trim().toLowerCase()
+  if (CITY_CODE[key]) return CITY_CODE[key]
+  return key.replace(/[^a-z]/g, '').slice(0, 3).toUpperCase()
+}
+
 /** The buyer. Every arc terminates here — that is why the globe is worth drawing. */
 const DEST = 'us'
 
@@ -450,14 +467,13 @@ export default function GlobeView({
     g.ringsData(rings)
     g.arcsData(arcs)
 
-    // The count over a country is the plants in THIS drug's chain that sit
-    // there — the same plants the tree bands show — not every registered
-    // holder in the graph. Two numbers for one thing is one number too many.
-    // Distinct PLANTS, not filings: Sandoz at Kundl holds a filing in both
-    // registers and is one plant. After a disruption the number is the plants
-    // still shipping. A country with no plant in this chain gets no number.
-    const chainCount = new Map<string, number>()
+    // Each plant in THIS drug's chain gets its city's three-letter code, set
+    // small and pale beside the marker: the marker already says "a plant is
+    // here", the code says where, and the tree bands say how many. A country
+    // whose plants are all dark gets one word at its centroid instead — that
+    // is the one thing the codes cannot say on their own.
     const standingCount = new Map<string, number>()
+    const chainCount = new Map<string, number>()
     for (const pl of plants) {
       const id = pl.node.id
       if (!apiIds.has(id) && !preIds.has(id)) continue
@@ -465,30 +481,37 @@ export default function GlobeView({
       chainCount.set(iso, (chainCount.get(iso) ?? 0) + 1)
       if (!cut.has(id)) standingCount.set(iso, (standingCount.get(iso) ?? 0) + 1)
     }
-    const labels: any[] = [...jurisdictions.entries()].filter(([iso]) => (chainCount.get(iso) ?? 0) > 0).map(([iso, j]) => {
-      const c = world.centroids[iso]
-      const r = byIso.get(iso)
-      const on = lit.has(j.node.id)
-      const dead = rerouting && !!r && r.down
-      const isRoute = showRoute && iso === routeIso
-      return {
-        lat: c.lat, lng: c.lng,
-        text: rerouting && (standingCount.get(iso) ?? 0) === 0
-          ? (halted.has(iso) ? 'EXPORTS HALTED' : 'OFFLINE')
-          : String(rerouting ? standingCount.get(iso) ?? 0 : chainCount.get(iso) ?? 0),
-        // A word needs to sit smaller than a two-character count or it swamps
-        // the country it is labelling.
-        size: dead ? 0.95 : isRoute ? 1.3 : rerouting ? 1.5 : 1.8,
-        color: dead ? (halted.has(iso) ? 'rgba(217,144,58,0.85)' : 'rgba(150,162,178,0.7)')
+    const labels: any[] = []
+    for (const pl of plants) {
+      const id = pl.node.id
+      if (!apiIds.has(id) && !preIds.has(id)) continue
+      const iso = pl.node.country ?? ''
+      const dead = rerouting && cut.has(id)
+      const isRoute = routeChain.has(id)
+      labels.push({
+        lat: pl.lat, lng: pl.lng,
+        text: cityCode(pl.city, pl.node.country),
+        size: isRoute ? 0.8 : 0.66,
+        color: dead ? (halted.has(iso) ? 'rgba(217,144,58,0.6)' : 'rgba(150,162,178,0.45)')
           : isRoute ? '#b6f0d0'
-          : rerouting ? '#ffd7d8'
-          : on ? '#ffd7d8' : 'rgba(205,218,232,0.62)',
-        // The points layer draws the marker now; a second dot here would sit
-        // inside the first one and fight it.
+          : 'rgba(210,218,228,0.78)',
+        dot: 0,
+        nodeId: id,
+      })
+    }
+    for (const [iso, j] of jurisdictions) {
+      if ((chainCount.get(iso) ?? 0) === 0) continue
+      if (!rerouting || (standingCount.get(iso) ?? 0) > 0) continue
+      const c = world.centroids[iso]
+      labels.push({
+        lat: c.lat, lng: c.lng,
+        text: halted.has(iso) ? 'EXPORTS HALTED' : 'OFFLINE',
+        size: 0.95,
+        color: halted.has(iso) ? 'rgba(217,144,58,0.85)' : 'rgba(150,162,178,0.7)',
         dot: 0,
         nodeId: j.node.id,
-      }
-    })
+      })
+    }
     labels.push({
       lat: dest.lat, lng: dest.lng,
       text: '',

@@ -645,7 +645,10 @@ export function layoutTree(tree: TreeNode | null): TreeLayout {
           iso,
           label: t.countryLabel ?? 'Country unresolved',
           countryId: t.countryId ?? '',
-          x: GUTTER + PAD_X, w, y: y - GROUP_LABEL_H + 2, h,
+          // Every band spans both leaf columns, even a band of one. The
+          // trunk runs down the gap between the columns (see trunkPath), and
+          // a narrow band would put its right edge exactly under that line.
+          x: GUTTER + PAD_X, w: colW, y: y - GROUP_LABEL_H + 2, h,
           ids: [],
         }
         groups.push(group)
@@ -704,13 +707,56 @@ export function feedPath(parent: Placed, child: Placed): string {
   return `M${x1},${y1} Q${x1},${y1 + 22} ${xm},${y1 + 22} V${y2 - 22} Q${xm},${y2} ${x2},${y2}`
 }
 
+/** Between two boxes on the same centre line — drug to api — a straight drop.
+ *  Anything else falls back to the old S-curve, which no current layout uses. */
 export function branchPath(parent: Placed, child: Placed): string {
   const x1 = parent.x + parent.w / 2
   const y1 = parent.y + parent.h
   const x2 = child.x + child.w / 2
   const y2 = child.y
+  if (Math.abs(x1 - x2) < 1) return `M${x1},${y1} V${y2}`
   const d = Math.max(18, (y2 - y1) * 0.55)
   return `M${x1},${y1} C${x1},${y1 + d} ${x2},${y2 - d} ${x2},${y2}`
+}
+
+/*
+ * Suppliers hang off a TRUNK, not off seven curves from one point.
+ *
+ * The curves crossed every row between the parent and a far child, so which
+ * line reached which box was a guess — and the diagram exists to show exactly
+ * that: switch a supplier off and read what is downstream of it. Orthogonal
+ * routing makes the connection followable: one vertical from the parent's foot
+ * down the gap between the two leaf columns (the one vertical in this layout
+ * that crosses no box, since parents are centred over that gap), and one elbow
+ * per child that leaves the trunk along the row gap above the child and drops
+ * into its top edge. Nothing overlaps a box; every line has one owner.
+ */
+/** Corner radius on an elbow. Small: a corner reads as a turn, a curve as a guess. */
+export const ELBOW_R = 6
+/** How far above a child's top edge its elbow runs. Inside LEAF_ROW_GAP (12)
+ *  and below the band label's baseline (child.y - 14), so it crosses nothing. */
+export const ELBOW_Y = 7
+
+/** The trunk under a parent: from its foot to just above the last elbow. */
+export function trunkPath(parent: Placed, children: Placed[]): string {
+  const x = parent.x + parent.w / 2
+  const y1 = parent.y + parent.h
+  const y2 = Math.max(...children.map((c) => c.y)) - ELBOW_Y - ELBOW_R
+  return `M${x},${y1} V${Math.max(y1, y2)}`
+}
+
+/** One child's elbow off the trunk: out along the row gap above it, then down
+ *  into its own top edge. */
+export function elbowPath(parent: Placed, child: Placed): string {
+  const tx = parent.x + parent.w / 2
+  const cx = child.x + child.w / 2
+  const y = child.y - ELBOW_Y
+  const dx = cx - tx
+  if (Math.abs(dx) < 1) return `M${tx},${y - ELBOW_R} V${child.y}`
+  const r = Math.min(ELBOW_R, Math.abs(dx) / 2, ELBOW_Y)
+  const s = dx > 0 ? 1 : -1
+  return `M${tx},${y - r} Q${tx},${y} ${tx + s * r},${y} `
+    + `H${cx - s * r} Q${cx},${y} ${cx},${y + r} V${child.y}`
 }
 
 // ---------------------------------------------------------------------------

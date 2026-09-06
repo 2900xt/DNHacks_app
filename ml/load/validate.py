@@ -10,7 +10,7 @@ Contract: DNHacks_brain/team/briefs/README.md - "The data contract"
     edges.*.json       [{ src, dst, rel, layer, citation }]
     compliance.json    [{ node_id, taa_pass, on_1260h, evidence }]
     signals.json       [{ node_id, kind, severity, source, observed_at, url, payload }]
-    bins.json          [{ id, label, covers_drugs }]
+    bins.json          [{ id, label, covers_drugs, country }]
     backtest.json      { run_at, cutoff, params, result }
 
 Usage:
@@ -59,7 +59,7 @@ COMPLIANCE_KEYS = {"node_id", "taa_pass", "on_1260h", "evidence"}
 COMPLIANCE_REQUIRED = {"node_id", "evidence"}
 SIGNAL_KEYS = {"node_id", "kind", "severity", "source", "observed_at", "url", "payload"}
 SIGNAL_REQUIRED = {"node_id", "kind", "observed_at"}
-BIN_KEYS = {"id", "label", "covers_drugs"}
+BIN_KEYS = {"id", "label", "covers_drugs", "country"}
 BIN_REQUIRED = {"id", "covers_drugs"}
 
 RESOLVED_BY = {"fei", "duns", "fuzzy"}
@@ -354,8 +354,8 @@ def main() -> int:
         elif name == "signals.json":
             referenced |= validate_signals(path, rep)
         elif name in ("backtest.json", "eo14336.citation.json", "cascade_rules.json",
-                      "audit.json", "audit.jsonl", "reroute.json",
-                      "risk.json"):
+                      "audit.json", "audit.jsonl", "reroute.json", "jurisdictions.json",
+                      "geo.json", "risk.json"):
             # Producer artifacts, not graph data. Each has an owner who defines its
             # shape; validating them here would mean duplicating that shape in two
             # places and letting the copies drift.
@@ -367,6 +367,8 @@ def main() -> int:
             #                          shape check could, and a naive rewrite here
             #                          would break the hash chain
             #   reroute.json           AEGIS route output, emitted by ml/aegis.py --write
+            #   jurisdictions.json     buyer-side rule table (WTO GPA parties), emitted by
+            #                          ml/compliance.py --jurisdictions
             #   risk.json              next-failure model output, ml/risk/emit.py
             continue
         else:
