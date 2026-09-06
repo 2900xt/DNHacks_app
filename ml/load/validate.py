@@ -353,10 +353,19 @@ def main() -> int:
             referenced |= validate_bins(path, rep)
         elif name == "signals.json":
             referenced |= validate_signals(path, rep)
-        elif name in ("backtest.json", "eo14336.citation.json", "cascade_rules.json"):
-            # backtest.json is a single object and Nikhil owns its shape.
-            # eo14336.citation.json is a pinned citation, deliberately not graph data.
-            # cascade_rules.json is Parth's thresholds for graph.ts, not graph data.
+        elif name in ("backtest.json", "eo14336.citation.json", "cascade_rules.json",
+                      "audit.json", "audit.jsonl", "reroute.json"):
+            # Producer artifacts, not graph data. Each has an owner who defines its
+            # shape; validating them here would mean duplicating that shape in two
+            # places and letting the copies drift.
+            #   backtest.json          a single object, Nikhil owns its shape
+            #   eo14336.citation.json  a pinned citation, deliberately not graph data
+            #   cascade_rules.json     Parth's risk thresholds, consumed by graph.ts
+            #   audit.json/.jsonl      Nikhil's tamper-evident chain; ml/audit.py
+            #                          --verify checks it far more strictly than a
+            #                          shape check could, and a naive rewrite here
+            #                          would break the hash chain
+            #   reroute.json           AEGIS route output, emitted by ml/aegis.py --write
             continue
         else:
             rep.warn(name, "not a file the contract names — nothing validated")
