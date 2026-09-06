@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useDepot, useTicker } from '../lib/useDepot'
+import { useTicker, type Link } from '../lib/useDepot'
 import { API_BASE, STATUS_LABEL, causeOf, fmt, type DepotNode } from '../lib/depot'
 import Metric from './Metric'
 
@@ -15,28 +15,51 @@ const TONE: Record<string, 'ok' | 'warn' | 'alarm' | 'plain'> = {
 }
 
 /**
- * The physical half: every bin in the depot, not just one.
+ * The physical half: every bin in ONE depot — the one under the country the
+ * operator has selected — not every bin everywhere.
+ *
+ * Depots are local to a point of interest, the place the supplies flow in and
+ * out of. A node is configured with the country it sits in (DEPOT_COUNTRY on
+ * the device) and says so on every reading; the console slices the global
+ * stream by that and hands this panel the slice. A sensor in the US is listed
+ * under the US and under no other country, so "this bin is condemned" is also
+ * a sentence about where.
  *
  * Hover previews a bin's readings; clicking pins it so the pointer can leave.
  * A depot has many bins and only some carry a live node — showing the whole
  * list is what makes "this one is condemned" mean anything.
  */
-export default function DepotPanel({ onBreach }: { onBreach?: (drugs: string[]) => void }) {
+export default function DepotPanel({ bins, link, place, onBreach }: {
+  bins: DepotNode[]
+  link: Link
+  /** The country's name, for the empty state. */
+  place: string
+  onBreach?: (drugs: string[]) => void
+}) {
   useTicker(1000)
-  const { nodes, link } = useDepot()
   const [pinned, setPinned] = useState<string | null>(null)
   const [hovered, setHovered] = useState<string | null>(null)
 
-  const list = Object.values(nodes)
-  const fallback = list.find((n) => n.latest) ?? list[0]
+  const byId = new Map(bins.map((n) => [n.node_id, n]))
+  const fallback = bins.find((n) => n.latest) ?? bins[0]
   const active: DepotNode | undefined =
-    (hovered && nodes[hovered]) || (pinned && nodes[pinned]) || fallback
+    (hovered && byId.get(hovered)) || (pinned && byId.get(pinned)) || fallback
 
-  if (list.length === 0) {
+  if (bins.length === 0) {
+    // A metric, not a rail-head: the section hides its first rail-head because
+    // it already has a title, and an empty state that renders nothing is a bug.
     return (
-      <div className="rail-head">
-        <span className="rail-title">Depot nodes</span>
-        <span className="tag" data-t="warn">{link === 'down' ? 'offline' : 'waiting'}</span>
+      <div className="metric">
+        <span className="m-label">
+          {link === 'down'
+            ? 'Depot service offline'
+            : link === 'live' ? `No depot in ${place}` : 'Waiting for the depot service'}
+        </span>
+        <span className="m-sub">
+          {link === 'live'
+            ? 'No node reports from here. A node is listed under the country it is configured for, and only there.'
+            : 'The depot stream is not reachable. Check NEXT_PUBLIC_API_BASE and that the API is up.'}
+        </span>
       </div>
     )
   }
@@ -72,11 +95,11 @@ export default function DepotPanel({ onBreach }: { onBreach?: (drugs: string[]) 
     <>
       <div className="rail-head">
         <span className="rail-title">Depot nodes</span>
-        <span className="tag" data-t={link === 'live' ? 'focus' : 'warn'}>{list.length}</span>
+        <span className="tag" data-t={link === 'live' ? 'focus' : 'warn'}>{bins.length}</span>
       </div>
 
       <div className="bin-list" onMouseLeave={() => setHovered(null)}>
-        {list.map((n) => (
+        {bins.map((n) => (
           <button
             key={n.node_id}
             className="bin-row"

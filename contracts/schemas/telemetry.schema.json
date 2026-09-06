@@ -22,10 +22,18 @@
       ],
       "description": "Which physical location this device is reporting for (see depot.schema.json). Devices are swappable; bins are not. Null for devices not bound to a location."
     },
+    "country": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z]{2}$",
+      "description": "ISO-2 of the point of interest this device is reporting from - the depot where supplies flow in and out, i.e. the graph's `country:` node it sits under. Set on the device (DEPOT_COUNTRY in config.h) and carried on every reading, so a node physically moved to another depot re-homes itself without anyone editing the API's seed. Depots are local to a country, not global: the UI lists this bin under this country and under no other. Null = the seed's country stands."
+    },
     "ts": {
       "type": "string",
       "format": "date-time",
-      "description": "UTC, RFC3339. Device clocks drift - the service may overwrite this with receipt time. OPTIONAL. The m5stack node deliberately omits it \u2014 an ESP32 has no RTC and its clock drifts, so the API stamps receipt time unless DEPOT_TRUST_DEVICE_TS=1. replay.py does send it, which is what makes the 24h MKT window real. Was listed as required until Sun 00:20, which made every real device payload contract-invalid."
+      "description": "UTC, RFC3339. Device clocks drift - the service may overwrite this with receipt time. OPTIONAL. The m5stack node deliberately omits it — an ESP32 has no RTC and its clock drifts, so the API stamps receipt time unless DEPOT_TRUST_DEVICE_TS=1. replay.py does send it, which is what makes the 24h MKT window real. Was listed as required until Sun 00:20, which made every real device payload contract-invalid."
     },
     "seq": {
       "type": "integer",

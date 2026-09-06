@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import type { Compliance, NodeId } from '../lib/types'
+import type { NodeId } from '../lib/types'
+import type { Verdict } from '../lib/compliance'
 import type { NodeState } from '../lib/demo'
 import {
-  branchPath, feedPath, layoutTree, UNRESOLVED,
-  type Alternate, type Health, type Rollup, type TreeNode,
+  branchPath, elbowPath, feedPath, layoutTree, trunkPath, UNRESOLVED,
+  type Alternate, type Health, type Placed, type Rollup, type TreeNode,
 } from '../lib/supply-tree'
 
 export interface DrugOption {
@@ -31,7 +32,8 @@ interface Props {
   rootHealth: Health
   onRoot: (id: NodeId) => void
   onReset: () => void
-  compliance: Record<NodeId, Compliance>
+  /** Procurement verdicts for the current buyer, keyed by node. */
+  verdicts: Record<NodeId, Verdict>
   ndcCount: Record<NodeId, number>
   showCompliance: boolean
   /** Beat highlighting. Never health — health is only ever the cascade. */
@@ -99,7 +101,7 @@ function capacity(r: Rollup | undefined, kind: TreeNode['kind']): string {
 
 export default function TreeView({
   tree, rollups, compromised, onToggle, onToggleGroup, selected, onSelect,
-  drugs, rootHealth, onRoot, onReset, compliance, ndcCount, showCompliance, states,
+  drugs, rootHealth, onRoot, onReset, verdicts, ndcCount, showCompliance, states,
   aegis, routePath,
 }: Props) {
   const L = useMemo(() => layoutTree(tree), [tree])
@@ -228,27 +230,54 @@ export default function TreeView({
           })}
         </g>
 
-        {/* branches */}
+        {/* branches — orthogonal, so a line can be followed to its box. A
+            parent's suppliers hang off ONE trunk down the gap between the leaf
+            columns; each supplier gets its own elbow out of that trunk. The
+            trunk carries the parent's standing, the elbow the child's, so a
+            dead supplier is a dashed elbow off a live trunk — which is what
+            "one source down, the rest still shipping" looks like. */}
         <g>
-          {L.placed.map((p) =>
-            p.t.children.map((c) => {
-              const cp = L.pos.get(c.key)
-              if (!cp) return null
-              const r = rollups.get(c.id)
-              const feed = c.kind === 'precursor' && p.t.kind === 'api'
-              return (
-                <path
-                  key={`${p.t.key}|${c.key}`}
-                  className="tbranch"
-                  data-feed={feed ? '1' : '0'}
-                  data-health={r?.up === 0 ? 'down' : r?.health ?? 'ok'}
-                  data-route={routePath.has(p.t.id) && routePath.has(c.id) ? '1' : '0'}
-                  style={{ '--d': p.t.depth } as React.CSSProperties}
-                  d={feed ? feedPath(p, cp) : branchPath(p, cp)}
-                />
-              )
-            }),
-          )}
+          {L.placed.map((p) => {
+            const sups = p.t.children.filter((c) => c.kind === 'supplier')
+            const supPlaced = sups
+              .map((c) => L.pos.get(c.key))
+              .filter((x): x is Placed => !!x)
+            const pr = rollups.get(p.t.id)
+            return (
+              <g key={`b|${p.t.key}`}>
+                {supPlaced.length > 0 && (
+                  <path
+                    className="tbranch"
+                    data-trunk="1"
+                    data-health={pr?.up === 0 ? 'down' : pr?.health ?? 'ok'}
+                    data-route={routePath.has(p.t.id) && sups.some((c) => routePath.has(c.id)) ? '1' : '0'}
+                    style={{ '--d': p.t.depth } as React.CSSProperties}
+                    d={trunkPath(p, supPlaced)}
+                  />
+                )}
+                {p.t.children.map((c) => {
+                  const cp = L.pos.get(c.key)
+                  if (!cp) return null
+                  const r = rollups.get(c.id)
+                  const feed = c.kind === 'precursor' && p.t.kind === 'api'
+                  const d = feed ? feedPath(p, cp)
+                    : c.kind === 'supplier' ? elbowPath(p, cp)
+                    : branchPath(p, cp)
+                  return (
+                    <path
+                      key={`${p.t.key}|${c.key}`}
+                      className="tbranch"
+                      data-feed={feed ? '1' : '0'}
+                      data-health={r?.up === 0 ? 'down' : r?.health ?? 'ok'}
+                      data-route={routePath.has(p.t.id) && routePath.has(c.id) ? '1' : '0'}
+                      style={{ '--d': p.t.depth } as React.CSSProperties}
+                      d={d}
+                    />
+                  )
+                })}
+              </g>
+            )
+          })}
         </g>
 
         {/* nodes */}
@@ -258,14 +287,11 @@ export default function TreeView({
             const r = rollups.get(t.id)
             const off = compromised.has(t.id)
             const halted = !off && !!t.countryId && compromised.has(t.countryId)
-            const comp = compliance[t.id]
             const sub = subtitle(t, ndcCount[t.id])
             const cap = capacity(r, t.kind)
             const frac = r && r.total ? r.up / r.total : 0
             const beat = states[t.id]
-            const taa = showCompliance && comp?.taa_pass !== undefined
-              ? (comp.taa_pass ? 'TAA PASS' : 'TAA FAIL')
-              : null
+            const taa = showCompliance ? verdicts[t.id]?.tag ?? null : null
 
             const nameFont = t.kind === 'drug' ? 15 : 13
             const nameMax = fits(p.w - TEXT_X - KILL_GUTTER, nameFont)

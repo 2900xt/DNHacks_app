@@ -13,10 +13,11 @@ import signalsRaw from '@/data/signals.json'
 import binsRaw from '@/data/bins.json'
 import backtestRaw from '@/data/backtest.json'
 import rerouteRaw from '@/data/reroute.json'
+import jurisdictionsRaw from '@/data/jurisdictions.json'
 
 import type {
   GraphNode, GraphEdge, Signal, Compliance, Bin,
-  NodeId, CascadeResult, BacktestResult, Reroute,
+  NodeId, CascadeResult, BacktestResult, Reroute, Jurisdictions,
 } from './types'
 
 export interface Graph {
@@ -186,6 +187,11 @@ export function getReroute(): Reroute {
   }))
   rerouteCached = { ...raw, precursors }
   return rerouteCached
+}
+
+/** The buyer-side rule table. ml/compliance.py --jurisdictions. */
+export function getJurisdictions(): Jurisdictions {
+  return jurisdictionsRaw as Jurisdictions
 }
 
 export function counts() {
