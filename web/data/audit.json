@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "verified": true,
+  "finding": "chain intact \u2014 6 entries, head b0ea6ee87288\u2026",
+  "head": "b0ea6ee8728849a9019e49a2a03f925d537033b538bc072e12f0fb75b919b38f",
+  "count": 6,
+  "runs": [
+    "reroute-amoxicillin"
+  ],
+  "entries": [
+    {
+      "actor": "planner",
+      "hash": "2a9847da0a554d569d841eeb5e5ab2460abcf00c8e9cdea3f2cf19a89d602a46",
+      "kind": "run_start",
+      "payload": {
+        "schema": 1
+      },
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "run_id": "reroute-amoxicillin",
+      "seq": 0,
+      "ts": "2026-09-06T03:35:29.883+00:00"
+    },
+    {
+      "actor": "planner",
+      "hash": "3e189cbb505afde925751d99c6c2469c5cb8554bbc83ae81c08116f4c695f17b",
+      "kind": "step",
+      "payload": {
+        "actions": [],
+        "duration_ms": 0.3,
+        "error": null,
+        "inputs": {
+          "drug": "drug:amoxicillin",
+          "trigger": "bin:depot-01 MKT breach"
+        },
+        "observations": [
+          {
+            "value": {
+              "affected": 851,
+              "drugs": [
+                "Amoxicillin",
+                "Ampicillin",
+                "Dicloxacillin",
+                "Nafcillin",
+                "Oxacillin",
+                "Piperacillin"
+              ]
+            },
+            "what": "cascade_from_precursor"
+          },
+          {
+            "value": {
+              "count": 0,
+              "note": "none of the six is on an FDA shortage list"
+            },
+            "what": "shortage_listed"
+          }
+        ],
+        "outcome": {
+          "conclusion": "single shared precursor, no official warning yet"
+        },
+        "parameters": null,
+        "phase": "assess",
+        "rationale": null
+      },
+      "prev_hash": "2a9847da0a554d569d841eeb5e5ab2460abcf00c8e9cdea3f2cf19a89d602a46",
+      "run_id": "reroute-amoxicillin",
+      "seq": 1,
+      "ts": "2026-09-06T03:35:29.883+00:00"
+    },
+    {
+      "actor": "planner",
+      "hash": "0284ca49328c879d435a14364f4303a81e27cb3cd8acad4a41fe7c9786e3a4ee",
+      "kind": "step",
+      "payload": {
+        "actions": [],
+        "duration_ms": 0.01,
+        "error": null,
+        "inputs": {
+          "objective": "rank alternate suppliers"
+        },
+        "observations": [
+          {
+            "value": {
+              "capacity": false,
+              "compliance": true,
+              "concentration": true,
+              "lead_time": false
+            },
+            "what": "available_features"
+          }
+        ],
+        "outcome": {
+          "active_features": 2,
+          "zeroed_features": 2
+        },
+        "parameters": {
+          "capacity_weight": 0.0,
+          "compliance_weight": 0.4,
+          "concentration_weight": 0.6,
+          "lead_time_weight": 0.0
+        },
+        "phase": "tune",
+        "rationale": "Capacity and lead time have no public source (DATA.md Layer 1d), so their weights are pinned at zero rather than guessed \u2014 an optimiser with an invented capacity constraint is sorting, not optimising. Concentration is weighted above compliance because a TAA failure is a procurement blocker we can route around, while a single-country precursor is not."
+      },
+      "prev_hash": "3e189cbb505afde925751d99c6c2469c5cb8554bbc83ae81c08116f4c695f17b",
+      "run_id": "reroute-amoxicillin",
+      "seq": 2,
+      "ts": "2026-09-06T03:35:29.884+00:00"
+    },
+    {
+      "actor": "planner",
+      "hash": "5e75a92eadb712d658e3881021314c7765eef2b837880d926d05025e105b9449",
+      "kind": "step",
+      "payload": {
+        "actions": [
+          {
+            "detail": {
+              "order": [
+                "company:fei:3004446312",
+                "company:fei:3004497364"
+              ]
+            },
+            "kind": "rank"
+          }
+        ],
+        "duration_ms": 0.07,
+        "error": null,
+        "inputs": {
+          "api": "api:amoxicillin-trihydrate"
+        },
+        "observations": [
+          {
+            "value": 2,
+            "what": "candidate_count"
+          },
+          {
+            "value": {
+              "country": "in",
+              "id": "company:fei:3004446312",
+              "label": "Aurobindo Pharma Limited",
+              "open_signals": 1
+            },
+            "what": "candidate"
+          },
+          {
+            "value": {
+              "country": "in",
+              "id": "company:fei:3004497364",
+              "label": "Centrient Pharmaceuticals India Private Limited",
+              "open_signals": 3
+            },
+            "what": "candidate"
+          }
+        ],
+        "outcome": {
+          "note": "ordered by fewest open negative signals; ties unbroken",
+          "ranked": [
+            {
+              "country": "in",
+              "id": "company:fei:3004446312",
+              "label": "Aurobindo Pharma Limited",
+              "open_signals": 1
+            },
+            {
+              "country": "in",
+              "id": "company:fei:3004497364",
+              "label": "Centrient Pharmaceuticals India Private Limited",
+              "open_signals": 3
+            }
+          ]
+        },
+        "parameters": null,
+        "phase": "rank_alternates",
+        "rationale": null
+      },
+      "prev_hash": "0284ca49328c879d435a14364f4303a81e27cb3cd8acad4a41fe7c9786e3a4ee",
+      "run_id": "reroute-amoxicillin",
+      "seq": 3,
+      "ts": "2026-09-06T03:35:29.884+00:00"
+    },
+    {
+      "actor": "planner",
+      "hash": "f34401bd529d0efdc17a8183325cffde136965dafd9f8ee94d7cfb4d6a55c786",
+      "kind": "step",
+      "payload": {
+        "actions": [
+          {
+            "detail": {
+              "reason": "TAA determination requires a resolved country"
+            },
+            "kind": "refuse"
+          }
+        ],
+        "duration_ms": 0.04,
+        "error": null,
+        "inputs": {
+          "policy": "no unverified country in a TAA verdict"
+        },
+        "observations": [
+          {
+            "value": 84,
+            "what": "candidates_without_country"
+          }
+        ],
+        "outcome": {
+          "escalated_to": "human",
+          "refused_because": "At least one candidate has no verified country (ANTIBIOTICOS SA / DMF 12348). Returning a PASS/FAIL would be asserting a fact we do not have.",
+          "selected": null
+        },
+        "parameters": null,
+        "phase": "select",
+        "rationale": null
+      },
+      "prev_hash": "5e75a92eadb712d658e3881021314c7765eef2b837880d926d05025e105b9449",
+      "run_id": "reroute-amoxicillin",
+      "seq": 4,
+      "ts": "2026-09-06T03:35:29.884+00:00"
+    },
+    {
+      "actor": "planner",
+      "hash": "b0ea6ee8728849a9019e49a2a03f925d537033b538bc072e12f0fb75b919b38f",
+      "kind": "run_end",
+      "payload": {
+        "decisions": 4,
+        "status": "completed"
+      },
+      "prev_hash": "f34401bd529d0efdc17a8183325cffde136965dafd9f8ee94d7cfb4d6a55c786",
+      "run_id": "reroute-amoxicillin",
+      "seq": 5,
+      "ts": "2026-09-06T03:35:29.884+00:00"
+    }
+  ]
+}
