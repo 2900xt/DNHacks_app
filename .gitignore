@@ -105,3 +105,4 @@ data/cache/federal-register/text-*.txt
 data/cache/dmf/*.xlsx
 data/cache/openfda/ndc_bulk.zip
 data/cache/nadac/*.csv
+data/cache/decrs/*.zip
