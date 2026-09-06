@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RIPPLE — see what breaks with it</title>
-<meta name="description" content="Trace a drug product to the precursor it shares, and see what else fails with it. Built on public FDA data.">
+<title>RIPPLE — detect the disruption, follow the ripple, find the way out</title>
+<meta name="description" content="Detects supply disruptions in public FDA feeds, propagates them through a real sourcing graph, and ranks the alternates that can actually supply you.">
 <meta property="og:title" content="RIPPLE — sourcing risk console">
-<meta property="og:description" content="Six antibiotics. One ingredient. Nobody was watching it.">
+<meta property="og:description" content="A supplier goes down. What else just broke — and where can you actually go?">
 <link rel="icon" href="/ripple-logo.ico">
 <style>
   /* Tokens lifted from app/globals.css so the site and the console are one product. */
@@ -126,8 +126,8 @@
       <circle cx="20" cy="20" r="18.5" stroke-width="1.4" stroke-opacity=".32"/>
     </svg>RIPPLE</a>
   <div class="navlinks">
-    <a href="#how">How it works</a><a href="#data">Data</a>
-    <a href="#honest">What we got wrong</a><a href="#limits">Limits</a>
+    <a href="#detect">Detect</a><a href="#ripple">Ripple</a>
+    <a href="#reroute">Re-route</a><a href="#honest">What we got wrong</a>
   </div>
   <a class="btn pri" href="/">Open the console →</a>
 </div></nav>
@@ -136,16 +136,16 @@
 <section class="hero"><div class="wrap hero-grid">
   <div>
     <div class="kicker">Pharmaceutical sourcing risk</div>
-    <h1 style="margin-top:22px">Six antibiotics.<br>One ingredient.<br><span style="color:var(--text-faint)">Nobody was watching it.</span></h1>
-    <p class="sub" style="margin-top:24px">RIPPLE traces a drug product down to the
-      precursor it shares with everything else — then shows you what fails alongside it.
-      Built entirely on public government records.</p>
+    <h1 style="margin-top:22px">A supplier goes down.<br><span style="color:var(--text-faint)">What else just broke?</span></h1>
+    <p class="sub" style="margin-top:24px">RIPPLE watches public FDA feeds for disruptions,
+      propagates each hit through a real sourcing graph, and ranks the alternates that
+      could actually supply you — including when the honest answer is that none of them can.</p>
     <div class="cta">
       <a class="btn pri lg" href="/">Open the console →</a>
-      <a class="btn lg" href="#honest">Read what we got wrong</a>
+      <a class="btn lg" href="#reroute">See a re-route</a>
     </div>
-    <p class="small" style="margin-top:18px">No account. Nothing to install. Runs on
-      openFDA, the FDA drug master file register and DECRS.</p>
+    <p class="small" style="margin-top:18px">Detect · propagate · re-route. No account,
+      nothing to install, no invented data.</p>
   </div>
   <svg class="ripple-art" viewBox="0 0 200 200" aria-hidden="true">
     <g fill="none" stroke="#4a9eda">
@@ -158,7 +158,7 @@
       <circle cx="100" cy="100" r="54" stroke-opacity=".18" stroke-width="1.1"/>
       <circle cx="100" cy="100" r="76" stroke-opacity=".09" stroke-width="1"/>
     </g>
-    <circle cx="100" cy="100" r="5.5" fill="#dde5ee"/>
+    <circle cx="100" cy="100" r="5.5" fill="#e5484d"/>
   </svg>
 </div></section>
 
@@ -171,42 +171,62 @@
   </div>
 </div></div>
 
-<!-- PROBLEM -->
+<!-- PIPELINE -->
 <section><div class="wrap">
-  <div class="kicker">The problem</div>
-  <h2 style="margin:20px 0 18px;max-width:20ch">You can look up who sells a drug in seconds.</h2>
-  <p class="sub">You cannot look up who makes the ingredient inside it. Drug master file
-    contents are confidential by design — so the single most important fact about a
-    medicine's supply chain is the one nobody can query.</p>
+  <div class="kicker">What it does</div>
+  <h2 style="margin:20px 0 18px;max-width:22ch">Three stages, and the third is the one nobody else has.</h2>
+  <p class="sub">Plenty of tools tell you a drug is in shortage. That is the symptom, and
+    by then it is months old. RIPPLE works upstream of the symptom.</p>
   <div class="grid g3" style="margin-top:38px">
-    <div class="card"><div class="n">4.1<span class="u">%</span></div>
-      <div class="cap">of US generics entered shortage in the two years after our frozen cutoff</div></div>
-    <div class="card"><div class="n">0</div>
-      <div class="cap">public datasets that map a finished drug to its precursor</div></div>
-    <div class="card alarm"><div class="n" style="color:#f0a0a2">6</div>
-      <div class="cap">antibiotics that share one precursor — and no tool shows they are connected</div></div>
+    <div class="card"><div class="step"><span class="i">01</span><div>
+      <h3>Detect</h3>
+      <p>Public FDA feeds land on specific facilities — import refusals, inspection
+        classifications, regulatory actions. Plus a physical sensor when the failure is
+        a pallet, not a plant.</p></div></div></div>
+    <div class="card accent"><div class="step"><span class="i">02</span><div>
+      <h3>Ripple</h3>
+      <p>Propagate the hit through the sourcing graph. Not "this drug is short" — <b>everything
+        structurally downstream of the thing that broke</b>, at once.</p></div></div></div>
+    <div class="card"><div class="step"><span class="i">03</span><div>
+      <h3>Re-route</h3>
+      <p>Rank who else can legally and physically supply it — with every disqualifier
+        shown, including when the answer is nobody clean.</p></div></div></div>
   </div>
 </div></section>
 
-<!-- HOW -->
-<section id="how"><div class="wrap">
-  <div class="kicker">How it works</div>
-  <h2 style="margin:20px 0 34px">Three hops, all on public record.</h2>
-  <div class="grid g3">
-    <div class="card"><div class="step"><span class="i">01</span><div>
-      <h3>Trace down</h3>
-      <p>From a drug product to its active ingredient, and from there to the precursor
-        underneath it. Layer-3 edges carry a citation or the loader refuses them.</p></div></div></div>
-    <div class="card"><div class="step"><span class="i">02</span><div>
-      <h3>Fan back out</h3>
-      <p>Kill any node and see everything structurally downstream of it — the drugs,
-        the products, the facilities, the countries.</p></div></div></div>
-    <div class="card"><div class="step"><span class="i">03</span><div>
-      <h3>Check the alternates</h3>
-      <p>Who else holds an active filing and a US registration, ranked by whether moving
-        there actually diversifies you.</p></div></div></div>
+<!-- DETECT -->
+<section id="detect"><div class="wrap">
+  <div class="kicker">Stage 01 — Detect</div>
+  <h2 style="margin:20px 0 18px">1,318 live signals, attached to real facilities.</h2>
+  <p class="sub">Not a news feed. Each signal is joined to a specific FEI-registered
+    establishment, so a hit lands on a node in the graph rather than in an inbox.</p>
+  <div class="grid g4" style="margin-top:34px">
+    <div class="card"><div class="n">750</div><div class="cap">import refusals — product stopped at the border</div></div>
+    <div class="card"><div class="n">479</div><div class="cap">inspection classifications, including OAI</div></div>
+    <div class="card"><div class="n">75</div><div class="cap">paperwork refusals, kept separate on purpose</div></div>
+    <div class="card"><div class="n">14</div><div class="cap">Federal Register regulatory actions</div></div>
   </div>
+  <div class="card" style="margin-top:16px">
+    <h3>And when the failure is physical, we sense it directly.</h3>
+    <p>A sensor on the bin computes mean kinetic temperature — the metric regulators
+      actually use. One hot hour in transit condemns a pallet even though every
+      instantaneous reading looks normal. A cold-chain company tells you the box got hot.
+      RIPPLE tells you the box getting hot <b style="color:var(--text)">can't be undone</b>,
+      and then treats it as a supply hit like any other.</p>
+  </div>
+</div></section>
 
+<!-- RIPPLE -->
+<section id="ripple"><div class="wrap">
+  <div class="kicker">Stage 02 — Ripple</div>
+  <h2 style="margin:20px 0 18px">One node fails. Everything downstream moves at once.</h2>
+  <p class="sub">This is the part the FDA's finished-drug view cannot show you, because it
+    watches products and the failure happens underneath them.</p>
+  <div class="grid g3" style="margin-top:34px">
+    <div class="card alarm"><div class="n" style="color:#f0a0a2">1</div><div class="cap">precursor node goes down</div></div>
+    <div class="card"><div class="n">6</div><div class="cap">antibiotics structurally exposed — none of them showing a shortage today</div></div>
+    <div class="card"><div class="n">760</div><div class="cap">individual drug products behind them</div></div>
+  </div>
   <div class="card accent" style="margin-top:16px;padding:30px">
     <div class="kicker">Worked example — 6-APA</div>
     <svg viewBox="0 0 1100 300" style="width:100%;margin-top:20px" aria-label="6-APA fanning out to six drugs">
@@ -215,12 +235,12 @@
         <path d="M170 150 C300 150 320 126 460 126"/><path d="M170 150 C300 150 320 172 460 172"/>
         <path d="M170 150 C300 150 320 218 460 218"/><path d="M170 150 C300 150 320 264 460 264"/>
       </g>
-      <g fill="none" stroke="#4a9eda">
+      <g fill="none" stroke="#e5484d">
         <circle cx="110" cy="150" r="24" stroke-opacity=".8" stroke-width="1.7"/>
         <circle cx="110" cy="150" r="44" stroke-opacity=".4" stroke-width="1.3"/>
         <circle cx="110" cy="150" r="66" stroke-opacity=".16" stroke-width="1"/>
       </g>
-      <circle cx="110" cy="150" r="6" fill="#dde5ee"/>
+      <circle cx="110" cy="150" r="6" fill="#e5484d"/>
       <text x="110" y="245" fill="#dde5ee" font-size="15" font-weight="700" text-anchor="middle">6-APA</text>
       <text x="110" y="264" fill="#4f5d6e" font-size="11" text-anchor="middle">shared precursor</text>
       <g font-size="15" fill="#dde5ee" font-weight="600">
@@ -238,16 +258,69 @@
         <text x="940" y="222">NO SHORTAGE</text><text x="940" y="268">NO SHORTAGE</text>
       </g>
     </svg>
-    <p class="small" style="margin-top:16px"><b style="color:var(--text)">That is not a
-      prediction that they will go short.</b> It is exposure — disrupt the precursor and
-      all six move at once.</p>
+    <p class="small" style="margin-top:16px"><b style="color:var(--text)">Not a forecast
+      that they will go short.</b> Exposure — the six are connected by a fact about
+      structure, and nothing else surfaces it.</p>
+  </div>
+</div></section>
+
+<!-- REROUTE -->
+<section id="reroute"><div class="wrap">
+  <div class="kicker">Stage 03 — Re-route</div>
+  <h2 style="margin:20px 0 18px;max-width:26ch">Then it answers the question that actually costs money.</h2>
+  <p class="sub">Where do you go instead? RIPPLE scores every holder with an active filing
+    for the same substance, and shows its reasoning per row. Here is the real output for
+    6-APA — <b style="color:var(--text)">every single alternate is compromised.</b></p>
+  <div class="card" style="margin-top:32px;padding:0;overflow:hidden">
+    <table>
+      <thead><tr><th>Alternate supplier</th><th>Why it scores that way</th><th style="text-align:right">Score</th></tr></thead>
+      <tbody>
+        <tr><td>Inner Mongolia Changsheng<div class="small">CHN · FEI 3006272230</div></td>
+            <td class="small">Registered API manufacturer · <span class="cn">same chokepoint region</span> · <span class="cn">not TAA-designated, VA/DoD cannot buy</span></td>
+            <td class="r">3.0</td></tr>
+        <tr><td>Pure &amp; Cure Healthcare<div class="small">IND · 3 FEIs</div></td>
+            <td class="small">Registered API manufacturer · <span class="cn">same chokepoint region</span> · <span class="cn">not TAA-designated</span></td>
+            <td class="r">3.0</td></tr>
+        <tr><td>Sinopharm Weiqida<div class="small">CHN · FEI 3010166430</div></td>
+            <td class="small">Registered API manufacturer · <span class="cn">same chokepoint region</span> · <span class="cn">not TAA-designated</span></td>
+            <td class="r">3.0</td></tr>
+        <tr><td>Sandoz GmbH<div class="small">Austria</div></td>
+            <td class="small">⚠️ Ambiguous in DECRS — two firms tie. <b style="color:var(--text)">We refuse to attribute risk rather than guess.</b></td>
+            <td class="r">0.0</td></tr>
+        <tr><td>United Laboratories<div class="small">Chengdu &amp; Inner Mongolia</div></td>
+            <td class="small">⚠️ Ambiguous in DECRS — and the two share a parent, so they are not independent alternates</td>
+            <td class="r">0.0</td></tr>
+        <tr><td>Antibioticos SA<div class="small">unverified</div></td>
+            <td class="small">Not found in DECRS — capability unverified, left showing rather than dropped</td>
+            <td class="r">0.0</td></tr>
+        <tr><td>Apitoria Pharma<div class="small">IND</div></td>
+            <td class="small"><span class="cn">🔴 Own risk: OAI 2019-02-02, 2019-02-09, 2021-08-12</span> — routing out of one fire into another</td>
+            <td class="r cn">−3.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card alarm">
+      <h3>The result is the point.</h3>
+      <p>Every path out of this chokepoint either lands in the same region, cannot be
+        bought by a federal purchaser, resolves ambiguously, or carries its own open FDA
+        action. <b style="color:var(--text)">There is no clean re-route</b> — and knowing
+        that before the shortage is the entire value.</p>
+    </div>
+    <div class="card">
+      <h3>It ranks. It does not pretend to optimise.</h3>
+      <p>Capacity and lead time are not published anywhere, so RIPPLE will not invent
+        them. An optimiser with no capacity constraint is a sort wearing a lab coat —
+        so this is a shortlist with its reasoning attached, and the limits printed on
+        every row.</p>
+    </div>
   </div>
 </div></section>
 
 <!-- DATA -->
 <section id="data"><div class="wrap">
   <div class="kicker">The dataset</div>
-  <h2 style="margin:20px 0 18px">Assembled, not invented.</h2>
+  <h2 style="margin:20px 0 18px">The graph the ripple runs on.</h2>
   <p class="sub">Author both the network and the disruption and an impressive cascade is
     just a traversal over data you wrote. Every node here comes from a government file.</p>
   <div class="grid g4" style="margin-top:34px">
@@ -339,7 +412,7 @@
   <h2 style="margin:20px 0 34px">People who have to defend a sourcing decision.</h2>
   <div class="grid g3">
     <div class="card"><h3>GPO &amp; IDN risk managers</h3>
-      <p>Answer "can I replace this?" before the shortage notice, not after.</p></div>
+      <p>Answer “what else does this take down, and where do I go instead?” before the shortage notice, not after.</p></div>
     <div class="card"><h3>Federal buyers</h3>
       <p>TAA designation and DoD 1260H status attached to every alternate, with the
         source record behind it.</p></div>
