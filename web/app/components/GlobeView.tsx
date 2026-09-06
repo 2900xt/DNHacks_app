@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphEdge, GraphNode, NodeId } from '../lib/types'
-import type { Alternate, Route } from '../lib/supply-tree'
+import { arcDeg, DIST_PENALTY_DEG, type Alternate, type OptimalPath, type Route } from '../lib/supply-tree'
 
 interface Centroid { lat: number; lng: number }
 interface Feature { properties: { iso: string; name: string }; geometry: unknown }
@@ -19,18 +19,20 @@ interface Props {
   /** True once anything is switched off: the globe stops showing filing counts
    *  and starts showing where the load actually went. */
   rerouting: boolean
-  /** ISO-2 of the jurisdiction the AEGIS route runs through. Null at rest. */
+  /** ISO-2 of the jurisdiction the AEGIS route runs through, for the fly-to.
+   *  Null at rest, so the globe keeps turning. */
   routeIso: string | null
-  /** The route holder itself, so its own plant goes green. */
-  routeId: NodeId | null
+  /** The best path — precursor plant, API plant, buyer — drawn green end to
+   *  end. Null while a failure is shown and the answer has not been asked for. */
+  path: OptimalPath | null
   /** Every node that cannot ship right now — the tree's red set, exactly. */
   cut: Set<NodeId>
   /** What the operator switched off, plant ids and country ids alike. */
   off: Set<NodeId>
   /** ISO-2 of every jurisdiction whose exports are halted. */
   halted: Set<string>
-  /** The operator has asked for the route. Until then a failure is red and
-   *  nothing is green. */
+  /** The operator has asked for the route after a failure: the globe turns
+   *  to show where the material would now come from. */
   showRoute: boolean
   /** Which register each supplier in the current tree filed in. */
   apiIds: Set<NodeId>
@@ -41,18 +43,11 @@ interface Props {
   scoreOf: Map<NodeId, Alternate>
 }
 
-/** The new route's colour. Not the green of "healthy": a route is a change,
- *  and it has to read as one against red failures and amber halts. */
-const ROUTE = '#2ee6c5'
-const ROUTE_RGB = '46,230,197'
-
-/** Great-circle distance, in degrees of arc. Only ever compared. */
-function arcDeg(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
-  const r = Math.PI / 180
-  const x = Math.sin(((b.lat - a.lat) * r) / 2) ** 2
-    + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lng - a.lng) * r) / 2) ** 2
-  return (2 * Math.asin(Math.sqrt(x))) / r
-}
+/** The best path's colour. Green, and brighter than the muted green of
+ *  "healthy" (--ok), so it reads as the answer against red failures and amber
+ *  halts. Same value as --route in globals.css. */
+const ROUTE = '#2fe07a'
+const ROUTE_RGB = '47,224,122'
 
 /** A DMF holder with a placed plant: lat/lng from ml/sites.py via graph.ts. */
 interface Plant {
@@ -91,7 +86,7 @@ const BUMP = '/globe/earth-topology.png'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function GlobeView({
-  nodes, edges, lit, selected, onSelect, routes, rerouting, showRoute, routeIso, routeId, cut,
+  nodes, edges, lit, selected, onSelect, routes, rerouting, showRoute, routeIso, path, cut,
   off, halted, apiIds, preIds, scoreOf,
 }: Props) {
   const holder = useRef<HTMLDivElement | null>(null)
@@ -281,6 +276,11 @@ export default function GlobeView({
     const byIso = new Map(routes.map((r) => [r.iso, r]))
     const anySupply = routes.some((r) => !r.down)
     const dest = world.centroids[DEST]
+    const plantOf = new Map(plants.map((pl) => [pl.node.id, pl]))
+    // The path, as the plants on it and the jurisdictions they sit in.
+    const routeChain = new Set<NodeId>(path ? [...path.ids].filter((id) => plantOf.has(id)) : [])
+    const routeIsos = new Set<string>()
+    for (const id of routeChain) { const iso = plantOf.get(id)?.node.country; if (iso) routeIsos.add(iso) }
 
     const polys = world.features
       .filter((f) => jurisdictions.has(f.properties.iso) || f.properties.iso === DEST)
@@ -291,7 +291,7 @@ export default function GlobeView({
         const on = !!j && lit.has(j.node.id)
         const isDest = iso === DEST
         const dead = rerouting && !!r && r.down
-        const isRoute = showRoute && iso === routeIso
+        const isRoute = routeIsos.has(iso)
         return {
           ...f,
           nodeId: j?.node.id ?? '',
@@ -331,7 +331,7 @@ export default function GlobeView({
       let bestV = -Infinity
       for (const q of pool) {
         if (q.node.id === from.node.id) continue
-        const v = (scoreOf.get(q.node.id)?.score ?? 0) - arcDeg(from, q) / 36
+        const v = (scoreOf.get(q.node.id)?.score ?? 0) - arcDeg(from, q) / DIST_PENALTY_DEG
         if (v > bestV) { bestV = v; best = q }
       }
       return best
@@ -343,13 +343,9 @@ export default function GlobeView({
         if (q) pairOf.set(pl.node.id, q)
       }
     }
-    // The route, as a chain: the precursor plant AND the API plant it feeds.
-    const routeChain = new Set<NodeId>()
-    if (showRoute && routeId) {
-      routeChain.add(routeId)
-      const q = pairOf.get(routeId)
-      if (q) routeChain.add(q.node.id)
-    }
+    // The path's own pairing wins: its precursor arc lands on ITS API plant,
+    // so the green line is one line from the first plant to the buyer.
+    if (path?.preId && plantOf.has(path.apiId)) pairOf.set(path.preId, plantOf.get(path.apiId)!)
 
     for (const pl of plants) {
       const id = pl.node.id
@@ -375,7 +371,7 @@ export default function GlobeView({
         : plantOff ? `${who} — plant failure, producing nothing`
         : haltedHere ? `${who} — producing, but exports from ${iso.toUpperCase()} are halted: nothing leaves`
         : dead ? `${who} — cannot ship: its precursor supply is gone`
-        : isRoute ? `${who} — ${id === routeId ? 'AEGIS route' : 'AEGIS route, receives the precursor'}`
+        : isRoute ? `${who} — best path: ${inApi ? 'ships the API to the buyer' : `ships 6-APA to ${pair?.node.label ?? pair?.node.id ?? 'the API plant'}`}${rerouting ? ' (AEGIS re-route)' : ''}`
         : inApi ? `${who} — ships the API to the buyer${rerouting ? ` · ${iso.toUpperCase()} carries ${Math.round(share * 100)}%` : ''}`
         : pair ? `${who} — ships 6-APA to ${pair.node.label ?? pair.node.id}${pair.city ? ` (${pair.city})` : ''}, the best-scoring API plant within reach; the register does not record who buys from whom`
         : `${who} — ships 6-APA`
@@ -520,7 +516,7 @@ export default function GlobeView({
       nodeId: '',
     })
     g.labelsData(labels)
-  }, [ready, world, jurisdictions, plants, lit, routes, rerouting, showRoute, routeIso, routeId, cut, off, halted, apiIds, preIds, scoreOf, reduced])
+  }, [ready, world, jurisdictions, plants, lit, routes, rerouting, path, cut, off, halted, apiIds, preIds, scoreOf, reduced])
 
   // --- fly to the focused jurisdiction --------------------------------------
   //
