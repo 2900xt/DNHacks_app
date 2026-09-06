@@ -42,6 +42,7 @@ risk-train: ## Re-run the model comparison across three cutoffs (~40s)
 .PHONY: risk-check
 risk-check: ## Assert the shipping bar: beats both baselines, calibrated
 	@python3 -m ml.risk.train --selftest
+	@python3 -m ml.risk.calibrate
 
 .PHONY: depot-demo
 depot-demo: ## Replay 24h of storage history into a running API (no hardware needed)
