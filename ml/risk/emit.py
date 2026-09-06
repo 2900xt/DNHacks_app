@@ -37,9 +37,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from ml.risk.features import MODEL_NAMES, History, feature_table  # noqa: E402
 from ml.risk.inspections import fei as norm_fei  # noqa: E402
+from ml.risk.inspections import load as load_inspections  # noqa: E402
 from ml.risk.labels import labeller  # noqa: E402
+from ml.risk.refusals import load as load_refusals  # noqa: E402
 from ml.risk.model import fit  # noqa: E402
-from ml.risk.calibrate import apply_isotonic, fit_isotonic, interval, wilson  # noqa: E402
+from ml.risk.calibrate import (apply_isotonic, fit_isotonic, interval,  # noqa: E402
+                               reliability, wilson)
 from ml.risk.train import _apply, _standardise_fit, cross_val  # noqa: E402
 from ml.risk.universe import decrs, parse_date  # noqa: E402
 from ml.entity_resolution import GEO, core_tokens, normalize  # noqa: E402
@@ -431,6 +434,78 @@ def ui_nodes() -> set[str]:
     return ids
 
 
+def training_provenance(hist: History, feis, Y, cal) -> dict:
+    """What the model was actually trained on, counted from the loaded rows.
+
+    Every figure here is computed, never typed in. A provenance block that is
+    hand-maintained is a provenance block that is wrong by the second commit, and
+    the whole claim of this panel is that the number on screen is earned.
+    """
+    insp = load_inspections()
+    refu = load_refusals()
+
+    def span(ds):
+        # Parse before sorting. The two feeds use different formats — DECRS gives
+        # "12/31/2024", OASIS gives "31-Oct-25" — so sorting the raw strings put
+        # the inspection range at 2011-2024 when it actually runs to 2026.
+        got = sorted(d for d in (parse_date(x) for x in ds) if d)
+        return {"from": got[0].isoformat(), "to": got[-1].isoformat()} if got else {}
+
+    ic = collections.Counter(r["classification"] for r in insp)
+    rc = collections.Counter(r["kind"] for r in refu)
+    icountry = collections.Counter(r["country_code"] for r in insp if r["country_code"])
+
+    return {
+        "sources": [
+            {"name": "FDA Inspection Classification Database",
+             "what": "every drug-establishment inspection and how it ended",
+             "rows": len(insp),
+             "breakdown": {"NAI (no action)": ic.get("NAI", 0),
+                           "VAI (voluntary action)": ic.get("VAI", 0),
+                           "OAI (official action)": ic.get("OAI", 0)},
+             "span": span(r["end_date"] for r in insp),
+             "establishments": len({r["fei"] for r in insp if r["fei"]}),
+             "countries": len(icountry),
+             "url": "https://datadashboard.fda.gov/ora/cd/inspections.htm"},
+            {"name": "FDA OASIS import refusals",
+             "what": "shipments turned away at the US border",
+             "rows": len(refu),
+             "breakdown": {"manufacturing quality (charge 27, 3280)": rc.get("mfg", 0),
+                           "paperwork (charge 118, 472)": rc.get("paperwork", 0)},
+             "span": span(r["date"] for r in refu),
+             "establishments": len({r["fei"] for r in refu if r["fei"]}),
+             "url": "https://www.accessdata.fda.gov/scripts/importrefusals/"},
+            {"name": "FDA DECRS drug establishment register",
+             "what": "who is registered to manufacture, and where",
+             "rows": len(decrs()),
+             "url": "https://www.fda.gov/drugs/drug-approvals-and-databases/"
+                    "drug-establishments-current-registration-site"},
+        ],
+        "fit": {
+            "cutoff": TRAIN_CUTOFF.isoformat(),
+            "plants": len(feis),
+            "positives": int(sum(Y)),
+            "base_rate": round(sum(Y) / len(Y), 5),
+            "horizon_days": 365,
+            "label": ("a failed inspection (OAI) or a manufacturing import refusal "
+                      "in the 365 days after the cutoff"),
+            "why_this_cutoff": ("The most recent date with a full year of outcomes "
+                                "behind it. Anything later and the label is only "
+                                "partly observed, which reads as a lower risk than "
+                                "is real."),
+            "features": len(MODEL_NAMES),
+            "features_withheld": ["insp_3y", "months_since_insp"],
+            "withheld_because": ("They measure FDA's inspection SCHEDULE, not plant "
+                                 "risk. You cannot fail an inspection that never "
+                                 "happens, so leaving them in lets the model predict "
+                                 "the detector instead of the event."),
+        },
+        "calibration_blocks": len(cal),
+        "out_of_fold": ("Every calibration figure comes from 5-fold cross-validation "
+                        "— each plant scored by a model that never saw it."),
+    }
+
+
 def main() -> int:
     today = date.today()
     hist = History()
@@ -576,6 +651,9 @@ def main() -> int:
                     "so the ranking is untouched; it only makes the number match "
                     "the frequency actually observed at that score."),
             "ceiling": round(max(b["p"] for b in cal), 4),
+            # Predicted vs observed, out of fold. The evidence that the number on
+            # screen is a percentage and not a ranking dressed as one.
+            "reliability": reliability(cal, oof, [int(y) for y in Y]),
             "ceiling_note": ("No plant can be shown above the ceiling, because "
                              "nothing in the data supports a higher number. The "
                              "ranking still separates plants at the ceiling — use "
@@ -589,6 +667,7 @@ def main() -> int:
                   "coefficients": dict(zip(MODEL_NAMES, w[1:])),
                   "standardisation": {n: {"mu": mu[i], "sd": sd[i]}
                                       for i, n in enumerate(MODEL_NAMES)}},
+        "training": training_provenance(hist, feis, Y, cal),
         "not_modelled": [
             "export bans and trade actions",
             "fires, floods and other physical loss",
@@ -599,6 +678,39 @@ def main() -> int:
     }
     out = REPO / "web" / "data" / "risk.json"
     out.write_text(json.dumps(doc, indent=2) + "\n")
+
+    # A second, compact file for the browser.
+    #
+    # risk.json is the artifact of record: every feature, every driver, every
+    # site, for anyone auditing the model. That makes it 2 MB, and the largest
+    # thing the web bundle imports today is 702 KB — three times over is a real
+    # cost in TypeScript inference and bundle tracing for fields no screen reads.
+    #
+    # So the console gets only what it draws. Same run, same numbers, no drift:
+    # a hand-maintained second copy would be wrong by the second commit.
+    ui_doc = {
+        "_note": ("Compact projection of risk.json for the web bundle. Emitted by "
+                  "the same run — do not hand-edit. risk.json is the artifact of "
+                  "record; audit against that."),
+        "run_at": doc["run_at"],
+        "trained_at": doc["trained_at"],
+        "horizon_days": doc["horizon_days"],
+        "rule_text": doc["rule_text"],
+        "coverage": doc["coverage"],
+        "calibration": {k: doc["calibration"][k]
+                        for k in ("method", "ceiling", "reliability", "curve")},
+        "training": doc["training"],
+        "not_modelled": doc["not_modelled"],
+        "plants": {
+            k: {kk: v[kk] for kk in
+                ("p12", "p12_range", "band", "evidence", "basis", "attribution",
+                 "label", "upstream_plants", "at_ceiling")
+                if kk in v and v[kk] not in (None, False)}
+            for k, v in scored.items()
+        },
+    }
+    ui_out = REPO / "web" / "data" / "risk.ui.json"
+    ui_out.write_text(json.dumps(ui_doc, separators=(",", ":")) + "\n")
 
     # Direct scores only. Inherited nodes carry their parent's `fei`, so a
     # fei-keyed dict lets a product overwrite the plant it inherited FROM and the
@@ -612,6 +724,9 @@ def main() -> int:
         print(f"  {(r['label'] or '')[:42]:<44}{r['p12']*100:>6.1f}%  {r['band']:<8} {r['evidence'][0][:52]}")
     print(f"\n  wrote {out.relative_to(REPO)} — {len(scored)} keys, "
           f"{len({v['fei'] for v in scored.values()})} distinct plants")
+    print(f"  wrote {ui_out.relative_to(REPO)} — "
+          f"{ui_out.stat().st_size / 1024:.0f} KB for the browser "
+          f"(risk.json is {out.stat().st_size / 1024:.0f} KB)")
     return 0
 
 

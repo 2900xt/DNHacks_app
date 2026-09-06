@@ -19,6 +19,13 @@ import { binsIn, worstOf, STATUS_LABEL } from '../lib/depot'
 import TreeView, { type DrugOption } from './TreeView'
 import GlobeView from './GlobeView'
 import NodeMetrics from './NodeMetrics'
+import ModelCard from './ModelCard'
+import type { NodeRisk, RiskMeta } from '../lib/risk-view'
+
+/** Risk band -> the colour vocabulary the graph already speaks. */
+const RISK_STATE: Record<NodeRisk['band'], NodeState> = {
+  low: 'ok', raised: 'warn', high: 'alarm',
+}
 import DepotPanel from './DepotPanel'
 import AuditLog, { type AuditEntry, type AuditKind } from './AuditLog'
 import AccountChip from './AccountChip'
@@ -35,6 +42,10 @@ export interface Payload {
   reroute: Reroute
   /** Buyer-side rule table (WTO GPA parties, the buyers offered). */
   jurisdictions: Jurisdictions
+  /** 12-month disruption probability per node, and where it came from. */
+  risk: Record<NodeId, NodeRisk>
+  /** What the model was trained on, and whether its number can be believed. */
+  riskMeta: RiskMeta
   /** ISO-2 of the buyer the console opens on — the depot's country. */
   buyer: string
   /** Collapsed NDC/labeler counts, keyed by drug id. */
@@ -48,7 +59,7 @@ export interface Payload {
 export default function Console({ payload }: { payload: Payload }) {
   const { nodes, edges, compliance, counts,
           ndcCount, labelerCount, downstreamOf, ctx, reroute,
-          jurisdictions, buyer: defaultBuyer } = payload
+          jurisdictions, risk, riskMeta, buyer: defaultBuyer } = payload
 
   const [beat, setBeat] = useState(0)
   /** Whose procurement rules the verdicts are judged against. A verdict is a
@@ -71,11 +82,18 @@ export default function Console({ payload }: { payload: Payload }) {
   /** The operator has asked for the way around the failure. Cleared the
    *  moment there is no failure left to route around. */
   const [rerouted, setRerouted] = useState(false)
+  /** Colour every node by its predicted 12-month disruption risk.
+   *
+   *  Off by default. The columned graph's colours mean something already —
+   *  which beat is talking, and what the cascade killed — and two meanings on
+   *  one colour is worse than one meaning and a toggle. */
+  const [riskOverlay, setRiskOverlay] = useState(false)
   /** Which rail sections are unfolded. The depot starts open: it only exists
    *  while a country is selected, and selecting the country is the ask. */
-  const [secOpen, setSecOpen] = useState({ node: true, aegis: true, depot: true })
+  const [secOpen, setSecOpen] = useState(
+    { node: true, aegis: true, depot: true, model: false })
   const toggleSec = useCallback(
-    (k: 'node' | 'aegis' | 'depot') => setSecOpen((o) => ({ ...o, [k]: !o[k] })),
+    (k: 'node' | 'aegis' | 'depot' | 'model') => setSecOpen((o) => ({ ...o, [k]: !o[k] })),
     [],
   )
   /** The one connection to the depot service. Global stream, local depots:
@@ -209,14 +227,30 @@ export default function Console({ payload }: { payload: Payload }) {
    *  anything is off, because a red box that means "beat 4 is talking about
    *  this" next to a red box that means "this is dead" is one red box too many. */
   const states = useMemo<Record<NodeId, NodeState>>(() => {
-    if (!rerouting) return b.states?.(ctx) ?? {}
-    const s: Record<NodeId, NodeState> = {}
-    for (const [id, r] of rollups) {
-      if (r.health === 'down') s[id] = 'alarm'
-      else if (r.health === 'at-risk') s[id] = 'warn'
+    // A cascade outranks the overlay. Once something is switched off, red has to
+    // keep meaning "this is dead" — a plant that is merely LIKELY to fail must
+    // not look the same as one that already has.
+    if (rerouting) {
+      const s: Record<NodeId, NodeState> = {}
+      for (const [id, r] of rollups) {
+        if (r.health === 'down') s[id] = 'alarm'
+        else if (r.health === 'at-risk') s[id] = 'warn'
+      }
+      return s
     }
-    return s
-  }, [rerouting, rollups, b, ctx])
+    if (riskOverlay) {
+      const s: Record<NodeId, NodeState> = {}
+      for (const n of nodes) {
+        const r = risk[n.id]
+        // Unscored stays 'plain', not 'ok'. 26 company names could not be
+        // resolved to one establishment, and painting them green would say the
+        // model checked them and found nothing wrong.
+        if (r) s[n.id] = RISK_STATE[r.band]
+      }
+      return s
+    }
+    return b.states?.(ctx) ?? {}
+  }, [rerouting, rollups, riskOverlay, nodes, risk, b, ctx])
 
   const go = useCallback((n: number) => {
     setBeat(Math.max(0, Math.min(BEATS.length - 1, n)))
@@ -232,6 +266,7 @@ export default function Console({ payload }: { payload: Payload }) {
         e.preventDefault(); go(0); setSelected(null); restoreAll()
       } else if (e.key === 'Escape') { restoreAll(); setSelected(null) }
       else if (e.key === 'g' || e.key === 'G') { e.preventDefault(); setPanel((p) => !p) }
+      else if (e.key === 'k' || e.key === 'K') { e.preventDefault(); setRiskOverlay((v) => !v) }
       else if (e.key === 'Enter' && rerouting && !rerouted) { e.preventDefault(); doReroute() }
     }
     window.addEventListener('keydown', onKey)
@@ -410,6 +445,15 @@ export default function Console({ payload }: { payload: Payload }) {
           </select>
           <button
             className="ctl"
+            data-on={riskOverlay ? '1' : '0'}
+            onClick={() => setRiskOverlay((v) => !v)}
+            aria-pressed={riskOverlay}
+            title="Colour every node by its predicted 12-month disruption risk (k)"
+          >
+            Risk
+          </button>
+          <button
+            className="ctl"
             onClick={() => setPanel((p) => !p)}
             aria-expanded={panel}
             title="Collapse the node column (g)"
@@ -505,6 +549,8 @@ export default function Console({ payload }: { payload: Payload }) {
                 ndc={selected ? ndcCount[selected] : undefined}
                 labelers={selected ? labelerCount[selected] : undefined}
                 alt={selected ? sl.byId.get(selected) : undefined}
+                risk={selected ? risk[selected] ?? null : null}
+                riskCeiling={riskMeta.ceiling}
               />
             </Section>
           )}
@@ -541,6 +587,18 @@ export default function Console({ payload }: { payload: Payload }) {
               />
             </Section>
           )}
+
+          {/* Where the percentages come from. Folded shut by default — it is
+              the answer to "says who", and that question is asked after the
+              number is seen, not before. */}
+          <Section
+            title="How risk is scored"
+            tag={`${riskMeta.coverage.scored} nodes`}
+            open={secOpen.model}
+            onToggle={() => toggleSec('model')}
+          >
+            <ModelCard meta={riskMeta} />
+          </Section>
 
           {/* Bottom-right: the operator. Last in the column and pushed to its
               foot, so it is always in the corner and never under a section. */}

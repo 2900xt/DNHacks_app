@@ -20,6 +20,68 @@
     "method": "isotonic (pool-adjacent-violators) on 5-fold out-of-fold scores",
     "why": "The raw logistic score ranks well and is over-confident at the top: out of fold it reached 99.99% for a group whose observed event rate was 36%. Isotonic regression cannot reorder plants, so the ranking is untouched; it only makes the number match the frequency actually observed at that score.",
     "ceiling": 0.46,
+    "reliability": [
+      {
+        "predicted": 0.00461,
+        "observed": 0.00569,
+        "n": 3688,
+        "range": [
+          0.00373,
+          0.00869
+        ],
+        "inside": true
+      },
+      {
+        "predicted": 0.01605,
+        "observed": 0.02198,
+        "n": 1456,
+        "range": [
+          0.01561,
+          0.03086
+        ],
+        "inside": true
+      },
+      {
+        "predicted": 0.02537,
+        "observed": 0.01899,
+        "n": 1264,
+        "range": [
+          0.01279,
+          0.0281
+        ],
+        "inside": true
+      },
+      {
+        "predicted": 0.06789,
+        "observed": 0.0596,
+        "n": 604,
+        "range": [
+          0.04336,
+          0.08141
+        ],
+        "inside": true
+      },
+      {
+        "predicted": 0.13507,
+        "observed": 0.1323,
+        "n": 257,
+        "range": [
+          0.09624,
+          0.17918
+        ],
+        "inside": true
+      },
+      {
+        "predicted": 0.35376,
+        "observed": 0.40984,
+        "n": 61,
+        "range": [
+          0.29535,
+          0.535
+        ],
+        "inside": true
+      }
+    ],
     "ceiling_note": "No plant can be shown above the ceiling, because nothing in the data supports a higher number. The ranking still separates plants at the ceiling \u2014 use `p12_uncalibrated` for ordering within it.",
     "curve": [
       {
@@ -248,6 +310,65 @@
         "sd": 0.304672072556094
       }
     }
+  },
+  "training": {
+    "sources": [
+      {
+        "name": "FDA Inspection Classification Database",
+        "what": "every drug-establishment inspection and how it ended",
+        "rows": 39675,
+        "breakdown": {
+          "NAI (no action)": 17957,
+          "VAI (voluntary action)": 18716,
+          "OAI (official action)": 3002
+        },
+        "span": {
+          "from": "2008-10-01",
+          "to": "2026-08-04"
+        },
+        "establishments": 18887,
+        "countries": 90,
+        "url": "https://datadashboard.fda.gov/ora/cd/inspections.htm"
+      },
+      {
+        "name": "FDA OASIS import refusals",
+        "what": "shipments turned away at the US border",
+        "rows": 13681,
+        "breakdown": {
+          "manufacturing quality (charge 27, 3280)": 7701,
+          "paperwork (charge 118, 472)": 5980
+        },
+        "span": {
+          "from": "2014-01-02",
+          "to": "2026-08-26"
+        },
+        "establishments": 7788,
+        "url": "https://www.accessdata.fda.gov/scripts/importrefusals/"
+      },
+      {
+        "name": "FDA DECRS drug establishment register",
+        "what": "who is registered to manufacture, and where",
+        "rows": 9863,
+        "url": "https://www.fda.gov/drugs/drug-approvals-and-databases/drug-establishments-current-registration-site"
+      }
+    ],
+    "fit": {
+      "cutoff": "2025-08-01",
+      "plants": 7330,
+      "positives": 172,
+      "base_rate": 0.02347,
+      "horizon_days": 365,
+      "label": "a failed inspection (OAI) or a manufacturing import refusal in the 365 days after the cutoff",
+      "why_this_cutoff": "The most recent date with a full year of outcomes behind it. Anything later and the label is only partly observed, which reads as a lower risk than is real.",
+      "features": 9,
+      "features_withheld": [
+        "insp_3y",
+        "months_since_insp"
+      ],
+      "withheld_because": "They measure FDA's inspection SCHEDULE, not plant risk. You cannot fail an inspection that never happens, so leaving them in lets the model predict the detector instead of the event."
+    },
+    "calibration_blocks": 18,
+    "out_of_fold": "Every calibration figure comes from 5-fold cross-validation \u2014 each plant scored by a model that never saw it."
   },
   "not_modelled": [
     "export bans and trade actions",
