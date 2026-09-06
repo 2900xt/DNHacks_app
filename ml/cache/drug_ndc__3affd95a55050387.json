@@ -1,0 +1,1496 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1000,
+      "total": 26
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "65862-501",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "250 mg/1"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "125 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-501-15",
+          "description": "1500 TABLET, FILM COATED in 1 BAG (65862-501-15)",
+          "marketing_start_date": "20-JAN-12"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "cce41f84-7ec1-41dd-aa43-f597de51ca38",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20120120",
+      "product_id": "65862-501_cce41f84-7ec1-41dd-aa43-f597de51ca38",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-502",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "125 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-502-99",
+          "description": "1000 TABLET, FILM COATED in 1 BAG (65862-502-99)",
+          "marketing_start_date": "20-JAN-12"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "cce41f84-7ec1-41dd-aa43-f597de51ca38",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20120120",
+      "product_id": "65862-502_cce41f84-7ec1-41dd-aa43-f597de51ca38",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-503",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "875 mg/1"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "125 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-503-82",
+          "description": "800 TABLET, FILM COATED in 1 BAG (65862-503-82)",
+          "marketing_start_date": "20-JAN-12"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "cce41f84-7ec1-41dd-aa43-f597de51ca38",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20120120",
+      "product_id": "65862-503_cce41f84-7ec1-41dd-aa43-f597de51ca38",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-706",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "125 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-706-01",
+          "description": "100 mL in 1 BOTTLE (65862-706-01)",
+          "marketing_start_date": "20140915",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-706-55",
+          "description": "150 mL in 1 BOTTLE (65862-706-55)",
+          "marketing_start_date": "20140915",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-706-80",
+          "description": "80 mL in 1 BOTTLE (65862-706-80)",
+          "marketing_start_date": "20140915",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "239191",
+          "313797"
+        ],
+        "spl_set_id": [
+          "234d0dfc-cb24-413f-b798-129c73eb848e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862707017",
+          "0365862706010"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "f4a410c9-3a78-48f9-8195-915896a974ff",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20140915",
+      "product_id": "65862-706_f4a410c9-3a78-48f9-8195-915896a974ff",
+      "application_number": "ANDA204030",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-707",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "250 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-707-01",
+          "description": "100 mL in 1 BOTTLE (65862-707-01)",
+          "marketing_start_date": "20140915",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-707-55",
+          "description": "150 mL in 1 BOTTLE (65862-707-55)",
+          "marketing_start_date": "20140915",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-707-80",
+          "description": "80 mL in 1 BOTTLE (65862-707-80)",
+          "marketing_start_date": "20140915",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "239191",
+          "313797"
+        ],
+        "spl_set_id": [
+          "234d0dfc-cb24-413f-b798-129c73eb848e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862707017",
+          "0365862706010"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "f4a410c9-3a78-48f9-8195-915896a974ff",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20140915",
+      "product_id": "65862-707_f4a410c9-3a78-48f9-8195-915896a974ff",
+      "application_number": "ANDA204030",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-274",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "50 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-274-37",
+          "description": "50 kg in 1 DRUM (65862-274-37)",
+          "marketing_start_date": "16-JAN-24"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "9063bab5-d55d-4c0a-b818-1df39dd0bfa1",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20240116",
+      "product_id": "65862-274_9063bab5-d55d-4c0a-b818-1df39dd0bfa1",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "59651-025",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "125 mg/5mL"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "31.25 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "59651-025-01",
+          "description": "100 mL in 1 BOTTLE (59651-025-01)",
+          "marketing_start_date": "20190419",
+          "sample": false
+        },
+        {
+          "package_ndc": "59651-025-55",
+          "description": "150 mL in 1 BOTTLE (59651-025-55)",
+          "marketing_start_date": "20190419",
+          "sample": false
+        },
+        {
+          "package_ndc": "59651-025-75",
+          "description": "75 mL in 1 BOTTLE (59651-025-75)",
+          "marketing_start_date": "20190419",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "617302",
+          "617322"
+        ],
+        "spl_set_id": [
+          "3ae0c95f-7ffa-4317-9fea-4d07b86bee72"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "b094fa0e-afc6-46ed-a2ab-105722623e38",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20190419",
+      "product_id": "59651-025_b094fa0e-afc6-46ed-a2ab-105722623e38",
+      "application_number": "ANDA209371",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "59651-026",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "250 mg/5mL"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "62.5 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "59651-026-01",
+          "description": "100 mL in 1 BOTTLE (59651-026-01)",
+          "marketing_start_date": "20190419",
+          "sample": false
+        },
+        {
+          "package_ndc": "59651-026-55",
+          "description": "150 mL in 1 BOTTLE (59651-026-55)",
+          "marketing_start_date": "20190419",
+          "sample": false
+        },
+        {
+          "package_ndc": "59651-026-75",
+          "description": "75 mL in 1 BOTTLE (59651-026-75)",
+          "marketing_start_date": "20190419",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "617302",
+          "617322"
+        ],
+        "spl_set_id": [
+          "3ae0c95f-7ffa-4317-9fea-4d07b86bee72"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "b094fa0e-afc6-46ed-a2ab-105722623e38",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20190419",
+      "product_id": "59651-026_b094fa0e-afc6-46ed-a2ab-105722623e38",
+      "application_number": "ANDA209371",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-015",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "875 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-015-01",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (65862-015-01)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-015-05",
+          "description": "500 TABLET, FILM COATED in 1 BOTTLE (65862-015-05)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-015-20",
+          "description": "20 TABLET, FILM COATED in 1 BOTTLE (65862-015-20)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "308192",
+          "308194"
+        ],
+        "spl_set_id": [
+          "99103779-6d2f-4e4b-9b7f-0b24d7c6bf4e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862015013"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "ee0e12cd-e881-4048-a0fb-74bd771cb9aa",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20051109",
+      "product_id": "65862-015_ee0e12cd-e881-4048-a0fb-74bd771cb9aa",
+      "application_number": "ANDA065256",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-014",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-014-01",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (65862-014-01)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-014-05",
+          "description": "500 TABLET, FILM COATED in 1 BOTTLE (65862-014-05)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-014-20",
+          "description": "20 TABLET, FILM COATED in 1 BOTTLE (65862-014-20)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "308192",
+          "308194"
+        ],
+        "spl_set_id": [
+          "99103779-6d2f-4e4b-9b7f-0b24d7c6bf4e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862015013"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "ee0e12cd-e881-4048-a0fb-74bd771cb9aa",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20051109",
+      "product_id": "65862-014_ee0e12cd-e881-4048-a0fb-74bd771cb9aa",
+      "application_number": "ANDA065256",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-016",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-016-01",
+          "description": "100 CAPSULE in 1 BOTTLE (65862-016-01)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-016-05",
+          "description": "500 CAPSULE in 1 BOTTLE (65862-016-05)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-016-20",
+          "description": "20 CAPSULE in 1 BOTTLE (65862-016-20)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-016-30",
+          "description": "30 CAPSULE in 1 BOTTLE (65862-016-30)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-016-50",
+          "description": "50 CAPSULE in 1 BOTTLE (65862-016-50)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "308182",
+          "308191"
+        ],
+        "spl_set_id": [
+          "7e3a4517-1934-4e03-b96b-4ad65ab076c5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862017208",
+          "0365862016201"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "4dc94f3c-990d-476f-a88e-df9967570eec",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20051109",
+      "product_id": "65862-016_4dc94f3c-990d-476f-a88e-df9967570eec",
+      "application_number": "ANDA065271",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-501",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "250 mg/1"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "125 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-501-05",
+          "description": "500 TABLET, FILM COATED in 1 BOTTLE (65862-501-05)",
+          "marketing_start_date": "20120120",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-501-30",
+          "description": "30 TABLET, FILM COATED in 1 BOTTLE (65862-501-30)",
+          "marketing_start_date": "20120120",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "562251",
+          "562508",
+          "617296"
+        ],
+        "spl_set_id": [
+          "ffb158a1-83ba-4100-9221-175aa986dc3e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "2b91e9f8-c77e-4330-8fc1-e574758f0db6",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20120120",
+      "product_id": "65862-501_2b91e9f8-c77e-4330-8fc1-e574758f0db6",
+      "application_number": "ANDA091569",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-017",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-017-01",
+          "description": "100 CAPSULE in 1 BOTTLE (65862-017-01)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-017-05",
+          "description": "500 CAPSULE in 1 BOTTLE (65862-017-05)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-017-20",
+          "description": "20 CAPSULE in 1 BOTTLE (65862-017-20)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-017-30",
+          "description": "30 CAPSULE in 1 BOTTLE (65862-017-30)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-017-50",
+          "description": "50 CAPSULE in 1 BOTTLE (65862-017-50)",
+          "marketing_start_date": "20051109",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "308182",
+          "308191"
+        ],
+        "spl_set_id": [
+          "7e3a4517-1934-4e03-b96b-4ad65ab076c5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862017208",
+          "0365862016201"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "4dc94f3c-990d-476f-a88e-df9967570eec",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20051109",
+      "product_id": "65862-017_4dc94f3c-990d-476f-a88e-df9967570eec",
+      "application_number": "ANDA065271",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-502",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "125 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-502-05",
+          "description": "500 TABLET, FILM COATED in 1 BOTTLE (65862-502-05)",
+          "marketing_start_date": "20120120",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-502-20",
+          "description": "20 TABLET, FILM COATED in 1 BOTTLE (65862-502-20)",
+          "marketing_start_date": "20120120",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "562251",
+          "562508",
+          "617296"
+        ],
+        "spl_set_id": [
+          "ffb158a1-83ba-4100-9221-175aa986dc3e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "2b91e9f8-c77e-4330-8fc1-e574758f0db6",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20120120",
+      "product_id": "65862-502_2b91e9f8-c77e-4330-8fc1-e574758f0db6",
+      "application_number": "ANDA091569",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-503",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "875 mg/1"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "125 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-503-01",
+          "description": "100 TABLET, FILM COATED in 1 BOTTLE (65862-503-01)",
+          "marketing_start_date": "20120120",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-503-20",
+          "description": "20 TABLET, FILM COATED in 1 BOTTLE (65862-503-20)",
+          "marketing_start_date": "20120120",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "562251",
+          "562508",
+          "617296"
+        ],
+        "spl_set_id": [
+          "ffb158a1-83ba-4100-9221-175aa986dc3e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "2b91e9f8-c77e-4330-8fc1-e574758f0db6",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20120120",
+      "product_id": "65862-503_2b91e9f8-c77e-4330-8fc1-e574758f0db6",
+      "application_number": "ANDA091568",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-534",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "400 mg/5mL"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "57 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-534-01",
+          "description": "100 mL in 1 BOTTLE (65862-534-01)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-534-50",
+          "description": "50 mL in 1 BOTTLE (65862-534-50)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-534-75",
+          "description": "75 mL in 1 BOTTLE (65862-534-75)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "617423",
+          "617430"
+        ],
+        "spl_set_id": [
+          "ab1dbe70-696f-4ff9-a0c7-7406bff590ae"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "4bd68235-4588-4e1a-9bac-b3d98481fd03",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20111220",
+      "product_id": "65862-534_4bd68235-4588-4e1a-9bac-b3d98481fd03",
+      "application_number": "ANDA201090",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-533",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "200 mg/5mL"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "28.5 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-533-01",
+          "description": "100 mL in 1 BOTTLE (65862-533-01)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-533-50",
+          "description": "50 mL in 1 BOTTLE (65862-533-50)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-533-75",
+          "description": "75 mL in 1 BOTTLE (65862-533-75)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "617423",
+          "617430"
+        ],
+        "spl_set_id": [
+          "ab1dbe70-696f-4ff9-a0c7-7406bff590ae"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "Q42OMW3AT8",
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "4bd68235-4588-4e1a-9bac-b3d98481fd03",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20111220",
+      "product_id": "65862-533_4bd68235-4588-4e1a-9bac-b3d98481fd03",
+      "application_number": "ANDA201090",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-015",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "875 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-015-89",
+          "description": "900 TABLET, FILM COATED in 1 BAG (65862-015-89)",
+          "marketing_start_date": "09-NOV-05"
+        },
+        {
+          "package_ndc": "65862-015-99",
+          "description": "1000 TABLET, FILM COATED in 1 BAG (65862-015-99)",
+          "marketing_start_date": "09-NOV-05"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "bd7f4142-ae2f-4d74-9ccf-1fc4d10f3f99",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20051109",
+      "product_id": "65862-015_bd7f4142-ae2f-4d74-9ccf-1fc4d10f3f99",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "59651-883",
+      "generic_name": "Amoxicillin Sodium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN SODIUM",
+          "strength": "50 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "59651-883-37",
+          "description": "50 kg in 1 DRUM (59651-883-37)",
+          "marketing_start_date": "29-NOV-23"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "40b17b33-f4a0-4873-9543-118e766246cf",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20231129",
+      "product_id": "59651-883_40b17b33-f4a0-4873-9543-118e766246cf",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-535",
+      "generic_name": "Amoxicillin and Clavulanate Potassium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin and Clavulanate Potassium",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "600 mg/5mL"
+        },
+        {
+          "name": "CLAVULANATE POTASSIUM",
+          "strength": "42.9 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-535-02",
+          "description": "200 mL in 1 BOTTLE (65862-535-02)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-535-13",
+          "description": "125 mL in 1 BOTTLE (65862-535-13)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-535-75",
+          "description": "75 mL in 1 BOTTLE (65862-535-75)",
+          "marketing_start_date": "20111220",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "617993"
+        ],
+        "spl_set_id": [
+          "5200ae31-8a79-45f9-84fc-98f8448483a7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862535023"
+        ],
+        "unii": [
+          "804826J2HU",
+          "Q42OMW3AT8"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "3d50990e-9d7e-4a23-a135-97d5612ec0bc",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20111220",
+      "product_id": "65862-535_3d50990e-9d7e-4a23-a135-97d5612ec0bc",
+      "application_number": "ANDA201091",
+      "brand_name_base": "Amoxicillin and Clavulanate Potassium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-014",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-014-22",
+          "description": "2000 TABLET, FILM COATED in 1 BAG (65862-014-22)",
+          "marketing_start_date": "09-NOV-05"
+        },
+        {
+          "package_ndc": "65862-014-31",
+          "description": "1700 TABLET, FILM COATED in 1 BAG (65862-014-31)",
+          "marketing_start_date": "09-NOV-05"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "TABLET, FILM COATED",
+      "spl_id": "bd7f4142-ae2f-4d74-9ccf-1fc4d10f3f99",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20051109",
+      "product_id": "65862-014_bd7f4142-ae2f-4d74-9ccf-1fc4d10f3f99",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-016",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-016-18",
+          "description": "1800 CAPSULE in 1 BAG (65862-016-18)",
+          "marketing_start_date": "11-SEP-05"
+        },
+        {
+          "package_ndc": "65862-016-22",
+          "description": "2000 CAPSULE in 1 BAG (65862-016-22)",
+          "marketing_start_date": "11-SEP-05"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "CAPSULE",
+      "spl_id": "e6e9bedc-0083-4c68-9849-e646154d13d5",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20050911",
+      "product_id": "65862-016_e6e9bedc-0083-4c68-9849-e646154d13d5",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-017",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-017-15",
+          "description": "1500 CAPSULE in 1 BAG (65862-017-15)",
+          "marketing_start_date": "11-SEP-05"
+        },
+        {
+          "package_ndc": "65862-017-99",
+          "description": "1000 CAPSULE in 1 BAG (65862-017-99)",
+          "marketing_start_date": "11-SEP-05"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "CAPSULE",
+      "spl_id": "e6e9bedc-0083-4c68-9849-e646154d13d5",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20050911",
+      "product_id": "65862-017_e6e9bedc-0083-4c68-9849-e646154d13d5",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "65862-070",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "200 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-070-01",
+          "description": "100 mL in 1 BOTTLE (65862-070-01)",
+          "marketing_start_date": "20061228",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-070-50",
+          "description": "50 mL in 1 BOTTLE (65862-070-50)",
+          "marketing_start_date": "20061228",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-070-75",
+          "description": "75 mL in 1 BOTTLE (65862-070-75)",
+          "marketing_start_date": "20061228",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "308189",
+          "313850"
+        ],
+        "spl_set_id": [
+          "3cacd754-73f4-496e-a529-9ca39fa6692d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862071019",
+          "0365862070012"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "3e3ca279-1838-4348-a01c-df10a8bcb8b9",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20061228",
+      "product_id": "65862-070_3e3ca279-1838-4348-a01c-df10a8bcb8b9",
+      "application_number": "ANDA065334",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-071",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "400 mg/5mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65862-071-01",
+          "description": "100 mL in 1 BOTTLE (65862-071-01)",
+          "marketing_start_date": "20061228",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-071-50",
+          "description": "50 mL in 1 BOTTLE (65862-071-50)",
+          "marketing_start_date": "20061228",
+          "sample": false
+        },
+        {
+          "package_ndc": "65862-071-75",
+          "description": "75 mL in 1 BOTTLE (65862-071-75)",
+          "marketing_start_date": "20061228",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "308189",
+          "313850"
+        ],
+        "spl_set_id": [
+          "3cacd754-73f4-496e-a529-9ca39fa6692d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0365862071019",
+          "0365862070012"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SUSPENSION",
+      "spl_id": "3e3ca279-1838-4348-a01c-df10a8bcb8b9",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20061228",
+      "product_id": "65862-071_3e3ca279-1838-4348-a01c-df10a8bcb8b9",
+      "application_number": "ANDA065334",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "59651-099",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "50 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "59651-099-37",
+          "description": "50 kg in 1 DRUM (59651-099-37)",
+          "marketing_start_date": "14-AUG-26"
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "2469fa11-83f2-4b18-8294-529488ec50d0",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20260814",
+      "product_id": "59651-099_2469fa11-83f2-4b18-8294-529488ec50d0",
+      "brand_name_base": null
+    }
+  ]
+}

@@ -192,6 +192,48 @@ def compare(
 
 
 # --------------------------------------------------------------------------
+# Resolving one name against many candidates — where ambiguity bites
+# --------------------------------------------------------------------------
+
+#: Two candidates whose scores differ by less than this are treated as tied.
+AMBIGUITY_MARGIN = 0.05
+
+
+def resolve(name: str, candidates: dict[str, str], *, country: str | None = None,
+            countries: dict[str, str] | None = None,
+            threshold: float = MATCH_THRESHOLD) -> tuple[str | None, str]:
+    """Pick the one candidate `name` refers to, or REFUSE if it is ambiguous.
+
+    `candidates` maps id -> that candidate's name.
+
+    Refusing on a tie is the whole point. Benchmark FP #17 is
+    `UNITED LABORATORIES CHENGDU` vs `The United Laboratories (Inner Mongolia)`:
+    both reduce to the core `{united}`, so against a pool of facilities they
+    both score 1.00 against a *third* United Laboratories site. Picking the
+    argmax would silently attach one plant's inspection history to another.
+
+    A tie is not a match we should break — it is evidence the name does not
+    identify anything on its own. Returns (id | None, reason).
+    """
+    scored = []
+    for cid, cname in candidates.items():
+        m = compare(name, cname, country_a=country,
+                    country_b=(countries or {}).get(cid), threshold=threshold)
+        if m.same:
+            scored.append((m.score, cid, cname))
+    if not scored:
+        return None, "no candidate above threshold"
+
+    scored.sort(reverse=True)
+    top_score, top_id, top_name = scored[0]
+    tied = [c for sc, c, _ in scored if top_score - sc < AMBIGUITY_MARGIN]
+    if len(tied) > 1:
+        return None, (f"AMBIGUOUS — {len(tied)} candidates tie at ~{top_score:.2f} "
+                      f"({', '.join(tied[:3])}); refusing rather than guessing")
+    return top_id, f"matched {top_name!r} at {top_score:.2f}, next best gap ok"
+
+
+# --------------------------------------------------------------------------
 # Baselines, for comparison
 # --------------------------------------------------------------------------
 
