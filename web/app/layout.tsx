@@ -3,10 +3,13 @@ import "./globals.css";
 
 // Stage name is RIPPLE — decisions/0005. The repo, docs and node-id scheme stay
 // CHOKEPOINT; only what a judge sees or hears changes. Logo: /ripple-logo.png
+// `/` is the landing page and `/app` is the console, so the root title is the
+// product's, not the instrument's. The console overrides both in
+// app/app/page.tsx.
 export const metadata: Metadata = {
-  title: "RIPPLE — sourcing risk console",
+  title: "RIPPLE — supply chain monitoring for medicines",
   description:
-    "Trace a drug product to the precursor it shares, and see what else fails with it.",
+    "We track where the world's drugs are actually made, notice when something goes wrong, and show you who else could make it instead.",
 };
 
 // No `icons` entry here on purpose. In the App Router, app/favicon.ico is served

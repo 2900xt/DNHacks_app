@@ -5,285 +5,406 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RIPPLE — DNHacks 2026</title>
 <style>
-  /* No CDN, no webfonts. Venue wifi will be bad and this is also the
-     "laptop died" fallback, so it must open on a phone with nothing to fetch. */
+  /* No CDN, no webfonts. Venue wifi will be bad, and this is the
+     "laptop died" fallback — it must open on a phone with nothing to fetch. */
   :root{
-    --bg:#0b1524;
-    --bg-2:#0f1f33;
-    --ink:#f2f7ff;
-    --ink-2:#a8c0dc;
-    --ink-3:#5f7b9c;
-    --blue:#3987e5;
-    --red:#e66767;
-    --ice:#cfe4ff;
-    --rule:rgba(160,195,235,.14);
+    --bg:#080f1a; --bg2:#0c1726;
+    --card:rgba(148,190,240,.045);
+    --card2:rgba(148,190,240,.075);
+    --line:rgba(150,190,235,.13);
+    --ink:#f4f8ff; --ink2:#a9c2de; --ink3:#5e7b9d;
+    --blue:#3987e5; --red:#e66767; --ice:#cfe4ff;
+    --r:18px;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;height:100%;overflow:hidden}
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%;overflow:hidden}
   body{
-    color:var(--ink);
     background:
-      radial-gradient(120vw 92vh at 76% -18%, var(--bg-2) 0%, transparent 60%),
+      radial-gradient(90vw 70vh at 88% -10%, #12263f 0%, transparent 58%),
+      radial-gradient(70vw 60vh at -10% 110%, #0d1c30 0%, transparent 55%),
       var(--bg);
-    font:16px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    font:16px/1.45 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .slide{
-    position:absolute;inset:0;display:none;
-    flex-direction:column;justify-content:center;
-    padding:8vh 9vw;z-index:1;
-  }
-  .slide.on{display:flex}
+  .slide{position:absolute;inset:0;display:none;padding:5.2vh 5vw 8vh;
+    grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(0,1fr);
+    gap:16px;align-content:stretch}
+  .slide.on{display:grid}
 
-  /* the ripple — the product is called RIPPLE, so it should be in the room */
-  .rings{position:fixed;right:-14vw;top:50%;transform:translateY(-50%);
-    width:88vh;height:88vh;z-index:0;pointer-events:none;
-    transition:right .45s ease,left .45s ease}
-  .rings circle{fill:none;stroke:var(--blue)}
-  .rings.left{right:auto;left:-30vw}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:clamp(20px,2.1vw,34px);display:flex;flex-direction:column;
+    justify-content:center;min-width:0;overflow:hidden;position:relative}
+  .card.fill{justify-content:space-evenly}
+  .card.plain{background:none;border:none;padding:clamp(8px,1vw,16px)}
+  .card.hot{background:linear-gradient(150deg,rgba(57,135,229,.16),rgba(57,135,229,.03));
+    border-color:rgba(57,135,229,.34)}
+  .card.warn{background:linear-gradient(150deg,rgba(230,103,103,.14),rgba(230,103,103,.02));
+    border-color:rgba(230,103,103,.32)}
 
-  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--ink-3);margin-bottom:2.2em;display:flex;align-items:center;gap:14px}
-  .kicker::after{content:"";height:1px;flex:0 0 90px;background:var(--rule)}
-
-  h1{font-size:clamp(56px,10vw,132px);line-height:.92;margin:0;letter-spacing:-.045em;font-weight:700}
-  h2{font-size:clamp(28px,4.4vw,60px);line-height:1.06;margin:0 0 .45em;letter-spacing:-.03em;font-weight:650}
-  h2 .dim{color:var(--ink-3);font-weight:500}
-  p{font-size:clamp(17px,1.75vw,25px);color:var(--ink-2);max-width:30ch;margin:.35em 0;line-height:1.45}
-  p.wide{max-width:48ch}
-  .lede{color:var(--ice);font-size:clamp(19px,2vw,29px);max-width:34ch}
-  .note{color:var(--ink-3);font-size:clamp(14px,1.35vw,18px);max-width:56ch;margin-top:1.8em;line-height:1.6}
+  .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);
+    margin-bottom:.9em;font-weight:600}
+  h1{font-size:clamp(44px,6.6vw,104px);line-height:.9;letter-spacing:-.05em;font-weight:750}
+  h2{font-size:clamp(24px,3.1vw,46px);line-height:1.04;letter-spacing:-.032em;font-weight:700}
+  h3{font-size:clamp(17px,1.55vw,24px);line-height:1.2;letter-spacing:-.015em;font-weight:650}
+  p{font-size:clamp(13px,1.02vw,17px);color:var(--ink2);line-height:1.5}
+  .lede{font-size:clamp(16px,1.5vw,25px);color:var(--ice);line-height:1.32;letter-spacing:-.012em}
+  .small{font-size:clamp(11px,.82vw,13.5px);color:var(--ink3);line-height:1.5}
   b{color:var(--ink);font-weight:650}
-
-  .hero{font-size:clamp(110px,22vw,300px);line-height:.82;letter-spacing:-.06em;
-    font-weight:700;color:var(--ice)}
-  .hero small{font-size:.24em;letter-spacing:-.02em;color:var(--ink-3);
-    display:block;margin-top:.5em;font-weight:600}
-
-  .stats{display:flex;gap:clamp(28px,5vw,80px);margin:.6em 0 .2em;flex-wrap:wrap}
-  .stat .n{font-size:clamp(44px,6.4vw,92px);font-weight:700;letter-spacing:-.045em;
-    line-height:1;color:var(--ice)}
-  .stat .l{color:var(--ink-3);font-size:13px;margin-top:.9em;max-width:17ch;
-    line-height:1.45;letter-spacing:.01em}
-
-  .strip{display:flex;gap:10px;margin:1.4em 0 .3em;flex-wrap:wrap}
-  .pill{border:1px solid var(--rule);border-radius:999px;padding:8px 16px;
-    font-size:14px;color:var(--ink-2)}
-  .pill.hot{border-color:rgba(230,103,103,.42);color:#ffc9c9}
+  .num{font-size:clamp(34px,4.6vw,78px);font-weight:750;letter-spacing:-.05em;
+    line-height:.92;color:var(--ice)}
+  .num .u{font-size:.34em;color:var(--ink3);letter-spacing:-.01em;font-weight:650}
+  .lab{color:var(--ink3);font-size:clamp(11px,.85vw,13.5px);margin-top:.85em;line-height:1.4}
+  .rule{height:1px;background:var(--line);margin:.9em 0}
+  .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;
+    padding:5px 12px;font-size:clamp(11px,.85vw,13.5px);color:var(--ink2);margin:3px 4px 3px 0}
+  .tag.on{border-color:rgba(57,135,229,.5);color:var(--ice);background:rgba(57,135,229,.1)}
+  .tag.no{border-color:rgba(230,103,103,.4);color:#ffc9c9}
 
   /* chart */
-  .chart{width:min(820px,100%);margin-top:.4em}
-  .brow{display:grid;grid-template-columns:17ch 1fr 5.5ch;align-items:center;gap:16px;margin:12px 0}
-  .blabel{font-size:14px;color:var(--ink-2);text-align:right;letter-spacing:.01em}
-  .track{position:relative;height:24px}
-  .axis{position:absolute;top:-9px;bottom:-9px;width:2px;background:var(--rule);left:50%}
-  .bar{position:absolute;top:0;height:24px}
+  .brow{display:grid;grid-template-columns:14ch 1fr 5ch;align-items:center;gap:14px}
+  .blabel{font-size:clamp(11px,.85vw,14px);color:var(--ink2);text-align:right}
+  .track{position:relative;height:clamp(20px,2.4vw,38px)}
+  .axis{position:absolute;top:-7px;bottom:-7px;width:2px;background:rgba(150,190,235,.25);left:50%}
+  .bar{position:absolute;top:0;bottom:0}
   .bar.pos{background:var(--blue);border-radius:0 5px 5px 0}
   .bar.neg{background:var(--red);border-radius:5px 0 0 5px}
-  .bval{font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
-  .axnote{display:grid;grid-template-columns:17ch 1fr 5.5ch;gap:16px;margin-top:10px}
-  .axnote span{grid-column:2;font-size:12px;color:var(--ink-3);text-align:center;letter-spacing:.04em}
-  .legend{display:flex;gap:24px;margin:0 0 1.5em;font-size:14px;color:var(--ink-2)}
-  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+  .bval{font-size:clamp(11px,.85vw,14px);color:var(--ink2);font-variant-numeric:tabular-nums}
+  .legend{display:flex;gap:18px;font-size:clamp(11px,.82vw,13.5px);color:var(--ink2);margin-bottom:.6em}
+  .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
 
-  .quote{border-left:2px solid var(--blue);padding-left:1.3em}
-  .quote p{color:var(--ice);font-size:clamp(24px,3.4vw,46px);line-height:1.2;
-    max-width:22ch;letter-spacing:-.02em}
+  .list{display:flex;flex-direction:column;gap:7px}
+  .li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:2px 0;
+    font-size:clamp(11px,.87vw,14.5px);color:var(--ink2)}
+  .li .cn{color:var(--ink3);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .li.cn-flag .cn{color:#ffb3b3}
 
-  footer{position:fixed;left:9vw;right:9vw;bottom:3.6vh;display:flex;
-    justify-content:space-between;align-items:center;
-    font-size:11px;color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase}
-  .brand{display:flex;align-items:center;gap:9px;color:var(--ink-2);font-weight:600}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--blue);display:inline-block}
-  @media print{.slide{display:flex;position:static;page-break-after:always;height:100vh}footer{display:none}}
+  footer{position:fixed;left:5vw;right:5vw;bottom:2.6vh;display:flex;
+    justify-content:space-between;align-items:center;font-size:10.5px;
+    color:var(--ink3);letter-spacing:.16em;text-transform:uppercase}
+  .brand{display:flex;align-items:center;gap:8px;color:var(--ink2);font-weight:700}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+  @media print{.slide{display:grid;position:static;page-break-after:always;height:100vh}footer{display:none}}
 </style>
 </head>
 <body>
 
-<svg class="rings" viewBox="0 0 400 400" aria-hidden="true" id="rings">
-  <circle cx="200" cy="200" r="46"  stroke-opacity=".38" stroke-width="1.4"/>
-  <circle cx="200" cy="200" r="82"  stroke-opacity=".28" stroke-width="1.3"/>
-  <circle cx="200" cy="200" r="122" stroke-opacity=".20" stroke-width="1.2"/>
-  <circle cx="200" cy="200" r="164" stroke-opacity=".13" stroke-width="1.1"/>
-  <circle cx="200" cy="200" r="196" stroke-opacity=".08" stroke-width="1"/>
-</svg>
-
-<!-- 1 -->
-<section class="slide on">
-  <h1>RIPPLE</h1>
-  <p class="lede" style="margin-top:.7em">Six antibiotics. One ingredient.
-    Nobody was watching it.</p>
-  <div class="note">DNHacks 2026 · Health &amp; Public Service · Station DC</div>
-</section>
-
-<!-- 2 -->
-<section class="slide">
-  <div class="kicker">Sunday, some hospital</div>
-  <h2>A pallet of amoxicillin<br>got too hot in a truck.</h2>
-  <p class="wide">The supply manager has one question, and it is the only question
-    her job is really about.</p>
-  <p class="lede" style="margin-top:.9em">Is my stock good — and if it isn't,
-    can I get more?</p>
-</section>
-
-<!-- 3 -->
-<section class="slide">
-  <div class="kicker">We put a sensor on the bin</div>
-  <h2>Reading: green.<br>Average: green.<br><span class="dim">Stock: condemned.</span></h2>
-  <p class="wide">Mean kinetic temperature is what regulators actually use. One hot
-    hour in transit doesn't average out — it accumulates, and the box never recovers.</p>
-  <div class="note">A cold-chain company tells you the box got hot.
-    We tell you the box getting hot can't be undone.</div>
-</section>
-
-<!-- 4 -->
-<section class="slide">
-  <div class="kicker">Fine. Re-order it.</div>
-  <h2>Every penicillin on earth<br>starts as one molecule.</h2>
-  <div class="stats">
-    <div class="stat"><div class="n">8</div><div class="l">active US filings to supply 6-APA</div></div>
-    <div class="stat"><div class="n">4</div><div class="l">of the eight are Chinese</div></div>
-    <div class="stat"><div class="n">2</div><div class="l">of the eight share a parent</div></div>
+<!-- 1 · TITLE -->
+<section class="slide on" style="grid-template-rows:1fr 1fr 1fr">
+  <div class="card plain" style="grid-column:span 7;grid-row:span 2;justify-content:flex-end">
+    <h1>RIPPLE</h1>
+    <p class="lede" style="margin-top:.5em;max-width:20ch">Six antibiotics.<br>One ingredient.<br>Nobody was watching it.</p>
   </div>
-  <div class="note">Filings, not companies — the distinction matters and we keep it.
-    Seven resolve to a country: Austria, India, China. The eighth we could not verify,
-    so the graph says <b>unverified</b> instead of guessing.</div>
-</section>
-
-<!-- 5 -->
-<section class="slide">
-  <div class="kicker">Now pull the thread</div>
-  <div class="hero">6<small>antibiotics, one precursor</small></div>
-  <div class="strip">
-    <span class="pill">amoxicillin</span><span class="pill">ampicillin</span>
-    <span class="pill">piperacillin</span><span class="pill">dicloxacillin</span>
-    <span class="pill">nafcillin</span><span class="pill">oxacillin</span>
+  <div class="card hot fill" style="grid-column:span 5;grid-row:span 3">
+    <img src="/ripple-logo.png" alt="RIPPLE" style="width:100%;max-height:58%;object-fit:contain;mix-blend-mode:screen">
+    <div class="rule"></div>
+    <h3>One precursor. Six drugs. Zero shortage listings.</h3>
+    <p class="small" style="margin-top:.7em">Disrupt the centre and everything downstream
+      moves at once — which is the part no public tool shows you.</p>
   </div>
-  <div class="note"><b>Not one of them is on a shortage list today.</b> That isn't a
-    prediction that they will be — it's exposure. Disrupt 6-APA and all six move at
-    once, and nothing in the FDA's finished-drug view tells you they're connected.</div>
-</section>
-
-<!-- 6 -->
-<section class="slide">
-  <div class="kicker">Where this comes from</div>
-  <h2>We assembled this.<br><span class="dim">We didn't invent any of it.</span></h2>
-  <div class="stats">
-    <div class="stat"><div class="n">1,731</div><div class="l">nodes</div></div>
-    <div class="stat"><div class="n">2,382</div><div class="l">edges, tagged by source</div></div>
-    <div class="stat"><div class="n">1,318</div><div class="l">live risk signals</div></div>
-    <div class="stat"><div class="n">855</div><div class="l">real facilities</div></div>
+  <div class="card plain" style="grid-column:span 7;justify-content:flex-end">
+    <p class="small">DNHacks 2026 · Health &amp; Public Service · Station DC ·
+      <b>chokepoint-nu.vercel.app</b></p>
   </div>
-  <div class="note">openFDA · FDA Type II DMF register · DECRS establishment
-    registrations · Federal Register · UN Comtrade. Hand-curated edges carry a
-    citation or they don't ship.</div>
 </section>
 
-<!-- 7 -->
-<section class="slide">
-  <div class="kicker">Where the AI actually is</div>
-  <h2>The same company is spelled<br>differently in every database.</h2>
-  <p class="wide">Nothing connects until you solve that. It's the unglamorous part,
-    and it's the whole product.</p>
-  <div class="stats" style="margin-top:1.1em">
-    <div class="stat"><div class="n">20<span style="color:var(--ink-3)">/20</span></div><div class="l">agentic resolver</div></div>
-    <div class="stat"><div class="n">18<span style="color:var(--ink-3)">/20</span></div><div class="l">rules-engine baseline</div></div>
+<!-- 2 · PROBLEM -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">The moment</div>
+    <h2>A pallet of amoxicillin got too hot in a truck.</h2>
   </div>
-  <div class="note">Hand-labeled benchmark, and we ship what it gets wrong:
-    <b>WUXI BIOLOGICS is not WuXi AppTec.</b> A substring rule swears it is.</div>
-</section>
-
-<!-- 8 -->
-<section class="slide">
-  <div class="kicker">Then we tested our own headline</div>
-  <h2 style="margin-bottom:.7em">It failed.</h2>
-  <div class="legend">
-    <span><i class="sw" style="background:var(--blue)"></i>Predicts shortage</span>
-    <span><i class="sw" style="background:var(--red)"></i>Predicts the opposite</span>
+  <div class="card fill" style="grid-column:span 5;grid-row:span 2">
+    <div class="eyebrow">Who cares</div>
+    <p class="lede">A hospital-group supply manager. Her whole job is one question.</p>
+    <div class="rule"></div>
+    <h3 style="color:var(--ice)">“Is my stock good — and if it isn’t, can I get more?”</h3>
   </div>
-  <div class="chart">
-    <div class="brow"><div class="blabel">Concentration</div>
-      <div class="track"><div class="axis"></div><div class="bar neg" style="right:50%;width:30.4%"></div></div>
-      <div class="bval">0.196</div></div>
-    <div class="brow"><div class="blabel">Few labelers</div>
-      <div class="track"><div class="axis"></div><div class="bar neg" style="right:50%;width:30.9%"></div></div>
-      <div class="bval">0.191</div></div>
-    <div class="brow"><div class="blabel">Sterile injectable</div>
-      <div class="track"><div class="axis"></div><div class="bar pos" style="left:50%;width:16.0%"></div></div>
-      <div class="bval">0.660</div></div>
-    <div class="brow"><div class="blabel">Market size</div>
-      <div class="track"><div class="axis"></div><div class="bar pos" style="left:50%;width:27.9%"></div></div>
-      <div class="bval">0.779</div></div>
-    <div class="brow"><div class="blabel">Price erosion</div>
-      <div class="track"><div class="axis"></div><div class="bar pos" style="left:50%;width:11.2%"></div></div>
-      <div class="bval">0.612</div></div>
-    <div class="axnote"><span>← worse than chance · 0.5 · better than chance →</span></div>
+  <div class="card" style="grid-column:span 4">
+    <div class="num">4.1<span class="u">%</span></div>
+    <div class="lab">of US generics went into shortage after our 2023 cutoff</div>
   </div>
-  <div class="note">3,902 generics · 161 shortages after a frozen Jan 2023 cutoff ·
-    permutation test, 300 shuffles · p = 0.003. Concentration doesn't just fail to
-    predict — <b>it points the wrong way</b>, in every stratum, at every cutoff.</div>
-</section>
-
-<!-- 9 -->
-<section class="slide">
-  <div class="kicker">So we said so</div>
-  <div class="hero">0.70<small>cross-validated AUC — what actually predicts</small></div>
-  <div class="strip">
-    <span class="pill">market size</span>
-    <span class="pill">sterile injectable</span>
-    <span class="pill">prior-year price erosion</span>
+  <div class="card" style="grid-column:span 3">
+    <div class="num">161</div>
+    <div class="lab">shortage events we measured against</div>
   </div>
-  <div class="note">The map is still true — real filings, real facilities, real signals.
-    Six drugs sharing one precursor is a <b>fact about structure</b>, not a forecast.
-    What broke was the score. We kept the map and threw out the score.</div>
-</section>
-
-<!-- 10 -->
-<section class="slide">
-  <div class="kicker">When a supplier goes down</div>
-  <h2>A shortlist.<br><span class="dim">Not an optimiser.</span></h2>
-  <p class="wide">We rank who holds an active filing and a US registration — by whether
-    moving there actually diversifies, and whether the alternate is already in trouble.</p>
-  <div class="strip">
-    <span class="pill hot">capacity — unpublished</span>
-    <span class="pill hot">lead time — unpublished</span>
-    <span class="pill hot">will they sell to you — unknowable</span>
+  <div class="card warn" style="grid-column:span 7">
+    <h3>The second half of that question has no public answer.</h3>
+    <p style="margin-top:.6em">You can look up who <b>labels</b> a drug in seconds.
+      You cannot look up who makes the ingredient inside it — that’s confidential by design.</p>
   </div>
-  <div class="note">Printed on every row we output. An optimiser without a capacity
-    constraint is just a sort wearing a lab coat.</div>
 </section>
 
-<!-- 11 -->
-<section class="slide">
-  <div class="kicker">The ask</div>
-  <h2>The map doesn't exist yet.<br><span class="dim">That's the whole point.</span></h2>
-  <p class="wide">openFDA tells you who <b>labels</b> a drug. It will never tell you who
-    makes the ingredient underneath — that's confidential by design.</p>
-  <div class="note"><b>$10,000 extends the hand-verified layer to more drugs.</b>
-    Not polish, not more UI. The part that doesn't exist anywhere, for anyone, yet.</div>
+<!-- 3 · HARDWARE -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">We put a sensor on the bin</div>
+    <h2>Reading: green. Average: green. <span style="color:var(--ink3)">Stock: condemned.</span></h2>
+  </div>
+  <div class="card" style="grid-column:span 3"><div class="num">21.4<span class="u">°C</span></div><div class="lab">live reading — inside the band</div></div>
+  <div class="card" style="grid-column:span 3"><div class="num">22.0<span class="u">°C</span></div><div class="lab">arithmetic mean — also fine</div></div>
+  <div class="card warn" style="grid-column:span 3"><div class="num" style="color:#ffb3b3">25.9<span class="u">°C</span></div><div class="lab">mean kinetic temperature — ceiling is 25.0</div></div>
+  <div class="card" style="grid-column:span 3">
+    <div class="eyebrow">Verdict</div><h3 style="color:#ffb3b3">Unrecoverable</h3>
+    <p class="small" style="margin-top:.6em">Does not clear when the room cools.</p>
+  </div>
+  <div class="card hot" style="grid-column:span 7">
+    <h3>Heat accumulates. It doesn’t average out.</h3>
+    <p style="margin-top:.6em">MKT is the metric regulators actually use. One bad hour in
+      transit condemns the pallet even though every instantaneous reading looks normal.</p>
+  </div>
+  <div class="card" style="grid-column:span 5">
+    <div class="eyebrow">Why it matters here</div>
+    <p class="lede" style="font-size:clamp(14px,1.25vw,20px)">A cold-chain company tells you
+      the box got hot. We tell you the box getting hot <b>can’t be undone.</b></p>
+  </div>
 </section>
 
-<!-- 12 -->
-<section class="slide">
-  <div class="quote"><p>A system that hides its own negative result is not one you should buy.</p></div>
-  <div class="note" style="margin-top:2.4em">RIPPLE · chokepoint-nu.vercel.app</div>
+<!-- 4 · THE EIGHT -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">Fine — re-order it</div>
+    <h2>Every penicillin on earth starts as one molecule.</h2>
+  </div>
+  <div class="card fill" style="grid-column:span 5;grid-row:span 2">
+    <div class="eyebrow">Active US filings to supply 6-APA</div>
+    <div class="list">
+      <div class="li"><span>Sandoz GmbH</span><span class="cn">Austria</span></div>
+      <div class="li"><span>Antibioticos SA</span><span class="cn" style="color:#8aa">unverified</span></div>
+      <div class="li"><span>Pure &amp; Cure Healthcare</span><span class="cn">India</span></div>
+      <div class="li"><span>Apitoria Pharma</span><span class="cn">India</span></div>
+      <div class="li cn-flag"><span>Inner Mongolia Changsheng</span><span class="cn">China</span></div>
+      <div class="li cn-flag"><span>United Laboratories Chengdu</span><span class="cn">China</span></div>
+      <div class="li cn-flag"><span>United Laboratories Inner Mongolia</span><span class="cn">China</span></div>
+      <div class="li cn-flag"><span>Sinopharm Weiqida</span><span class="cn">China</span></div>
+    </div>
+  </div>
+  <div class="card" style="grid-column:span 3"><div class="num">8</div><div class="lab">filings — not companies. We keep the distinction</div></div>
+  <div class="card warn" style="grid-column:span 2"><div class="num" style="color:#ffb3b3">4</div><div class="lab">of eight are Chinese</div></div>
+  <div class="card" style="grid-column:span 2"><div class="num">2</div><div class="lab">share one parent</div></div>
+  <div class="card" style="grid-column:span 7">
+    <p>Seven of the eight resolve to a country. The eighth we could not verify from a
+      primary source, so the graph says <b>unverified</b> rather than guessing.
+      That row is the honest edge of this dataset, and we leave it showing.</p>
+  </div>
 </section>
 
-<footer><span class="brand"><i class="dot"></i>RIPPLE</span><span id="n"></span></footer>
+<!-- 5 · THE FAN-OUT -->
+<section class="slide" style="grid-template-rows:auto 1fr auto">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">Now pull the thread</div>
+    <h2>Six antibiotics. One precursor. None of them on a shortage list.</h2>
+  </div>
+  <div class="card hot" style="grid-column:span 12;padding:clamp(10px,1.4vw,22px)">
+    <svg viewBox="0 0 1180 444" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%" aria-label="6-APA fanning out to six drugs">
+      <g stroke="#3987e5" stroke-opacity=".42" fill="none" stroke-width="1.7"><path d="M235 222 C360 222 380 52 500 52"/><path d="M235 222 C360 222 380 120 500 120"/><path d="M235 222 C360 222 380 188 500 188"/><path d="M235 222 C360 222 380 256 500 256"/><path d="M235 222 C360 222 380 324 500 324"/><path d="M235 222 C360 222 380 392 500 392"/></g>
+      <g fill="none" stroke="#3987e5">
+        <circle cx="150" cy="222" r="34" stroke-opacity=".85" stroke-width="1.9"/>
+        <circle cx="150" cy="222" r="62" stroke-opacity=".45" stroke-width="1.4"/>
+        <circle cx="150" cy="222" r="92" stroke-opacity=".2" stroke-width="1.1"/>
+        <circle cx="150" cy="222" r="120" stroke-opacity=".09" stroke-width="1"/>
+      </g>
+      <circle cx="150" cy="222" r="8" fill="#cfe4ff"/>
+      <text x="150" y="368" fill="#cfe4ff" font-size="21" font-weight="700" text-anchor="middle">6-APA</text>
+      <text x="150" y="392" fill="#5e7b9d" font-size="13" text-anchor="middle">shared precursor</text>
+      <g font-size="19" fill="#f4f8ff" font-weight="650"><text x="520" y="58">amoxicillin</text><text x="520" y="126">ampicillin</text><text x="520" y="194">piperacillin</text><text x="520" y="262">dicloxacillin</text><text x="520" y="330">nafcillin</text><text x="520" y="398">oxacillin</text></g>
+      <g font-size="12.5" fill="#5e7b9d" letter-spacing=".06em"><text x="760" y="57">ESSENTIAL MEDICINES LIST</text><text x="760" y="125">ESSENTIAL MEDICINES LIST</text><text x="760" y="193">ESSENTIAL MEDICINES LIST</text><text x="760" y="261">—</text><text x="760" y="329">—</text><text x="760" y="397">—</text></g>
+      <g font-size="13" fill="#7fd4a8"><text x="1010" y="57">no shortage</text><text x="1010" y="125">no shortage</text><text x="1010" y="193">no shortage</text><text x="1010" y="261">no shortage</text><text x="1010" y="329">no shortage</text><text x="1010" y="397">no shortage</text></g>
+    </svg>
+  </div>
+  <div class="card plain" style="grid-column:span 12">
+    <p><b>That is not a prediction that they will go short.</b> It is exposure — disrupt
+      6-APA and all six move at once, and nothing in the FDA’s finished-drug view tells
+      you they are connected.</p>
+  </div>
+</section>
 
+<!-- 6 · PROVENANCE -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">Where this comes from</div>
+    <h2>We assembled it. <span style="color:var(--ink3)">We didn’t invent any of it.</span></h2>
+  </div>
+  <div class="card" style="grid-column:span 3"><div class="num">1,731</div><div class="lab">nodes in the graph</div></div>
+  <div class="card" style="grid-column:span 3"><div class="num">2,382</div><div class="lab">edges, each tagged by source layer</div></div>
+  <div class="card" style="grid-column:span 3"><div class="num">1,318</div><div class="lab">live risk signals</div></div>
+  <div class="card" style="grid-column:span 3"><div class="num">855</div><div class="lab">real manufacturing facilities</div></div>
+  <div class="card" style="grid-column:span 8">
+    <div class="eyebrow">Every source is a government file</div>
+    <div>
+      <span class="tag on">openFDA</span><span class="tag on">FDA Type II DMF register</span>
+      <span class="tag on">DECRS establishments</span><span class="tag on">Federal Register</span>
+      <span class="tag on">UN Comtrade</span><span class="tag on">EO 13944</span>
+      <span class="tag on">DoD 1260H</span><span class="tag on">TAA</span>
+    </div>
+    <p class="small" style="margin-top:1em">Hand-curated edges carry a citation or they do
+      not ship — the loader refuses them.</p>
+  </div>
+  <div class="card" style="grid-column:span 4">
+    <div class="eyebrow">Why that matters</div>
+    <p>Author both the network and the disruption and the cascade is just a traversal over
+      data you wrote. <b>Ours is public record.</b></p>
+  </div>
+</section>
+
+<!-- 7 · THE AI -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">Where the AI actually is</div>
+    <h2>The same company is spelled differently in every database.</h2>
+  </div>
+  <div class="card hot" style="grid-column:span 3"><div class="num">20<span class="u">/20</span></div><div class="lab">agentic resolver</div></div>
+  <div class="card" style="grid-column:span 3"><div class="num">18<span class="u">/20</span></div><div class="lab">rules-engine baseline</div></div>
+  <div class="card" style="grid-column:span 6">
+    <div class="eyebrow">Hand-labeled benchmark</div>
+    <p>Nothing in the graph connects until you decide two spellings are the same firm.
+      It is the unglamorous half of the product, and it is the half that makes the
+      other half possible.</p>
+  </div>
+  <div class="card warn" style="grid-column:span 6">
+    <div class="eyebrow">We ship what it gets wrong</div>
+    <h3><span style="color:#ffb3b3">WUXI BIOLOGICS</span> is not <span style="color:#ffb3b3">WuXi AppTec</span></h3>
+    <p style="margin-top:.6em">Different companies. A substring rule swears they are the
+      same, and that is the kind of error that quietly poisons a supply-chain graph.</p>
+  </div>
+  <div class="card" style="grid-column:span 6">
+    <div class="eyebrow">Could you just remove the AI?</div>
+    <p class="lede" style="font-size:clamp(14px,1.3vw,21px)">No. Entity resolution <b>is</b>
+      the join. Without it there is no graph — just five databases that don’t agree on
+      anyone’s name.</p>
+  </div>
+</section>
+
+<!-- 8 · THE REFUTATION -->
+<section class="slide" style="grid-template-rows:auto 1fr auto">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">Then we tested our own headline</div>
+    <h2>It failed.</h2>
+  </div>
+  <div class="card warn fill" style="grid-column:span 8">
+    <div class="legend">
+      <span><i class="sw" style="background:var(--blue)"></i>Predicts shortage</span>
+      <span><i class="sw" style="background:var(--red)"></i>Predicts the opposite</span>
+    </div>
+    <div class="brow"><div class="blabel">Concentration</div><div class="track"><div class="axis"></div><div class="bar neg" style="right:50%;width:30.4%"></div></div><div class="bval">0.196</div></div>
+    <div class="brow"><div class="blabel">Few labelers</div><div class="track"><div class="axis"></div><div class="bar neg" style="right:50%;width:30.9%"></div></div><div class="bval">0.191</div></div>
+    <div class="brow"><div class="blabel">Sterile injectable</div><div class="track"><div class="axis"></div><div class="bar pos" style="left:50%;width:16.0%"></div></div><div class="bval">0.660</div></div>
+    <div class="brow"><div class="blabel">Market size</div><div class="track"><div class="axis"></div><div class="bar pos" style="left:50%;width:27.9%"></div></div><div class="bval">0.779</div></div>
+    <div class="brow"><div class="blabel">Price erosion</div><div class="track"><div class="axis"></div><div class="bar pos" style="left:50%;width:11.2%"></div></div><div class="bval">0.612</div></div>
+    <p class="small" style="text-align:center;margin-top:.9em">← worse than chance · AUC 0.5 · better than chance →</p>
+  </div>
+  <div class="card fill" style="grid-column:span 4">
+    <div class="eyebrow">Method</div>
+    <div class="list">
+      <div class="li"><span>Generics tested</span><span class="cn">3,902</span></div>
+      <div class="li"><span>Shortages after cutoff</span><span class="cn">161</span></div>
+      <div class="li"><span>Cutoff frozen at</span><span class="cn">Jan 2023</span></div>
+      <div class="li"><span>Permutation shuffles</span><span class="cn">300</span></div>
+      <div class="li"><span>Significance</span><span class="cn">p = 0.003</span></div>
+    </div>
+    <div class="rule"></div>
+    <p class="small">Holds in <b>every stratum</b> and at <b>every cutoff</b> we tried.</p>
+  </div>
+  <div class="card plain" style="grid-column:span 12">
+    <p>We assumed fewer suppliers meant more risk — the intuition this whole field runs on.
+      <b>Concentration doesn’t just fail to predict shortage. It points the wrong way.</b></p>
+  </div>
+</section>
+
+<!-- 9 · WHAT ACTUALLY PREDICTS -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">So we said so — and went looking for what does</div>
+    <h2>Three public signals that actually work.</h2>
+  </div>
+  <div class="card hot fill" style="grid-column:span 4;grid-row:span 2">
+    <div class="num" style="font-size:clamp(48px,7vw,110px)">0.70</div>
+    <div class="lab">cross-validated AUC, combined model</div>
+    <div class="rule"></div>
+    <p class="small">Built only from data any procurement team can pull today.</p>
+  </div>
+  <div class="card" style="grid-column:span 8">
+    <div style="display:flex;gap:6%;flex-wrap:wrap">
+      <div><div class="num" style="font-size:clamp(26px,3vw,50px)">0.779</div><div class="lab">market size</div></div>
+      <div><div class="num" style="font-size:clamp(26px,3vw,50px)">0.660</div><div class="lab">sterile injectable</div></div>
+      <div><div class="num" style="font-size:clamp(26px,3vw,50px)">0.612</div><div class="lab">prior-year price erosion</div></div>
+    </div>
+  </div>
+  <div class="card" style="grid-column:span 8">
+    <h3>We kept the map and threw out the score.</h3>
+    <p style="margin-top:.6em">The graph is still true — real filings, real facilities, real
+      signals. Six drugs sharing one precursor is a <b>fact about structure</b>, not a
+      forecast. What broke was the prediction layer, and we removed it rather than ship it.</p>
+  </div>
+</section>
+
+<!-- 10 · SHORTLIST -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">When a supplier does go down</div>
+    <h2>A shortlist. <span style="color:var(--ink3)">Not an optimiser.</span></h2>
+  </div>
+  <div class="card fill" style="grid-column:span 7;grid-row:span 2">
+    <div class="eyebrow">What we rank on — all public, all checkable</div>
+    <div class="list">
+      <div class="li"><span><b>Capability</b> — holds an active filing for this substance</span><span class="cn">DMF</span></div>
+      <div class="li"><span><b>Registration</b> — legally able to supply the US</span><span class="cn">DECRS</span></div>
+      <div class="li"><span><b>Geography</b> — does moving there actually diversify?</span><span class="cn">graph</span></div>
+      <div class="li"><span><b>Eligibility</b> — can a federal buyer purchase it?</span><span class="cn">TAA · 1260H</span></div>
+      <div class="li"><span><b>Their own risk</b> — is the alternate already in trouble?</span><span class="cn">signals</span></div>
+    </div>
+  </div>
+  <div class="card warn" style="grid-column:span 5">
+    <div class="eyebrow">What we refuse to claim</div>
+    <div><span class="tag no">capacity — unpublished</span><span class="tag no">lead time — unpublished</span><span class="tag no">will they sell to you</span></div>
+  </div>
+  <div class="card" style="grid-column:span 5">
+    <p class="lede" style="font-size:clamp(14px,1.28vw,21px)">An optimiser with no capacity
+      constraint is a sort wearing a lab coat. So we print the limits on <b>every row we
+      output.</b></p>
+  </div>
+</section>
+
+<!-- 11 · THE ASK -->
+<section class="slide" style="grid-template-rows:auto 1fr 1fr">
+  <div class="card plain" style="grid-column:span 12">
+    <div class="eyebrow">The ask</div>
+    <h2>The map doesn’t exist yet. <span style="color:var(--ink3)">That’s the whole point.</span></h2>
+  </div>
+  <div class="card" style="grid-column:span 4"><div class="eyebrow">Public today</div><h3>Who <b>labels</b> a drug</h3><p class="small" style="margin-top:.7em">Queryable in seconds. Tells you nothing about the ingredient.</p></div>
+  <div class="card warn" style="grid-column:span 4"><div class="eyebrow">Confidential by design</div><h3 style="color:#ffb3b3">Who makes the <b>ingredient</b></h3><p class="small" style="margin-top:.7em">Drug Master File contents are sealed. This is the hole.</p></div>
+  <div class="card hot" style="grid-column:span 4"><div class="eyebrow">What we did</div><h3>Recovered what’s public.<br>Hand-verified the rest.</h3><p class="small" style="margin-top:.7em">With a citation per edge.</p></div>
+  <div class="card hot" style="grid-column:span 12">
+    <h2 style="font-size:clamp(20px,2.4vw,38px)">$10,000 extends the hand-verified layer to more drugs.</h2>
+    <p style="margin-top:.6em">Not polish. Not more UI. The part that doesn’t exist anywhere
+      yet, for anyone — and the part that turns one worked example into a dataset.</p>
+  </div>
+</section>
+
+<!-- 12 · CLOSE -->
+<section class="slide" style="grid-template-rows:1fr auto">
+  <div class="card hot" style="grid-column:span 12;justify-content:center">
+    <h2 style="font-size:clamp(28px,4.4vw,68px);max-width:22ch">A system that hides its own
+      negative result is not one you should buy.</h2>
+    <p class="lede" style="margin-top:1.2em">So here’s ours.</p>
+  </div>
+  <div class="card plain" style="grid-column:span 12">
+    <p class="small"><b>RIPPLE</b> · chokepoint-nu.vercel.app · DNHacks 2026 · built on
+      openFDA, the FDA DMF register, DECRS, the Federal Register and UN Comtrade</p>
+  </div>
+</section>
+
+<footer><span class="brand"><img src="/ripple-mark.png" alt="" style="width:15px;height:15px;object-fit:contain">RIPPLE</span><span id="n"></span></footer>
 <script>
-  const s=[...document.querySelectorAll('.slide')];let i=0;
-  const n=document.getElementById('n'),rings=document.getElementById('rings');
-  const paint=()=>{n.textContent=(i+1)+' / '+s.length;
-    rings.classList.toggle('left', i%3===1);};
-  const go=d=>{s[i].classList.remove('on');
-    i=Math.max(0,Math.min(s.length-1,i+d));s[i].classList.add('on');paint()};
+  const s=[...document.querySelectorAll('.slide')];let i=0;const n=document.getElementById('n');
+  const paint=()=>n.textContent=(i+1)+' / '+s.length;
+  const go=d=>{s[i].classList.remove('on');i=Math.max(0,Math.min(s.length-1,i+d));
+    s[i].classList.add('on');paint()};
   paint();
   addEventListener('keydown',e=>{
     if(['ArrowRight',' ','PageDown','n'].includes(e.key)){e.preventDefault();go(1)}
     if(['ArrowLeft','PageUp','p'].includes(e.key)){e.preventDefault();go(-1)}
-    if(e.key==='Home')go(-999); if(e.key==='End')go(999);
-  });
+    if(e.key==='Home')go(-999);if(e.key==='End')go(999)});
   addEventListener('click',e=>go(e.clientX<innerWidth*.25?-1:1));
 </script>
 </body>
