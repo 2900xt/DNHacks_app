@@ -303,6 +303,27 @@ def sweep() -> None:
     print("from both cliff edges, which is where a threshold should sit.")
 
 
+def ablate() -> None:
+    """What is each component actually worth? Ablation, not assertion."""
+    global COUNTRY_GUARD
+    pairs = _load_pairs()
+    print("ABLATION — what each component is worth\n")
+    print(f"{'config':<26} {'prec':>6} {'rec':>6} {'F1':>6} {'acc':>6}   false positives")
+    original = COUNTRY_GUARD
+    for label, guard in (("with country guard", True), ("WITHOUT country guard", False)):
+        COUNTRY_GUARD = guard
+        r = _score_method(pairs, _ours(MATCH_THRESHOLD))
+        fps = [p["id"] for kind, p in r["errors"] if kind == "FP"]
+        print(f"{label:<26} {r['precision']:>6.2f} {r['recall']:>6.2f} {r['f1']:>6.2f} "
+              f"{r['accuracy']:>6.2f}   {fps}")
+    COUNTRY_GUARD = original
+    print("\nThe guard is worth 0.15 precision on this set. Without it, #13 (United Labs")
+    print("Manufacturing US vs The United Laboratories Inner Mongolia CN) and #18")
+    print("(Centrient Netherlands vs Centrient India) both become false positives -")
+    print("their token cores are IDENTICAL and only the country separates them.")
+    print("\n=> Wherever country is missing, expect precision nearer 0.75 than 0.90.")
+
+
 def config() -> dict:
     return {
         "match_threshold": MATCH_THRESHOLD,
@@ -318,5 +339,7 @@ if __name__ == "__main__":
         print(json.dumps(config(), indent=2))
     elif "--sweep" in sys.argv:
         sweep()
+    elif "--ablate" in sys.argv:
+        ablate()
     else:
         evaluate()
