@@ -1,144 +1,137 @@
-// Server component. Loads the merged graph, reduces it to the demo SPINE, and
-// hands the client only what it renders.
+// The landing page. Server component: every number on it is read out of the
+// merged graph at build time by `counts()`, the same function the console
+// uses, so the marketing copy cannot drift from the artifact the way a
+// hand-typed stat in a static HTML file does.
 //
-// The full graph is 862 nodes, 760 of them individual NDCs. Rendering those as
-// boxes is unreadable and beside the point: a risk manager wants "Amoxicillin —
-// 19 NDCs", not 19 rectangles. So products are collapsed into counts on their
-// drug, and every number that quantifies blast radius is still computed against
-// the FULL graph, not the reduced one.
+// Held to two screens on purpose — a hero and one scroll. The console is the
+// product; this page exists to get a judge into it.
 
-import { loadGraph, getBacktest, counts, rerouteIndex } from './lib/graph'
-import type { Compliance, GraphEdge, GraphNode, NodeId, Signal } from './lib/types'
-import Console, { type Payload } from './components/Console'
-import { APA } from './lib/demo'
+import Link from 'next/link'
+import Image from 'next/image'
+import SiteNav from './components/SiteNav'
+import { counts } from './lib/graph'
 
-const SIGNALS_PER_NODE = 8
-/** Collapsed into counts rather than drawn. */
-const COLLAPSED = new Set(['product'])
+const fmt = (n: number) => n.toLocaleString('en-US')
 
-function downstream(out: Map<NodeId, NodeId[]>, from: NodeId): Set<NodeId> {
-  const seen = new Set<NodeId>([from])
-  const q = [from]
-  while (q.length) {
-    for (const d of out.get(q.shift()!) ?? []) {
-      if (seen.has(d)) continue
-      seen.add(d)
-      q.push(d)
-    }
-  }
-  return seen
-}
+const PLANS = [
+  {
+    name: 'Watch',
+    price: 'Free',
+    unit: '',
+    line: 'One drug, public feeds, refreshed daily.',
+    features: ['1 tracked drug', 'openFDA signal feed', 'Read-only console'],
+    cta: 'Start watching',
+    featured: false,
+  },
+  {
+    name: 'Operate',
+    price: '$2,400',
+    unit: '/mo',
+    line: 'The full graph, scored re-routes, and the audit trail.',
+    features: ['Unlimited drugs', 'Re-route scoring', 'Exportable audit trail', 'Depot sensor ingest'],
+    cta: 'Subscribe',
+    featured: true,
+  },
+  {
+    name: 'Federal',
+    price: 'Custom',
+    unit: '',
+    line: 'TAA and 1260H screening, deployed inside your boundary.',
+    features: ['TAA / EO 13944 screening', 'On-prem or GovCloud', 'SSO + role separation'],
+    cta: 'Talk to us',
+    featured: false,
+  },
+]
 
-export default function Page() {
-  const g = loadGraph()
-  const all = [...g.nodes.values()]
+export default function Landing() {
+  const c = counts()
 
-  const out = new Map<NodeId, NodeId[]>()
-  for (const e of g.edges) (out.get(e.src) ?? out.set(e.src, []).get(e.src)!).push(e.dst)
+  return (
+    <div className="site">
+      <SiteNav />
 
-  // --- the spine ------------------------------------------------------------
-  // Everything structurally attached to the precursor that is not an NDC.
-  //
-  // This MUST be a fixpoint, not a single sweep. The artifacts concatenate
-  // openFDA edges before curated ones, so `active_in` (api -> drug) is visited
-  // before `feeds` (precursor -> api) has put any api in the set. A single pass
-  // silently drops all six drugs, and the fan-out beat renders nothing.
-  const SPINE_RELS = new Set([
-    'feeds', 'produced_by', 'active_in', 'incorporated_in', 'hosts', 'operated_by',
-  ])
-  const spine = new Set<NodeId>([APA])
-  for (let grew = true; grew; ) {
-    grew = false
-    for (const e of g.edges) {
-      if (!SPINE_RELS.has(e.rel)) continue
-      if (spine.has(e.src) && !spine.has(e.dst)) { spine.add(e.dst); grew = true }
-      else if (spine.has(e.dst) && !spine.has(e.src)) { spine.add(e.src); grew = true }
-    }
-  }
-  for (const id of [...spine]) {
-    const n = g.nodes.get(id)
-    if (!n || COLLAPSED.has(n.type)) spine.delete(id)
-  }
+      <header className="hero">
+        <div className="hero-bg" />
+        <div className="hero-veil" />
+        <div className="hero-in">
+          <p className="eyebrow">Sourcing risk console</p>
+          <h1>A supplier goes down.<br /><em>What else just broke?</em></h1>
+          <p className="hero-sub">
+            Ripple reads disruption out of public FDA feeds, propagates it through a real
+            sourcing graph, and ranks the alternates that can actually supply you —
+            including when the honest answer is that none of them can.
+          </p>
+          <div className="hero-cta">
+            <Link className="btn btn-primary btn-lg" href="/app">Open the console</Link>
+            <Link className="btn btn-ghost btn-lg" href="#plans">See pricing</Link>
+          </div>
+          <p className="hero-src">
+            openFDA · Type II DMF register · DECRS · Federal Register · UN Comtrade
+          </p>
+        </div>
+      </header>
 
-  const nodes = all.filter((n) => spine.has(n.id))
-  const edges = g.edges.filter(
-    (e) => spine.has(e.src) && spine.has(e.dst) && e.rel !== 'markets',
+      <section id="how" className="band band-how">
+        <div className="how-row">
+          <div className="how-cell">
+            <p className="how-step">01 — Detect</p>
+            <p className="how-n">{fmt(c.signals)}</p>
+            <p className="how-t">Signals joined to FEI-registered establishments — refusals,
+              inspection classifications, regulatory actions.</p>
+          </div>
+          <div className="how-cell">
+            <p className="how-step">02 — Ripple</p>
+            <p className="how-n">{fmt(c.nodes)} <span>nodes · {fmt(c.edges)} edges</span></p>
+            <p className="how-t">One node fails and everything structurally downstream of it
+              fails at once — before any of it reaches a shortage list.</p>
+          </div>
+          <div className="how-cell">
+            <p className="how-step">03 — Re-route</p>
+            <p className="how-n">Scored</p>
+            <p className="how-t">Who else holds an active filing and a US registration, ranked
+              by whether moving there actually diversifies you.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="plans" className="band band-plans">
+        <div className="band-head">
+          <h2>Plans</h2>
+          <p>The graph is public record. Watching it every morning is the product.</p>
+        </div>
+
+        <div className="plans">
+          {PLANS.map((p) => (
+            <div className="plan" key={p.name} data-featured={p.featured ? '1' : '0'}>
+              {p.featured && <span className="plan-flag">Most picked</span>}
+              <p className="plan-name">{p.name}</p>
+              <p className="plan-price">{p.price}<span>{p.unit}</span></p>
+              <p className="plan-line">{p.line}</p>
+              <ul className="plan-feat">
+                {p.features.map((f) => <li key={f}>{f}</li>)}
+              </ul>
+              <Link className={`btn ${p.featured ? 'btn-primary' : 'btn-ghost'} plan-cta`} href="/login">
+                {p.cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <p className="plans-fine">
+          Built at DNHacks 2026. Pricing is illustrative — no billing is wired up, and the
+          console is open to anyone with the link.
+        </p>
+      </section>
+
+      <footer className="site-foot">
+        <Link className="nav-mark" href="/">
+          <Image src="/ripple-mark.png" alt="" width={18} height={18} />
+          <span>RIPPLE</span>
+        </Link>
+        <p>openFDA · FDA Type II DMF register · DECRS · Federal Register · UN Comtrade ·
+          EO 13944 · DoD 1260H. Not medical or procurement advice.</p>
+        <Link href="/app">Open the console →</Link>
+      </footer>
+    </div>
   )
-
-  // --- collapsed product counts, per drug -----------------------------------
-  const ndcCount: Record<NodeId, number> = {}
-  const labelerCount: Record<NodeId, number> = {}
-  const labelersByDrug = new Map<NodeId, Set<NodeId>>()
-  const productOwner = new Map<NodeId, NodeId>()
-  for (const e of g.edges) if (e.rel === 'markets') productOwner.set(e.dst, e.src)
-  for (const e of g.edges) {
-    if (e.rel !== 'marketed_as') continue
-    ndcCount[e.src] = (ndcCount[e.src] ?? 0) + 1
-    const owner = productOwner.get(e.dst)
-    if (owner) {
-      ;(labelersByDrug.get(e.src) ?? labelersByDrug.set(e.src, new Set()).get(e.src)!).add(owner)
-    }
-  }
-  for (const [drug, set] of labelersByDrug) labelerCount[drug] = set.size
-
-  // --- blast radius, against the FULL graph ---------------------------------
-  const downstreamOf: Record<NodeId, number> = {}
-  for (const n of nodes) downstreamOf[n.id] = downstream(out, n.id).size - 1
-
-  // --- per-node side tables --------------------------------------------------
-  const compliance: Record<NodeId, Compliance> = {}
-  for (const n of nodes) {
-    const c = g.compliance.get(n.id)
-    if (c) compliance[n.id] = c
-  }
-  // A TAA verdict is a jurisdiction fact; the graph already carries company ->
-  // country, so inherit it or the overlay colours three boxes and nothing else.
-  for (const e of edges) {
-    if (e.rel !== 'incorporated_in') continue
-    const country = compliance[e.dst]
-    if (country && !compliance[e.src]) {
-      compliance[e.src] = {
-        node_id: e.src,
-        taa_pass: country.taa_pass,
-        on_1260h: country.on_1260h,
-        evidence: { ...country.evidence, inherited_from: e.dst },
-      }
-    }
-  }
-
-  const signals: Record<NodeId, Signal[]> = {}
-  for (const n of nodes) {
-    const s = g.signals.get(n.id)
-    if (s?.length) signals[n.id] = s.slice(0, SIGNALS_PER_NODE)
-  }
-
-  const layerCounts: Record<number, number> = {}
-  for (const e of g.edges) layerCounts[e.layer] = (layerCounts[e.layer] ?? 0) + 1
-
-  const ids = (p: string) => nodes.filter((n) => n.id.startsWith(p)).map((n) => n.id)
-
-  const payload: Payload = {
-    nodes,
-    edges: edges as GraphEdge[],
-    compliance,
-    signals,
-    counts: counts(),
-    layerCounts,
-    backtest: getBacktest(),
-    // AEGIS alternates, keyed by node. Server-side because the artifact is
-    // static — the client only ever looks one up.
-    reroute: rerouteIndex(),
-    ndcCount,
-    labelerCount,
-    downstreamOf,
-    ctx: {
-      fanout: [...downstream(out, APA)].filter((id) => spine.has(id)),
-      companies: ids('company:'),
-      countries: ids('country:'),
-      drugs: ids('drug:'),
-      apis: ids('api:'),
-    },
-  }
-
-  return <Console payload={payload} />
 }
