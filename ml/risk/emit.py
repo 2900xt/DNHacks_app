@@ -299,6 +299,54 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
         if not grew:
             break
 
+    # Same again including the molecule-level edges. A node whose risk came down
+    # the weak path has NOTHING upstream on the supply graph, so counting only
+    # the strong one reported `upstream_plants: 0` for all 108 of them. For those
+    # the honest count is "plants making the same substance", which is exactly
+    # what the weak graph holds.
+    behind_any = {k: set(v) for k, v in behind.items()}
+    both = defaultdict(list)
+    for k, v in out.items():
+        both[k].extend(v)
+    for k, v in weak_out.items():
+        both[k].extend(v)
+    for src, dsts in both.items():
+        if src.startswith(("facility:", "company:")):
+            for d in dsts:
+                behind_any.setdefault(d, set()).add(src)
+    for _ in range(len(nodes) + 1):
+        grew = False
+        for src, dsts in both.items():
+            a = behind_any.get(src) or set()
+            for d in dsts:
+                t = behind_any.setdefault(d, set())
+                if a - t:
+                    t |= a
+                    grew = True
+        if not grew:
+            break
+
+    def n_plants(node: str) -> int:
+        """Distinct FEIs upstream, not distinct producer NODES.
+
+        A company node is one node and several plants. Counting nodes made every
+        product read `upstream_plants: 1`, which looks like "single-sourced" — a
+        strong claim — when it only meant "one marketer, who has six sites".
+        """
+        def feis_of(srcs) -> set:
+            f = set()
+            for src in srcs or ():
+                rec = scored.get(src)
+                if rec:
+                    f.update(rec.get("site_feis") or [rec["fei"]])
+            return f
+
+        # Fall back on an empty FEI SET, not an empty source set. These nodes do
+        # have a producer upstream — an unresolved marketer — so the source set is
+        # non-empty while contributing no plants, and testing the source set left
+        # all 108 reporting zero.
+        return len(feis_of(behind.get(node)) or feis_of(behind_any.get(node)))
+
     added = 0
     for _ in range(len(nodes) + 1):
         changed = False
@@ -326,11 +374,11 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
                                "attribution": "supply",
                                "inherited_from": origin,
                                "inherited_via": src,
-                               "upstream_plants": len(behind.get(dst) or ()),
+                               "upstream_plants": n_plants(dst),
                                "evidence": [f"No FDA record of its own — this is "
                                             f"the risk of {base['label']}, which "
                                             f"makes it."] + why[:2]}
-                n_up = len(behind.get(dst) or ())
+                n_up = n_plants(dst)
                 if n_up > 1:
                     scored[dst]["evidence"].insert(
                         1, f"{n_up} plants sit upstream of this — the figure is the "
@@ -361,7 +409,7 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
                                "attribution": "molecule",
                                "inherited_from": base.get("inherited_from") or src,
                                "inherited_via": src,
-                               "upstream_plants": len(behind.get(dst) or ()),
+                               "upstream_plants": n_plants(dst),
                                "evidence": [f"No supplier we could resolve — this is "
                                             f"the risk of the most at-risk plant "
                                             f"making the same substance "
@@ -618,6 +666,11 @@ def selftest() -> int:
     check(len(noc) / len(uniq) < 0.02,
           f"country is known for essentially every plant — {len(noc)}/{len(uniq)} "
           f"missing (absent reads as 'not China, not India')")
+
+    zero_up = [k for k, v in P.items()
+               if v["basis"] == "inherited" and not v.get("upstream_plants")]
+    check(not zero_up, f"every inherited node counts at least one plant upstream "
+                       f"({len(zero_up)} report zero)")
 
     check(all(v.get("evidence") for v in P.values()), "every node has evidence")
     check(all(v["basis"] != "inherited" or v.get("inherited_from")
