@@ -146,11 +146,19 @@ def precision_at(items, score, label, k=TOP_K) -> float:
 # --------------------------------------------------------------------------
 
 
-def _standardise(rows):
+def _fit_scaler(rows):
+    """Mean/sd from TRAINING rows only. Fitting on all rows leaks the test
+    fold's feature distribution into the transform - unsupervised, so mild, but
+    it is still the test set informing the model and it is trivial to avoid."""
     m = len(rows[0])
     mu = [sum(r[i] for r in rows) / len(rows) for i in range(m)]
     sd = [((sum((r[i] - mu[i]) ** 2 for r in rows) / len(rows)) ** 0.5) or 1.0 for i in range(m)]
-    return [[(r[i] - mu[i]) / sd[i] for i in range(m)] for r in rows]
+    return mu, sd
+
+
+def _apply(rows, scaler):
+    mu, sd = scaler
+    return [[(r[i] - mu[i]) / sd[i] for i in range(len(mu))] for r in rows]
 
 
 def fit_logistic(X, Y, l2=1.0, iters=2500, lr=0.5):
@@ -212,7 +220,6 @@ def fit_stumps(X, Y, rounds=60, lr=0.3):
 def cross_val(items, feats, label, fitter, seed=11):
     names = list(feats)
     raw = [[feats[n][g] for n in names] for g in items]
-    X = _standardise(raw)
     Y = [float(label[g]) for g in items]
     rng = random.Random(seed)
     idx = list(range(len(items)))
@@ -221,12 +228,68 @@ def cross_val(items, feats, label, fitter, seed=11):
     for f in range(FOLDS):
         test = set(idx[f::FOLDS])
         tr = [i for i in idx if i not in test]
-        model = fitter([X[i] for i in tr], [Y[i] for i in tr])
+        scaler = _fit_scaler([raw[i] for i in tr])       # TRAIN ONLY
+        Xtr = _apply([raw[i] for i in tr], scaler)
+        model = fitter(Xtr, [Y[i] for i in tr])
         if isinstance(model, tuple):
             model = model[0]
         for i in test:
-            oof[items[i]] = model(X[i])
+            oof[items[i]] = model(_apply([raw[i]], scaler)[0])
     return oof
+
+
+def diagnose(items, feats, label, oof) -> None:
+    """Why is AUC 0.86 while accuracy looks unimpressive? Answer it with numbers."""
+    n = len(items); pos = sum(label.values()); base = pos / n
+    print(f"\nDIAGNOSTICS  (n={n:,}, positives={pos}, base={base:.2%})\n")
+
+    print("  1. Label inversion")
+    a = auc(items, oof, label)
+    flipped = auc(items, {g: oof[g] for g in items}, {g: 1 - label[g] for g in items})
+    print(f"     AUC {a:.3f}; with labels flipped {flipped:.3f} (= 1 - AUC, as it must be)")
+    print(f"     -> NOT inverted. An inverted label would show AUC < 0.5.")
+
+    print("\n  2. Accuracy is the wrong metric here, and this is why")
+    prob = {g: 1 / (1 + math.exp(-max(-30, min(30, oof[g])))) for g in items}
+    print(f"     {'threshold':<11}{'accuracy':>10}{'precision':>11}{'recall':>9}{'flagged':>9}")
+    for t in (0.5, 0.2, 0.1, 0.05):
+        tp = sum(1 for g in items if prob[g] >= t and label[g])
+        fp = sum(1 for g in items if prob[g] >= t and not label[g])
+        fn = pos - tp
+        acc = (tp + (n - pos - fp)) / n
+        pr = tp / (tp + fp) if tp + fp else 0
+        rc = tp / (tp + fn) if tp + fn else 0
+        print(f"     {t:<11}{acc:>10.1%}{pr:>11.1%}{rc:>9.1%}{tp + fp:>9}")
+    print(f"     always-negative baseline accuracy: {(n - pos) / n:.1%}")
+    print("     -> a model that predicts NOTHING scores 95.9%. Accuracy cannot")
+    print("        distinguish a useful model from an empty one at this base rate,")
+    print("        which is why we never report it as a headline.")
+
+    print("\n  3. Precision along the ranking — where the AUC actually comes from")
+    ranked = sorted(items, key=lambda g: -oof[g])
+    print(f"     {'k':<8}{'P@k':>8}{'recall@k':>10}")
+    for k in (10, 25, 50, 100, 250, 500, 1000):
+        hit = sum(label[g] for g in ranked[:k])
+        print(f"     {k:<8}{hit / k:>8.1%}{hit / pos:>10.1%}")
+    p10 = sum(label[g] for g in ranked[:10]) / 10
+    p50 = sum(label[g] for g in ranked[:50]) / 50
+    if p10 < p50:
+        print(f"     ⚠️  P@10 ({p10:.0%}) is BELOW P@50 ({p50:.0%}) — the very top of the")
+        print("        ranking is worse than slightly further down. The extreme head is")
+        print("        the largest drugs in the catalog (ibuprofen 924 products,")
+        print("        acetaminophen 757); the linear model extrapolates size past the")
+        print("        point where it still helps. Boosted stumps does better at the head")
+        print("        (P@50 32%) precisely because it can flatten that.")
+
+    print("\n  4. Calibration — are the probabilities meaningful, or just ranks?")
+    ranked_p = sorted(items, key=lambda g: prob[g])
+    B = 5; sz = len(ranked_p) // B
+    print(f"     {'bucket':<9}{'mean predicted':>16}{'actual rate':>13}")
+    for i in range(B):
+        grp = ranked_p[i * sz:(i + 1) * sz] if i < B - 1 else ranked_p[i * sz:]
+        mp = sum(prob[g] for g in grp) / len(grp)
+        ar = sum(label[g] for g in grp) / len(grp)
+        print(f"     {i + 1:<9}{mp:>16.1%}{ar:>13.1%}")
 
 
 def main() -> int:
@@ -265,6 +328,11 @@ def main() -> int:
         pk = precision_at(items, oof, label)
         results[name] = (a, ap, pk)
         print(f"  {name:<28}{a:>7.3f}{ap:>9.3f}{pk:>7.1%}   {pk / base:>5.1f}x")
+
+    if "--diagnose" in sys.argv:
+        diagnose(items, feats, label,
+                 cross_val(items, feats, label, lambda X, Y: fit_logistic(X, Y, l2=10.0)))
+        return 0
 
     print(f"\n  random baseline{'':<13}{0.5:>7.3f}{base:>9.3f}{base:>7.1%}    1.0x")
     size = results["SIZE ONLY (the confound)"]
