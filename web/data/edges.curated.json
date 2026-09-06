@@ -145,5 +145,460 @@
     "rel": "incorporated_in",
     "layer": 3,
     "citation": "DECRS cross-reference — DECRS = IND"
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3001027464",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3001027464) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3001124132",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3001124132) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3002807772",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3002807772) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3002807977",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3002807977) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3002809586",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3002809586) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3003196232",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3003196232) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3003603933",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3003603933) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3003701036",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3003701036) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3003777306",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3003777306) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3003893445",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3003893445) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3004993131",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3004993131) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3005347358",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3005347358) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3005355215",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3005355215) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3005355215",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3005355215) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3005943980",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3005943980) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3006585372",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3006585372) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3006812843",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3006812843) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3008460260",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3008460260) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3012092641",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3012092641) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3012189024",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3012189024) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3012479877",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3012479877) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3012835385",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3012835385) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3013034037",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3013034037) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3013133263",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3013133263) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3013172450",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3013172450) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3013321590",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3013321590) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3013683027",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3013683027) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3013852651",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3013852651) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3014203060",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3014203060) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3014467385",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3014467385) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3015097566",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3015097566) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3016660757",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3016660757) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3016795085",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3016795085) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3017276614",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3017276614) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3017358227",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3017358227) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3017586799",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3017586799) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3019640743",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3019640743) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3021074016",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3021074016) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3021180239",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3021180239) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3022720943",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3022720943) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3023724177",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3023724177) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3024402565",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3024402565) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3025995724",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3025995724) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3026480311",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3026480311) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3028782968",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3028782968) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3030101032",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3030101032) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3030298020",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3030298020) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3030579778",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3030579778) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3030952960",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3030952960) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:ampicillin",
+    "dst": "facility:fei:3031252682",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3031252682) for AMPICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3032004281",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3032004281) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3032875160",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3032875160) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3033931396",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3033931396) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3038310144",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3038310144) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3038627434",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3038627434) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3038759586",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3038759586) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3040659260",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3040659260) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3043685760",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3043685760) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3044929420",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3044929420) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3045367857",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3045367857) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "drug:amoxicillin",
+    "dst": "facility:fei:3046374010",
+    "rel": "produced_by",
+    "layer": 3,
+    "citation": "FDA records name this establishment (FEI 3046374010) for AMOXICILLIN. Source: ml/signals/ (OASIS import refusals + FDA inspection classifications). Ingredient tag, not a production licence — the claim is that the facility appears in official records for this substance."
+  },
+  {
+    "src": "company:name:apitoria-pharma-private-ltd",
+    "dst": "facility:fei:3004021253",
+    "rel": "hosts",
+    "layer": 3,
+    "citation": "Inverse of the operated_by edge in edges.signals.json, so the facility is reachable in the direction the cascade walks. Identity held by entity resolution AND both sides agree on country (in). Original: entity resolution, matched 'APITORIA PHARMA PRIVATE LTD' at 1.00, next best gap ok (ml/entity_resolution.py)"
+  },
+  {
+    "src": "company:name:apitoria-pharma-private-ltd",
+    "dst": "facility:fei:3004611182",
+    "rel": "hosts",
+    "layer": 3,
+    "citation": "Inverse of the operated_by edge in edges.signals.json, so the facility is reachable in the direction the cascade walks. Identity held by entity resolution AND both sides agree on country (in). Original: entity resolution, matched 'APITORIA PHARMA PRIVATE LTD' at 1.00, next best gap ok (ml/entity_resolution.py)"
+  },
+  {
+    "src": "company:name:apitoria-pharma-private-ltd",
+    "dst": "facility:fei:3006370489",
+    "rel": "hosts",
+    "layer": 3,
+    "citation": "Inverse of the operated_by edge in edges.signals.json, so the facility is reachable in the direction the cascade walks. Identity held by entity resolution AND both sides agree on country (in). Original: entity resolution, matched 'APITORIA PHARMA PRIVATE LTD' at 1.00, next best gap ok (ml/entity_resolution.py)"
+  },
+  {
+    "src": "company:name:pure-and-cure-healthcare-private-ltd",
+    "dst": "facility:fei:3011558880",
+    "rel": "hosts",
+    "layer": 3,
+    "citation": "Inverse of the operated_by edge in edges.signals.json, so the facility is reachable in the direction the cascade walks. Identity held by entity resolution AND both sides agree on country (in). Original: entity resolution, matched 'PURE AND CURE HEALTHCARE PRIVATE LTD' at 1.00, next best gap ok (ml/entity_resolution.py)"
   }
 ]

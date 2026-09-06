@@ -116,6 +116,17 @@ def build() -> tuple[list[dict], list[dict]]:
                       "ingredients": sorted(f["ingredients"]),
                       "name_variants": sorted(f["names"])},
         })
+        # compare()'s COUNTRY_GUARD can only refuse a cross-border match when it
+        # knows BOTH countries. When the candidate's country is deliberately
+        # unasserted the guard silently stands down and a name-only match gets
+        # through - which is exactly how 'Antibioticos de Mexico S.A. de C.V.'
+        # (mx) attached to 'ANTIBIOTICOS SA' at 0.90 on the single shared token
+        # 'antibioticos', whose own node says "Spain is likely but unverified -
+        # do not assert it". Treat unknown as unproven, not as agreement.
+        if match and country and not company_countries.get(match):
+            refusals.append((fei, name, f"candidate {match} has no country; "
+                                        f"guard cannot clear a {country} facility"))
+            match = None
         if match:
             edges.append({
                 "src": f"facility:fei:{fei}", "dst": match, "rel": "operated_by",

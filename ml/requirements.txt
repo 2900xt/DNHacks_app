@@ -1,2 +1,11 @@
 openpyxl==3.1.5
 pypdf==6.17.0
+# ml/openfda.py imports both at module scope, so ml/build_graph.py and anything
+# that touches the openFDA client fail with ModuleNotFoundError without them.
+# They were never declared — the ingest lane only ever ran on a machine that
+# happened to have them installed globally.
+requests==2.34.2
+python-dotenv==1.2.3
+# scripts/check.sh validates contracts/openapi.yaml with this; without it that
+# check silently skipped on every machine that had no system pyyaml.
+PyYAML==6.0.3

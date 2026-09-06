@@ -6,7 +6,6 @@
   "type": "object",
   "required": [
     "device_id",
-    "ts",
     "readings"
   ],
   "additionalProperties": false,
@@ -26,7 +25,7 @@
     "ts": {
       "type": "string",
       "format": "date-time",
-      "description": "UTC, RFC3339. Device clocks drift - the service may overwrite this with receipt time."
+      "description": "UTC, RFC3339. Device clocks drift - the service may overwrite this with receipt time. OPTIONAL. The m5stack node deliberately omits it \u2014 an ESP32 has no RTC and its clock drifts, so the API stamps receipt time unless DEPOT_TRUST_DEVICE_TS=1. replay.py does send it, which is what makes the 24h MKT window real. Was listed as required until Sun 00:20, which made every real device payload contract-invalid."
     },
     "seq": {
       "type": "integer",
