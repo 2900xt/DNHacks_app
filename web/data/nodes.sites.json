@@ -1,0 +1,204 @@
+[
+  {
+    "id": "company:name:centrient-pharmaceuticals-netherlands-bv",
+    "type": "company",
+    "label": "CENTRIENT PHARMACEUTICALS NETHERLANDS BV",
+    "country": "in",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 16950,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMOXICILLIN TRIHYDRATE (PURIMOX®)",
+      "tier": "api",
+      "decrs_firm": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
+      "fei": "3004497364",
+      "city": "Nawanshahr",
+      "country_evidence": "DECRS 'CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED' = IND"
+    }
+  },
+  {
+    "id": "country:il",
+    "type": "country",
+    "label": "Israel",
+    "country": "il",
+    "critical": false,
+    "attrs": {
+      "source": "DECRS establishment address"
+    }
+  },
+  {
+    "id": "company:name:teva-pharmaceutical-industries-ltd",
+    "type": "company",
+    "label": "TEVA PHARMACEUTICAL INDUSTRIES LTD",
+    "country": "il",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 13518,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMOXICILLIN TRIHYDRATE USP",
+      "tier": "api",
+      "decrs_firm": "Teva Pharmaceutical Industries Ltd.",
+      "fei": "3002721084",
+      "city": "Kfar Saba",
+      "country_evidence": "DECRS 'Teva Pharmaceutical Industries Ltd.' = ISR"
+    }
+  },
+  {
+    "id": "country:it",
+    "type": "country",
+    "label": "Italy",
+    "country": "it",
+    "critical": false,
+    "attrs": {
+      "source": "DECRS establishment address"
+    }
+  },
+  {
+    "id": "company:name:fresenius-kabi-ipsum-srl",
+    "type": "company",
+    "label": "FRESENIUS KABI IPSUM SRL",
+    "country": "it",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 23287,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMPICILLIN SODIUM STERILE",
+      "tier": "api",
+      "decrs_firm": "FRESENIUS KABI IPSUM SRL",
+      "fei": "3017296713",
+      "city": "VILLADOSE",
+      "country_evidence": "DECRS 'FRESENIUS KABI IPSUM SRL' = ITA"
+    }
+  },
+  {
+    "id": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+    "type": "company",
+    "label": "ISTITUTO BIOCHIMICO ITALIANO GIOVANNI LORENZINI SPA",
+    "country": "it",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 13742,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMPICILLIN SODIUM STERILE CRYSTALLINE (BULK)",
+      "tier": "api",
+      "decrs_firm": "Istituto Biochimico Italiano Giovanni Lorenzini",
+      "fei": "3002807242",
+      "city": "Aprilia",
+      "country_evidence": "DECRS 'Istituto Biochimico Italiano Giovanni Lorenzini' = ITA"
+    }
+  },
+  {
+    "id": "country:es",
+    "type": "country",
+    "label": "Spain",
+    "country": "es",
+    "critical": false,
+    "attrs": {
+      "source": "DECRS establishment address"
+    }
+  },
+  {
+    "id": "company:name:sandoz-industrial-products-sa",
+    "type": "company",
+    "label": "SANDOZ INDUSTRIAL PRODUCTS SA",
+    "country": "es",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 13212,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMPICILLIN ANHYDROUS",
+      "tier": "api",
+      "decrs_firm": "Sandoz Industrial Products S.A",
+      "fei": "3005403245",
+      "city": "Palafolls",
+      "country_evidence": "DECRS 'Sandoz Industrial Products S.A' = ESP"
+    }
+  },
+  {
+    "id": "country:us",
+    "type": "country",
+    "label": "United States",
+    "country": "us",
+    "critical": false,
+    "attrs": {
+      "source": "DECRS establishment address"
+    }
+  },
+  {
+    "id": "company:name:sterile-india-pvt-ltd",
+    "type": "company",
+    "label": "STERILE INDIA PVT LTD",
+    "country": "us",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 29984,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMPICILLIN SODIUM USP (STERILE)",
+      "tier": "api",
+      "decrs_firm": "Sharp Sterile Manufacturing, LLC",
+      "fei": "3012144557",
+      "city": "Lee",
+      "country_evidence": "DECRS 'Sharp Sterile Manufacturing, LLC' = USA"
+    }
+  },
+  {
+    "id": "company:name:zhuhai-united-laboratories-co-ltd",
+    "type": "company",
+    "label": "ZHUHAI UNITED LABORATORIES CO LTD",
+    "country": "cn",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 22857,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "AMPICILLIN TRIHYDRATE",
+      "tier": "api",
+      "decrs_firm": "Zhuhai United Laboratories Co., Ltd",
+      "fei": "3006531950",
+      "city": "Zhuhai",
+      "country_evidence": "DECRS 'Zhuhai United Laboratories Co., Ltd' = CHN"
+    }
+  },
+  {
+    "id": "company:name:jiangxi-fushine-pharmaceutical-co-ltd",
+    "type": "company",
+    "label": "JIANGXI FUSHINE PHARMACEUTICAL CO LTD",
+    "country": "cn",
+    "critical": false,
+    "resolved_by": "fuzzy",
+    "attrs": {
+      "dmf": 32483,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_subject": "PIPERACILLIN",
+      "tier": "api",
+      "decrs_firm": "Jiangxi Fushine Pharmaceutical Co., Ltd.",
+      "fei": "3008177143",
+      "city": "Jingdezhen",
+      "country_evidence": "DECRS 'Jiangxi Fushine Pharmaceutical Co., Ltd.' = CHN"
+    }
+  },
+  {
+    "id": "country:kr",
+    "type": "country",
+    "label": "South Korea",
+    "country": "kr",
+    "critical": false,
+    "attrs": {
+      "source": "DECRS establishment address"
+    }
+  }
+]

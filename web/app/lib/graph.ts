@@ -5,6 +5,9 @@ import nodesOpenfda from '@/data/nodes.openfda.json'
 import edgesOpenfda from '@/data/edges.openfda.json'
 import nodesCurated from '@/data/nodes.curated.json'
 import edgesCurated from '@/data/edges.curated.json'
+import nodesSites from '@/data/nodes.sites.json'
+import edgesSites from '@/data/edges.sites.json'
+import geoRaw from '@/data/geo.json'
 import complianceRaw from '@/data/compliance.json'
 import signalsRaw from '@/data/signals.json'
 import binsRaw from '@/data/bins.json'
@@ -13,7 +16,7 @@ import rerouteRaw from '@/data/reroute.json'
 
 import type {
   GraphNode, GraphEdge, Signal, Compliance, Bin,
-  NodeId, CascadeResult, BacktestResult, RerouteNode, RerouteData,
+  NodeId, CascadeResult, BacktestResult, Reroute,
 } from './types'
 
 export interface Graph {
@@ -36,16 +39,34 @@ export function loadGraph(): Graph {
   if (cached) return cached
 
   const nodes = new Map<NodeId, GraphNode>()
-  for (const n of [...nodesOpenfda, ...nodesCurated] as GraphNode[]) {
+  for (const n of [...nodesOpenfda, ...nodesCurated, ...nodesSites] as GraphNode[]) {
     if (nodes.has(n.id)) {
       console.warn(`[graph] duplicate node id: ${n.id} — last write wins`)
     }
     nodes.set(n.id, n)
   }
+  // Where each DMF holder's plant is (ml/sites.py). A side table, not a node
+  // field, so the producers' files stay theirs; it also supplies a country to
+  // the labeler records the openFDA lane carries without one.
+  type Geo = {
+    lat: number; lng: number; city: string | null; geo: string; country?: string
+    dmf?: number | string; dmf_status?: string; dmf_subject?: string
+  }
+  for (const [id, gpos] of Object.entries(geoRaw as Record<string, Geo>)) {
+    const n = nodes.get(id)
+    if (!n) continue
+    const a = { ...(n.attrs ?? {}) } as Record<string, unknown>
+    Object.assign(a, { lat: gpos.lat, lng: gpos.lng, city: gpos.city, geo: gpos.geo })
+    if (a.dmf == null && gpos.dmf != null) {
+      Object.assign(a, { dmf: gpos.dmf, dmf_status: gpos.dmf_status, dmf_subject: gpos.dmf_subject })
+    }
+    n.attrs = a
+    if (!n.country && gpos.country) n.country = gpos.country
+  }
 
   const seen = new Set<string>()
   const edges: GraphEdge[] = []
-  for (const e of [...edgesOpenfda, ...edgesCurated] as GraphEdge[]) {
+  for (const e of [...edgesOpenfda, ...edgesCurated, ...edgesSites] as GraphEdge[]) {
     if (e.layer === 3 && !e.citation) {
       console.warn(`[graph] layer-3 edge without citation, dropped: ${e.src} -> ${e.dst}`)
       continue
@@ -142,19 +163,29 @@ export function getBacktest(): BacktestResult {
   return backtestRaw as BacktestResult
 }
 
-/** AEGIS re-route options for one node, or null if that node has none.
+/**
+ * The AEGIS shortlist — ml/aegis.py --write. Every holder of every precursor,
+ * scored once; the console re-ranks survivors as nodes are switched off.
  *
- *  The artifact is keyed by node id and covers every precursor/api node in the
- *  graph, so a lookup works for whatever the operator switches off. Scoring is
- *  done in `ml/aegis.py`; nothing is recomputed here.
+ * A holder whose node id the graph does not know is dropped LOUDLY: it would be
+ * a row the tree cannot light, and the fix is a node in nodes.curated.json, not
+ * a silent skip.
  */
-export function getReroute(id: NodeId): RerouteNode | null {
-  return (rerouteRaw as RerouteData).nodes[id] ?? null
-}
-
-/** Every node AEGIS can offer a route for. */
-export function rerouteIndex(): Record<NodeId, RerouteNode> {
-  return (rerouteRaw as RerouteData).nodes
+let rerouteCached: Reroute | null = null
+export function getReroute(): Reroute {
+  if (rerouteCached) return rerouteCached
+  const g = loadGraph()
+  const raw = rerouteRaw as Reroute
+  const precursors = (raw.precursors ?? []).map((p) => ({
+    ...p,
+    holders: p.holders.filter((h) => {
+      if (h.node_id && g.nodes.has(h.node_id)) return true
+      console.warn(`[reroute] ${p.node}: holder ${h.holder} has no graph node, dropped`)
+      return false
+    }),
+  }))
+  rerouteCached = { ...raw, precursors }
+  return rerouteCached
 }
 
 export function counts() {

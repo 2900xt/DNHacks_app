@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphEdge, GraphNode, NodeId } from '../lib/types'
-import type { Route } from '../lib/supply-tree'
+import type { Alternate, Route } from '../lib/supply-tree'
 
 interface Centroid { lat: number; lng: number }
 interface Feature { properties: { iso: string; name: string }; geometry: unknown }
@@ -19,6 +19,47 @@ interface Props {
   /** True once anything is switched off: the globe stops showing filing counts
    *  and starts showing where the load actually went. */
   rerouting: boolean
+  /** ISO-2 of the jurisdiction the AEGIS route runs through. Null at rest. */
+  routeIso: string | null
+  /** The route holder itself, so its own plant goes green. */
+  routeId: NodeId | null
+  /** Every node that cannot ship right now — the tree's red set, exactly. */
+  cut: Set<NodeId>
+  /** What the operator switched off, plant ids and country ids alike. */
+  off: Set<NodeId>
+  /** ISO-2 of every jurisdiction whose exports are halted. */
+  halted: Set<string>
+  /** The operator has asked for the route. Until then a failure is red and
+   *  nothing is green. */
+  showRoute: boolean
+  /** Which register each supplier in the current tree filed in. */
+  apiIds: Set<NodeId>
+  preIds: Set<NodeId>
+  /** Every scored supplier, both registers, so a precursor plant is paired
+   *  with the best-scoring API plant it could reasonably feed, not merely
+   *  the nearest. */
+  scoreOf: Map<NodeId, Alternate>
+}
+
+/** The new route's colour. Not the green of "healthy": a route is a change,
+ *  and it has to read as one against red failures and amber halts. */
+const ROUTE = '#2ee6c5'
+const ROUTE_RGB = '46,230,197'
+
+/** Great-circle distance, in degrees of arc. Only ever compared. */
+function arcDeg(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const r = Math.PI / 180
+  const x = Math.sin(((b.lat - a.lat) * r) / 2) ** 2
+    + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lng - a.lng) * r) / 2) ** 2
+  return (2 * Math.asin(Math.sqrt(x))) / r
+}
+
+/** A DMF holder with a placed plant: lat/lng from ml/sites.py via graph.ts. */
+interface Plant {
+  node: GraphNode
+  lat: number
+  lng: number
+  city: string | null
 }
 
 /** The buyer. Every arc terminates here — that is why the globe is worth drawing. */
@@ -33,7 +74,8 @@ const BUMP = '/globe/earth-topology.png'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function GlobeView({
-  nodes, edges, lit, selected, onSelect, routes, rerouting,
+  nodes, edges, lit, selected, onSelect, routes, rerouting, showRoute, routeIso, routeId, cut,
+  off, halted, apiIds, preIds, scoreOf,
 }: Props) {
   const holder = useRef<HTMLDivElement | null>(null)
   const globeRef = useRef<any>(null)
@@ -67,7 +109,21 @@ export default function GlobeView({
     return m
   }, [nodes, edges])
 
-  /** Which jurisdiction the selection sits in, so the globe follows the graph. */
+  /** The plants. Every company in the spine that ml/sites.py could place —
+   *  a DMF holder for an API or for the precursor — at its DECRS city. */
+  const plants = useMemo<Plant[]>(() => nodes
+    .filter((n) => n.type === 'company')
+    .map((n) => {
+      const a = (n.attrs ?? {}) as Record<string, unknown>
+      return typeof a.lat === 'number' && typeof a.lng === 'number'
+        ? { node: n, lat: a.lat, lng: a.lng, city: typeof a.city === 'string' ? a.city : null }
+        : null
+    })
+    .filter((p): p is Plant => !!p), [nodes])
+
+  /** Where the selection is, so the globe follows the graph — and follows a
+   *  disruption, since disrupting a node selects it. A placed plant is its
+   *  city; anything else is its jurisdiction's centroid. */
   const focusIso = useMemo(() => {
     if (!selected) return null
     const n = nodes.find((x) => x.id === selected)
@@ -75,6 +131,11 @@ export default function GlobeView({
     const up = edges.find((e) => e.src === selected && e.rel === 'incorporated_in')
     return up ? nodes.find((x) => x.id === up.dst)?.country ?? null : null
   }, [selected, nodes, edges])
+  const focusPoint = useMemo(() => {
+    if (!selected) return null
+    const a = (nodes.find((x) => x.id === selected)?.attrs ?? {}) as Record<string, unknown>
+    return typeof a.lat === 'number' && typeof a.lng === 'number' ? { lat: a.lat, lng: a.lng } : null
+  }, [selected, nodes])
 
   // --- create once ---------------------------------------------------------
   useEffect(() => {
@@ -110,6 +171,15 @@ export default function GlobeView({
         .pointAltitude((d: any) => d.alt)
         .pointRadius((d: any) => d.radius)
         .pointsTransitionDuration(500)
+        .pointLabel((d: any) => {
+          if (d.buyer) return `<div class="gl-tip"><b>The buyer</b><br>United States<br><i>${d.state}</i></div>`
+          if (!d.plant) return ''
+          const a = (d.plant.node.attrs ?? {}) as Record<string, unknown>
+          const where = [d.plant.city, String(d.plant.node.country ?? '').toUpperCase()].filter(Boolean).join(', ')
+          const filing = a.dmf ? `DMF ${a.dmf}${a.dmf_subject ? ` · ${a.dmf_subject}` : ''}` : ''
+          return `<div class="gl-tip"><b>${d.plant.node.label ?? d.plant.node.id}</b><br>${where}`
+            + `${filing ? `<br>${filing}` : ''}<br><i>${d.state}</i></div>`
+        })
         .onPointClick((d: any) => d.nodeId && onSelect(d.nodeId))
         // The ripple. Named for it, so it had better be here: each live source
         // pushes a ring out across the surface, and the period is the thing you
@@ -204,58 +274,153 @@ export default function GlobeView({
         const on = !!j && lit.has(j.node.id)
         const isDest = iso === DEST
         const dead = rerouting && !!r && r.down
+        const isRoute = showRoute && iso === routeIso
         return {
           ...f,
           nodeId: j?.node.id ?? '',
           // Faint enough to read as context, not as a claim about the country.
           stroke: isDest ? 'rgba(74,158,218,0.26)'
-            : dead ? 'rgba(120,132,148,0.16)'
+            : isRoute ? `rgba(${ROUTE_RGB},0.55)`
+            : dead ? (halted.has(iso) ? 'rgba(217,144,58,0.45)' : 'rgba(120,132,148,0.16)')
             : on || rerouting ? 'rgba(229,72,77,0.30)' : 'rgba(229,72,77,0.14)',
         }
       })
     g.polygonsData(polys)
 
-    // --- the points, and the ripples off them --------------------------------
+    // --- the plants: one point, one ripple and one arc each --------------
     //
-    // WHERE THESE SIT, precisely. Every one of the eight active filings resolves
-    // to a COUNTRY and no further: DECRS carries `decrs_address_iso3` (CHN, AUT,
-    // IND) and no street, city or coordinate, and none of the eight nodes has a
-    // `city` attribute. So each source point is anchored at its jurisdiction's
-    // centroid, and the country keeps a hairline outline to say the point means
-    // "somewhere in here" rather than "at this spot". Scattering the eight into
-    // invented plant locations would look better and would be a lie on a screen
-    // whose whole claim is that nothing on it is a guess. Drop real site
-    // coordinates into this list and the renderer needs no changes.
+    // Two hops, because that is how the material moves. A precursor plant
+    // ships 6-APA to an API plant; the API plant ships the finished API to the
+    // buyer. The register does not say which precursor plant supplies which
+    // API plant, so each 6-APA arc goes to the NEAREST standing API plant in
+    // this chain and the hover says so — an illustrative pairing, stated as
+    // one. A company that holds both filings is integrated: its arc goes
+    // straight to the buyer. Plants in neither register for this drug — they
+    // hold a filing for another penicillin on the same nucleus — sit dim,
+    // without an arc, until the root changes to a drug they make.
     const points: any[] = []
     const rings: any[] = []
+    const arcs: any[] = []
 
-    for (const [iso, j] of jurisdictions) {
-      const c = world.centroids[iso]
-      if (!c || j.holders.length === 0) continue
+    const apiPlants = plants.filter((pl) => apiIds.has(pl.node.id))
+    const apiStanding = apiPlants.filter((pl) => !cut.has(pl.node.id))
+    // The API plant a precursor plant would feed: the one with the best
+    // supplier score after a distance penalty (one point per ~4,000 km), so a
+    // well-scored plant one country over beats a poorly-scored one next door.
+    // Same words on hover: the register does not record the real pairing.
+    const nearestApi = (from: Plant): Plant | null => {
+      const pool = apiStanding.length ? apiStanding : apiPlants
+      let best: Plant | null = null
+      let bestV = -Infinity
+      for (const q of pool) {
+        if (q.node.id === from.node.id) continue
+        const v = (scoreOf.get(q.node.id)?.score ?? 0) - arcDeg(from, q) / 36
+        if (v > bestV) { bestV = v; best = q }
+      }
+      return best
+    }
+    const pairOf = new Map<NodeId, Plant>()
+    for (const pl of plants) {
+      if (preIds.has(pl.node.id) && !apiIds.has(pl.node.id)) {
+        const q = nearestApi(pl)
+        if (q) pairOf.set(pl.node.id, q)
+      }
+    }
+    // The route, as a chain: the precursor plant AND the API plant it feeds.
+    const routeChain = new Set<NodeId>()
+    if (showRoute && routeId) {
+      routeChain.add(routeId)
+      const q = pairOf.get(routeId)
+      if (q) routeChain.add(q.node.id)
+    }
+
+    for (const pl of plants) {
+      const id = pl.node.id
+      const iso = pl.node.country ?? ''
+      const j = jurisdictions.get(iso)
       const r = byIso.get(iso)
-      const on = lit.has(j.node.id)
-      const dead = rerouting && !!r && r.down
+      const inApi = apiIds.has(id)
+      const inPre = preIds.has(id)
+      const inChain = inApi || inPre
+      const on = lit.has(id) || (!!j && lit.has(j.node.id))
+      const dead = rerouting && cut.has(id)
+      // Three ways to be dark, told apart on the map. A plant FAILURE is grey:
+      // it makes nothing. An export HALT is amber: it is producing and nothing
+      // leaves the jurisdiction. Gated — its precursor supply is gone — is grey
+      // too, with its own words on hover.
+      const plantOff = off.has(id)
+      const haltedHere = inChain && !plantOff && halted.has(iso)
+      const isRoute = routeChain.has(id)
       const share = rerouting && r && !r.down ? r.share : 0
-      const weight = rerouting ? share : j.holders.length / 8
+      const pair = pairOf.get(id)
+      const who = inApi ? 'API manufacturer' : '6-APA manufacturer'
+      const state = !inChain ? `${who} — holds a filing for another API on this nucleus, not in this chain`
+        : plantOff ? `${who} — plant failure, producing nothing`
+        : haltedHere ? `${who} — producing, but exports from ${iso.toUpperCase()} are halted: nothing leaves`
+        : dead ? `${who} — cannot ship: its precursor supply is gone`
+        : isRoute ? `${who} — ${id === routeId ? 'AEGIS route' : 'AEGIS route, receives the precursor'}`
+        : inApi ? `${who} — ships the API to the buyer${rerouting ? ` · ${iso.toUpperCase()} carries ${Math.round(share * 100)}%` : ''}`
+        : pair ? `${who} — ships 6-APA to ${pair.node.label ?? pair.node.id}${pair.city ? ` (${pair.city})` : ''}, the best-scoring API plant within reach; the register does not record who buys from whom`
+        : `${who} — ships 6-APA`
 
       points.push({
-        lat: c.lat, lng: c.lng,
-        color: dead ? 'rgba(120,132,148,0.55)'
-          : on || rerouting ? '#e5484d' : 'rgba(229,72,77,0.55)',
-        radius: dead ? 0.22 : 0.3 + weight * 0.55,
+        lat: pl.lat, lng: pl.lng,
+        color: !inChain ? 'rgba(229,72,77,0.28)'
+          : haltedHere ? 'rgba(217,144,58,0.85)'
+          : dead ? 'rgba(120,132,148,0.55)'
+          : isRoute ? ROUTE
+          : on || rerouting ? '#e5484d' : 'rgba(229,72,77,0.7)',
+        radius: !inChain ? 0.17 : haltedHere ? 0.22 : dead ? 0.16 : isRoute ? 0.42 : 0.26,
         alt: 0.012,
-        nodeId: j.node.id,
+        nodeId: id,
+        plant: pl,
+        state,
       })
+      if (!inChain) continue
 
       // A dark source does not ripple. That absence is the whole point of the
       // cascade: the map goes quiet where the supply stopped.
-      if (dead || reduced) continue
-      rings.push({
-        lat: c.lat, lng: c.lng,
-        maxR: 3.2 + weight * 4.2,
-        speed: 1.5 + weight * 1.1,
-        period: on || rerouting ? 1500 - weight * 550 : 3200,
-        colorFn: (t: number) => `rgba(229,72,77,${(1 - t) * (on || rerouting ? 0.62 : 0.26)})`,
+      if (!dead && !reduced) {
+        rings.push({
+          lat: pl.lat, lng: pl.lng,
+          maxR: isRoute ? 5 : 2.6 + share * 3,
+          speed: 1.4 + share * 1.1,
+          period: isRoute ? 1000 : on || rerouting ? 1600 - share * 500 : 3400,
+          colorFn: isRoute
+            ? (t: number) => `rgba(${ROUTE_RGB},${(1 - t) * 0.75})`
+            : (t: number) => `rgba(229,72,77,${(1 - t) * (on || rerouting ? 0.6 : 0.3)})`,
+        })
+      }
+
+      // Where this plant's arc ends: the buyer, or the API plant it feeds.
+      const to = inApi || !pair ? dest : { lat: pair.lat, lng: pair.lng }
+      const hop = inApi || !pair ? 'api' : 'pre'
+      if (dead) {
+        arcs.push({
+          startLat: pl.lat, startLng: pl.lng, endLat: to.lat, endLng: to.lng,
+          colors: haltedHere
+            ? ['rgba(217,144,58,0.03)', 'rgba(217,144,58,0.28)', 'rgba(217,144,58,0.08)']
+            : ['rgba(120,132,148,0.02)', 'rgba(120,132,148,0.18)', 'rgba(120,132,148,0.06)'],
+          stroke: 0.1, speed: 0,
+        })
+        continue
+      }
+      // The API hop ends blue, at the buyer. The precursor hop ends red, at
+      // another plant. Thickness is the share its jurisdiction now carries;
+      // the route runs green end to end, fastest of all.
+      arcs.push({
+        startLat: pl.lat, startLng: pl.lng, endLat: to.lat, endLng: to.lng,
+        colors: isRoute
+          ? [`rgba(${ROUTE_RGB},0.15)`, `rgba(${ROUTE_RGB},1)`, hop === 'api' ? 'rgba(74,158,218,0.95)' : `rgba(${ROUTE_RGB},0.9)`]
+          : hop === 'pre'
+            ? (on || rerouting
+              ? ['rgba(229,72,77,0.05)', 'rgba(229,72,77,0.8)', 'rgba(229,72,77,0.55)']
+              : ['rgba(180,90,95,0.03)', 'rgba(180,90,95,0.4)', 'rgba(180,90,95,0.3)'])
+            : (on || rerouting
+              ? ['rgba(229,72,77,0.05)', 'rgba(229,72,77,0.9)', 'rgba(74,158,218,0.85)']
+              : ['rgba(180,90,95,0.03)', 'rgba(180,90,95,0.45)', 'rgba(74,158,218,0.4)']),
+        stroke: isRoute ? 0.9 + share * 1.4 : rerouting ? 0.28 + share * 1.2 : on ? 0.36 : 0.22,
+        speed: isRoute ? 900 : rerouting ? 1400 : on ? 2200 : 5200,
       })
     }
 
@@ -266,6 +431,8 @@ export default function GlobeView({
       radius: 0.5,
       alt: 0.012,
       nodeId: '',
+      buyer: true,
+      state: starvedDest ? 'no qualified supply is reaching it' : 'every route ends here; it makes nothing',
     })
     if (!reduced) {
       rings.push({
@@ -281,54 +448,39 @@ export default function GlobeView({
 
     g.pointsData(points)
     g.ringsData(rings)
-
-    const arcs = [...jurisdictions.entries()]
-      .filter(([, j]) => j.holders.length > 0)
-      .map(([iso, j]) => {
-        const src = world.centroids[iso]
-        const r = byIso.get(iso)
-        const on = lit.has(j.node.id)
-        const dead = rerouting && !!r && r.down
-        if (dead) {
-          return {
-            startLat: src.lat, startLng: src.lng,
-            endLat: dest.lat, endLng: dest.lng,
-            colors: ['rgba(120,132,148,0.02)', 'rgba(120,132,148,0.18)', 'rgba(120,132,148,0.06)'],
-            stroke: 0.12,
-            speed: 0,
-          }
-        }
-        // Thickness is the share it now carries, so the survivors visibly
-        // fatten as their neighbours go dark.
-        const stroke = rerouting && r
-          ? 0.35 + r.share * 2.4
-          : on ? 0.4 + j.holders.length * 0.16 : 0.22
-        return {
-          startLat: src.lat, startLng: src.lng,
-          endLat: dest.lat, endLng: dest.lng,
-          colors: on || rerouting
-            ? ['rgba(229,72,77,0.05)', 'rgba(229,72,77,0.95)', 'rgba(74,158,218,0.9)']
-            : ['rgba(160,90,95,0.03)', 'rgba(160,90,95,0.40)', 'rgba(74,158,218,0.35)'],
-          stroke,
-          speed: rerouting ? 1400 : on ? 2200 : 6000,
-        }
-      })
     g.arcsData(arcs)
 
-    const labels: any[] = [...jurisdictions.entries()].map(([iso, j]) => {
+    // The count over a country is the plants in THIS drug's chain that sit
+    // there — the same plants the tree bands show — not every registered
+    // holder in the graph. Two numbers for one thing is one number too many.
+    // Distinct PLANTS, not filings: Sandoz at Kundl holds a filing in both
+    // registers and is one plant. After a disruption the number is the plants
+    // still shipping. A country with no plant in this chain gets no number.
+    const chainCount = new Map<string, number>()
+    const standingCount = new Map<string, number>()
+    for (const pl of plants) {
+      const id = pl.node.id
+      if (!apiIds.has(id) && !preIds.has(id)) continue
+      const iso = pl.node.country ?? ''
+      chainCount.set(iso, (chainCount.get(iso) ?? 0) + 1)
+      if (!cut.has(id)) standingCount.set(iso, (standingCount.get(iso) ?? 0) + 1)
+    }
+    const labels: any[] = [...jurisdictions.entries()].filter(([iso]) => (chainCount.get(iso) ?? 0) > 0).map(([iso, j]) => {
       const c = world.centroids[iso]
       const r = byIso.get(iso)
       const on = lit.has(j.node.id)
       const dead = rerouting && !!r && r.down
+      const isRoute = showRoute && iso === routeIso
       return {
         lat: c.lat, lng: c.lng,
-        text: rerouting && r
-          ? (r.down ? 'OFFLINE' : `${Math.round(r.share * 100)}%`)
-          : String(j.holders.length),
+        text: rerouting && (standingCount.get(iso) ?? 0) === 0
+          ? (halted.has(iso) ? 'EXPORTS HALTED' : 'OFFLINE')
+          : String(rerouting ? standingCount.get(iso) ?? 0 : chainCount.get(iso) ?? 0),
         // A word needs to sit smaller than a two-character count or it swamps
         // the country it is labelling.
-        size: dead ? 0.95 : rerouting ? 1.5 : 1.8,
-        color: dead ? 'rgba(150,162,178,0.7)'
+        size: dead ? 0.95 : isRoute ? 1.3 : rerouting ? 1.5 : 1.8,
+        color: dead ? (halted.has(iso) ? 'rgba(217,144,58,0.85)' : 'rgba(150,162,178,0.7)')
+          : isRoute ? '#b6f0d0'
           : rerouting ? '#ffd7d8'
           : on ? '#ffd7d8' : 'rgba(205,218,232,0.62)',
         // The points layer draws the marker now; a second dot here would sit
@@ -345,23 +497,28 @@ export default function GlobeView({
       nodeId: '',
     })
     g.labelsData(labels)
-  }, [ready, world, jurisdictions, lit, routes, rerouting, reduced])
+  }, [ready, world, jurisdictions, plants, lit, routes, rerouting, showRoute, routeIso, routeId, cut, off, halted, apiIds, preIds, scoreOf, reduced])
 
   // --- fly to the focused jurisdiction --------------------------------------
+  //
+  // A selection wins. Failing that, a route: the moment AEGIS names one, the
+  // globe turns to show where the material would now come from, because a
+  // green arc on the far side of the planet is a route nobody saw.
   useEffect(() => {
     const g = globeRef.current
     if (!g || !world) return
     const ctl = g.controls() as any
-    if (!focusIso) {
+    const target = focusIso ?? (showRoute ? routeIso : null)
+    if (!target) {
       ctl.autoRotate = true
       g.pointOfView({ lat: 28, lng: 60, altitude: 2.3 }, 1200)
       return
     }
-    const c = world.centroids[focusIso]
+    const c = focusPoint ?? world.centroids[target]
     if (!c) return
     ctl.autoRotate = false
-    g.pointOfView({ lat: c.lat, lng: c.lng, altitude: 1.5 }, 1000)
-  }, [ready, world, focusIso])
+    g.pointOfView({ lat: c.lat, lng: c.lng, altitude: focusPoint ? 1.25 : focusIso ? 1.5 : 1.9 }, 1000)
+  }, [ready, world, focusIso, focusPoint, showRoute, routeIso])
 
   // globe.gl owns `holder` and its destructor tears that subtree down; React
   // must never own a child of it or removeChild throws. Loading state is a

@@ -21,17 +21,22 @@
 // every ancestor red overstates the damage and a procurement person will spot it
 // in one second.
 
-import type { GraphEdge, GraphNode, NodeId } from './types'
+import type { GraphEdge, GraphNode, NodeId, Reroute, RerouteHolder } from './types'
 
 export type Health = 'ok' | 'at-risk' | 'down'
 export type TreeKind = 'drug' | 'api' | 'precursor' | 'supplier'
 
 export interface TreeNode {
   id: NodeId
+  /** `${parentId}|${id}`. One company can hold a DMF for the API AND for the
+   *  precursor, so the same id can sit in the tree twice; the key is unique. */
+  key: string
   node: GraphNode
   kind: TreeKind
   depth: number
   children: TreeNode[]
+  /** Which register a supplier filed in: for the API itself, or its precursor. */
+  tier?: 'api' | 'precursor'
   /** ISO-2 of the jurisdiction a supplier is incorporated in, when resolved. */
   iso?: string
   countryId?: NodeId
@@ -107,15 +112,15 @@ export function buildTree(
     if (c) countryOf.set(e.src, c)
   }
 
-  const supplierIds = (precursorId: NodeId) =>
-    edges.filter((e) => e.rel === 'produced_by' && e.src === precursorId).map((e) => e.dst)
+  const supplierIds = (parentId: NodeId) =>
+    edges.filter((e) => e.rel === 'produced_by' && e.src === parentId).map((e) => e.dst)
 
-  const supplier = (id: NodeId, depth: number): TreeNode | null => {
+  const supplier = (id: NodeId, depth: number, tier: 'api' | 'precursor', parentId: NodeId): TreeNode | null => {
     const n = byId.get(id)
     if (!n) return null
     const c = countryOf.get(id)
     return {
-      id, node: n, kind: 'supplier', depth, children: [],
+      id, key: `${parentId}|${id}`, node: n, kind: 'supplier', depth, children: [], tier,
       iso: c?.country ?? undefined,
       countryId: c?.id,
       countryLabel: c?.label ?? c?.id,
@@ -128,24 +133,33 @@ export function buildTree(
       .map((e) => byId.get(e.src))
       .filter((n): n is GraphNode => !!n)
       .map((p) => ({
-        id: p.id, node: p, kind: 'precursor' as const, depth,
+        id: p.id, key: `${parentId}|${p.id}`, node: p, kind: 'precursor' as const, depth,
         children: supplierIds(p.id)
-          .map((id) => supplier(id, depth + 1))
+          .map((id) => supplier(id, depth + 1, 'precursor', p.id))
           .filter((t): t is TreeNode => !!t)
           .sort(sortSuppliers),
       }))
 
+  // Two tiers under an API. Its own DMF holders — the plants a buyer actually
+  // qualifies — and the precursor they all draw on, with ITS holders beneath.
+  // The precursor is a gate, not a source: see evaluate().
   const apiNodes: TreeNode[] = edges
     .filter((e) => e.rel === 'active_in' && e.dst === rootId)
     .map((e) => byId.get(e.src))
     .filter((n): n is GraphNode => !!n)
     .map((a) => ({
-      id: a.id, node: a, kind: 'api' as const, depth: 1,
-      children: precursorNodes(a.id, 2),
+      id: a.id, key: `${rootId}|${a.id}`, node: a, kind: 'api' as const, depth: 1,
+      children: [
+        ...supplierIds(a.id)
+          .map((id) => supplier(id, 2, 'api', a.id))
+          .filter((t): t is TreeNode => !!t)
+          .sort(sortSuppliers),
+        ...precursorNodes(a.id, 2),
+      ],
     }))
 
   return {
-    id: root.id, node: root, kind: 'drug', depth: 0,
+    id: root.id, key: `root|${root.id}`, node: root, kind: 'drug', depth: 0,
     // A precursor wired straight to the drug rather than through an API would
     // otherwise vanish from the tree entirely. It does not happen in the current
     // artifacts; it is one line to make sure it never silently could.
@@ -210,22 +224,65 @@ export function flatten(t: TreeNode | null): TreeNode[] {
  * strands its eight suppliers rather than deleting them, which is exactly what
  * an export ban does.
  */
+/**
+ * Everything that cannot ship, given the failures.
+ *
+ * Four ways in. Switched off itself — a plant failure. Inside a jurisdiction
+ * whose EXPORTS are halted — the plant is producing and nothing leaves; the
+ * country id sits in `compromised` for that. Underneath something switched
+ * off — a plant behind a dead precursor cannot ship through it. Or GATED: an
+ * API holder is standing, its own plant is fine, but every source of the
+ * precursor it needs is gone, so it has nothing to make the API from. That
+ * last one is what an export ban on 6-APA does to a plant in Italy, and it is
+ * why the precursor sits under the API as a gate rather than beside its
+ * holders as one more source.
+ */
+export function cutSet(tree: TreeNode | null, compromised: Set<NodeId>): Set<NodeId> {
+  const cut = new Set<NodeId>()
+  if (!tree) return cut
+  const leavesOf = (t: TreeNode): TreeNode[] =>
+    t.children.length ? t.children.flatMap(leavesOf) : [t]
+  const visit = (t: TreeNode, dead: boolean) => {
+    const halted = !!t.countryId && compromised.has(t.countryId)
+    const d = dead || compromised.has(t.id) || halted
+    if (d) cut.add(t.id)
+    // Gates first, so their fate is known before the holders they gate.
+    const gates = t.children.filter((c) => c.kind !== 'supplier')
+    for (const c of gates) visit(c, d)
+    const gated = gates.length > 0
+      && gates.every((g) => cut.has(g.id) || leavesOf(g).every((l) => cut.has(l.id)))
+    for (const c of t.children) if (c.kind === 'supplier') visit(c, d || gated)
+  }
+  visit(tree, false)
+  return cut
+}
+
 export function evaluate(
   tree: TreeNode | null,
   compromised: Set<NodeId>,
 ): Map<NodeId, Rollup> {
   const out = new Map<NodeId, Rollup>()
   if (!tree) return out
+  const cut = cutSet(tree, compromised)
 
   const visit = (t: TreeNode): Rollup => {
     const origin = compromised.has(t.id)
     let r: Rollup
     if (!t.children.length) {
-      r = { health: origin ? 'down' : 'ok', up: origin ? 0 : 1, total: 1, origin }
+      const dead = cut.has(t.id)
+      r = { health: dead ? 'down' : 'ok', up: dead ? 0 : 1, total: 1, origin }
     } else {
       const kids = t.children.map(visit)
-      const total = kids.reduce((s, k) => s + k.total, 0)
-      const up = origin ? 0 : kids.reduce((s, k) => s + k.up, 0)
+      // A node's SOURCES are its supplier children when it has any; the
+      // precursor beneath an API is a gate on those, already applied by
+      // cutSet, and is not counted as a ninth source of the API.
+      const sups = t.children
+        .map((c, i) => [c, kids[i]] as const)
+        .filter(([c]) => c.kind === 'supplier')
+        .map(([, k]) => k)
+      const pool = sups.length ? sups : kids
+      const total = pool.reduce((a, k) => a + k.total, 0)
+      const up = origin || cut.has(t.id) ? 0 : pool.reduce((a, k) => a + k.up, 0)
       r = {
         health: up === 0 ? 'down' : up < total ? 'at-risk' : 'ok',
         up, total, origin,
@@ -272,16 +329,8 @@ export function allocate(
     groups.set(iso, g)
   }
 
-  // `cut` carries downward: anything switched off strands everything under it.
-  const visit = (t: TreeNode, cut: boolean) => {
-    const dead = cut || compromised.has(t.id)
-    if (!t.children.length) {
-      if (t.kind === 'supplier') bump(t, !dead)
-      return
-    }
-    for (const c of t.children) visit(c, dead)
-  }
-  visit(tree, false)
+  const cut = cutSet(tree, compromised)
+  walk(tree, (t) => { if (t.kind === 'supplier') bump(t, !cut.has(t.id)) })
 
   const totalUp = [...groups.values()].reduce((s, g) => s + g.up, 0)
   const routes = [...groups.values()]
@@ -293,30 +342,225 @@ export function allocate(
 }
 
 // ---------------------------------------------------------------------------
+// the AEGIS shortlist — who can still make it, ranked
+// ---------------------------------------------------------------------------
+
+/** One DMF holder, as the console sees it after the failures are applied. */
+export interface Alternate {
+  id: NodeId
+  holder: RerouteHolder
+  /** False once this holder, or anything above it in the tree, is switched off.
+   *  A registered plant behind a dead precursor cannot ship through it. */
+  standing: boolean
+  /** 1-based, among STANDING holders, by re-ranked score. Absent when cut. */
+  rank?: number
+  /** The artifact's score re-ranked against the failure: `holder.score + delta`. */
+  score: number
+  /** What the failure did to this holder as a route, and the reason in words. */
+  delta: number
+  deltaWhy: string | null
+  /** Standing AND re-ranked score > 0. */
+  viable: boolean
+  /** The one holder the console would call first. At most one row. */
+  recommended: boolean
+}
+
+export interface Shortlist {
+  /** Null when the tree has no precursor, or the artifact has no row for it. */
+  precursor: NodeId | null
+  substance: string
+  rule: string
+  /** The re-ranking rule, stated in the same voice as `rule`. */
+  rerankRule: string
+  notModelled: string[]
+  /** Standing holders best first, then the cut ones in their resting order. */
+  rows: Alternate[]
+  byId: Map<NodeId, Alternate>
+  total: number
+  standing: number
+  /** Standing AND score > 0 — the number the caption reports. */
+  viable: number
+  /** ISO-2 of every jurisdiction with at least one switched-off source. */
+  failedIsos: string[]
+  /** The recommended route, or null when nothing viable is standing. */
+  best: Alternate | null
+  /** Which register the rows come from. The API tier is what a buyer
+   *  qualifies; the precursor tier is the answer when the failure is above
+   *  every API holder at once. */
+  scope: 'api' | 'precursor'
+  scopeNode: NodeId | null
+}
+
+/** Re-ranking against the failure. The artifact scores a plant on its own
+ *  record; this is the one term that depends on what just went down, so it
+ *  lives here, where the failure is known. Stated verbatim on the rail. */
+export const RERANK_TEXT =
+  'Re-ranked against the failure: +2 when every site is outside the jurisdictions '
+  + 'that just failed; −2 when it shares one. A site nobody can place gets neither.'
+const AWAY_BONUS = 2
+const SAME_PENALTY = -2
+
+/**
+ * Re-rank the pathfinder's output against the current failures.
+ *
+ * `ml/aegis.py` scores every holder ONCE, on its own registration, geography,
+ * TAA status and enforcement history — none of which changes when a neighbour
+ * goes down. What DOES change is whether a holder is still a way around the
+ * failure: a second plant in the jurisdiction that just went dark is the same
+ * exposure, not an alternative to it. So a failure is a filter plus one term —
+ * drop what is cut, move survivors by where they sit relative to the failed
+ * jurisdictions, and call the top viable one the route. That is what lets the
+ * same artifact answer every click without a network on stage.
+ */
+export function shortlist(
+  reroute: Reroute,
+  tree: TreeNode | null,
+  compromised: Set<NodeId>,
+  /** Name a route. Off until the operator asks: a failure is shown the moment
+   *  it happens; the answer to it is a step the operator takes. */
+  wantRoute = true,
+): Shortlist {
+  const empty: Shortlist = {
+    precursor: null, substance: '', rule: reroute.rule_text ?? '', rerankRule: RERANK_TEXT,
+    notModelled: reroute.not_modelled ?? [],
+    rows: [], byId: new Map(), total: 0, standing: 0, viable: 0, failedIsos: [], best: null,
+    scope: 'api', scopeNode: null,
+  }
+  if (!tree) return empty
+
+  const cut = cutSet(tree, compromised)
+  let api: TreeNode | null = null
+  let precursor: TreeNode | null = null
+  walk(tree, (t) => {
+    if (t.kind === 'api' && !api) api = t
+    if (t.kind === 'precursor' && !precursor) precursor = t
+  })
+  const apiT = api as TreeNode | null
+  const preT = precursor as TreeNode | null
+
+  /** One tier's rows, re-ranked against ITS OWN failed jurisdictions. */
+  const tier = (node: TreeNode | null, leaves: TreeNode[]) => {
+    if (!node) return null
+    const row = (reroute.precursors ?? []).find((p) => p.node === node.id)
+    if (!row) return null
+    const failed = new Set<string>()
+    for (const l of leaves) if (cut.has(l.id) && l.iso && l.iso !== UNRESOLVED) failed.add(l.iso)
+    const failedIsos = [...failed].sort()
+    const failedTxt = failedIsos.map((c) => c.toUpperCase()).join('/')
+    const standing: Alternate[] = []
+    const down: Alternate[] = []
+    for (const h of row.holders) {
+      if (!h.node_id) continue
+      const isStanding = !cut.has(h.node_id)
+      let delta = 0
+      let deltaWhy: string | null = null
+      if (isStanding && failedIsos.length && h.iso2.length) {
+        const shares = h.iso2.some((c) => failed.has(c))
+        delta = shares ? SAME_PENALTY : AWAY_BONUS
+        deltaWhy = shares
+          ? `same jurisdiction as the failure (${failedTxt}) — same exposure, not a way around it`
+          : `every site outside the failed jurisdiction${failedIsos.length === 1 ? '' : 's'} (${failedTxt})`
+      } else if (isStanding && failedIsos.length) {
+        deltaWhy = 'site cannot be placed — no diversification credit either way'
+      }
+      const score = h.score + delta
+      const alt: Alternate = {
+        id: h.node_id, holder: h, standing: isStanding,
+        score, delta, deltaWhy, viable: isStanding && score > 0, recommended: false,
+      }
+      ;(isStanding ? standing : down).push(alt)
+    }
+    standing.sort((a, b) => b.score - a.score || b.holder.score - a.holder.score)
+    standing.forEach((a, i) => { a.rank = i + 1 })
+    const best = wantRoute && compromised.size > 0 && standing[0]?.viable ? standing[0] : null
+    return { node, row, rows: [...standing, ...down], standing: standing.length,
+      viable: standing.filter((a) => a.viable).length, failedIsos, best }
+  }
+
+  const apiLeaves = apiT ? apiT.children.filter((c) => c.kind === 'supplier') : []
+  const preLeaves = preT ? preT.children : []
+  const apiTier = tier(apiT, apiLeaves)
+  const preTier = tier(preT, preLeaves)
+
+  // Scope. A failure that only the precursor's register can answer — the
+  // precursor itself, or a holder that files ONLY for it — is upstream of
+  // every API holder, so that register is shown. A company that holds both
+  // filings failing is still a failure the API register can route around,
+  // and that is the register a buyer acts on; it wins whenever it can.
+  const preIds = new Set<NodeId>(preT ? [preT.id, ...preLeaves.map((l) => l.id)] : [])
+  const apiIds = new Set<NodeId>(apiLeaves.map((l) => l.id))
+  const upstream = [...cut].some((id) => preIds.has(id) && !apiIds.has(id))
+  const chosen = (upstream ? preTier : apiTier) ?? apiTier ?? preTier
+  if (!chosen) return empty
+  if (chosen.best) chosen.best.recommended = true
+
+  // Both tiers' rows are addressable by id, so every supplier box on the tree
+  // carries its rank even when the rail is showing the other register.
+  const byId = new Map<NodeId, Alternate>()
+  for (const t of [apiTier, preTier]) if (t && t !== chosen) for (const a of t.rows) byId.set(a.id, a)
+  for (const a of chosen.rows) byId.set(a.id, a)
+
+  return {
+    precursor: preT?.id ?? null,
+    substance: chosen.row.substance,
+    rule: reroute.rule_text ?? '',
+    rerankRule: RERANK_TEXT,
+    notModelled: reroute.not_modelled ?? [],
+    rows: chosen.rows,
+    byId,
+    total: chosen.rows.length,
+    standing: chosen.standing,
+    viable: chosen.viable,
+    failedIsos: chosen.failedIsos,
+    best: chosen.best,
+    scope: chosen === preTier ? 'precursor' : 'api',
+    scopeNode: chosen.node.id,
+  }
+}
+
+/** The pathfinder's one-line verdict, for the caption under the impact line. */
+export function shortlistLine(sl: Shortlist, label: (id: NodeId) => string): string {
+  if (!sl.scopeNode) return ''
+  if (sl.standing === 0) return 'AEGIS: nothing left to rank — every filing holder is offline.'
+  if (sl.viable === 0) {
+    return `AEGIS: no viable re-route. Every standing holder is unregistered in DECRS, `
+      + `ambiguous, inside the same chokepoint, or carries its own enforcement history.`
+  }
+  const best = sl.best ?? sl.rows[0]
+  const iso = (a: Alternate) => a.holder.iso2.map((c) => c.toUpperCase()).join('/') || '?'
+  const signed = (n: number) => `${n > 0 ? '+' : ''}${n.toFixed(1)}`
+  const away = best.delta > 0
+    ? ` — outside ${sl.failedIsos.map((c) => c.toUpperCase()).join('/')}, ${signed(best.delta)} re-ranked`
+    : ''
+  const backup = sl.rows.find((a) => a.viable && a.id !== best.id)
+  const next = backup ? ` Next: ${label(backup.id)} (${iso(backup)}, ${signed(backup.score)}).` : ''
+  const others = sl.viable - 1
+  return `AEGIS route for ${sl.substance}: ${label(best.id)} (${iso(best)}, ${signed(best.score)}${away}).`
+    + ` ${others} other viable of ${sl.standing} standing.${next}`
+}
+
+// ---------------------------------------------------------------------------
 // layout
 // ---------------------------------------------------------------------------
 
-/* The level-label gutter. Wide enough for "Qualified sources" to clear the
-   first jurisdiction band; widening it is free while height sets the scale. */
-export const GUTTER = 120
+/* No gutter: the tree owns the column's full width. Zero, not deleted, so the
+   layout's x-origin still reads as one constant. */
+export const GUTTER = 0
 export const PAD_X = 20
-export const PAD_TOP = 26
+export const PAD_TOP = 22
 export const PAD_BOTTOM = 18
-/* Pitch between levels. The top three are single boxes, so every pixel here is
-   spent on branch curve rather than on content — and in a column this narrow the
-   height is what sets the scale for the whole diagram. */
-export const LEVEL_H = 94
+/** Space under a box before what hangs off it — room for the branch curve. */
+export const LEVEL_GAP = 34
 export const LEAF_GAP = 14
-/** Leaves WRAP. The tree lives in a column one third of the screen wide, and
- *  eight sources in one row makes a diagram four times wider than it is tall —
- *  which, fitted `meet`, renders every label at a quarter size. Two across, and
- *  each jurisdiction starting a fresh row, keeps the shape near the column's. */
+/** Leaves WRAP, two across, so the diagram keeps the column's shape. */
 export const LEAF_PER_ROW = 2
 export const LEAF_ROW_GAP = 12
 /** Space above a jurisdiction's first row for its band label. */
 export const GROUP_LABEL_H = 24
 /** Between one jurisdiction band and the next. */
 export const GROUP_GAP = 12
+/** Between the last band of one tier and the box that starts the next. */
+export const TIER_GAP = 30
 
 export const NODE_W: Record<TreeKind, number> = {
   // Suppliers are the long names — "The United Laboratories (Inner Mongolia)"
@@ -346,9 +590,9 @@ export interface Group {
 
 export interface TreeLayout {
   placed: Placed[]
-  pos: Map<NodeId, Placed>
+  /** Keyed by TreeNode.key, not id — see TreeNode. */
+  pos: Map<string, Placed>
   groups: Group[]
-  levels: { depth: number; y: number; label: string }[]
   width: number
   height: number
 }
@@ -358,114 +602,108 @@ export interface TreeLayout {
  * groups; every parent centres over its children. Deterministic — a tree that
  * reflows differently on the projector than it did in rehearsal is a bug.
  */
+/**
+ * A vertical flow, top to bottom, in the order a buyer reads:
+ *
+ *   drug
+ *   api
+ *     [API register: its holders, banded by jurisdiction]
+ *     precursor
+ *       [precursor register: its holders, banded by jurisdiction]
+ *
+ * Boxes take the width of two leaf columns; every internal node is centred
+ * over those columns. The precursor is reached by a feed line down the left
+ * margin (feedPath), because it is a gate under the API holders, not a
+ * sibling of theirs. Height is whatever the content needs — the column
+ * scrolls; the boxes never shrink to fit.
+ */
 export function layoutTree(tree: TreeNode | null): TreeLayout {
   const placed: Placed[] = []
   const groups: Group[] = []
-  if (!tree) {
-    return { placed, pos: new Map(), groups, levels: [], width: 100, height: 100 }
-  }
+  const pos = new Map<string, Placed>()
+  if (!tree) return { placed, pos, groups, width: 100, height: 100 }
 
-  const yOf = (depth: number) => PAD_TOP + depth * LEVEL_H
+  const colW = NODE_W.supplier * LEAF_PER_ROW + LEAF_GAP * (LEAF_PER_ROW - 1)
+  const centre = (w: number) => GUTTER + PAD_X + colW / 2 - w / 2
+  let y = PAD_TOP
 
-  // Leaves first, in DFS order, so jurisdiction runs stay contiguous.
-  const leaves: TreeNode[] = []
-  ;(function collect(t: TreeNode) {
-    if (!t.children.length) leaves.push(t)
-    else t.children.forEach(collect)
-  })(tree)
-
-  const leafTop = leaves.length ? yOf(Math.max(...leaves.map((t) => t.depth))) : yOf(0)
-  const leafPos = new Map<NodeId, { x: number; y: number }>()
-
-  let y = leafTop
-  let col = 0
-  let lastIso: string | null = null
-  let group: Group | null = null
-
-  for (const t of leaves) {
-    const w = NODE_W[t.kind]
-    const h = NODE_H[t.kind]
-    const iso = t.kind === 'supplier' ? (t.iso ?? UNRESOLVED) : '-'
-
-    if (iso !== lastIso) {
-      // A new jurisdiction always starts its own row, under its own label.
-      if (lastIso !== null) y += h + LEAF_ROW_GAP + GROUP_GAP
-      y += GROUP_LABEL_H
-      col = 0
-      lastIso = iso
-      group = {
-        iso,
-        label: t.countryLabel ?? 'Country unresolved',
-        countryId: t.countryId ?? '',
-        x: GUTTER + PAD_X, w, y: y - GROUP_LABEL_H + 2, h,
-        ids: [],
+  const layGroups = (leaves: TreeNode[]) => {
+    let col = 0
+    let lastIso: string | null = null
+    let group: Group | null = null
+    let rowH = 0
+    for (const t of leaves) {
+      const w = NODE_W[t.kind]
+      const h = NODE_H[t.kind]
+      const iso = t.iso ?? UNRESOLVED
+      if (iso !== lastIso) {
+        if (lastIso !== null) y += rowH + LEAF_ROW_GAP + GROUP_GAP
+        y += GROUP_LABEL_H
+        col = 0
+        lastIso = iso
+        group = {
+          iso,
+          label: t.countryLabel ?? 'Country unresolved',
+          countryId: t.countryId ?? '',
+          x: GUTTER + PAD_X, w, y: y - GROUP_LABEL_H + 2, h,
+          ids: [],
+        }
+        groups.push(group)
+      } else if (col >= LEAF_PER_ROW) {
+        y += h + LEAF_ROW_GAP
+        col = 0
       }
-      groups.push(group)
-    } else if (col >= LEAF_PER_ROW) {
-      y += h + LEAF_ROW_GAP
-      col = 0
+      const x = GUTTER + PAD_X + col * (w + LEAF_GAP)
+      const p: Placed = { t, x, y, w, h }
+      placed.push(p)
+      pos.set(t.key, p)
+      col++
+      rowH = h
+      if (group) {
+        group.w = Math.max(group.w, x + w - group.x)
+        group.h = y + h - group.y + 6
+        group.ids.push(t.id)
+      }
     }
-
-    const x = GUTTER + PAD_X + col * (w + LEAF_GAP)
-    leafPos.set(t.id, { x, y })
-    col++
-
-    if (group) {
-      group.w = Math.max(group.w, x + w - group.x)
-      group.h = y + h - group.y + 6
-      group.ids.push(t.id)
-    }
+    if (lastIso !== null) y += rowH + LEAF_ROW_GAP
   }
 
-  /** Returns the node's centre x. Leaves read their wrapped slot; every parent
-   *  centres over its children, as before. */
-  const place = (t: TreeNode): number => {
+  const visit = (t: TreeNode) => {
     const w = NODE_W[t.kind]
     const h = NODE_H[t.kind]
-    let cx: number
-    let ty: number
+    const p: Placed = { t, x: centre(w), y, w, h }
+    placed.push(p)
+    pos.set(t.key, p)
+    y += h + LEVEL_GAP
 
-    if (!t.children.length) {
-      const lp = leafPos.get(t.id)
-      cx = (lp?.x ?? GUTTER + PAD_X) + w / 2
-      ty = lp?.y ?? yOf(t.depth)
-    } else {
-      const kids = t.children.map(place)
-      cx = (Math.min(...kids) + Math.max(...kids)) / 2
-      ty = yOf(t.depth)
+    const sups = t.children.filter((c) => c.kind === 'supplier')
+    if (sups.length) layGroups(sups)
+    const gates = t.children.filter((c) => c.kind !== 'supplier')
+    for (const g of gates) {
+      if (sups.length) y += TIER_GAP
+      visit(g)
     }
-
-    placed.push({ t, x: cx - w / 2, y: ty, w, h })
-    return cx
   }
-
-  place(tree)
-
-  const right = Math.max(...placed.map((p) => p.x + p.w), ...groups.map((g) => g.x + g.w))
-  const bottom = Math.max(...placed.map((p) => p.y + p.h), ...groups.map((g) => g.y + g.h))
-
-  // Levels are labelled once, in a left gutter, instead of on every box.
-  const levels: TreeLayout['levels'] = []
-  const seen = new Set<number>()
-  for (const p of placed.slice().sort((a, b) => a.t.depth - b.t.depth)) {
-    if (seen.has(p.t.depth)) continue
-    seen.add(p.t.depth)
-    levels.push({ depth: p.t.depth, y: p.y + p.h / 2, label: LEVEL_LABEL[p.t.kind] })
-  }
+  visit(tree)
 
   return {
-    placed,
-    pos: new Map(placed.map((p) => [p.t.id, p])),
-    groups,
-    levels,
-    width: right + PAD_X,
-    height: bottom + PAD_BOTTOM,
+    placed, pos, groups,
+    width: GUTTER + PAD_X + colW + PAD_X,
+    height: y + PAD_BOTTOM,
   }
 }
 
-/** Parent bottom-centre to child top-centre. Curved rather than elbowed: the
- *  fan-out from one precursor to eight sources is the shape being sold, and
- *  right angles turn it into a bus bar. */
+/** The feed line from an API box down the left margin to its precursor —
+ *  past the API's own holders, which it does not touch. */
+export function feedPath(parent: Placed, child: Placed): string {
+  const x1 = parent.x + 12
+  const y1 = parent.y + parent.h
+  const xm = 7
+  const x2 = child.x + 12
+  const y2 = child.y
+  return `M${x1},${y1} Q${x1},${y1 + 22} ${xm},${y1 + 22} V${y2 - 22} Q${xm},${y2} ${x2},${y2}`
+}
+
 export function branchPath(parent: Placed, child: Placed): string {
   const x1 = parent.x + parent.w / 2
   const y1 = parent.y + parent.h
@@ -497,7 +735,7 @@ export function impactLine(
     ? ` Rerouted through ${list(live.map((r) => r.label))}.`
     : ''
   const s = failures === 1 ? '' : 's'
-  return `${failures} failure${s} simulated. ${drugLabel} ${verb} — `
+  return `${failures} disruption${s} simulated. ${drugLabel} ${verb} — `
     + `${rollup.up} of ${rollup.total} qualified sources standing.${via}`
 }
 

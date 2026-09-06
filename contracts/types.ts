@@ -81,3 +81,55 @@ export interface CascadeResult {
   rule: string
   firedBy: Signal[]
 }
+
+// --- AEGIS pathfinder — web/data/reroute.json, emitted by ml/aegis.py --write ---
+
+/** One DMF holder for a precursor, scored once on public records. The console
+ *  applies exclusions itself: a holder's score does not depend on which other
+ *  holder went down, so re-ranking survivors is a filter, not a re-run. */
+export interface RerouteHolder {
+  /** `company:` node id, or null when the graph carries no node for this filing. */
+  node_id: NodeId | null
+  /** Holder name as spelled in the DMF register. */
+  holder: string
+  /** DECRS firm name it resolved to; null = not found or ambiguous. */
+  matched_firm: string | null
+  /** ISO-3, from DECRS addresses. Empty when unmatched. */
+  countries: string[]
+  /** Same countries, ISO-2 lowercased — the graph's convention. */
+  iso2: string[]
+  feis: string[]
+  score: number
+  /** score > 0. */
+  viable: boolean
+  registered_api: boolean
+  in_chokepoint: boolean
+  /** true = TAA-designated · false = not designated · null = unknown. */
+  taa: boolean | null
+  risk_flags: string[]
+  /** One clause per scoring axis that fired. Rendered verbatim. */
+  why: string[]
+}
+
+export interface ReroutePrecursor {
+  node: NodeId
+  substance: string
+  spellings: number
+  active_holders: number
+  inactive_holders: number
+  affected_drugs: NodeId[]
+  affected_products: number
+  viable: number
+  /** Best first. */
+  holders: RerouteHolder[]
+}
+
+export interface Reroute {
+  generated_at?: string
+  rule?: string
+  rule_text?: string
+  /** Stated on every output rather than buried — there is no public source. */
+  not_modelled?: string[]
+  chokepoint_iso2?: string[]
+  precursors?: ReroutePrecursor[]
+}

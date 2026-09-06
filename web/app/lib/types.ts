@@ -82,39 +82,54 @@ export interface CascadeResult {
   firedBy: Signal[]
 }
 
-/** One alternate supplier AEGIS proposes for a disrupted substance.
- *  Emitted by `ml/aegis.py --emit-all`; the scoring lives in Python so the
- *  numbers cannot drift between the two implementations. */
-export interface Alternate {
-  /** DMF holder name, as filed. */
+// --- AEGIS pathfinder — web/data/reroute.json, emitted by ml/aegis.py --write ---
+
+/** One DMF holder for a precursor, scored once on public records. The console
+ *  applies exclusions itself: a holder's score does not depend on which other
+ *  holder went down, so re-ranking survivors is a filter, not a re-run. */
+export interface RerouteHolder {
+  /** `company:` node id, or null when the graph carries no node for this filing. */
+  node_id: NodeId | null
+  /** Holder name as spelled in the DMF register. */
   holder: string
-  /** The DECRS establishment it resolved to, or null when unresolved/ambiguous. */
+  /** DECRS firm name it resolved to; null = not found or ambiguous. */
   matched_firm: string | null
-  /** ISO-3 codes of that firm's registered sites. */
+  /** ISO-3, from DECRS addresses. Empty when unmatched. */
   countries: string[]
-  /** Higher is a better re-route target. Negative means its own enforcement
-   *  history outweighs its capability. */
+  /** Same countries, ISO-2 lowercased — the graph's convention. */
+  iso2: string[]
+  feis: string[]
   score: number
-  /** The alternate's OWN OAI / cGMP refusals — routing out of one fire into
-   *  another is the failure this exists to prevent. */
+  /** score > 0. */
+  viable: boolean
+  registered_api: boolean
+  in_chokepoint: boolean
+  /** true = TAA-designated · false = not designated · null = unknown. */
+  taa: boolean | null
   risk_flags: string[]
-  /** Plain-language reasons, in scoring order. First line is the headline. */
+  /** One clause per scoring axis that fired. Rendered verbatim. */
   why: string[]
 }
 
-export interface RerouteNode {
+export interface ReroutePrecursor {
   node: NodeId
-  label: string
+  substance: string
+  spellings: number
+  active_holders: number
+  inactive_holders: number
   affected_drugs: NodeId[]
   affected_products: number
-  active_holders: number
-  spellings: number
-  alternates: Alternate[]
   viable: number
+  /** Best first. */
+  holders: RerouteHolder[]
 }
 
-export interface RerouteData {
-  generated: string
-  method: string
-  nodes: Record<NodeId, RerouteNode>
+export interface Reroute {
+  generated_at?: string
+  rule?: string
+  rule_text?: string
+  /** Stated on every output rather than buried — there is no public source. */
+  not_modelled?: string[]
+  chokepoint_iso2?: string[]
+  precursors?: ReroutePrecursor[]
 }

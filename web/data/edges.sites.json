@@ -1,0 +1,366 @@
+[
+  {
+    "src": "company:name:centrient-pharmaceuticals-netherlands-bv",
+    "dst": "country:in",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3004497364, 'CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED', address ends (IND). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:amoxicillin-trihydrate",
+    "dst": "company:name:centrient-pharmaceuticals-netherlands-bv",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 16950, active, subject 'AMOXICILLIN TRIHYDRATE (PURIMOX®)', holder 'CENTRIENT PHARMACEUTICALS NETHERLANDS BV'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3006272230, 'Inner Mongolia Changsheng Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:amoxicillin-trihydrate",
+    "dst": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 37924, active, subject 'AMOXICILLIN TRIHYDRATE', holder 'INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sandoz-gmbh",
+    "dst": "country:at",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3002806523, 'Sandoz GmbH', address ends (AUT). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:amoxicillin-trihydrate",
+    "dst": "company:name:sandoz-gmbh",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 38086, active, subject 'AMOXICILLIN TRIHYDRATE', holder 'SANDOZ GMBH'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3010166430, 'Sinopharm Weiqida Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:amoxicillin-trihydrate",
+    "dst": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 32811, active, subject 'AMOXICILLIN TRIHYDRATE, USP', holder 'SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:teva-pharmaceutical-industries-ltd",
+    "dst": "country:il",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3002721084, 'Teva Pharmaceutical Industries Ltd.', address ends (ISR). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:amoxicillin-trihydrate",
+    "dst": "company:name:teva-pharmaceutical-industries-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13518, active, subject 'AMOXICILLIN TRIHYDRATE USP', holder 'TEVA PHARMACEUTICAL INDUSTRIES LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:acs-dobfar-spa",
+    "dst": "country:it",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3002806293, 'ACS DOBFAR SPA', address ends (ITA). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:acs-dobfar-spa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13661, active, subject 'AMPICILLIN SODIUM (STERILE BULK)', holder 'ACS DOBFAR SPA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:apitoria-pharma-private-ltd",
+    "dst": "country:in",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3004021253, 'Apitoria Pharma Private Limited', address ends (IND). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:apitoria-pharma-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 19226, active, subject 'AMPICILLIN TRIHYDRATE, USP', holder 'APITORIA PHARMA PRIVATE LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:fresenius-kabi-ipsum-srl",
+    "dst": "country:it",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3017296713, 'FRESENIUS KABI IPSUM SRL', address ends (ITA). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:fresenius-kabi-ipsum-srl",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 23287, active, subject 'AMPICILLIN SODIUM STERILE', holder 'FRESENIUS KABI IPSUM SRL'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 35735, active, subject 'AMPICILLIN TRIHYDRATE', holder 'INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+    "dst": "country:it",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3002807242, 'Istituto Biochimico Italiano Giovanni Lorenzini', address ends (ITA). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13742, active, subject 'AMPICILLIN SODIUM STERILE CRYSTALLINE (BULK)', holder 'ISTITUTO BIOCHIMICO ITALIANO GIOVANNI LORENZINI SPA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:sandoz-gmbh",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13754, active, subject 'AMPICILLIN SODIUM (STERILE)', holder 'SANDOZ GMBH'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sandoz-industrial-products-sa",
+    "dst": "country:es",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3005403245, 'Sandoz Industrial Products S.A', address ends (ESP). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:sandoz-industrial-products-sa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13212, active, subject 'AMPICILLIN ANHYDROUS', holder 'SANDOZ INDUSTRIAL PRODUCTS SA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 38056, active, subject 'AMPICILLIN TRIHYDRATE (POWDER)', holder 'SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sterile-india-pvt-ltd",
+    "dst": "country:us",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3012144557, 'Sharp Sterile Manufacturing, LLC', address ends (USA). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:sterile-india-pvt-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 29984, active, subject 'AMPICILLIN SODIUM USP (STERILE)', holder 'STERILE INDIA PVT LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:zhuhai-united-laboratories-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3006531950, 'Zhuhai United Laboratories Co., Ltd', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "company:name:zhuhai-united-laboratories-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 22857, active, subject 'AMPICILLIN TRIHYDRATE', holder 'ZHUHAI UNITED LABORATORIES CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:dicloxacillin-sodium",
+    "dst": "company:name:apitoria-pharma-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 19553, active, subject 'DICLOXACILLIN SODIUM USP', holder 'APITORIA PHARMA PRIVATE LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:nafcillin-sodium",
+    "dst": "company:name:acs-dobfar-spa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13695, active, subject 'NAFCILLIN SODIUM FOR INJECTION (BULK)', holder 'ACS DOBFAR SPA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:nafcillin-sodium",
+    "dst": "company:name:apitoria-pharma-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 22473, active, subject 'NAFCILLIN SODIUM (NON-STERILE DRUG SUBSTANCE INTERMEDIATE)', holder 'APITORIA PHARMA PRIVATE LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:nafcillin-sodium",
+    "dst": "company:name:fresenius-kabi-ipsum-srl",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF ?, active, subject 'Nafcillin sodium', holder 'FRESENIUS KABI IPSUM SRL'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:oxacillin-sodium",
+    "dst": "company:name:apitoria-pharma-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 19238, active, subject 'OXACILLIN SODIUM USP', holder 'APITORIA PHARMA PRIVATE LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:oxacillin-sodium",
+    "dst": "company:name:fresenius-kabi-ipsum-srl",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF ?, active, subject 'Oxacillin sodium', holder 'FRESENIUS KABI IPSUM SRL'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:oxacillin-sodium",
+    "dst": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 13743, active, subject 'OXACILLIN SODIUM STERILE CRYSTALLINE (BULK)', holder 'ISTITUTO BIOCHIMICO ITALIANO GIOVANNI LORENZINI SPA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:pure-and-cure-healthcare-private-ltd",
+    "dst": "country:in",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3007577941, 'PURE AND CURE HEALTHCARE PRIVATE LIMITED', address ends (IND). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:oxacillin-sodium",
+    "dst": "company:name:pure-and-cure-healthcare-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 24678, active, subject 'OXACILLIN SODIUM USP', holder 'PURE AND CURE HEALTHCARE PRIVATE LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:acs-dobfar-spa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 36317, active, subject 'PIPERACILLIN AND TAZOBACTAM (STERILE BULK)', holder 'ACS DOBFAR SPA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:apitoria-pharma-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 19265, active, subject 'PIPERACILLIN USP', holder 'APITORIA PHARMA PRIVATE LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:fresenius-kabi-ipsum-srl",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 25545, active, subject 'PIPERACILLIN SODIUM/ TAZOBACTAM SODIUM (8:1) STERILE LYOPHILIZED', holder 'FRESENIUS KABI IPSUM SRL'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 35825, active, subject 'PIPERACILLIN', holder 'INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:jiangxi-fushine-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3008177143, 'Jiangxi Fushine Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:jiangxi-fushine-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 32483, active, subject 'PIPERACILLIN', holder 'JIANGXI FUSHINE PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:sandoz-industrial-products-sa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 18161, active, subject 'PIPERACILLIN', holder 'SANDOZ INDUSTRIAL PRODUCTS SA'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:shandong-anshun-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3015326904, 'Shandong Anshun Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:shandong-anshun-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 33980, active, subject 'PIPERACILLIN (NON-STERILE API)', holder 'SHANDONG ANSHUN PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:shandong-anxin-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3004229375, 'Shandong Anxin Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:shandong-anxin-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 20432, active, subject 'PIPERACILLIN SODIUM AND TAZOBACTAM SODIUM (8:1)', holder 'SHANDONG ANXIN PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:shandong-ruiying-pioneer-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3008320758, 'Shandong Ruiying Pioneer Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:shandong-ruiying-pioneer-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 23614, active, subject 'PIPERACILLIN', holder 'SHANDONG RUIYING PIONEER PHARMACEUTICAL CO LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:sterile-india-pvt-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 29994, active, subject 'PIPERACILLIN & TAZOBACTAM SODIUM (STERILE)', holder 'STERILE INDIA PVT LTD'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:yuhan-chemical-inc",
+    "dst": "country:kr",
+    "rel": "incorporated_in",
+    "layer": 1,
+    "citation": "FDA DECRS drls_reg — FEI 3004015296, 'Yuhan Chemical Inc.', address ends (KOR). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "company:name:yuhan-chemical-inc",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register — DMF 16841, active, subject 'PIPERACILLIN MONOHYDRATE', holder 'YUHAN CHEMICAL INC'. https://www.fda.gov/media/192069/download?attachment"
+  }
+]

@@ -3,6 +3,7 @@
     python3 ml/aegis.py --facility 3004497364     # Centrient India goes down
     python3 ml/aegis.py --substance "amoxicillin trihydrate"
     python3 ml/aegis.py --demo                    # the 6-APA cascade
+    python3 ml/aegis.py --write                   # -> web/data/reroute.json, for the console
 
 --------------------------------------------------------------------------------
 This is a RANKED SHORTLIST, not an optimiser. The distinction is the whole point.
@@ -268,13 +269,33 @@ def _match(name: str, by_core) -> tuple[dict | None, str]:
     top = scored[0][0]
     tied = [r for sc, r in scored if top - sc < AMBIGUITY_MARGIN]
     if len(tied) > 1:
+        # Site disambiguation. Core tokens strip legal forms and place names,
+        # which is right for FINDING a firm and wrong for telling its plants
+        # apart: `SANDOZ GMBH` and `Sandoz Private Limited` share the core
+        # {sandoz}; the two United Laboratories sites share {united}. The full
+        # registered name still tells them apart, so a tie is broken ONLY when
+        # exactly one candidate's full name contains every token of the
+        # holder's — the holder has to be a spelling of that record, not merely
+        # nearer to it. `UNITED LABORATORIES CHENGDU` is a spelling of neither
+        # DECRS record (there is no Chengdu row) and stays refused.
+        full = set(normalize(name))
+        exact = [r for r in tied if full and full <= set(normalize(r["name"] or ""))]
+        if len(exact) == 1:
+            return exact[0], "matched — site disambiguated by full registered name"
         names = ", ".join(sorted({(r["name"] or "?")[:28] for r in tied})[:2])
         return None, f"⚠️ AMBIGUOUS in DECRS ({len(tied)} firms tie: {names}) — not attributing risk"
     return scored[0][1], "matched"
 
 
-def alternates(substance_key: str, exclude: str | None = None, cutoff: date | None = None):
-    """Everyone with an ACTIVE DMF for this substance, scored as a re-route target."""
+def alternates(substance_key: str, exclude: str | None = None, cutoff: date | None = None,
+               hints: dict[str, str] | None = None):
+    """Everyone with an ACTIVE DMF for this substance, scored as a re-route target.
+
+    `hints` maps squash(holder) -> ISO3 for holders DECRS cannot place, from the
+    graph's own curated company nodes. A hint fills in WHERE the site is so the
+    console can tell whether a re-route leaves the failed jurisdiction; it never
+    earns geography points, because an unregistered plant is not a route.
+    """
     by_core, sig = build_index()
     groups, spellings = dmf_holders(substance_key)
     holders = groups["active"]
@@ -287,6 +308,10 @@ def alternates(substance_key: str, exclude: str | None = None, cutoff: date | No
             continue
         rec, match_note = _match(h, by_core)
         countries = sorted(rec["countries"]) if rec else []
+        hinted = None
+        if not rec and hints and hints.get(squash(h)):
+            hinted = hints[squash(h)]
+            countries = [hinted]
         feis = sorted(f for f in (rec["feis"] if rec else set()) if f)
 
         risk = []
@@ -317,7 +342,10 @@ def alternates(substance_key: str, exclude: str | None = None, cutoff: date | No
         # "Sandoz GmbH is in the chokepoint region" because it also runs an
         # Indian plant is wrong and would mislead a buyer; report the split.
         clean = [c for c in countries if c not in CHOKEPOINT_ISO3]
-        if clean and in_choke:
+        if hinted:
+            why.append(f"site country from the graph record ({hinted}) — DECRS has no row, "
+                       "so no geography credit")
+        elif clean and in_choke:
             score += 1.0
             why.append(f"mixed footprint: {'/'.join(clean)} AND {'/'.join(sorted(set(countries) & CHOKEPOINT_ISO3))}"
                        " — sourcing depends on which site")
@@ -336,7 +364,13 @@ def alternates(substance_key: str, exclude: str | None = None, cutoff: date | No
 
         out.append({"holder": h, "matched_firm": rec["name"] if rec else None,
                     "countries": countries, "feis": feis[:3], "score": round(score, 1),
-                    "risk_flags": sorted(set(risk)), "why": why})
+                    "risk_flags": sorted(set(risk)), "why": why,
+                    # The flags behind the score, so the console can render them
+                    # as chips instead of re-parsing the `why` prose.
+                    "registered_api": bool(rec and rec["api"]),
+                    "in_chokepoint": in_choke,
+                    "taa": taa,
+                    "viable": score > 0})
     out.sort(key=lambda r: -r["score"])
     return out, groups, spellings
 
@@ -349,11 +383,11 @@ def alternates(substance_key: str, exclude: str | None = None, cutoff: date | No
 def load_graph() -> tuple[dict, list]:
     d = REPO / "web" / "data"
     nodes, edges = {}, []
-    for f in ("nodes.openfda.json", "nodes.curated.json", "nodes.signals.json"):
+    for f in ("nodes.openfda.json", "nodes.curated.json", "nodes.signals.json", "nodes.sites.json"):
         if (d / f).exists():
             for n in json.loads((d / f).read_text()):
                 nodes[n["id"]] = n
-    for f in ("edges.openfda.json", "edges.curated.json", "edges.signals.json"):
+    for f in ("edges.openfda.json", "edges.curated.json", "edges.signals.json", "edges.sites.json"):
         if (d / f).exists():
             edges += json.loads((d / f).read_text())
     return nodes, edges
@@ -462,6 +496,148 @@ def report(substance: str, result, disrupted: str | None) -> None:
           f"registered\n  US establishments and {len(outside)} of those sit outside China/India.")
 
 
+# --------------------------------------------------------------------------
+# The artifact — web/data/reroute.json
+# --------------------------------------------------------------------------
+#
+# The console does not call this file at click time: the venue network is
+# assumed dead, Vercel has no Python, and decision 0004 says JSON artifacts, not
+# services. What it CAN do is apply an exclusion itself — a holder's OWN score
+# does not depend on which other holder went down, only on its registration,
+# geography, TAA status and enforcement history. So this emits every holder of
+# every precursor in the graph, scored once, keyed by the graph's own node ids.
+# `web/app/lib/supply-tree.ts` then drops the survivors that are cut and adds
+# the one term that DOES depend on the failure — whether a survivor sits outside
+# the jurisdiction that just went dark (+2) or inside it (-2) — and names the
+# top viable survivor as the route. Same base numbers as `--route`, without a
+# network dependency on stage.
+
+RULE_ID = "aegis-shortlist-v2"
+RULE_TEXT = (
+    "Ranked on public records only: +3 registered API manufacturer in DECRS "
+    "(+1 registered, not flagged API); +2 every site outside CN/IN (+1 mixed "
+    "footprint); +1.5 TAA-designated; -2 per own OAI or cGMP refusal. Score > 0 "
+    "is a viable route. A holder DECRS cannot match, or matches ambiguously, "
+    "scores 0 rather than inheriting another plant's history; a tie between "
+    "registered sites is broken only when one site's full registered name "
+    "spells the holder's."
+)
+NOT_MODELLED = ["capacity", "lead time", "willingness to supply", "current utilisation"]
+
+ISO2_TO_ISO3: dict[str, str] = {}  # filled below ISO3_TO_ISO2
+
+ISO3_TO_ISO2 = {
+    "AUT": "at", "CHN": "cn", "IND": "in", "USA": "us", "DEU": "de", "ITA": "it",
+    "ESP": "es", "FRA": "fr", "GBR": "gb", "JPN": "jp", "KOR": "kr", "CHE": "ch",
+    "NLD": "nl", "BEL": "be", "PRT": "pt", "IRL": "ie", "ISR": "il", "MEX": "mx",
+    "BRA": "br", "SGP": "sg", "TWN": "tw", "BGR": "bg", "POL": "pl", "CZE": "cz",
+    "HUN": "hu", "SVN": "si", "SVK": "sk", "HRV": "hr", "ROU": "ro", "GRC": "gr",
+    "DNK": "dk", "SWE": "se", "FIN": "fi", "NOR": "no", "CAN": "ca", "AUS": "au",
+    "NZL": "nz", "THA": "th", "VNM": "vn", "IDN": "id", "MYS": "my", "RUS": "ru",
+    "ARG": "ar", "CHL": "cl", "COL": "co", "PER": "pe", "TUR": "tr", "EGY": "eg",
+}
+
+
+ISO2_TO_ISO3.update({v: k for k, v in ISO3_TO_ISO2.items()})
+
+
+def country_hints(nodes: dict) -> dict[str, str]:
+    """squash(company label) -> ISO3, for every company node the graph places."""
+    out = {}
+    for n in nodes.values():
+        if n.get("type") == "company" and n.get("country"):
+            iso3 = ISO2_TO_ISO3.get(str(n["country"]).lower())
+            if iso3:
+                out[squash(n.get("label") or n["id"].rsplit(":", 1)[1])] = iso3
+    return out
+
+
+def substance_for(node: dict) -> str:
+    """The register spelling to search for, from a precursor node.
+
+    `attrs.substance` wins when a producer set one. Otherwise the label with
+    its parenthetical stripped: `6-Aminopenicillanic acid (6-APA)` searches as
+    `6-Aminopenicillanic acid`, which `same_substance` bridges to all eleven
+    spellings in the DMF register.
+    """
+    a = node.get("attrs") or {}
+    if isinstance(a.get("substance"), str) and a["substance"].strip():
+        return a["substance"].strip()
+    return re.sub(r"\s*\(.*?\)", "", node.get("label") or node["id"].split(":", 1)[1]).strip()
+
+
+def holder_node_ids(precursor: str, nodes: dict, edges: list) -> dict[str, str]:
+    """squash(company label) -> company node id, over the precursor's producers."""
+    out = {}
+    for e in edges:
+        if e["rel"] == "produced_by" and e["src"] == precursor and e["dst"].startswith("company:"):
+            n = nodes.get(e["dst"])
+            if n:
+                out[squash(n.get("label") or e["dst"].rsplit(":", 1)[1])] = e["dst"]
+    return out
+
+
+def emit_artifact(cutoff: date | None = None) -> dict:
+    """Score every holder of every precursor in the graph. See the block comment."""
+    nodes, edges = load_graph()
+    # Both tiers: the precursor AND every API. The API row is the one a buyer
+    # acts on first — those are the plants they qualify — and the precursor row
+    # is the answer when the failure is upstream of all of them.
+    precursors = sorted(nid for nid in nodes if nid.startswith(("precursor:", "api:")))
+    hints = country_hints(nodes)
+    out = []
+    for pid in precursors:
+        substance = substance_for(nodes[pid])
+        try:
+            rows, groups, spellings = alternates(substance, cutoff=cutoff, hints=hints)
+        except SystemExit as e:
+            print(f"  ⚠️ {pid}: {e}", file=sys.stderr)
+            continue
+        by_squash = holder_node_ids(pid, nodes, edges)
+        impact = downstream(pid, edges)
+        holders = []
+        for r in rows:
+            nid = by_squash.get(squash(r["holder"]))
+            if not nid:
+                # Loud, not silent: a holder the graph does not carry is a row
+                # the tree cannot light, and somebody should add the node.
+                print(f"  ⚠️ {pid}: DMF holder {r['holder']!r} has no company node — "
+                      f"emitted with node_id null", file=sys.stderr)
+            iso2 = sorted({ISO3_TO_ISO2.get(c, c.lower()) for c in r["countries"]})
+            holders.append({"node_id": nid, "iso2": iso2, **r})
+        out.append({
+            "node": pid,
+            "substance": substance,
+            "spellings": len(spellings),
+            "active_holders": len(groups["active"]),
+            "inactive_holders": len(groups["inactive"]),
+            "affected_drugs": sorted(n for n in impact["nodes"] if n.startswith("drug:")),
+            "affected_products": sum(1 for n in impact["nodes"] if n.startswith("product:")),
+            "viable": sum(1 for h in holders if h["viable"]),
+            "holders": holders,
+        })
+    return {
+        "generated_at": date.today().isoformat(),
+        "rule": RULE_ID,
+        "rule_text": RULE_TEXT,
+        "not_modelled": NOT_MODELLED,
+        "chokepoint_iso2": sorted(ISO3_TO_ISO2[c] for c in CHOKEPOINT_ISO3),
+        "precursors": out,
+    }
+
+
+def write_artifact() -> Path:
+    art = emit_artifact()
+    out = REPO / "web" / "data" / "reroute.json"
+    out.write_text(json.dumps(art, indent=2, ensure_ascii=False) + "\n")
+    for p in art["precursors"]:
+        unmatched = sum(1 for h in p["holders"] if not h["node_id"])
+        print(f"  {p['node']}: {len(p['holders'])} holders scored, {p['viable']} viable, "
+              f"{unmatched} without a graph node")
+    print(f"  wrote {out.relative_to(REPO)}")
+    return out
+
+
 ANCHORS = {
     "6-aminopenicillanic acid": {"min_active": 8, "node": "precursor:6-apa", "drugs": 6},
     "oxacillin": {"max_active": 6},          # must NOT pull in cloxacillin holders
@@ -503,6 +679,23 @@ def selftest() -> int:
     print(f"  [{'OK ' if amb_ok else 'FAIL'}] ambiguity guard refuses {len(amb)} holder(s) "
           f"rather than attributing another plant's risk")
 
+    by_holder = {x["holder"]: x for x in rows}
+    sz = by_holder.get("SANDOZ GMBH")
+    sz_ok = bool(sz and sz["countries"] == ["AUT"] and "3002806523" in sz["feis"])
+    ok &= sz_ok
+    print(f"  [{'OK ' if sz_ok else 'FAIL'}] SANDOZ GMBH resolves to the Austrian site, not "
+          f"Sandoz Private Limited (IND) — got {sz['countries'] if sz else None}")
+    im = by_holder.get("THE UNITED LABORATORIES INNER MONGOLIA CO LTD")
+    im_ok = bool(im and im["feis"] == ["3010166895"])
+    ok &= im_ok
+    print(f"  [{'OK ' if im_ok else 'FAIL'}] TUL Inner Mongolia resolves to its own FEI, not "
+          f"Zhuhai's four OAIs — got {im['feis'] if im else None}")
+    cd = by_holder.get("UNITED LABORATORIES CHENGDU CO LTD")
+    cd_ok = bool(cd and cd["matched_firm"] is None)
+    ok &= cd_ok
+    print(f"  [{'OK ' if cd_ok else 'FAIL'}] TUL Chengdu (no DECRS row) is still refused, "
+          f"not snapped to a sibling plant")
+
     outside = [x for x in rows if x["matched_firm"] and x["countries"]
                and not (set(x["countries"]) & CHOKEPOINT_ISO3)]
     print(f"\n  headline: {len(rows)} active 6-APA holders, "
@@ -530,55 +723,17 @@ def main() -> int:
         excl = args[args.index("--exclude") + 1] if "--exclude" in args else None
         report(s, alternates(s, exclude=excl), excl)
         return 0
-    if "--emit-all" in args:
-        # One artifact keyed by node id, so the UI can look up alternates for
-        # whatever the operator switches off. Substance names come from the node
-        # labels rather than a hand-written table, so adding an API node to the
-        # graph is enough to get it a route.
-        nodes, _ = load_graph()
-        out = {}
-        for nid, n in sorted(nodes.items()):
-            if n.get("type") not in ("precursor", "api"):
-                continue
-            label = n.get("label") or nid.split(":", 1)[1].replace("-", " ")
-            try:
-                r = route(label, graph_node=nid)
-            except SystemExit as e:
-                print(f"  skip {nid}: {e}")
-                continue
-            out[nid] = {
-                "node": nid, "label": label,
-                "affected_drugs": r["affected_drugs"],
-                "affected_products": r["affected_products"],
-                "active_holders": r["active_holders"], "spellings": r["spellings"],
-                "alternates": [
-                    {k: a[k] for k in ("holder", "matched_firm", "countries",
-                                       "score", "risk_flags", "why")}
-                    for a in r["alternates"]
-                ],
-                "viable": len(r["viable"]),
-            }
-            print(f"  {nid:34} {len(r['alternates']):>2} alternates, "
-                  f"{len(r['viable'])} viable, {len(r['affected_drugs'])} drugs")
-        dest = REPO / "web" / "data" / "reroute.json"
-        dest.write_text(json.dumps({
-            "generated": date.today().isoformat(),
-            "method": "active Type II DMF holders for the same substance, located via "
-                      "DECRS, scored on registration / geography / TAA / own enforcement "
-                      "history. Capacity and lead time are NOT modelled - no public source.",
-            "nodes": out,
-        }, indent=2) + "\n")
-        print(f"\nwrote {dest.relative_to(REPO)} — {len(out)} node(s)")
-        return 0
     if "--route" in args:
         sub = args[args.index("--route") + 1]
         excl = args[args.index("--exclude") + 1] if "--exclude" in args else None
         r = route(sub, exclude=excl)
         report_route(r)
         if "--write" in args:
-            out = REPO / "web" / "data" / "reroute.json"
-            out.write_text(json.dumps(r, indent=2) + "\n")
-            print(f"\n  wrote {out.relative_to(REPO)}")
+            print()
+            write_artifact()
+        return 0
+    if "--write" in args:
+        write_artifact()
         return 0
     if "--facility" in args:
         fei = args[args.index("--facility") + 1]

@@ -1,17 +1,19 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { Compliance, NodeId } from '../lib/types'
 import type { NodeState } from '../lib/demo'
 import {
-  branchPath, layoutTree, UNRESOLVED,
-  type Health, type Rollup, type TreeNode,
+  branchPath, feedPath, layoutTree, UNRESOLVED,
+  type Alternate, type Health, type Rollup, type TreeNode,
 } from '../lib/supply-tree'
 
-export interface SiblingChip {
+export interface DrugOption {
   id: NodeId
   label: string
   health: Health
+  /** Runs through the same precursor as the current root. */
+  onChain: boolean
 }
 
 interface Props {
@@ -24,8 +26,8 @@ interface Props {
   onToggleGroup: (ids: NodeId[]) => void
   selected: NodeId | null
   onSelect: (id: NodeId) => void
-  /** The other drugs on the same precursor, with the fate they inherit. */
-  siblings: SiblingChip[]
+  /** Every finished drug the tree can be rooted at, with the fate each inherits. */
+  drugs: DrugOption[]
   rootHealth: Health
   onRoot: (id: NodeId) => void
   onReset: () => void
@@ -34,6 +36,10 @@ interface Props {
   showCompliance: boolean
   /** Beat highlighting. Never health — health is only ever the cascade. */
   states: Record<NodeId, NodeState>
+  /** The AEGIS rank and score per supplier, re-ranked against the failures. */
+  aegis: Map<NodeId, Alternate>
+  /** Drug → API → precursor → route holder. Empty until a route exists. */
+  routePath: Set<NodeId>
 }
 
 function truncate(s: string, max: number): string {
@@ -75,10 +81,12 @@ function subtitle(t: TreeNode, ndc: number | undefined): string {
       return Array.isArray(a.feeds_drugs)
         ? `shared nucleus · feeds ${a.feeds_drugs.length} drugs`
         : 'shared nucleus'
-    case 'supplier':
+    case 'supplier': {
+      const city = typeof a.city === 'string' && a.city ? ` · ${a.city}` : ''
       return a.dmf
-        ? `DMF ${a.dmf}${a.dmf_status === 'A' ? ' · active' : ''}`
-        : 'filing holder'
+        ? `DMF ${a.dmf}${a.dmf_status === 'A' ? ' · active' : ''}${city}`
+        : `filing holder${city}`
+    }
   }
 }
 
@@ -91,9 +99,29 @@ function capacity(r: Rollup | undefined, kind: TreeNode['kind']): string {
 
 export default function TreeView({
   tree, rollups, compromised, onToggle, onToggleGroup, selected, onSelect,
-  siblings, rootHealth, onRoot, onReset, compliance, ndcCount, showCompliance, states,
+  drugs, rootHealth, onRoot, onReset, compliance, ndcCount, showCompliance, states,
+  aegis, routePath,
 }: Props) {
   const L = useMemo(() => layoutTree(tree), [tree])
+
+  /** Re-rooting rebuilds the chain from the top, and the screen should say so.
+   *  Five of the seven boxes are the same boxes for every drug on this
+   *  precursor — that sameness IS the chokepoint — so a swap that only changed
+   *  two labels looked like a swap that had not happened. The whole diagram
+   *  remounts (the svg is keyed on the root) and draws in top-down, and the
+   *  strip names the new root for a moment. Derived during render, not in an
+   *  effect: the first render of a new root is the one that must know. */
+  const [seenRoot, setSeenRoot] = useState<NodeId | null>(tree?.id ?? null)
+  const [flash, setFlash] = useState<NodeId | null>(null)
+  if (tree && tree.id !== seenRoot) {
+    setSeenRoot(tree.id)
+    if (seenRoot !== null) setFlash(tree.id)
+  }
+  useEffect(() => {
+    if (!flash) return
+    const t = setTimeout(() => setFlash(null), 1800)
+    return () => clearTimeout(t)
+  }, [flash])
 
   if (!tree) {
     return <div className="map-empty">no chain for this drug</div>
@@ -104,36 +132,34 @@ export default function TreeView({
 
   return (
     <div className="tree-wrap">
-      {/* The drug switcher doubles as the fan-out. Every chip here runs through
-          the same precursor, so when the precursor degrades they all change
-          colour at once — that IS beat 4, and it needs no extra screen. */}
+      {/* One control, not a row of chips: six chips already wrapped to a second
+          line and stole it from the tree, and the list is meant to grow. The
+          fan-out still reads here — every drug on this precursor carries the
+          chokepoint's verdict in its own option text. */}
       <div className="tree-strip">
-        <span className="strip-label">Final drug</span>
-        <button
-          className="drug-chip"
-          data-on="1"
+        <label className="strip-label" htmlFor="root-drug">Final drug</label>
+        <select
+          id="root-drug"
+          className="drug-select"
           data-health={rootHealth}
-          onClick={() => onSelect(tree.id)}
+          data-flash={flash ? '1' : '0'}
+          value={tree.id}
+          onChange={(e) => { onRoot(e.target.value); onSelect(e.target.value) }}
+          title="Root the tree at a different finished drug"
         >
-          {rootLabel}
-        </button>
-        {siblings.map((s) => (
-          <button
-            key={s.id}
-            className="drug-chip"
-            data-on="0"
-            data-health={s.health}
-            onClick={() => onRoot(s.id)}
-            title={`Show the chain for ${s.label}`}
-          >
-            {s.label}
-          </button>
-        ))}
-        <span className="spacer" />
-        <span className="strip-hint">
-          {failures
-            ? `${failures} node${failures === 1 ? '' : 's'} switched off`
-            : 'Click ⏻ on any node to knock it out'}
+          {drugs.map((d) => (
+            <option key={d.id} value={d.id}>
+              {d.label}
+              {d.health === 'down' ? ' · down' : d.health === 'at-risk' ? ' · at risk' : ''}
+            </option>
+          ))}
+        </select>
+        <span className="strip-hint" data-flash={flash ? '1' : '0'}>
+          {flash
+            ? `Chain rebuilt for ${rootLabel}`
+            : failures
+              ? `${failures} disruption${failures === 1 ? '' : 's'} simulated`
+              : 'Click ⏻ on any node to knock it out'}
         </span>
         {failures > 0 && (
           <button className="ctl" onClick={onReset}>Restore all</button>
@@ -142,21 +168,16 @@ export default function TreeView({
 
       <div className="tree-body">
       <svg
+        key={tree.id}
         className="tree"
         viewBox={`0 0 ${L.width} ${L.height}`}
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="xMidYMin meet"
         role="group"
         aria-label={
           `Supply tree for ${rootLabel}. Tab to move between nodes, `
           + 'enter to inspect, and use each node’s power button to simulate a failure.'
         }
       >
-        {/* level labels, in a gutter, so no box has to carry its own category */}
-        {L.levels.map((lv) => (
-          <text key={lv.depth} className="tlevel" x={16} y={lv.y}>
-            {lv.label}
-          </text>
-        ))}
 
         {/* jurisdiction bands under the leaves */}
         <g>
@@ -164,11 +185,22 @@ export default function TreeView({
             const ids = g.ids
             const allDown = ids.every((id) => rollups.get(id)?.up === 0)
             const anyDown = ids.some((id) => rollups.get(id)?.up === 0)
+            // The band control is an EXPORT halt on the jurisdiction — every
+            // plant keeps producing, nothing leaves — not a failure of each
+            // plant. Only the unresolved bucket, which is not a place, falls
+            // back to switching its members off one by one.
+            const halted = !!g.countryId && compromised.has(g.countryId)
+            const bandAction = g.countryId
+              ? `${halted ? 'Reopen exports from' : 'Halt exports from'} ${g.label} (${ids.length} plant${ids.length === 1 ? '' : 's'})`
+              : `${allDown ? 'Restore' : 'Simulate failure of'} all ${ids.length} sources in ${g.label}`
+            const bandToggle = () => (g.countryId ? onToggle(g.countryId) : onToggleGroup(ids))
             return (
               <g
-                key={g.iso}
+                key={`${g.iso}|${g.y}`}
                 className="tgroup"
+                data-halt={halted ? '1' : '0'}
                 data-health={allDown ? 'down' : anyDown ? 'at-risk' : 'ok'}
+                style={{ '--d': 3 } as React.CSSProperties}
               >
                 <rect
                   x={g.x - 8} y={g.y - 4}
@@ -180,18 +212,16 @@ export default function TreeView({
                   x={g.x - 2} y={g.y + 8}
                   role="button"
                   tabIndex={0}
-                  aria-label={
-                    `${allDown ? 'Restore' : 'Simulate failure of'} all `
-                    + `${ids.length} sources in ${g.label}`
-                  }
-                  onClick={() => onToggleGroup(ids)}
+                  aria-label={bandAction}
+                  onClick={bandToggle}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault(); e.stopPropagation(); onToggleGroup(ids)
+                      e.preventDefault(); e.stopPropagation(); bandToggle()
                     }
                   }}
                 >
                   {g.iso === UNRESOLVED ? 'Country unresolved' : g.label} · {ids.length}
+                  {halted ? ' · EXPORTS HALTED' : ''}
                 </text>
               </g>
             )
@@ -202,15 +232,19 @@ export default function TreeView({
         <g>
           {L.placed.map((p) =>
             p.t.children.map((c) => {
-              const cp = L.pos.get(c.id)
+              const cp = L.pos.get(c.key)
               if (!cp) return null
               const r = rollups.get(c.id)
+              const feed = c.kind === 'precursor' && p.t.kind === 'api'
               return (
                 <path
-                  key={`${p.t.id}|${c.id}`}
+                  key={`${p.t.key}|${c.key}`}
                   className="tbranch"
+                  data-feed={feed ? '1' : '0'}
                   data-health={r?.up === 0 ? 'down' : r?.health ?? 'ok'}
-                  d={branchPath(p, cp)}
+                  data-route={routePath.has(p.t.id) && routePath.has(c.id) ? '1' : '0'}
+                  style={{ '--d': p.t.depth } as React.CSSProperties}
+                  d={feed ? feedPath(p, cp) : branchPath(p, cp)}
                 />
               )
             }),
@@ -223,6 +257,7 @@ export default function TreeView({
             const t = p.t
             const r = rollups.get(t.id)
             const off = compromised.has(t.id)
+            const halted = !off && !!t.countryId && compromised.has(t.countryId)
             const comp = compliance[t.id]
             const sub = subtitle(t, ndcCount[t.id])
             const cap = capacity(r, t.kind)
@@ -237,20 +272,31 @@ export default function TreeView({
             const lineMax = fits(p.w - TEXT_X * 2, 10)
             // "7 / 8 sources" at 10px mono, right-aligned, plus a gap.
             const barW = Math.max(24, p.w - TEXT_X * 2 - cap.length * 6 - 12)
+            // The pathfinder's verdict sits on the supplier box itself, so the
+            // rank a buyer would call in is read off the tree, not a side table.
+            const alt = t.kind === 'supplier' ? aegis.get(t.id) : undefined
+            const aegisTxt = alt && alt.standing
+              ? `${alt.recommended ? 'NEW ROUTE · ' : ''}#${alt.rank} · score ${alt.score > 0 ? '+' : ''}${alt.score.toFixed(1)}`
+              : null
             const geo = [
-              t.countryLabel ? null : 'country unresolved',
+              aegisTxt,
+              t.countryLabel ? null : 'no country',
               taa,
             ].filter(Boolean).join(' · ')
 
             return (
               <g
-                key={t.id}
+                key={t.key}
                 className="tnode"
                 data-kind={t.kind}
                 data-health={r?.health ?? 'ok'}
                 data-off={off ? '1' : '0'}
                 data-sel={selected === t.id ? '1' : '0'}
                 data-beat={beat ?? 'plain'}
+                data-viable={alt ? (alt.viable ? '1' : '0') : undefined}
+                data-route={alt?.recommended ? '1' : '0'}
+                data-halt={halted ? '1' : '0'}
+                style={{ '--d': t.depth } as React.CSSProperties}
                 transform={`translate(${p.x},${p.y})`}
               >
                 <rect
@@ -274,7 +320,7 @@ export default function TreeView({
                     badge squeezed in beside it — one line, one job, and nothing
                     to collide with the capacity bar below. */}
                 <text className="t-sub" x={TEXT_X} y="36">
-                  {off ? 'OFFLINE · simulated failure' : truncate(sub, lineMax)}
+                  {off ? 'OFFLINE · plant failure' : halted ? `EXPORT HALTED · ${t.countryLabel ?? 'jurisdiction'}` : truncate(sub, lineMax)}
                 </text>
 
                 {t.kind === 'supplier' ? (
