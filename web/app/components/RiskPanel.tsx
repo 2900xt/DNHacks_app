@@ -1,7 +1,7 @@
 'use client'
 
 import type { NodeRisk } from '../lib/risk-view'
-import { BASIS_NOTE, RISK_TONE, pct } from '../lib/risk-view'
+import { RISK_TONE, pct } from '../lib/risk-view'
 import Metric from './Metric'
 import { Disclosure } from './Rail'
 
@@ -50,7 +50,6 @@ export default function RiskPanel({ risk, ceiling }: { risk: NodeRisk | null; ce
         label="Disruption risk · 12 mo"
         value={atCeiling ? `≥ ${pct(p12)}` : pct(p12)}
         tone={RISK_TONE[band]}
-        sub={`${pct(range[0])}–${pct(range[1])} at 95% confidence. ${BASIS_NOTE[basis]}`}
       />
 
       <div className="rk-bar" title={`${pct(range[0])}–${pct(range[1])} at 95% confidence`}>

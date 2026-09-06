@@ -59,14 +59,17 @@ export interface Payload {
 export default function Console({ payload }: { payload: Payload }) {
   const { nodes, edges, compliance, counts,
           ndcCount, labelerCount, downstreamOf, ctx, reroute,
-          jurisdictions, risk, riskMeta, buyer: defaultBuyer } = payload
+          jurisdictions, risk, riskMeta } = payload
 
   const [beat, setBeat] = useState(0)
   /** Whose procurement rules the verdicts are judged against. A verdict is a
    *  property of (supplier, buyer, rule), not of the supplier alone; the US
    *  answer is precomputed, every other buyer is derived here from the WTO GPA
    *  party list, and a buyer with no loaded rule says so. */
-  const [buyer, setBuyer] = useState(defaultBuyer)
+  // Fixed to the US. The buyer picker was a dropdown of every WTO GPA party;
+  // the console is a US procurement instrument, and every other buyer's
+  // verdict was derived from a reciprocity list, not a loaded rule.
+  const buyer = 'us'
   const verdicts = useMemo(
     () => computeVerdicts(nodes, compliance, buyer, jurisdictions),
     [nodes, compliance, buyer, jurisdictions],
@@ -191,6 +194,10 @@ export default function Console({ payload }: { payload: Payload }) {
   /** One click takes a whole jurisdiction out — an export ban, a border closure.
    *  All-off toggles back to all-on, so the same control undoes itself. */
   const toggleGroup = useCallback((ids: NodeId[]) => {
+    // A NEW failure takes the answer off the screen again. The route shown was
+    // the way around the last failure; this one may cut through it, and the
+    // operator asks for the new answer the same way they asked for the first.
+    if (!ids.every((id) => compromised.has(id))) setRerouted(false)
     setCompromised((prev) => {
       const next = new Set(prev)
       const allOff = ids.every((id) => next.has(id))
@@ -200,7 +207,7 @@ export default function Console({ payload }: { payload: Payload }) {
       }
       return next
     })
-  }, [])
+  }, [compromised])
 
 
   /** Switch one node off, or back on. For a PLANT that is a failure: it stops
@@ -210,6 +217,8 @@ export default function Console({ payload }: { payload: Payload }) {
    *  amber rather than red. Two disruptions, one switch, told apart by what
    *  was switched. */
   const toggle = useCallback((id: NodeId) => {
+    // Same as toggleGroup: switching something OFF brings the button back.
+    if (!compromised.has(id)) setRerouted(false)
     setCompromised((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
@@ -217,7 +226,7 @@ export default function Console({ payload }: { payload: Payload }) {
       return next
     })
     setSelected(id)
-  }, [])
+  }, [compromised])
 
   const restoreAll = useCallback(() => setCompromised(new Set()), [])
 
@@ -431,18 +440,13 @@ export default function Console({ payload }: { payload: Payload }) {
             {b.evidence && ` · ${counts.signals.toLocaleString()} signals · ${counts.compliance} compliance rows`}
           </span>
           <div className="spacer" />
-          <label className="strip-label" htmlFor="buyer">Buyer</label>
-          <select
-            id="buyer"
-            className="drug-select buyer-select"
-            value={buyer}
-            onChange={(e) => setBuyer(e.target.value)}
+          <span className="strip-label">Buyer</span>
+          <span
+            className="buyer-fixed"
             title="Whose procurement rules the PASS/FAIL verdicts are judged against"
           >
-            {jurisdictions.buyers.map((o) => (
-              <option key={o.iso2} value={o.iso2}>{o.label}</option>
-            ))}
-          </select>
+            {buyerLabel}
+          </span>
           <button
             className="ctl"
             data-on={riskOverlay ? '1' : '0'}
@@ -521,6 +525,8 @@ export default function Console({ payload }: { payload: Payload }) {
           apiIds={tiers.api}
           preIds={tiers.pre}
           scoreOf={sl.byId}
+          overlay={riskOverlay && !rerouting ? states : null}
+          risk={risk}
         />
 
         {/* The rail. Everything that is ABOUT the picture — the node under

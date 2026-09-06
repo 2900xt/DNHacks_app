@@ -16,7 +16,8 @@ import type { NodeRisk, RiskMeta } from './risk-view'
 export type { NodeRisk, RiskMeta } from './risk-view'
 
 interface RawPlant {
-  p12: number
+  /** Absent on a handful of rows in the current artifact — see riskFor. */
+  p12?: number
   p12_range: [number, number]
   band: string
   evidence: string[]
@@ -62,9 +63,20 @@ export function riskFor(ids: Iterable<NodeId>): Record<NodeId, NodeRisk> {
   for (const id of ids) {
     const r = RAW.plants[id]
     if (!r) continue
+    // The projection in ml/risk/emit.py filtered fields with `not in (None,
+    // False)`, and in Python 0.0 == False, so a plant calibrated at exactly 0
+    // arrived here with no p12 at all — and rendered as "NaN%". risk.json
+    // carries 0.0 for every such row: the same band, the same interval, its
+    // lower bound at 0. That is the only way a scored row loses its p12, so
+    // it is the only shape recovered; anything else without a number is not
+    // a score and is left out, which the panel shows as "not scored".
+    const p12 = typeof r.p12 === 'number' ? r.p12
+      : r.band === 'low' && r.p12_range?.[0] === 0 ? 0
+      : null
+    if (p12 === null) continue
     const basis = basisOf(r)
     out[id] = {
-      p12: r.p12,
+      p12,
       range: r.p12_range,
       band: (r.band as NodeRisk['band']) ?? 'low',
       why: r.evidence ?? [],
