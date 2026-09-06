@@ -257,6 +257,28 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
     # Relax until nothing changes. Bounded by node count so a cycle in the graph
     # (company -hosts-> facility -operated_by-> company is a real one) terminates
     # instead of spinning.
+    # How many distinct plants sit upstream of each node. `api:ampicillin` has
+    # ten; `api:dicloxacillin-sodium` has one. The propagated p12 is the WORST of
+    # them, which answers "will one of this node's suppliers hit trouble" — not
+    # "will this node run out". Those are different questions and the second one
+    # needs volumes nobody in this repo has, so ship the supplier count next to
+    # the number and let the reader see the difference: 46% behind one plant is a
+    # shortage, 46% behind fifty-two is a Tuesday.
+    behind = defaultdict(set)
+    for src, dsts in out.items():
+        if src.startswith(("facility:", "company:")):
+            for d in dsts:
+                behind[d].add(src)
+    for _ in range(len(nodes) + 1):
+        grew = False
+        for src, dsts in out.items():
+            for d in dsts:
+                if behind[src] - behind[d]:
+                    behind[d] |= behind[src]
+                    grew = True
+        if not grew:
+            break
+
     added = 0
     for _ in range(len(nodes) + 1):
         changed = False
@@ -276,14 +298,23 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
                 # Strip any preamble the parent already carries: on a two-hop
                 # inherit (facility → drug → product) the line would otherwise
                 # appear twice, once for each hop.
-                why = [e for e in base["evidence"] if not e.startswith("No FDA record of its own")]
+                why = [e for e in base["evidence"]
+                       if not e.startswith("No FDA record of its own")
+                       and "sit upstream of this" not in e]
                 scored[dst] = {**base, "node_id": dst,
                                "basis": "inherited",
                                "inherited_from": origin,
                                "inherited_via": src,
+                               "upstream_plants": len(behind.get(dst) or ()),
                                "evidence": [f"No FDA record of its own — this is "
                                             f"the risk of {base['label']}, which "
                                             f"makes it."] + why[:2]}
+                n_up = len(behind.get(dst) or ())
+                if n_up > 1:
+                    scored[dst]["evidence"].insert(
+                        1, f"{n_up} plants sit upstream of this — the figure is the "
+                           f"most at-risk of them, not the chance all {n_up} fail "
+                           f"at once.")
                 if not cur:
                     added += 1
                 changed = True
@@ -418,7 +449,10 @@ def main() -> int:
         "rule_text": ("Logistic model on nine features of a plant's FDA inspection and "
                       "import-refusal history at a cutoff, trained on every actively "
                       "inspected drug establishment; predicts a failed inspection or a "
-                      "manufacturing import refusal in the following 12 months."),
+                      "manufacturing import refusal in the following 12 months. For a "
+                      "node that is not a place (a product, API, drug or precursor) the "
+                      "figure is that of the most at-risk plant behind it; "
+                      "`upstream_plants` says how many others there are."),
         "horizon_days": 365,
         "trained_at": TRAIN_CUTOFF.isoformat(),
         "bands": {"low": "<2%", "raised": "2–6%", "high": ">6%"},
