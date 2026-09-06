@@ -1,0 +1,1445 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1000,
+      "total": 27
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "65862-500",
+      "generic_name": "Nafcillin for Injection",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "48 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-500-37",
+          "description": "50 kg in 1 CANISTER (65862-500-37)",
+          "marketing_start_date": "20-JAN-24"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT FOR HUMAN PRESCRIPTION COMPOUNDING",
+      "dosage_form": "POWDER",
+      "spl_id": "f0f8c580-c5ad-481d-8029-4e9334e394cc",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20240120",
+      "product_id": "65862-500_f0f8c580-c5ad-481d-8029-4e9334e394cc",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "83270-309",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "ONESOURCE SPECIALTY PHARMA LIMITED",
+      "brand_name": "NAFCILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-309-10",
+          "description": "10 VIAL in 1 CARTON (83270-309-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20260220",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "ONESOURCE SPECIALTY PHARMA LIMITED"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "4b3b8e52-df96-4886-e063-6294a90ac63f"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0383270310018",
+          "0383270309012"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "4c94ba3a-3e85-06b7-e063-6394a90a7034",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20260220",
+      "product_id": "83270-309_4c94ba3a-3e85-06b7-e063-6394a90a7034",
+      "application_number": "ANDA200002",
+      "brand_name_base": "NAFCILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "83270-310",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "ONESOURCE SPECIALTY PHARMA LIMITED",
+      "brand_name": "NAFCILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-310-10",
+          "description": "10 VIAL in 1 CARTON (83270-310-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20260220",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "ONESOURCE SPECIALTY PHARMA LIMITED"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "4b3b8e52-df96-4886-e063-6294a90ac63f"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0383270310018",
+          "0383270309012"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "4c94ba3a-3e85-06b7-e063-6394a90a7034",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20260220",
+      "product_id": "83270-310_4c94ba3a-3e85-06b7-e063-6394a90a7034",
+      "application_number": "ANDA200002",
+      "brand_name_base": "NAFCILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "23155-907",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Heritage Pharmaceuticals Inc. d/b/a/ Avet Pharmaceuticals Inc.",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/8mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "23155-907-41",
+          "description": "10 VIAL in 1 CARTON (23155-907-41)  / 8 mL in 1 VIAL",
+          "marketing_start_date": "20250131",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Heritage Pharmaceuticals Inc. d/b/a/ Avet Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "8a00624c-c436-4102-a042-dab54022bcc2"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0323155907414",
+          "0323155907315",
+          "0323155906318"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "9c89cf92-066c-419f-b9fe-73684a62e8a4",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250131",
+      "product_id": "23155-907_9c89cf92-066c-419f-b9fe-73684a62e8a4",
+      "application_number": "ANDA090560",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "52946-0819",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "ACS Dobfar S.p.A",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 kg/kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "52946-0819-0",
+          "description": "20 kg in 1 BOX (52946-0819-0)",
+          "marketing_start_date": "09-DEC-09"
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "6928dd18-6197-4397-99ca-13bee57ad40f",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20091209",
+      "product_id": "52946-0819_6928dd18-6197-4397-99ca-13bee57ad40f",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "23155-906",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Heritage Pharmaceuticals Inc. d/b/a/ Avet Pharmaceuticals Inc.",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 g/4mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "23155-906-41",
+          "description": "10 VIAL in 1 CARTON (23155-906-41)  / 4 mL in 1 VIAL",
+          "marketing_start_date": "20250131",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Heritage Pharmaceuticals Inc. d/b/a/ Avet Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "8a00624c-c436-4102-a042-dab54022bcc2"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0323155907414",
+          "0323155907315",
+          "0323155906318"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "9c89cf92-066c-419f-b9fe-73684a62e8a4",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250131",
+      "product_id": "23155-906_9c89cf92-066c-419f-b9fe-73684a62e8a4",
+      "application_number": "ANDA090560",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-123",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/8mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-123-16",
+          "description": "10 VIAL in 1 BOX (55150-123-16)  / 8 mL in 1 VIAL",
+          "marketing_start_date": "20121226",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1721460"
+        ],
+        "spl_set_id": [
+          "34821770-929c-40ea-a9e4-d4405dc869e1"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150123162"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "77c95416-c1d8-4955-b3b9-1aaefd761d60",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20121226",
+      "product_id": "55150-123_77c95416-c1d8-4955-b3b9-1aaefd761d60",
+      "application_number": "ANDA091613",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "83634-101",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Avenacy Inc.",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83634-101-99",
+          "description": "1 BOTTLE in 1 CARTON (83634-101-99)  / 100 mL in 1 BOTTLE",
+          "marketing_start_date": "20250201",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Avenacy Inc."
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "0556378a-b794-4235-ba09-ebdc295e9092"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "7a4b6e14-65c7-456d-999a-eb8dacaaeece",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250201",
+      "product_id": "83634-101_7a4b6e14-65c7-456d-999a-eb8dacaaeece",
+      "application_number": "ANDA090005",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-122",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 g/4mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-122-15",
+          "description": "10 VIAL in 1 BOX (55150-122-15)  / 4 mL in 1 VIAL",
+          "marketing_start_date": "20121226",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "90717878-64cb-4ffc-90bc-7b4e81e3d1cd"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150122158",
+          "0355150123155"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "904331fc-3d0c-45b9-a4fc-fa414b5fb2ca",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20121226",
+      "product_id": "55150-122_904331fc-3d0c-45b9-a4fc-fa414b5fb2ca",
+      "application_number": "ANDA091613",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-123",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/8mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-123-15",
+          "description": "10 VIAL in 1 BOX (55150-123-15)  / 8 mL in 1 VIAL",
+          "marketing_start_date": "20121226",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "90717878-64cb-4ffc-90bc-7b4e81e3d1cd"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150122158",
+          "0355150123155"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "904331fc-3d0c-45b9-a4fc-fa414b5fb2ca",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20121226",
+      "product_id": "55150-123_904331fc-3d0c-45b9-a4fc-fa414b5fb2ca",
+      "application_number": "ANDA091613",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-124",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-124-99",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 BOX (55150-124-99)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20121226",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "8ec288e6-4d7f-4fea-a5ab-f9f337ebaa86"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150124992"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "ed896790-4af4-446a-9d45-04c07d50980f",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20121226",
+      "product_id": "55150-124_ed896790-4af4-446a-9d45-04c07d50980f",
+      "application_number": "ANDA091614",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-124",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-124-09",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 BOX (55150-124-09)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20121226",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "0f21384c-0f82-4d99-a05c-6773d1ee4bcf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150124091"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "ee2c2266-e2e9-48a2-ad33-0b3d2b0d0c41",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20121226",
+      "product_id": "55150-124_ee2c2266-e2e9-48a2-ad33-0b3d2b0d0c41",
+      "application_number": "ANDA091614",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "63323-328",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/8mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-328-22",
+          "description": "10 VIAL in 1 CARTON (63323-328-22)  / 8 mL in 1 VIAL",
+          "marketing_start_date": "20110630",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1721460"
+        ],
+        "spl_set_id": [
+          "3c2581a1-8051-4d7a-a1f7-521248648dc9"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "89a714ea-e764-6aeb-e053-2995a90a8a89",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110630",
+      "product_id": "63323-328_89a714ea-e764-6aeb-e053-2995a90a8a89",
+      "application_number": "ANDA090002",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "52946-0922",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "ACS Dobfar SpA",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 kg/kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "52946-0922-0",
+          "description": "6 kg in 1 BAG (52946-0922-0)",
+          "marketing_start_date": "30-AUG-12"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "d52997fa-cac5-4131-8c07-9e2c4a4d4af1",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20120830",
+      "product_id": "52946-0922_d52997fa-cac5-4131-8c07-9e2c4a4d4af1",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "63323-327",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 g/4mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-327-10",
+          "description": "10 VIAL in 1 CARTON (63323-327-10)  / 4 mL in 1 VIAL (63323-327-21)",
+          "marketing_start_date": "20110630",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "c39721a3-7b22-4720-9dbd-bc82f03d2af7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "89168d2d-2dc0-3f50-e053-2a95a90a31be",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110630",
+      "product_id": "63323-327_89168d2d-2dc0-3f50-e053-2a95a90a31be",
+      "application_number": "ANDA090002",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "63323-328",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/8mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-328-20",
+          "description": "10 VIAL in 1 CARTON (63323-328-20)  / 8 mL in 1 VIAL (63323-328-21)",
+          "marketing_start_date": "20110630",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "c39721a3-7b22-4720-9dbd-bc82f03d2af7"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "89168d2d-2dc0-3f50-e053-2a95a90a31be",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110630",
+      "product_id": "63323-328_89168d2d-2dc0-3f50-e053-2a95a90a31be",
+      "application_number": "ANDA090002",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "63323-330",
+      "generic_name": "NAFCILLIN",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-330-60",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (63323-330-60)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20110427",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "bbf0d8e4-b8e4-4958-b6b6-f0b9960f3b6a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "8b27ca5e-a933-7606-e053-2a95a90a0a33",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110427",
+      "product_id": "63323-330_8b27ca5e-a933-7606-e053-2a95a90a0a33",
+      "application_number": "ANDA090005",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "0338-1019",
+      "generic_name": "NAFCILLIN",
+      "labeler_name": "Baxter Healthcare Corporation",
+      "brand_name": "NAFCILLIN",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0338-1019-48",
+          "description": "100 mL in 1 BAG (0338-1019-48)",
+          "marketing_start_date": "19891031",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Baxter Healthcare Corporation"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "cd2d18c5-95a2-4fb4-bd8b-b5d39e2da416"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "80c1285d-488f-4901-af11-b867ef156536",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "19891031",
+      "product_id": "0338-1019_80c1285d-488f-4901-af11-b867ef156536",
+      "application_number": "NDA050655",
+      "brand_name_base": "NAFCILLIN",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72603-453",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "NorthStar Rx, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/8mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72603-453-01",
+          "description": "1 VIAL in 1 BOX (72603-453-01)  / 8 mL in 1 VIAL",
+          "marketing_start_date": "20240701",
+          "sample": false
+        },
+        {
+          "package_ndc": "72603-453-10",
+          "description": "10 VIAL in 1 BOX (72603-453-10)  / 8 mL in 1 VIAL",
+          "marketing_start_date": "20240701",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "NorthStar Rx, LLC"
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "ae5fb012-4012-4063-b2e4-f1f927c6bf74"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372603453010"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "ada50f84-5fb6-480b-a385-bb95d1181ce7",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20240701",
+      "product_id": "72603-453_ada50f84-5fb6-480b-a385-bb95d1181ce7",
+      "application_number": "ANDA090002",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72603-567",
+      "generic_name": "NAFCILLIN",
+      "labeler_name": "NorthStar Rx, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72603-567-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (72603-567-01)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20240301",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "NorthStar Rx, LLC"
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "91ebf84a-310f-4271-8446-5a10a877883a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372603567014"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "bb7b7287-b298-42c3-940f-bebe779e73ee",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20240301",
+      "product_id": "72603-567_bb7b7287-b298-42c3-940f-bebe779e73ee",
+      "application_number": "ANDA090005",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "25021-198",
+      "generic_name": "Nafcillin Sodium",
+      "labeler_name": "Sagent Pharmaceuticals",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "25021-198-99",
+          "description": "1 VIAL in 1 CARTON (25021-198-99)  / 100 mL in 1 VIAL",
+          "marketing_start_date": "20250415",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sagent Pharmaceuticals"
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "a6a4e122-b7f5-4eb5-8555-7aea6eda794b"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "f50e7f65-8bca-4df1-bff1-8069b33def90",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250415",
+      "product_id": "25021-198_f50e7f65-8bca-4df1-bff1-8069b33def90",
+      "application_number": "ANDA090005",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "44567-221",
+      "generic_name": "Nafcillin",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-221-10",
+          "description": "10 VIAL in 1 CARTON (44567-221-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20130118",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "spl_set_id": [
+          "4d3b0076-3780-413f-9052-b23be5f18f01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0344567222100",
+          "0344567221103"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "37e6eccd-26fd-4ac2-8704-7d4a0a6a2f6f",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20130118",
+      "product_id": "44567-221_37e6eccd-26fd-4ac2-8704-7d4a0a6a2f6f",
+      "application_number": "ANDA090560",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "44567-222",
+      "generic_name": "Nafcillin",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-222-10",
+          "description": "10 VIAL in 1 CARTON (44567-222-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20130118",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "spl_set_id": [
+          "4d3b0076-3780-413f-9052-b23be5f18f01"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0344567222100",
+          "0344567221103"
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "37e6eccd-26fd-4ac2-8704-7d4a0a6a2f6f",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20130118",
+      "product_id": "44567-222_37e6eccd-26fd-4ac2-8704-7d4a0a6a2f6f",
+      "application_number": "ANDA090560",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72485-405",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "Armas Pharmaceuticals Inc.",
+      "brand_name": "NAFCILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72485-405-10",
+          "description": "10 VIAL in 1 CARTON (72485-405-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20231101",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Armas Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "090fda61-b9c8-640e-e063-6294a90a7363"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "453054b0-dabd-dee9-e063-6294a90abee2",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20231101",
+      "product_id": "72485-405_453054b0-dabd-dee9-e063-6294a90abee2",
+      "application_number": "ANDA200002",
+      "brand_name_base": "NAFCILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "44567-223",
+      "generic_name": "NAFCILLIN",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Nafcillin",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "10 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-223-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (44567-223-01)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20110427",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "rxcui": [
+          "239189"
+        ],
+        "spl_set_id": [
+          "77999cd2-17b8-4df9-b687-d0f9b62096b9"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "e8171351-c41c-4342-ad46-22658d6d2bac",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110427",
+      "product_id": "44567-223_e8171351-c41c-4342-ad46-22658d6d2bac",
+      "application_number": "ANDA090005",
+      "brand_name_base": "Nafcillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72485-406",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "Armas Pharmaceuticals Inc.",
+      "brand_name": "NAFCILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72485-406-10",
+          "description": "10 VIAL in 1 CARTON (72485-406-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20231101",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Armas Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1721458",
+          "1721460"
+        ],
+        "spl_set_id": [
+          "090fda61-b9c8-640e-e063-6294a90a7363"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "49G3001BCK"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "453054b0-dabd-dee9-e063-6294a90abee2",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20231101",
+      "product_id": "72485-406_453054b0-dabd-dee9-e063-6294a90abee2",
+      "application_number": "ANDA200002",
+      "brand_name_base": "NAFCILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "66558-0202",
+      "generic_name": "NAFCILLIN SODIUM",
+      "labeler_name": "Fresenius Kabi iPSUM S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "NAFCILLIN SODIUM",
+          "strength": "1 kg/kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "66558-0202-0",
+          "description": "5 kg in 1 CONTAINER (66558-0202-0)",
+          "marketing_start_date": "04-JUL-11"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "dd793be0-ebb6-2c8c-e053-2995a90a0075",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20110511",
+      "product_id": "66558-0202_dd793be0-ebb6-2c8c-e053-2995a90a0075",
+      "brand_name_base": null
+    }
+  ]
+}

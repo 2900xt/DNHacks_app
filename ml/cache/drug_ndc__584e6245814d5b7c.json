@@ -1,0 +1,726 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1000,
+      "total": 13
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "63629-4256",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "Bryant Ranch Prepack",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63629-4256-1",
+          "description": "20 CAPSULE in 1 BOTTLE (63629-4256-1)",
+          "marketing_start_date": "20220817",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Bryant Ranch Prepack"
+        ],
+        "rxcui": [
+          "197596"
+        ],
+        "spl_set_id": [
+          "3e4842ec-773b-4aeb-b37d-1c4e3cf53424"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "d27a4909-ffaf-4786-b02c-faa01fa80f24",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "63629-4256_d27a4909-ffaf-4786-b02c-faa01fa80f24",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "62135-096",
+      "generic_name": "DICLOXACILLIN SODIUM",
+      "labeler_name": "Chartwell RX, LLC",
+      "brand_name": "DICLOXACILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "62135-096-01",
+          "description": "100 CAPSULE in 1 BOTTLE (62135-096-01)",
+          "marketing_start_date": "20260720",
+          "sample": false
+        },
+        {
+          "package_ndc": "62135-096-40",
+          "description": "40 CAPSULE in 1 BOTTLE (62135-096-40)",
+          "marketing_start_date": "20260720",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Chartwell RX, LLC"
+        ],
+        "rxcui": [
+          "197595",
+          "197596"
+        ],
+        "spl_set_id": [
+          "270c0839-c30c-475d-a505-e70855652c9e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362135097509",
+          "0362135096403"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "5748443d-247e-4bf0-e063-6294a90aa7cd",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19820603",
+      "product_id": "62135-096_5748443d-247e-4bf0-e063-6294a90aa7cd",
+      "application_number": "ANDA062286",
+      "brand_name_base": "DICLOXACILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "62135-097",
+      "generic_name": "DICLOXACILLIN SODIUM",
+      "labeler_name": "Chartwell RX, LLC",
+      "brand_name": "DICLOXACILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "62135-097-01",
+          "description": "100 CAPSULE in 1 BOTTLE (62135-097-01)",
+          "marketing_start_date": "20260720",
+          "sample": false
+        },
+        {
+          "package_ndc": "62135-097-50",
+          "description": "50 CAPSULE in 1 BOTTLE (62135-097-50)",
+          "marketing_start_date": "20260720",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Chartwell RX, LLC"
+        ],
+        "rxcui": [
+          "197595",
+          "197596"
+        ],
+        "spl_set_id": [
+          "270c0839-c30c-475d-a505-e70855652c9e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0362135097509",
+          "0362135096403"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "5748443d-247e-4bf0-e063-6294a90aa7cd",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19820603",
+      "product_id": "62135-097_5748443d-247e-4bf0-e063-6294a90aa7cd",
+      "application_number": "ANDA062286",
+      "brand_name_base": "DICLOXACILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-278",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "50 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-278-37",
+          "description": "50 kg in 1 DRUM (65862-278-37)",
+          "marketing_start_date": "12-JAN-24"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "50051e3c-48bc-45e7-8f98-5b1eb77f806b",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20240112",
+      "product_id": "65862-278_50051e3c-48bc-45e7-8f98-5b1eb77f806b",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "76420-183",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "Asclemed USA, Inc.",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "76420-183-20",
+          "description": "20 CAPSULE in 1 BOTTLE (76420-183-20)",
+          "marketing_start_date": "20201114",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Asclemed USA, Inc."
+        ],
+        "rxcui": [
+          "197596"
+        ],
+        "spl_set_id": [
+          "a4174fda-68f7-4834-be58-dd6b167cf9f0"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "b41444ca-246e-b54e-e053-2a95a90ae0e7",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "76420-183_b41444ca-246e-b54e-e053-2a95a90ae0e7",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55289-592",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "PD-Rx Pharmaceuticals, Inc.",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55289-592-10",
+          "description": "10 CAPSULE in 1 BOTTLE, PLASTIC (55289-592-10)",
+          "marketing_start_date": "20110120",
+          "sample": false
+        },
+        {
+          "package_ndc": "55289-592-20",
+          "description": "20 CAPSULE in 1 BOTTLE, PLASTIC (55289-592-20)",
+          "marketing_start_date": "20110120",
+          "sample": false
+        },
+        {
+          "package_ndc": "55289-592-28",
+          "description": "28 CAPSULE in 1 BOTTLE, PLASTIC (55289-592-28)",
+          "marketing_start_date": "20110120",
+          "sample": false
+        },
+        {
+          "package_ndc": "55289-592-40",
+          "description": "40 CAPSULE in 1 BOTTLE, PLASTIC (55289-592-40)",
+          "marketing_start_date": "20110120",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "PD-Rx Pharmaceuticals, Inc."
+        ],
+        "rxcui": [
+          "197595"
+        ],
+        "spl_set_id": [
+          "9e2bbe03-44cb-45d1-acdb-b61d9016055e"
+        ],
+        "upc": [
+          "0355289592402"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "419b12d0-b5a9-5656-e063-6394a90a2d15",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "55289-592_419b12d0-b5a9-5656-e063-6394a90a2d15",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "59651-565",
+      "generic_name": "DICLOXACILLIN SODIUM",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "DICLOXACILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "59651-565-01",
+          "description": "100 CAPSULE in 1 BOTTLE (59651-565-01)",
+          "marketing_start_date": "20220923",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "197595",
+          "197596"
+        ],
+        "spl_set_id": [
+          "9074b5a6-850c-4144-9097-bb21073ee54d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "faee6e2d-1b9c-4121-bc22-41313539b366",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20220923",
+      "product_id": "59651-565_faee6e2d-1b9c-4121-bc22-41313539b366",
+      "application_number": "ANDA216845",
+      "brand_name_base": "DICLOXACILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "59651-566",
+      "generic_name": "DICLOXACILLIN SODIUM",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "brand_name": "DICLOXACILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "59651-566-01",
+          "description": "100 CAPSULE in 1 BOTTLE (59651-566-01)",
+          "marketing_start_date": "20220923",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Aurobindo Pharma Limited"
+        ],
+        "rxcui": [
+          "197595",
+          "197596"
+        ],
+        "spl_set_id": [
+          "9074b5a6-850c-4144-9097-bb21073ee54d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "faee6e2d-1b9c-4121-bc22-41313539b366",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20220923",
+      "product_id": "59651-566_faee6e2d-1b9c-4121-bc22-41313539b366",
+      "application_number": "ANDA216845",
+      "brand_name_base": "DICLOXACILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "0093-3123",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "Teva Pharmaceuticals USA, Inc.",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0093-3123-01",
+          "description": "100 CAPSULE in 1 BOTTLE (0093-3123-01)",
+          "marketing_start_date": "19900930",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Teva Pharmaceuticals USA, Inc."
+        ],
+        "rxcui": [
+          "197595",
+          "197596"
+        ],
+        "spl_set_id": [
+          "8478f242-c715-4984-ac1d-dc79dc28665e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "1976304d-7c32-40f7-9724-0d1903dad50e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "0093-3123_1976304d-7c32-40f7-9724-0d1903dad50e",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "43063-180",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "PD-Rx Pharmaceuticals, Inc.",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "250 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "43063-180-06",
+          "description": "6 CAPSULE in 1 BOTTLE (43063-180-06)",
+          "marketing_start_date": "20090811",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "PD-Rx Pharmaceuticals, Inc."
+        ],
+        "rxcui": [
+          "197595"
+        ],
+        "spl_set_id": [
+          "c17cd62d-ff5d-47ba-8673-3346c7f2365f"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "525a6123-2f84-bb54-e063-6294a90a7406",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "43063-180_525a6123-2f84-bb54-e063-6294a90a7406",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "0093-3125",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "Teva Pharmaceuticals USA, Inc.",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0093-3125-01",
+          "description": "100 CAPSULE in 1 BOTTLE (0093-3125-01)",
+          "marketing_start_date": "19900930",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Teva Pharmaceuticals USA, Inc."
+        ],
+        "rxcui": [
+          "197595",
+          "197596"
+        ],
+        "spl_set_id": [
+          "8478f242-c715-4984-ac1d-dc79dc28665e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "1976304d-7c32-40f7-9724-0d1903dad50e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "0093-3125_1976304d-7c32-40f7-9724-0d1903dad50e",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "67296-2307",
+      "generic_name": "DICLOXACILLIN SODIUM",
+      "labeler_name": "Redpharm Drug",
+      "brand_name": "DICLOXACILLIN SODIUM",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "67296-2307-4",
+          "description": "40 CAPSULE in 1 BOTTLE (67296-2307-4)",
+          "marketing_start_date": "20220923",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Redpharm Drug"
+        ],
+        "rxcui": [
+          "197596"
+        ],
+        "spl_set_id": [
+          "58e6ee7a-8237-ec66-e063-6394a90a5cae"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "58e6ee4e-1939-e8bd-e063-6394a90accb8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20220923",
+      "product_id": "67296-2307_58e6ee4e-1939-e8bd-e063-6394a90accb8",
+      "application_number": "ANDA216845",
+      "brand_name_base": "DICLOXACILLIN SODIUM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "43063-473",
+      "generic_name": "Dicloxacillin Sodium",
+      "labeler_name": "PD-Rx Pharmaceuticals, Inc.",
+      "brand_name": "Dicloxacillin Sodium",
+      "active_ingredients": [
+        {
+          "name": "DICLOXACILLIN SODIUM",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "43063-473-20",
+          "description": "20 CAPSULE in 1 BOTTLE, PLASTIC (43063-473-20)",
+          "marketing_start_date": "20121206",
+          "sample": false
+        },
+        {
+          "package_ndc": "43063-473-30",
+          "description": "30 CAPSULE in 1 BOTTLE, PLASTIC (43063-473-30)",
+          "marketing_start_date": "20121206",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "PD-Rx Pharmaceuticals, Inc."
+        ],
+        "rxcui": [
+          "197596"
+        ],
+        "spl_set_id": [
+          "24e821aa-85b8-4f5a-aa13-83ff132952ca"
+        ],
+        "unii": [
+          "4HZT2V9KX0"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "4138864e-9d78-23ff-e063-6294a90ac47c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "19900930",
+      "product_id": "43063-473_4138864e-9d78-23ff-e063-6294a90ac47c",
+      "application_number": "ANDA062286",
+      "brand_name_base": "Dicloxacillin Sodium",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    }
+  ]
+}

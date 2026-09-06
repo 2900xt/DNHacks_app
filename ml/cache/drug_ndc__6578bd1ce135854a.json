@@ -1,0 +1,844 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1000,
+      "total": 16
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "65862-499",
+      "generic_name": "Oxacillin for Injection",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "49.02 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-499-37",
+          "description": "50 kg in 1 CANISTER (65862-499-37)",
+          "marketing_start_date": "19-JAN-24"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT FOR HUMAN PRESCRIPTION COMPOUNDING",
+      "dosage_form": "POWDER",
+      "spl_id": "9391eeb0-96ba-4ee2-afbb-f13bba99065e",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20240119",
+      "product_id": "65862-499_9391eeb0-96ba-4ee2-afbb-f13bba99065e",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "83270-306",
+      "generic_name": "oxacillin",
+      "labeler_name": "Onesource Specialty Pharma Limited",
+      "brand_name": "oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "1 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-306-10",
+          "description": "10 VIAL in 1 CARTON (83270-306-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20220921",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Onesource Specialty Pharma Limited"
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "4972ec74-1d9a-de9b-e063-6394a90af786"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0383270306011",
+          "0383270307018"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "4972ec74-1d9b-de9b-e063-6394a90af786",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20220921",
+      "product_id": "83270-306_4972ec74-1d9b-de9b-e063-6394a90af786",
+      "application_number": "ANDA091486",
+      "brand_name_base": "oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "83270-307",
+      "generic_name": "oxacillin",
+      "labeler_name": "Onesource Specialty Pharma Limited",
+      "brand_name": "oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-307-10",
+          "description": "10 VIAL in 1 CARTON (83270-307-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20220921",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Onesource Specialty Pharma Limited"
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "4972ec74-1d9a-de9b-e063-6394a90af786"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0383270306011",
+          "0383270307018"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "4972ec74-1d9b-de9b-e063-6394a90af786",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20220921",
+      "product_id": "83270-307_4972ec74-1d9b-de9b-e063-6394a90af786",
+      "application_number": "ANDA091486",
+      "brand_name_base": "oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-128",
+      "generic_name": "Oxacillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-128-24",
+          "description": "10 VIAL in 1 BOX (55150-128-24)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20130118",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "81e90279-9889-47bd-974b-334c181f295c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150128242",
+          "0355150127153"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "0570fa17-5fe7-4647-9dde-d6097388a4e8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20130118",
+      "product_id": "55150-128_0570fa17-5fe7-4647-9dde-d6097388a4e8",
+      "application_number": "ANDA201539",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-127",
+      "generic_name": "Oxacillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "1 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-127-15",
+          "description": "10 VIAL in 1 BOX (55150-127-15)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20130118",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "81e90279-9889-47bd-974b-334c181f295c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150128242",
+          "0355150127153"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "0570fa17-5fe7-4647-9dde-d6097388a4e8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20130118",
+      "product_id": "55150-127_0570fa17-5fe7-4647-9dde-d6097388a4e8",
+      "application_number": "ANDA201539",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "55150-129",
+      "generic_name": "Oxacillin Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-129-99",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 BOX (55150-129-99)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20130118",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "312127"
+        ],
+        "spl_set_id": [
+          "152758c0-d225-4761-abeb-3f1cb0190806"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150129997"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "POWDER, FOR SOLUTION",
+      "spl_id": "0716080d-dde4-420a-9b10-f051d7a457be",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20130118",
+      "product_id": "55150-129_0716080d-dde4-420a-9b10-f051d7a457be",
+      "application_number": "ANDA201538",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "0338-1015",
+      "generic_name": "OXACILLIN",
+      "labeler_name": "Baxter Healthcare Corporation",
+      "brand_name": "OXACILLIN",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "2 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0338-1015-41",
+          "description": "50 mL in 1 BAG (0338-1015-41)",
+          "marketing_start_date": "19891026",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Baxter Healthcare Corporation"
+        ],
+        "rxcui": [
+          "240637",
+          "312128"
+        ],
+        "spl_set_id": [
+          "d893e45b-7f18-4c67-b10c-1e2e52a6b3ef"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "bc7ecac9-8fe4-4bf9-8a0b-addce4d5e5bb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "19891026",
+      "product_id": "0338-1015_bc7ecac9-8fe4-4bf9-8a0b-addce4d5e5bb",
+      "application_number": "NDA050640",
+      "brand_name_base": "OXACILLIN",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "63323-813",
+      "generic_name": "Oxacillin",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "1 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-813-20",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (63323-813-20)  / 20 mL in 1 VIAL, SINGLE-DOSE (63323-813-01)",
+          "marketing_start_date": "20201101",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "af2dccac-98c8-488f-a133-6374b3ca8dba"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "c7907a70-1efa-46eb-b046-fcf043fdb413",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20201101",
+      "product_id": "63323-813_c7907a70-1efa-46eb-b046-fcf043fdb413",
+      "application_number": "ANDA206198",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "64679-700",
+      "generic_name": "Oxacillin",
+      "labeler_name": "Wockhardt USA LLC.",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "64679-700-03",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (64679-700-03)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE (64679-700-02)",
+          "marketing_start_date": "20171124",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Wockhardt USA LLC."
+        ],
+        "rxcui": [
+          "312127"
+        ],
+        "spl_set_id": [
+          "4149d750-44e3-47e7-84f2-1e5cc839733b"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "41e474af-6d03-f358-e063-6294a90af8e3",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20171124",
+      "product_id": "64679-700_41e474af-6d03-f358-e063-6294a90af8e3",
+      "application_number": "ANDA207148",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "65862-276",
+      "generic_name": "Oxacillin Sodium",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "50 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-276-37",
+          "description": "50 kg in 1 DRUM (65862-276-37)",
+          "marketing_start_date": "16-JAN-24"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "a3e824b5-76e0-45fc-b85a-3634524660e9",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20240116",
+      "product_id": "65862-276_a3e824b5-76e0-45fc-b85a-3634524660e9",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "63323-811",
+      "generic_name": "Oxacillin Sodium",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "10 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-811-00",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (63323-811-00)  / 100 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20201101",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312127"
+        ],
+        "spl_set_id": [
+          "9d37aae5-78d6-4b72-832a-7152c3a7068e"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0012100001276"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "f28ac591-52e8-4c3f-93a8-8b5174b97d97",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20201101",
+      "product_id": "63323-811_f28ac591-52e8-4c3f-93a8-8b5174b97d97",
+      "application_number": "ANDA206199",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "64679-698",
+      "generic_name": "Oxacillin",
+      "labeler_name": "Wockhardt USA LLC.",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "1 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "64679-698-01",
+          "description": "10 VIAL in 1 CARTON (64679-698-01)  / 20 mL in 1 VIAL (64679-698-02)",
+          "marketing_start_date": "20170731",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Wockhardt USA LLC."
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "195c2054-0746-421d-8b20-8c751bdd772b"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "41e41b69-1cdb-60eb-e063-6394a90a1abe",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20170731",
+      "product_id": "64679-698_41e41b69-1cdb-60eb-e063-6394a90a1abe",
+      "application_number": "ANDA207147",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "63323-812",
+      "generic_name": "Oxacillin",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "2 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-812-20",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (63323-812-20)  / 20 mL in 1 VIAL, SINGLE-DOSE (63323-812-01)",
+          "marketing_start_date": "20201101",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "af2dccac-98c8-488f-a133-6374b3ca8dba"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "c7907a70-1efa-46eb-b046-fcf043fdb413",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20201101",
+      "product_id": "63323-812_c7907a70-1efa-46eb-b046-fcf043fdb413",
+      "application_number": "ANDA206198",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "64679-699",
+      "generic_name": "Oxacillin",
+      "labeler_name": "Wockhardt USA LLC.",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "2 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "64679-699-01",
+          "description": "10 VIAL in 1 CARTON (64679-699-01)  / 20 mL in 1 VIAL (64679-699-02)",
+          "marketing_start_date": "20170731",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Wockhardt USA LLC."
+        ],
+        "rxcui": [
+          "1743547",
+          "1743549"
+        ],
+        "spl_set_id": [
+          "195c2054-0746-421d-8b20-8c751bdd772b"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "41e41b69-1cdb-60eb-e063-6394a90a1abe",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20170731",
+      "product_id": "64679-699_41e41b69-1cdb-60eb-e063-6394a90a1abe",
+      "application_number": "ANDA207147",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "72485-409",
+      "generic_name": "Oxacillin",
+      "labeler_name": "Armas Pharmaceuticals Inc.",
+      "brand_name": "Oxacillin",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "2 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72485-409-10",
+          "description": "10 VIAL in 1 CARTON (72485-409-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL (72485-409-01)",
+          "marketing_start_date": "20220921",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Armas Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1743549"
+        ],
+        "spl_set_id": [
+          "8e99d6fe-42ab-44c1-8b51-e4ac7406dbe4"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372485409013"
+        ],
+        "unii": [
+          "G0V6C994Q5"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "4530516e-55de-6b94-e063-6394a90a3e2d",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAMUSCULAR",
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20220921",
+      "product_id": "72485-409_4530516e-55de-6b94-e063-6394a90a3e2d",
+      "application_number": "ANDA091486",
+      "brand_name_base": "Oxacillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    },
+    {
+      "product_ndc": "66558-0203",
+      "generic_name": "OXACILLIN SODIUM",
+      "labeler_name": "Fresenius Kabi iPSUM S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "OXACILLIN SODIUM",
+          "strength": "1 kg/kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "66558-0203-0",
+          "description": "5 kg in 1 CONTAINER (66558-0203-0)",
+          "marketing_start_date": "25-JAN-17"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "dd794599-0d68-8bef-e053-2a95a90a746c",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20170125",
+      "product_id": "66558-0203_dd794599-0d68-8bef-e053-2a95a90a746c",
+      "brand_name_base": null
+    }
+  ]
+}
