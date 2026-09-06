@@ -37,8 +37,8 @@ const PLANS = [
     name: 'Watch',
     price: 'Free',
     unit: '',
-    line: 'One drug, public feeds, refreshed daily.',
-    features: ['1 tracked drug', 'openFDA signal feed', 'Read-only console'],
+    line: 'Follow one medicine. Updated every day.',
+    features: ['1 medicine', 'Daily warnings', 'View-only access'],
     cta: 'Start watching',
     featured: false,
   },
@@ -46,8 +46,8 @@ const PLANS = [
     name: 'Operate',
     price: '$2,400',
     unit: '/mo',
-    line: 'The full graph, scored re-routes, and the audit trail.',
-    features: ['Unlimited drugs', 'Re-route scoring', 'Exportable audit trail', 'Depot sensor ingest'],
+    line: 'Everything, plus backup suppliers and a record of what changed.',
+    features: ['Unlimited medicines', 'Backup suppliers, ranked', 'Exportable history', 'Warehouse sensor feeds'],
     cta: 'Subscribe',
     featured: true,
   },
@@ -55,8 +55,8 @@ const PLANS = [
     name: 'Federal',
     price: 'Custom',
     unit: '',
-    line: 'TAA and 1260H screening, deployed inside your boundary.',
-    features: ['TAA / EO 13944 screening', 'On-prem or GovCloud', 'SSO + role separation'],
+    line: 'For government buyers. Runs on your own systems.',
+    features: ['Government sourcing rules', 'Runs on your infrastructure', 'Single sign-on and roles'],
     cta: 'Talk to us',
     featured: false,
   },
@@ -74,42 +74,36 @@ export default function Landing() {
         <LandingGlobe sources={sources} />
         <div className="hero-veil" />
         <div className="hero-in">
-          <p className="eyebrow">Sourcing risk console</p>
-          <h1>A supplier goes down.<br /><em>What else just broke?</em></h1>
+          <p className="eyebrow">Ripple</p>
+          <h1>Supply chain monitoring<br /><em>for medicines.</em></h1>
           <p className="hero-sub">
-            Ripple reads disruption out of public FDA feeds, propagates it through a real
-            sourcing graph, and ranks the alternates that can actually supply you —
-            including when the honest answer is that none of them can.
+            We track where the world&rsquo;s drugs are actually made, notice when something
+            goes wrong, and show you who else could make it instead.
           </p>
           <div className="hero-cta">
             <Link className="btn btn-primary btn-lg" href="/app">Open the console</Link>
             <Link className="btn btn-ghost btn-lg" href="#plans">See pricing</Link>
           </div>
-          <p className="hero-src">
-            openFDA · Type II DMF register · DECRS · Federal Register · UN Comtrade
-          </p>
+          <p className="hero-src">Built on public government records</p>
         </div>
       </header>
 
       <section id="how" className="band band-how">
         <div className="how-row">
           <div className="how-cell">
-            <p className="how-step">01 — Detect</p>
+            <p className="how-step">01 — Watch</p>
             <p className="how-n">{fmt(c.signals)}</p>
-            <p className="how-t">Signals joined to FEI-registered establishments — refusals,
-              inspection classifications, regulatory actions.</p>
+            <p className="how-t">Warning signs picked up at drug factories around the world.</p>
           </div>
           <div className="how-cell">
-            <p className="how-step">02 — Ripple</p>
-            <p className="how-n">{fmt(c.nodes)} <span>nodes · {fmt(c.edges)} edges</span></p>
-            <p className="how-t">One node fails and everything structurally downstream of it
-              fails at once — before any of it reaches a shortage list.</p>
+            <p className="how-step">02 — Trace</p>
+            <p className="how-n">{fmt(c.nodes)} <span>things we track</span></p>
+            <p className="how-t">One factory stops, and we show you every medicine that stops with it.</p>
           </div>
           <div className="how-cell">
-            <p className="how-step">03 — Re-route</p>
-            <p className="how-n">Scored</p>
-            <p className="how-t">Who else holds an active filing and a US registration, ranked
-              by whether moving there actually diversifies you.</p>
+            <p className="how-step">03 — Switch</p>
+            <p className="how-n">Ranked</p>
+            <p className="how-t">Who else can make it — so you know your options before you need them.</p>
           </div>
         </div>
       </section>
@@ -117,7 +111,7 @@ export default function Landing() {
       <section id="plans" className="band band-plans">
         <div className="band-head">
           <h2>Plans</h2>
-          <p>The graph is public record. Watching it every morning is the product.</p>
+          <p>Everything we use is public. Keeping an eye on it daily is the job.</p>
         </div>
 
         <div className="plans">
@@ -138,8 +132,8 @@ export default function Landing() {
         </div>
 
         <p className="plans-fine">
-          Built at DNHacks 2026. Pricing is illustrative — no billing is wired up. The
-          console is behind a sign-in; the data under it is all public record.
+          Built at DNHacks 2026. The prices are made up and nothing is charged. You need an
+          account to open the console; all the data underneath it is public.
         </p>
       </section>
 
@@ -148,8 +142,7 @@ export default function Landing() {
           <Image src="/ripple-mark.png" alt="" width={18} height={18} />
           <span>RIPPLE</span>
         </Link>
-        <p>openFDA · FDA Type II DMF register · DECRS · Federal Register · UN Comtrade ·
-          EO 13944 · DoD 1260H. Not medical or procurement advice.</p>
+        <p>Built on public government records. Not medical or purchasing advice.</p>
         <Link href="/app">Open the console →</Link>
       </footer>
     </div>

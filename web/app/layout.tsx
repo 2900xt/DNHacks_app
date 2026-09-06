@@ -7,9 +7,9 @@ import "./globals.css";
 // product's, not the instrument's. The console overrides both in
 // app/app/page.tsx.
 export const metadata: Metadata = {
-  title: "RIPPLE — a supplier goes down. What else just broke?",
+  title: "RIPPLE — supply chain monitoring for medicines",
   description:
-    "Detects disruption in public FDA feeds, propagates it through a real sourcing graph, and ranks the alternates that can actually supply you.",
+    "We track where the world's drugs are actually made, notice when something goes wrong, and show you who else could make it instead.",
 };
 
 // No `icons` entry here on purpose. In the App Router, app/favicon.ico is served

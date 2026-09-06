@@ -895,7 +895,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   padding: 18px 24px; border-top: 1px solid var(--edge-soft);
   font: 400 11px/1.6 var(--mono); color: var(--text-faint);
 }
-.site-foot p { margin: 0; max-width: 66ch; }
+.site-foot p { margin: 0; max-width: 80ch; }
 .site-foot > a:last-child { margin-left: auto; color: var(--sky-dim); text-decoration: none; }
 .site-foot > a:last-child:hover { color: var(--sky); }
 
