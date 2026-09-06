@@ -6,7 +6,8 @@ This module owns *why* a node turns red, and what evidence we show for it.
 Decision 0003: transparent rules, not a model. Every red node can name the rule
 that fired it and the signals that satisfied that rule.
 
-    python3 ml/cascade_rules.py --emit    # thresholds as JSON, for graph.ts
+    python3 ml/cascade_rules.py --emit    # thresholds as JSON, to stdout
+    python3 ml/cascade_rules.py --write   # -> web/data/cascade_rules.json, for graph.ts
     python3 ml/cascade_rules.py           # self-check against the anchor signals
 
 --------------------------------------------------------------------------------
@@ -323,8 +324,24 @@ def _self_check(as_of: date) -> int:
     return failures
 
 
+def write_config() -> str:
+    """Emit the thresholds where `web/app/lib/graph.ts` can import them.
+
+    graph.ts currently hardcodes `rule: 'reachability: ...'` with a note that
+    Parth owns the real thresholds. This is that handoff, as DATA rather than
+    duplicated constants - so the number never drifts between Python and TS.
+    """
+    from pathlib import Path
+    out = Path(__file__).resolve().parents[1] / "web" / "data" / "cascade_rules.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(thresholds(), indent=2) + "\n")
+    return str(out)
+
+
 if __name__ == "__main__":
-    if "--emit" in sys.argv:
+    if "--write" in sys.argv:
+        print(f"wrote {write_config()}")
+    elif "--emit" in sys.argv:
         print(json.dumps(thresholds(), indent=2))
     else:
         sys.exit(_self_check(date(2026, 9, 5)))
