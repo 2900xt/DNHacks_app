@@ -31,6 +31,18 @@ demo: ## Bring up exactly what the demo path needs. Edit me once the path is loc
 	@echo "TODO: wire this to the demo path in ../DNHacks_brain/strategy/DEMO_PATH.md"
 	@$(MAKE) dev
 
+.PHONY: risk
+risk: ## Rebuild web/data/risk.json — plant-level 12-month disruption risk
+	@python3 -m ml.risk.emit
+
+.PHONY: risk-train
+risk-train: ## Re-run the model comparison across three cutoffs (~40s)
+	@python3 -m ml.risk.train
+
+.PHONY: risk-check
+risk-check: ## Assert the shipping bar: beats both baselines, calibrated
+	@python3 -m ml.risk.train --selftest
+
 .PHONY: depot-demo
 depot-demo: ## Replay 24h of storage history into a running API (no hardware needed)
 	@# DEPOT_TRUST_DEVICE_TS is read by the SERVER, not by this client. It lives in
