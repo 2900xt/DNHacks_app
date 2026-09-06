@@ -22,21 +22,21 @@
   },
   {
     "src": "precursor:6-apa",
-    "dst": "api:dicloxacillin",
+    "dst": "api:dicloxacillin-sodium",
     "rel": "feeds",
     "layer": 3,
     "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
   },
   {
     "src": "precursor:6-apa",
-    "dst": "api:nafcillin",
+    "dst": "api:nafcillin-sodium",
     "rel": "feeds",
     "layer": 3,
     "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
   },
   {
     "src": "precursor:6-apa",
-    "dst": "api:oxacillin",
+    "dst": "api:oxacillin-sodium",
     "rel": "feeds",
     "layer": 3,
     "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
