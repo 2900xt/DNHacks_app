@@ -93,3 +93,12 @@ hardware/m5stack-node/compile_commands.json
 # --- ml / loaders ---
 ml/.venv/
 ml/cache/
+
+# --- Layer 1c signal cache (ml/signals/) ---
+# Pin the small artifacts so the demo survives venue wifi; the bulk downloads
+# are re-fetched by the loaders. See docs in each loader module.
+data/cache/**/*.zip
+data/cache/_ca/
+data/cache/federal-register/text-*.txt
+!data/cache/federal-register/text-2026-11571.txt
+!data/cache/fda-inspections/*.csv

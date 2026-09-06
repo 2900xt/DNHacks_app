@@ -1,0 +1,17 @@
+{
+  "rule": "concentrated-and-negative-v1",
+  "rule_text": "Red if one country holds >75% of supply AND (a negative event in the last 90 days OR the facility is currently OAI).",
+  "concentration_threshold": 0.75,
+  "event_window_days": 90,
+  "negative_classifications": [
+    "OAI"
+  ],
+  "signal_semantics": {
+    "import_refusal": "event",
+    "regulatory_action": "event",
+    "news_event": "event",
+    "recall": "event",
+    "shortage": "state",
+    "inspection_classification": "state"
+  }
+}

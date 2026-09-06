@@ -1,0 +1,119 @@
+{
+  "_readme": "Labeled entity-resolution benchmark for CHOKEPOINT. 20 pairs, 10 same / 10 different. Selection rule is stated so this cannot be read as cherry-picked: every pair is drawn from a name collision actually observed and written up in DNHacks_brain/project/datasets/, and the set is DELIBERATELY HARD - it over-samples the traps. Accuracy here is therefore NOT comparable to the corpus-wide 9%-exact / 42%-normalized join rates quoted in the brief, which were measured over all DMF/DECRS names. Say which population a number came from.",
+  "_provenance_key": {
+    "verbatim": "the string appears exactly like this in a brain deep-dive, quoted from the source file",
+    "constructed": "a realistic variant written to test one named transformation class; the ENTITY is real and documented, this particular spelling was not observed"
+  },
+  "_labeling_rule": "same = the two strings denote the same legal establishment. A parent and its subsidiary are DIFFERENT entities. Two sites of one parent are DIFFERENT establishments. Both of those are judgment calls and are flagged 'contested' so a reader can disagree with the label rather than with the score.",
+  "pairs": [
+    {
+      "id": 1, "label": "same", "transformation": "legal-suffix",
+      "a": {"name": "Aurobindo Pharma Limited", "country": "IN", "provenance": "verbatim", "source": "fda-inspection-classification.md"},
+      "b": {"name": "AUROBINDO PHARMA LTD", "country": "IN", "provenance": "constructed"}
+    },
+    {
+      "id": 2, "label": "same", "transformation": "industry-token-differs",
+      "note": "The documented true positive that naive suffix-stripping misses.",
+      "a": {"name": "ORIGINCELL BIOTECHNOLOGY", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "Origincell Technology", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"}
+    },
+    {
+      "id": 3, "label": "same", "transformation": "abbreviation + former-name parenthetical",
+      "a": {"name": "Sun Pharmaceutical Industries (prev. Ranbaxy)", "country": "IN", "provenance": "verbatim", "source": "oasis-import-refusals.md"},
+      "b": {"name": "SUN PHARMA IND LTD", "country": "IN", "provenance": "verbatim", "source": "oasis-import-refusals.md"}
+    },
+    {
+      "id": 4, "label": "same", "transformation": "legal-suffix",
+      "a": {"name": "Zhuhai United Laboratories Co", "country": "CN", "provenance": "verbatim", "source": "fda-inspection-classification.md"},
+      "b": {"name": "Zhuhai United Laboratories", "country": "CN", "provenance": "verbatim", "source": "fda-inspection-classification.md"}
+    },
+    {
+      "id": 5, "label": "same", "transformation": "abbreviation",
+      "a": {"name": "Centrient Pharmaceuticals India Private Limited", "country": "IN", "provenance": "verbatim", "source": "fda-inspection-classification.md"},
+      "b": {"name": "Centrient Pharmaceuticals India Pvt Ltd", "country": "IN", "provenance": "constructed"}
+    },
+    {
+      "id": 6, "label": "same", "transformation": "legal-suffix, all tokens generic",
+      "note": "Core reduces to empty on both sides - every token is geographic or industry. Exercises the empty-core fallback.",
+      "a": {"name": "North China Pharmaceutical Corporation", "country": "CN", "provenance": "verbatim", "source": "layer3-cfr-usp-curated.md"},
+      "b": {"name": "North China Pharmaceutical", "country": "CN", "provenance": "verbatim", "source": "layer3-cfr-usp-curated.md"}
+    },
+    {
+      "id": 7, "label": "same", "transformation": "punctuation + case",
+      "a": {"name": "CSPC Zhongnuo Pharmaceutical (Shijiazhuang)", "country": "CN", "provenance": "verbatim", "source": "oasis-import-refusals.md"},
+      "b": {"name": "CSPC ZHONGNUO PHARMACEUTICAL SHIJIAZHUANG CO LTD", "country": "CN", "provenance": "constructed"}
+    },
+    {
+      "id": 8, "label": "same", "transformation": "case + legal-suffix",
+      "a": {"name": "WuXi AppTec", "country": "CN", "provenance": "verbatim", "source": "federal-register.md"},
+      "b": {"name": "WUXI APPTEC CO., LTD.", "country": "CN", "provenance": "constructed"}
+    },
+    {
+      "id": 9, "label": "same", "transformation": "leading article + parenthetical geography",
+      "a": {"name": "The United Laboratories (Inner Mongolia)", "country": "CN", "provenance": "verbatim", "source": "fda-inspection-classification.md"},
+      "b": {"name": "UNITED LABORATORIES INNER MONGOLIA", "country": "CN", "provenance": "constructed"}
+    },
+    {
+      "id": 10, "label": "same", "transformation": "punctuation",
+      "a": {"name": "ANTIBIOTICOS SA", "country": null, "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "Antibioticos S.A.", "country": null, "provenance": "constructed"}
+    },
+
+    {
+      "id": 11, "label": "different", "transformation": "shared geographic token",
+      "note": "The documented false positive. 'WuXi' is a Chinese city as well as a company name.",
+      "a": {"name": "WUXI BIOLOGICS", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "WuXi AppTec", "country": "CN", "provenance": "verbatim", "source": "federal-register.md"}
+    },
+    {
+      "id": 12, "label": "different", "transformation": "shared geographic token",
+      "a": {"name": "WUXI ALFINO", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "WuXi AppTec", "country": "CN", "provenance": "verbatim", "source": "federal-register.md"}
+    },
+    {
+      "id": 13, "label": "different", "transformation": "shared distinctive token, different country",
+      "note": "Documented >20% FP source: substring matching on Legal Name pulls an unrelated US firm into a Chinese 6-APA holder. Only the country guard separates these.",
+      "a": {"name": "United Laboratories Manufacturing, LLC", "country": "US", "provenance": "verbatim", "source": "fda-inspection-classification.md"},
+      "b": {"name": "The United Laboratories (Inner Mongolia)", "country": "CN", "provenance": "verbatim", "source": "fda-inspection-classification.md"}
+    },
+    {
+      "id": 14, "label": "different", "transformation": "substring collision",
+      "note": "Documented: naive substring match on 'BGI' returns Webgistix Corp.",
+      "a": {"name": "BGI Group", "country": "CN", "provenance": "verbatim", "source": "federal-register.md"},
+      "b": {"name": "Webgistix Corp", "country": "US", "provenance": "verbatim", "source": "fda-inspection-classification.md"}
+    },
+    {
+      "id": 15, "label": "different", "transformation": "sibling subsidiaries",
+      "a": {"name": "CSPC Ouyi", "country": "CN", "provenance": "verbatim", "source": "oasis-import-refusals.md"},
+      "b": {"name": "CSPC Zhongnuo", "country": "CN", "provenance": "verbatim", "source": "oasis-import-refusals.md"}
+    },
+    {
+      "id": 16, "label": "different", "transformation": "sibling subsidiaries",
+      "a": {"name": "CSPC Cenway (Tianjin)", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "CSPC Inner Mongolia Zhongnuo", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"}
+    },
+    {
+      "id": 17, "label": "different", "contested": true, "transformation": "two sites, one parent",
+      "note": "CONTESTED LABEL. Same corporate parent (The United Laboratories), different establishments. Labeled different because the graph resolves to FACILITIES. A reader who models corporate parents would label this same - argue with the label, not the score.",
+      "a": {"name": "UNITED LABORATORIES CHENGDU", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "The United Laboratories (Inner Mongolia)", "country": "CN", "provenance": "verbatim", "source": "fda-inspection-classification.md"}
+    },
+    {
+      "id": 18, "label": "different", "contested": true, "transformation": "parent vs subsidiary",
+      "note": "CONTESTED LABEL. DECRS REGISTRANT_NAME (the parent) differs from FIRM_NAME on 33.3% of rows; this is that seam. Different legal entities in different countries.",
+      "a": {"name": "Centrient Pharmaceuticals Netherlands B.V.", "country": "NL", "provenance": "verbatim", "source": "fda-inspection-classification.md"},
+      "b": {"name": "Centrient Pharmaceuticals India Private Limited", "country": "IN", "provenance": "verbatim", "source": "fda-inspection-classification.md"}
+    },
+    {
+      "id": 19, "label": "different", "transformation": "near-identical short token",
+      "note": "MGI was spun out of BGI. Edit distance is 1 on the distinctive token.",
+      "a": {"name": "MGI Tech", "country": "CN", "provenance": "verbatim", "source": "federal-register.md"},
+      "b": {"name": "BGI Group", "country": "CN", "provenance": "verbatim", "source": "federal-register.md"}
+    },
+    {
+      "id": 20, "label": "different", "transformation": "unrelated 6-APA holders",
+      "a": {"name": "Sinopharm Weiqida", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"},
+      "b": {"name": "Inner Mongolia Changsheng", "country": "CN", "provenance": "verbatim", "source": "layer2-official-lists.md"}
+    }
+  ]
+}
