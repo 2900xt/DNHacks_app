@@ -1,0 +1,44 @@
+[
+  {
+    "src": "api:amoxicillin-trihydrate",
+    "dst": "drug:amoxicillin",
+    "rel": "formulated_into",
+    "layer": 3,
+    "citation": "Hand-curated demo bridge: the active ingredient as shipped is formulated into the finished drug product. Placeholder for Nikhil's openFDA lane (nodes.openfda.json), which will supply the real product:ndc: chain. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "api:ampicillin",
+    "dst": "drug:ampicillin",
+    "rel": "formulated_into",
+    "layer": 3,
+    "citation": "Hand-curated demo bridge: the active ingredient as shipped is formulated into the finished drug product. Placeholder for Nikhil's openFDA lane (nodes.openfda.json), which will supply the real product:ndc: chain. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "api:piperacillin",
+    "dst": "drug:piperacillin",
+    "rel": "formulated_into",
+    "layer": 3,
+    "citation": "Hand-curated demo bridge: the active ingredient as shipped is formulated into the finished drug product. Placeholder for Nikhil's openFDA lane (nodes.openfda.json), which will supply the real product:ndc: chain. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "api:dicloxacillin-sodium",
+    "dst": "drug:dicloxacillin",
+    "rel": "formulated_into",
+    "layer": 3,
+    "citation": "Hand-curated demo bridge: the active ingredient as shipped is formulated into the finished drug product. Placeholder for Nikhil's openFDA lane (nodes.openfda.json), which will supply the real product:ndc: chain. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "api:nafcillin-sodium",
+    "dst": "drug:nafcillin",
+    "rel": "formulated_into",
+    "layer": 3,
+    "citation": "Hand-curated demo bridge: the active ingredient as shipped is formulated into the finished drug product. Placeholder for Nikhil's openFDA lane (nodes.openfda.json), which will supply the real product:ndc: chain. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "api:oxacillin-sodium",
+    "dst": "drug:oxacillin",
+    "rel": "formulated_into",
+    "layer": 3,
+    "citation": "Hand-curated demo bridge: the active ingredient as shipped is formulated into the finished drug product. Placeholder for Nikhil's openFDA lane (nodes.openfda.json), which will supply the real product:ndc: chain. https://www.cfr.org/reports/the-pharma-choke-point"
+  }
+]

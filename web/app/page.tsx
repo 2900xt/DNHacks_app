@@ -1,128 +1,91 @@
-"use client";
+// Server component. Loads the merged graph once, on the server, and hands the
+// client only what the console renders.
+//
+// Why not import the JSON straight into the client: signals.json alone is ~3,100
+// rows and would ship every one of them to the browser. Only signals attached to
+// a node that is actually in this subgraph cross the boundary.
 
-import { useMemo } from "react";
-import { useDepot, useHistory, useTicker } from "./lib/useDepot";
-import { API_BASE, elapsed, fmt, type DepotNode } from "./lib/depot";
+import { loadGraph, getBacktest, counts } from './lib/graph'
+import type { Compliance, NodeId, Signal } from './lib/types'
+import Console, { type Payload } from './components/Console'
+import { APA } from './lib/demo'
+
+const SIGNALS_PER_NODE = 8
 
 export default function Page() {
-  useTicker(1000);
-  const { nodes, link, lastEventAt } = useDepot();
-  const list = useMemo(() => Object.values(nodes), [nodes]);
-  const primary: DepotNode | undefined = list.find((n) => n.latest) ?? list[0];
-  const points = useHistory(primary?.node_id, lastEventAt);
+  const g = loadGraph()
 
-  if (!primary) {
-    return (
-      <main>
-        <h1>CHOKEPOINT — depot viewer</h1>
-        <p>
-          No bins. Is the API up? <code>make dev</code>
-        </p>
-      </main>
-    );
+  const nodes = [...g.nodes.values()]
+  const edges = g.edges
+
+  const compliance: Record<NodeId, Compliance> = {}
+  for (const n of nodes) {
+    const c = g.compliance.get(n.id)
+    if (c) compliance[n.id] = c
   }
 
-  const r = primary.latest ?? {};
-  const spec = primary.spec ?? {};
-  const ceiling = spec.mkt_c_max;
+  const signals: Record<NodeId, Signal[]> = {}
+  for (const n of nodes) {
+    const s = g.signals.get(n.id)
+    if (s?.length) signals[n.id] = s.slice(0, SIGNALS_PER_NODE)
+  }
 
-  // The stream fires on state change, not on the clock, so the server's second
-  // count freezes on screen. Advance it locally.
-  const held =
-    typeof primary.excursion_s === "number"
-      ? primary.excursion_s + (lastEventAt ? (Date.now() - lastEventAt) / 1000 : 0)
-      : null;
+  const layerCounts: Record<number, number> = {}
+  for (const e of edges) layerCounts[e.layer] = (layerCounts[e.layer] ?? 0) + 1
 
-  return (
-    <main>
-      <h1>CHOKEPOINT — depot viewer</h1>
-      <p style={{ color: "#666", margin: 0 }}>
-        {link} · {primary.device_id ?? "no device"} ·{" "}
-        <button
-          onClick={() =>
-            fetch(`${API_BASE}/depot/nodes/${primary.node_id}/reset`, { method: "POST" })
-          }
-        >
-          reset
-        </button>
-      </p>
+  // Compliance on a company is inherited from its jurisdiction — the TAA verdict
+  // is a country fact, and the graph already carries company -> country. Without
+  // this the beat-5 overlay colours three country boxes and nothing else.
+  for (const e of edges) {
+    if (e.rel !== 'incorporated_in') continue
+    const country = compliance[e.dst]
+    if (country && !compliance[e.src]) {
+      compliance[e.src] = {
+        node_id: e.src,
+        taa_pass: country.taa_pass,
+        on_1260h: country.on_1260h,
+        evidence: {
+          ...country.evidence,
+          inherited_from: e.dst,
+          reason: `Inherited from ${e.dst}: ${String(country.evidence?.reason ?? '')}`,
+        },
+      }
+    }
+  }
 
-      <hr />
+  const ids = (p: string) => nodes.filter((n) => n.id.startsWith(p)).map((n) => n.id)
 
-      <h2>{primary.label}</h2>
-      <p className="status" data-s={primary.status}>
-        {primary.status}
-        {held !== null && <span> · out of band {elapsed(held)}</span>}
-      </p>
-      {primary.reason && <p className="reason">{primary.reason}</p>}
+  const payload: Payload = {
+    nodes,
+    edges,
+    compliance,
+    signals,
+    counts: counts(),
+    layerCounts,
+    backtest: getBacktest(),
+    ctx: {
+      fanout: [],
+      companies: ids('company:'),
+      countries: ids('country:'),
+      drugs: ids('drug:'),
+      apis: ids('api:'),
+    },
+  }
 
-      <h2>Latest reading</h2>
-      <table>
-        <tbody>
-          <Row k="temp_c (BME680, authoritative)" v={`${fmt(r.temp_c)} °C`} />
-          <Row k="temp_c_xcheck (DHT11)" v={`${fmt(r.temp_c_xcheck)} °C`} />
-          <Row k="rh_pct" v={`${fmt(r.rh_pct)} %`} />
-          <Row k="rh_pct_xcheck" v={`${fmt(r.rh_pct_xcheck)} %`} />
-          <Row k="pressure_hpa" v={fmt(r.pressure_hpa, 1)} />
-          <Row k="gas_ohms" v={fmt(r.gas_ohms, 0)} />
-          <Row k="voc_index" v={fmt(r.voc_index)} />
-          <Row k="mq2_mv" v={fmt(r.mq2_mv, 0)} />
-          <Row k="ts" v={r.ts ?? "—"} />
-        </tbody>
-      </table>
+  // Everything downstream of the precursor — beat 4's set, computed once here so
+  // the client never has to.
+  const out = new Map<NodeId, NodeId[]>()
+  for (const e of edges) (out.get(e.src) ?? out.set(e.src, []).get(e.src)!).push(e.dst)
+  const seen = new Set<NodeId>([APA])
+  const q: NodeId[] = [APA]
+  while (q.length) {
+    for (const d of out.get(q.shift()!) ?? []) {
+      if (seen.has(d)) continue
+      seen.add(d)
+      q.push(d)
+    }
+  }
+  payload.ctx.fanout = [...seen]
 
-      <h2>Evaluation</h2>
-      <table>
-        <tbody>
-          <Row k="arithmetic mean" v={`${fmt(primary.mean_c)} °C`} />
-          <Row
-            k="mean kinetic temperature"
-            v={`${fmt(primary.mkt_c)} °C${primary.mkt_provisional ? " (provisional)" : ""}`}
-          />
-          <Row k="mkt ceiling" v={`${fmt(ceiling, 1)} °C`} />
-          <Row k="band" v={`${fmt(spec.temp_c_min, 1)} – ${fmt(spec.temp_c_max, 1)} °C`} />
-          <Row k="rh ceiling" v={`${fmt(spec.rh_pct_max, 0)} %`} />
-          <Row k="storage_class" v={primary.storage_class} />
-          <Row k="window" v={`${fmt(primary.window_h, 3)} h · ${primary.n_samples ?? 0} readings`} />
-        </tbody>
-      </table>
-
-      <h2>Downstream drugs ({primary.covers_drugs.length})</h2>
-      <p>{primary.covers_drugs.join(", ") || "—"}</p>
-
-      <h2>History ({points.length} points)</h2>
-      <p style={{ color: "#666" }}>
-        {points.length
-          ? `${fmt(points[0].temp_c)} °C → ${fmt(points[points.length - 1].temp_c)} °C over ${fmt(
-              (points[points.length - 1].ts - points[0].ts) / 3600,
-              2,
-            )} h`
-          : "no data"}
-      </p>
-
-      <h2>All bins</h2>
-      <table>
-        <tbody>
-          {list.map((n) => (
-            <tr key={n.node_id}>
-              <th>{n.label}</th>
-              <td>
-                <span className="status" data-s={n.status}>{n.status}</span>{" "}
-                {n.latest?.temp_c != null ? `${fmt(n.latest.temp_c)} °C` : "—"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </main>
-  );
-}
-
-function Row({ k, v }: { k: string; v: string }) {
-  return (
-    <tr>
-      <th>{k}</th>
-      <td>{v}</td>
-    </tr>
-  );
+  return <Console payload={payload} />
 }
