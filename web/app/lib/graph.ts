@@ -9,10 +9,11 @@ import complianceRaw from '@/data/compliance.json'
 import signalsRaw from '@/data/signals.json'
 import binsRaw from '@/data/bins.json'
 import backtestRaw from '@/data/backtest.json'
+import rerouteRaw from '@/data/reroute.json'
 
 import type {
   GraphNode, GraphEdge, Signal, Compliance, Bin,
-  NodeId, CascadeResult, BacktestResult,
+  NodeId, CascadeResult, BacktestResult, RerouteNode, RerouteData,
 } from './types'
 
 export interface Graph {
@@ -139,6 +140,21 @@ export function getSignals(since?: string): Signal[] {
 
 export function getBacktest(): BacktestResult {
   return backtestRaw as BacktestResult
+}
+
+/** AEGIS re-route options for one node, or null if that node has none.
+ *
+ *  The artifact is keyed by node id and covers every precursor/api node in the
+ *  graph, so a lookup works for whatever the operator switches off. Scoring is
+ *  done in `ml/aegis.py`; nothing is recomputed here.
+ */
+export function getReroute(id: NodeId): RerouteNode | null {
+  return (rerouteRaw as RerouteData).nodes[id] ?? null
+}
+
+/** Every node AEGIS can offer a route for. */
+export function rerouteIndex(): Record<NodeId, RerouteNode> {
+  return (rerouteRaw as RerouteData).nodes
 }
 
 export function counts() {

@@ -7,7 +7,7 @@
 // drug, and every number that quantifies blast radius is still computed against
 // the FULL graph, not the reduced one.
 
-import { loadGraph, getBacktest, counts } from './lib/graph'
+import { loadGraph, getBacktest, counts, rerouteIndex } from './lib/graph'
 import type { Compliance, GraphEdge, GraphNode, NodeId, Signal } from './lib/types'
 import Console, { type Payload } from './components/Console'
 import { APA } from './lib/demo'
@@ -125,6 +125,9 @@ export default function Page() {
     counts: counts(),
     layerCounts,
     backtest: getBacktest(),
+    // AEGIS alternates, keyed by node. Server-side because the artifact is
+    // static — the client only ever looks one up.
+    reroute: rerouteIndex(),
     ndcCount,
     labelerCount,
     downstreamOf,

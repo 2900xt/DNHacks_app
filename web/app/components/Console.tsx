@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
-import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
+import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, RerouteNode, Signal } from '../lib/types'
 import { AMOX, BEATS, type BeatCtx, type NodeState } from '../lib/demo'
 import {
   allocate, buildTree, evaluate, impactLine, siblingDrugs, type Health,
@@ -15,6 +15,7 @@ import DepotPanel from './DepotPanel'
 import EvidenceKey from './EvidenceKey'
 import Readout from './Readout'
 import AuditLog, { type AuditEntry, type AuditKind } from './AuditLog'
+import AegisPanel from './AegisPanel'
 
 export interface Payload {
   nodes: GraphNode[]
@@ -24,6 +25,8 @@ export interface Payload {
   counts: { nodes: number; edges: number; signals: number; compliance: number }
   layerCounts: Record<number, number>
   backtest: BacktestResult
+  /** AEGIS re-route options, keyed by node id. From ml/aegis.py --emit-all. */
+  reroute: Record<NodeId, RerouteNode>
   /** Collapsed NDC/labeler counts, keyed by drug id. */
   ndcCount: Record<NodeId, number>
   labelerCount: Record<NodeId, number>
@@ -34,7 +37,7 @@ export interface Payload {
 
 export default function Console({ payload }: { payload: Payload }) {
   const { nodes, edges, compliance, signals, counts, layerCounts,
-          ndcCount, labelerCount, downstreamOf, ctx } = payload
+          ndcCount, labelerCount, downstreamOf, ctx, reroute } = payload
 
   const [beat, setBeat] = useState(0)
   const [selected, setSelected] = useState<NodeId | null>(null)
@@ -88,6 +91,15 @@ export default function Console({ payload }: { payload: Payload }) {
   )
 
   const rootHealth = rollups.get(root)?.health ?? 'ok'
+
+  /** The switched-off node AEGIS has filings for. A product or company has no
+   *  DMF of its own; its re-route runs through the API above it, so we walk the
+   *  compromised set and take the first node the artifact actually covers. */
+  const aegisNode = useMemo<NodeId | null>(() => {
+    for (const id of compromised) if (reroute[id]) return id
+    return compromised.size ? [...compromised][0] : null
+  }, [compromised, reroute])
+  const aegisFor = aegisNode ? reroute[aegisNode] ?? null : null
 
   const toggle = useCallback((id: NodeId) => {
     setCompromised((prev) => {
@@ -350,6 +362,21 @@ export default function Console({ payload }: { payload: Payload }) {
         <aside className="ov ov-depot" aria-label="Depot readings">
           <DepotPanel onBreach={onBreach} />
         </aside>
+
+        {/* AEGIS. Appears only once something is switched off, and answers the
+            question the globe cannot: not "which countries still supply this"
+            but "which firms specifically, and would routing to them help".
+            Keyed on the first compromised node that AEGIS has filings for -
+            switching off a product re-routes through its API, not on its own. */}
+        {rerouting && (
+          <aside className="ov ov-aegis" aria-label="Re-route options">
+            <AegisPanel
+              reroute={aegisFor}
+              downNode={aegisNode}
+              label={aegisNode ? nodeLabel(aegisNode) : ''}
+            />
+          </aside>
+        )}
 
         {sel && (
           <aside className="ov ov-node" aria-label="Selection">
