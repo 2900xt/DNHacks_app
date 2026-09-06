@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "sns-depot-01-bin-a",
+    "label": "SNS Depot 01 — Bin A (6-APA)",
+    "covers_drugs": [
+      "drug:amoxicillin",
+      "drug:ampicillin",
+      "drug:piperacillin",
+      "drug:dicloxacillin",
+      "drug:nafcillin",
+      "drug:oxacillin"
+    ]
+  },
+  {
+    "id": "sns-depot-01-bin-c",
+    "label": "SNS Depot 01 — Bin C (cold room)",
+    "covers_drugs": []
+  }
+]

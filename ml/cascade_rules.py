@@ -1,6 +1,6 @@
 """Risk rules for the CHOKEPOINT cascade — the thresholds and the evidence.
 
-The graph traversal (BFS up the dependency edges) lives in `web/src/lib/graph.ts`.
+The graph traversal (BFS up the dependency edges) lives in `web/app/lib/graph.ts`.
 This module owns *why* a node turns red, and what evidence we show for it.
 
 Decision 0003: transparent rules, not a model. Every red node can name the rule
@@ -64,6 +64,10 @@ Semantics = Literal["event", "state"]
 #: How each signal kind behaves. This is the table that fixes the 90-day problem.
 SIGNAL_SEMANTICS: dict[str, Semantics] = {
     "import_refusal": "event",           # OASIS - happened on a date
+    # Split out by the OASIS loader and always emitted at severity "low": the
+    # charge is administrative ("not listed with FDA"), not a quality finding.
+    # Declared here so it stops falling through the .get() default silently.
+    "import_refusal_paperwork": "event",
     "regulatory_action": "event",        # Federal Register - published on a date
     "news_event": "event",               # GDELT - reported on a date
     "recall": "event",                   # openFDA enforcement
@@ -112,11 +116,26 @@ def _parse_date(value) -> date:
 # --------------------------------------------------------------------------
 
 
+#: Event severities too weak to turn a node red on their own. The OASIS loader
+#: emits `import_refusal_paperwork` at "low" because the charge is
+#: administrative rather than a quality finding; without this floor those 75
+#: rows fired the rule exactly as hard as a substantive refusal, which defeats
+#: the reason the loader separates them. States are unaffected - those are
+#: judged by classification in _is_adverse_state().
+WEAK_EVENT_SEVERITIES = frozenset({"low", "info"})
+
+
 def firing_events(signals: Iterable[Signal], *, as_of: date) -> list[Signal]:
-    """Event signals inside the recency window."""
+    """Event signals inside the recency window, above the severity floor."""
     cutoff = as_of - timedelta(days=EVENT_WINDOW_DAYS)
     return sorted(
-        (s for s in signals if s.semantics == "event" and cutoff <= s.observed_at <= as_of),
+        (
+            s
+            for s in signals
+            if s.semantics == "event"
+            and s.severity not in WEAK_EVENT_SEVERITIES
+            and cutoff <= s.observed_at <= as_of
+        ),
         key=lambda s: s.observed_at,
         reverse=True,
     )
@@ -246,7 +265,7 @@ def evaluate(
 
 
 def thresholds() -> dict:
-    """The numbers, for `web/src/lib/graph.ts`. Keep this the single source."""
+    """The numbers, for `web/app/lib/graph.ts`. Keep this the single source."""
     return {
         "rule": RULE_ID,
         "rule_text": RULE_TEXT,

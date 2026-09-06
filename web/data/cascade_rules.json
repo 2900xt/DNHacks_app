@@ -8,6 +8,7 @@
   ],
   "signal_semantics": {
     "import_refusal": "event",
+    "import_refusal_paperwork": "event",
     "regulatory_action": "event",
     "news_event": "event",
     "recall": "event",

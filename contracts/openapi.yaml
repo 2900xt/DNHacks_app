@@ -3,9 +3,11 @@ info:
   title: DNHacks_app API
   version: 0.1.0
   description: |
-    HTTP surface of `services/api`. PLACEHOLDER SPINE — replace paths with the real
-    ones once the idea is locked, but keep this file as the single source of truth
-    for what the web UI is allowed to call.
+    HTTP surface of `services/api`. These are the real paths — verified against the
+    running service, and this file is the single source of truth for what the web UI
+    is allowed to call. `/detections` and `/stream` were removed Sun 00:15: they were
+    template scaffolding for a detect-and-display pipeline this project never built,
+    and no producer or consumer ever existed for either.
 
 servers:
   - url: http://localhost:8000
@@ -38,38 +40,6 @@ paths:
       responses:
         "202": { description: Accepted }
         "400": { description: Schema violation }
-
-  /detections:
-    get:
-      summary: Operator UI polls (or replace with the /stream websocket below).
-      parameters:
-        - in: query
-          name: since
-          schema: { type: string, format: date-time }
-        - in: query
-          name: limit
-          schema: { type: integer, default: 100, maximum: 1000 }
-      responses:
-        "200":
-          description: Newest first
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "./schemas/detection.schema.json"
-
-  /stream:
-    get:
-      summary: |
-        Server-sent events of `Detection`. Prefer this over polling for the demo —
-        a live-updating screen reads as far more impressive than a refresh button.
-      responses:
-        "200":
-          description: text/event-stream of Detection objects
-          content:
-            text/event-stream:
-              schema: { type: string }
 
   /depot/nodes:
     get:

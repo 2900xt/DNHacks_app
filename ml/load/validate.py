@@ -70,15 +70,24 @@ VALID_LAYERS = {1, 2, 3}
 # `instance_of` and `markets` were added Sat 20:50 after reconciling against
 # nikhil/openfda-graph; without them his 1,526 legitimate edges warn and drown
 # the real findings.
+#
+# Sun 00:05: reconciled again against what the artifacts actually contain.
+# `formulated_from` -> `formulated_into` and `instance_of` -> `marketed_as`
+# (Nikhil's rename), and `operated_by` / `hosts` arrived with Parth's signal
+# lane. All four were in the data and none were in this set, which is why the
+# validator was emitting 1,532 warnings — every one of them vocabulary drift
+# rather than a data fault. `labeled_by` is kept though currently unused.
 KNOWN_RELS = {
     "feeds",            # precursor -> api          (Yash, layer 3)
-    "produced_by",      # precursor/api -> company
-    "formulated_from",  # product -> api            (Nikhil)
-    "instance_of",      # product -> drug           (Nikhil)
+    "produced_by",      # precursor/api/drug -> company/facility
+    "formulated_into",  # api -> product            (Nikhil)
+    "marketed_as",      # drug -> product           (Nikhil)
     "markets",          # company -> product        (Nikhil)
     "incorporated_in",  # company -> country
     "active_in",        # company -> country        (Nikhil)
     "labeled_by",       # product -> company
+    "operated_by",      # facility -> company       (Parth, layer 2 via ER)
+    "hosts",            # country/company -> facility
 }
 
 # Evidence has to carry a source. A PASS/FAIL with no citation is exactly what
