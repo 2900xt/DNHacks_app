@@ -33,6 +33,24 @@ threshold   prec    rec     F1    acc
      0.95   0.89   0.80   0.84   0.85
 ```
 
+## Ablation — what the country guard is actually worth
+
+`python3 ml/entity_resolution.py --ablate`
+
+| Config | Precision | Recall | F1 | Accuracy | False positives |
+|---|---:|---:|---:|---:|---|
+| With country guard | **0.90** | 0.90 | **0.90** | 0.90 | #17 |
+| **Without** country guard | **0.75** | 0.90 | 0.82 | 0.80 | #13, #17, #18 |
+
+❗ **The guard carries 0.15 of the precision.** Pairs #13 (`United Laboratories
+Manufacturing, LLC` 🇺🇸 vs `The United Laboratories (Inner Mongolia)` 🇨🇳) and #18
+(`Centrient Pharmaceuticals Netherlands B.V.` vs `Centrient Pharmaceuticals India`) have
+**identical token cores** — `{united}` and `{centrient}`. Nothing in the *name* separates
+them. Only the country does.
+
+**So the honest number depends on coverage:** wherever country is missing, expect
+precision nearer **0.75** than 0.90. Say that before someone asks.
+
 ## 🔴 The failure slide — 2 of 20, not hidden
 
 ### FN #3 — `Sun Pharmaceutical Industries (prev. Ranbaxy)` vs `SUN PHARMA IND LTD`
