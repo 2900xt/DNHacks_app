@@ -6,71 +6,26 @@
     "country": null,
     "critical": false,
     "attrs": {
-      "active_us_dmf_holders": 8,
-      "chinese_holders": 4,
-      "distinct_owners_max": 7,
-      "owners_note": "8 filings, at most 7 owners — United Laboratories Chengdu and Inner Mongolia share a parent",
+      "feeds_drugs": [
+        "Amoxicillin",
+        "Ampicillin",
+        "Piperacillin",
+        "Dicloxacillin",
+        "Nafcillin",
+        "Oxacillin"
+      ],
+      "eo13944_note": "4 penicillins are on the EO 13944 essential medicines list; 3 of the 6 we trace to 6-APA. Penicillin G is a 7th derivative, not one of the six. The numerator and denominator count different things — do not collapse them.",
       "inactive_holders": [
         {
           "dmf": 17694,
-          "holder": "NCPC HEBEI HUAMIN",
+          "holder": "NCPC HEBEI HUAMIN PHARMACEUTICAL CO LTD",
           "status": "I",
-          "note": "inactive, not absent"
+          "filed": "2004-09-09",
+          "note": "inactive, not absent — say inactive, it is sharper and true"
         }
       ],
-      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
-  },
-  {
-    "id": "drug:amoxicillin",
-    "type": "drug",
-    "label": "Amoxicillin",
-    "country": null,
-    "critical": true,
-    "attrs": {
-      "eo13944_listed": true,
-      "mcm_use_only": true,
-      "category": "Biological Threat MCMs",
-      "active_dmfs": 17,
-      "distinct_holders": 12,
-      "family_note": "4 penicillins are on the EO 13944 list; 3 of the 6 we trace to 6-APA (amoxicillin, ampicillin, piperacillin). Penicillin G is a 7th derivative, not one of the six.",
-      "source": "FDA EO 13944 Essential Medicines list, Oct 30 2020",
-      "source_url": "https://www.fda.gov/media/143406/download"
-    },
-    "resolved_by": null
-  },
-  {
-    "id": "company:name:sinopharm-weiqida",
-    "type": "company",
-    "label": "SINOPHARM WEIQIDA",
-    "country": "cn",
-    "critical": false,
-    "attrs": {
-      "dmf": 30779,
-      "dmf_status": "A",
-      "dmf_filed": "2016",
-      "dmf_subject": "6-AMINOPENICILLANIC ACID",
-      "state_owned": true,
-      "country_confirmed_via": "DECRS (ISO3 CHN)",
-      "on_1260h": false,
-      "trap_note": "State ownership and 1260H designation are different things. This firm is state-owned, makes 6-APA, and is NOT on 1260H — do not conflate.",
-      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
-      "country_evidence": "DECRS = CHN"
-    },
-    "resolved_by": "fuzzy"
-  },
-  {
-    "id": "country:cn",
-    "type": "country",
-    "label": "China",
-    "country": "cn",
-    "critical": false,
-    "attrs": {
-      "taa_designated": false,
-      "api_manufacture_establishments": 511,
-      "source": "FDA DECRS drls_reg, Sep 4 2026"
+      "source": "hand-curated from published synthesis routes",
+      "source_url": "https://www.cfr.org/reports/the-pharma-choke-point"
     },
     "resolved_by": null
   },
@@ -83,10 +38,12 @@
     "attrs": {
       "dmf": 8757,
       "dmf_status": "A",
-      "dmf_filed": "1990",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "1990-09-25",
+      "dmf_subject": "6-APA (6 AMINOPENICILLANIC ACID)",
       "country_evidence": "DECRS 'Sandoz GmbH' = AUT",
-      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment"
     },
     "resolved_by": "fuzzy"
   },
@@ -97,7 +54,7 @@
     "country": "at",
     "critical": false,
     "attrs": {
-      "source": "FDA DECRS drls_reg, Sep 4 2026"
+      "source": "DECRS cross-reference (curated)"
     },
     "resolved_by": null
   },
@@ -110,27 +67,31 @@
     "attrs": {
       "dmf": 12348,
       "dmf_status": "A",
-      "dmf_filed": "1997",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "1997-01-31",
+      "dmf_subject": "6-AMINO PENICILLANIC ACID",
       "country_evidence": "NOT in DECRS. Only 'Antibioticos do Brasil Ltda' (BRA) matches, a different entity. Spain is likely but unverified — do not assert it.",
       "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment",
       "country_unverified": true
     },
     "resolved_by": "fuzzy"
   },
   {
-    "id": "company:name:pure-and-cure-healthcare-pvt-ltd",
+    "id": "company:name:pure-and-cure-healthcare-private-ltd",
     "type": "company",
-    "label": "PURE AND CURE HEALTHCARE PVT LTD",
+    "label": "PURE AND CURE HEALTHCARE PRIVATE LTD",
     "country": "in",
     "critical": false,
     "attrs": {
       "dmf": 18525,
       "dmf_status": "A",
-      "dmf_filed": "2005",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "2005-11-08",
+      "dmf_subject": "6-AMINOPENICILLANIC ACID (6-APA)",
       "country_evidence": "DECRS = IND",
-      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment"
     },
     "resolved_by": "fuzzy"
   },
@@ -141,74 +102,190 @@
     "country": "in",
     "critical": false,
     "attrs": {
-      "source": "FDA DECRS drls_reg, Sep 4 2026"
+      "source": "DECRS cross-reference (curated)"
     },
     "resolved_by": null
   },
   {
-    "id": "company:name:inner-mongolia-changsheng",
+    "id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
     "type": "company",
-    "label": "INNER MONGOLIA CHANGSHENG",
+    "label": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
     "country": "cn",
     "critical": false,
     "attrs": {
       "dmf": 19525,
       "dmf_status": "A",
-      "dmf_filed": "2006",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "2006-06-19",
+      "dmf_subject": "6-AMINOPENICILLANIC ACID",
       "country_evidence": "DECRS = CHN",
-      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment"
     },
     "resolved_by": "fuzzy"
   },
   {
-    "id": "company:name:united-laboratories-chengdu",
+    "id": "country:cn",
+    "type": "country",
+    "label": "China",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "source": "DECRS cross-reference (curated)"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "company:name:united-laboratories-chengdu-co-ltd",
     "type": "company",
-    "label": "UNITED LABORATORIES CHENGDU",
+    "label": "UNITED LABORATORIES CHENGDU CO LTD",
     "country": "cn",
     "critical": false,
     "attrs": {
       "dmf": 21994,
       "dmf_status": "A",
-      "dmf_filed": "2008",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "2008-09-16",
+      "dmf_subject": "6-AMINO-PENICILLANIC ACID (6-APA)",
       "country_evidence": "partial — DECRS carries TUL Inner Mongolia and Zhuhai (both CHN), not the Chengdu site",
       "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment",
       "parent": "The United Laboratories"
     },
     "resolved_by": "fuzzy"
   },
   {
-    "id": "company:name:the-united-laboratories-inner-mongolia",
+    "id": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
     "type": "company",
-    "label": "THE UNITED LABORATORIES INNER MONGOLIA",
+    "label": "THE UNITED LABORATORIES INNER MONGOLIA CO LTD",
     "country": "cn",
     "critical": false,
     "attrs": {
       "dmf": 27248,
       "dmf_status": "A",
-      "dmf_filed": "2013",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "2013-06-04",
+      "dmf_subject": "6-AMINO-PENICILLANIC ACID (6-APA) BULK DRUG SUBSTANCE",
       "country_evidence": "DECRS = CHN",
       "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment",
       "parent": "The United Laboratories"
     },
     "resolved_by": "fuzzy"
   },
   {
-    "id": "company:name:apitoria-pharma-pvt-ltd",
+    "id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
     "type": "company",
-    "label": "APITORIA PHARMA PVT LTD",
+    "label": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "dmf": 30779,
+      "dmf_status": "A",
+      "dmf_type": "II",
+      "dmf_filed": "2016-08-02",
+      "dmf_subject": "6-AMINOPENICILLANIC ACID",
+      "country_evidence": "DECRS = CHN",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment",
+      "state_owned": true
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "company:name:apitoria-pharma-private-ltd",
+    "type": "company",
+    "label": "APITORIA PHARMA PRIVATE LTD",
     "country": "in",
     "critical": false,
     "attrs": {
       "dmf": 40387,
       "dmf_status": "A",
-      "dmf_filed": "2024",
-      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "dmf_type": "II",
+      "dmf_filed": "2024-08-28",
+      "dmf_subject": "6-AMINOPENICILLANIC ACID (6-APA)",
       "country_evidence": "DECRS = IND",
-      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "source_url": "https://www.fda.gov/media/192069/download?attachment"
     },
     "resolved_by": "fuzzy"
+  },
+  {
+    "id": "drug:amoxicillin",
+    "type": "drug",
+    "label": "Amoxicillin",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_dmfs": 17,
+      "distinct_dmf_holders": 12,
+      "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "drug:ampicillin",
+    "type": "drug",
+    "label": "Ampicillin",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_dmfs": 25,
+      "distinct_dmf_holders": 14,
+      "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "drug:piperacillin",
+    "type": "drug",
+    "label": "Piperacillin",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_dmfs": 17,
+      "distinct_dmf_holders": 12,
+      "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "drug:dicloxacillin",
+    "type": "drug",
+    "label": "Dicloxacillin",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_dmfs": 1,
+      "distinct_dmf_holders": 1,
+      "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "drug:nafcillin",
+    "type": "drug",
+    "label": "Nafcillin",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_dmfs": 5,
+      "distinct_dmf_holders": 3,
+      "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "drug:oxacillin",
+    "type": "drug",
+    "label": "Oxacillin",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_dmfs": 5,
+      "distinct_dmf_holders": 4,
+      "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
   }
 ]
