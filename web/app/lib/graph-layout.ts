@@ -1,23 +1,32 @@
-// Deterministic layered layout for the sourcing graph.
+// Deterministic banded layout for the sourcing graph.
 //
 // WHY NOT force-directed: the fan-out is the demo's payoff, and it only reads if
-// one node in the precursor column visibly sprays into six in the drug column.
-// A physics sim re-settles differently every run and can bury that geometry at
-// the worst possible moment. Columns are assigned by node TYPE, which is a fixed
-// semantic order, so there is nothing to solve for — only within-column ordering,
+// one node in the precursor band visibly sprays into six in the drug band. A
+// physics sim re-settles differently every run and can bury that geometry at the
+// worst possible moment. Bands are assigned by node TYPE, which is a fixed
+// semantic order, so there is nothing to solve for — only within-band ordering,
 // which a two-pass barycentre sweep handles at this size.
 //
-// The column order puts `precursor` in the MIDDLE on purpose. Sourcing collapses
-// inward from countries and companies; product fans outward into APIs and drugs.
-// The picture is an hourglass and 6-APA is the waist. That shape IS the thesis.
+// WHY VERTICAL: the graph lives in a column one third of the screen wide and the
+// full height of it. Material flows DOWN — jurisdiction, site, filing holder,
+// precursor, active ingredient, drug product — and `precursor` sits in the
+// middle on purpose. Sourcing collapses inward from countries and companies;
+// product fans outward into APIs and drugs. The picture is an hourglass and
+// 6-APA is the waist. That shape IS the thesis, and it is the shape a tall
+// narrow panel was made for.
+//
+// Wide bands WRAP rather than stretch. Ten DMF holders laid out in one row would
+// force the whole diagram to ten node-widths, and the SVG is fitted `meet` — so
+// that one row would set the scale for everything and shrink every label past
+// reading. Three across is what keeps the diagram's aspect near the panel's.
 
 import type { GraphEdge, GraphNode, NodeId, NodeType } from './types'
 
-export const COLUMNS: NodeType[] = [
+export const BANDS: NodeType[] = [
   'country', 'facility', 'company', 'precursor', 'api', 'drug', 'product',
 ]
 
-export const COLUMN_LABEL: Record<string, string> = {
+export const BAND_LABEL: Record<string, string> = {
   country: 'Jurisdiction',
   facility: 'Site',
   company: 'DMF holder',
@@ -27,28 +36,39 @@ export const COLUMN_LABEL: Record<string, string> = {
   product: 'NDC',
 }
 
-// Sized against how the diagram actually lands on screen, not against the page.
-// The SVG is fitted `meet` into a panel roughly 4.5:1, while the diagram is
-// about 2:1 — so the HEIGHT is what sets the scale, and every pixel of viewBox
-// height is paid for at ~0.6x on the projector. Rows are therefore tight and
-// columns are generous: widening the diagram is free until it becomes the
-// limiting dimension, and it buys ~25 characters of label instead of 21.
-export const NODE_W = 200
-export const NODE_H = 38
-export const COL_GAP = 256
-export const ROW_GAP = 46
-export const PAD_X = 18
-export const PAD_TOP = 34
-// The caption is an HTML overlay on .map-wrap, not part of the SVG, so the
-// diagram only needs breathing room here — not a reserved caption band.
-export const PAD_BOTTOM = 14
+/** Kept as an alias: the inspector and older call sites read column labels. */
+export const COLUMN_LABEL = BAND_LABEL
+export const COLUMNS = BANDS
+
+export const NODE_W = 190
+export const NODE_H = 40
+/** Horizontal gap between nodes inside one band row. */
+export const COL_GAP = 16
+/** Vertical gap between wrapped rows inside one band. */
+export const ROW_GAP = 18
+/** Nodes per row before a band wraps. Three keeps the diagram near 0.8:1. */
+export const PER_ROW = 3
+export const BAND_LABEL_H = 22
+export const BAND_GAP = 14
+export const PAD_X = 20
+export const PAD_TOP = 14
+export const PAD_BOTTOM = 16
 
 export interface Placed {
   id: NodeId
   node: GraphNode
-  col: number
+  /** Index into BANDS. */
+  band: number
   x: number
   y: number
+}
+
+export interface Band {
+  band: number
+  type: NodeType
+  /** Baseline of the band's label, above its first row of nodes. */
+  labelY: number
+  count: number
 }
 
 export interface Layout {
@@ -56,7 +76,7 @@ export interface Layout {
   pos: Map<NodeId, Placed>
   width: number
   height: number
-  columns: { col: number; type: NodeType; x: number; count: number }[]
+  bands: Band[]
 }
 
 /**
@@ -66,7 +86,7 @@ export interface Layout {
  * incorporated_in CN"), which point the opposite way from how material actually
  * moves. Drawing them raw gives a picture with arrows colliding in the middle.
  * This maps each relation to the direction the material travels, so every arrow
- * on screen points the same way and the chain reads left to right. The reference
+ * on screen points the same way and the chain reads top to bottom. The reference
  * direction is preserved untouched in the data and shown in the inspector.
  */
 export function flowOf(e: GraphEdge): [NodeId, NodeId] {
@@ -80,27 +100,58 @@ export function flowOf(e: GraphEdge): [NodeId, NodeId] {
   }
 }
 
-function colOf(n: GraphNode): number {
-  const i = COLUMNS.indexOf(n.type)
-  return i === -1 ? COLUMNS.length : i
+/**
+ * What the arrow says, read in the direction it points.
+ *
+ * The two relations `flowOf` reverses get their active voice back — a country
+ * "incorporates" a company, a company "produces" the precursor — because an
+ * arrow pointing one way with a verb facing the other is worse than no verb.
+ */
+export const REL_VERB: Record<string, string> = {
+  feeds: 'feeds',
+  produced_by: 'produces',
+  active_in: 'active in',
+  incorporated_in: 'incorporates',
+  hosts: 'hosts',
+  operated_by: 'operated by',
+  marketed_as: 'marketed as',
+  markets: 'markets',
+  formulated_into: 'formulated into',
+}
+
+export function relVerb(rel: string): string {
+  return REL_VERB[rel] ?? rel.replace(/_/g, ' ')
+}
+
+function bandOf(n: GraphNode): number {
+  const i = BANDS.indexOf(n.type)
+  return i === -1 ? BANDS.length : i
+}
+
+/** Split n items into rows of at most PER_ROW, balanced so no row is a runt. */
+function rowSizes(n: number): number[] {
+  const rows = Math.max(1, Math.ceil(n / PER_ROW))
+  const base = Math.floor(n / rows)
+  const extra = n % rows
+  return Array.from({ length: rows }, (_, i) => base + (i < extra ? 1 : 0))
 }
 
 export function layoutGraph(nodes: GraphNode[], edges: GraphEdge[]): Layout {
   const buckets = new Map<number, GraphNode[]>()
   for (const n of nodes) {
-    const c = colOf(n)
-    ;(buckets.get(c) ?? buckets.set(c, []).get(c)!).push(n)
+    const b = bandOf(n)
+    ;(buckets.get(b) ?? buckets.set(b, []).get(b)!).push(n)
   }
 
-  // Drop empty columns so a lane nobody has loaded yet (product:, before the
+  // Drop empty bands so a lane nobody has loaded yet (product:, before the
   // openFDA lane lands) does not leave a blank gutter mid-diagram.
   const used = [...buckets.keys()].sort((a, b) => a - b)
 
   const order = new Map<number, NodeId[]>()
-  for (const c of used) {
-    order.set(c, buckets.get(c)!
+  for (const b of used) {
+    order.set(b, buckets.get(b)!
       .slice()
-      .sort((a, b) => (a.label ?? a.id).localeCompare(b.label ?? b.id))
+      .sort((x, y) => (x.label ?? x.id).localeCompare(y.label ?? y.id))
       .map((n) => n.id))
   }
 
@@ -118,54 +169,71 @@ export function layoutGraph(nodes: GraphNode[], edges: GraphEdge[]): Layout {
   }
   reindex()
 
-  // Two sweeps is enough to settle ~24 nodes and keeps the result stable run to
+  // Two sweeps is enough to settle ~28 nodes and keeps the result stable run to
   // run. Nodes with no placed neighbour keep their alphabetical rank.
-  const colOfId = new Map<NodeId, number>()
-  for (const n of nodes) colOfId.set(n.id, colOf(n))
+  const bandOfId = new Map<NodeId, number>()
+  for (const n of nodes) bandOfId.set(n.id, bandOf(n))
 
   for (let pass = 0; pass < 2; pass++) {
-    for (const c of used) {
-      const ids = order.get(c)!
+    for (const b of used) {
+      const ids = order.get(b)!
       const bary = new Map<NodeId, number>()
       for (const id of ids) {
-        const ns = (nbr.get(id) ?? []).filter((m) => colOfId.get(m) !== c)
+        const ns = (nbr.get(id) ?? []).filter((m) => bandOfId.get(m) !== b)
         const rs = ns.map((m) => rank.get(m)).filter((r): r is number => r != null)
-        bary.set(id, rs.length ? rs.reduce((a, b) => a + b, 0) / rs.length : rank.get(id)!)
+        bary.set(id, rs.length ? rs.reduce((a, c) => a + c, 0) / rs.length : rank.get(id)!)
       }
-      ids.sort((a, b) => (bary.get(a)! - bary.get(b)!) || a.localeCompare(b))
+      ids.sort((x, y) => (bary.get(x)! - bary.get(y)!) || x.localeCompare(y))
       reindex()
     }
   }
 
   const byId = new Map(nodes.map((n) => [n.id, n]))
-  const tallest = Math.max(...used.map((c) => order.get(c)!.length))
-  const height = PAD_TOP + tallest * ROW_GAP + PAD_BOTTOM
-  const width = PAD_X * 2 + (used.length - 1) * COL_GAP + NODE_W
+  const width = PAD_X * 2 + PER_ROW * NODE_W + (PER_ROW - 1) * COL_GAP
+  const inner = width - PAD_X * 2
 
   const placed: Placed[] = []
-  const columns: Layout['columns'] = []
+  const bands: Band[] = []
+  let y = PAD_TOP
 
-  used.forEach((c, ci) => {
-    const ids = order.get(c)!
-    const x = PAD_X + ci * COL_GAP
-    // Centre each column against the tallest one, so short columns sit on the
-    // diagram's axis instead of hugging the top.
-    const top = PAD_TOP + ((tallest - ids.length) * ROW_GAP) / 2
-    columns.push({ col: c, type: COLUMNS[c] ?? 'product', x, count: ids.length })
-    ids.forEach((id, i) => {
-      placed.push({ id, node: byId.get(id)!, col: c, x, y: top + i * ROW_GAP })
-    })
-  })
+  for (const b of used) {
+    const ids = order.get(b)!
+    bands.push({ band: b, type: BANDS[b] ?? 'product', labelY: y + 10, count: ids.length })
+    y += BAND_LABEL_H
 
-  return { placed, pos: new Map(placed.map((p) => [p.id, p])), width, height, columns }
+    let i = 0
+    for (const size of rowSizes(ids.length)) {
+      // Centre each row on the diagram's axis so a two-node row does not hug
+      // the left edge while the band above it is full width.
+      const rowW = size * NODE_W + (size - 1) * COL_GAP
+      const x0 = PAD_X + (inner - rowW) / 2
+      for (let k = 0; k < size; k++, i++) {
+        const id = ids[i]
+        placed.push({ id, node: byId.get(id)!, band: b, x: x0 + k * (NODE_W + COL_GAP), y })
+      }
+      y += NODE_H + ROW_GAP
+    }
+    y += BAND_GAP - ROW_GAP
+  }
+
+  const height = y - BAND_GAP + ROW_GAP + PAD_BOTTOM
+  return { placed, pos: new Map(placed.map((p) => [p.id, p])), width, height, bands }
 }
 
-/** Cubic bezier between two boxes, entering/leaving horizontally. */
+/** Cubic bezier between two boxes, leaving the bottom and entering the top. */
 export function edgePath(a: Placed, b: Placed): string {
-  const x1 = a.x + NODE_W, y1 = a.y + NODE_H / 2
-  const x2 = b.x,          y2 = b.y + NODE_H / 2
-  // Same column (shouldn't happen, but don't emit NaN if it does).
-  if (Math.abs(x2 - x1) < 1) return `M${x1},${y1} L${x2},${y2}`
-  const dx = Math.max(30, (x2 - x1) * 0.5)
-  return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`
+  const x1 = a.x + NODE_W / 2, y1 = a.y + NODE_H
+  const x2 = b.x + NODE_W / 2, y2 = b.y
+  // Same band (shouldn't happen, but don't emit NaN if it does).
+  if (Math.abs(y2 - y1) < 1) return `M${x1},${y1} L${x2},${y2}`
+  const dy = Math.max(22, (y2 - y1) * 0.45)
+  return `M${x1},${y1} C${x1},${y1 + dy} ${x2},${y2 - dy} ${x2},${y2}`
+}
+
+/** Where an edge's verb sits. For the curve above, t=0.5 is the plain midpoint. */
+export function edgeMid(a: Placed, b: Placed): [number, number] {
+  return [
+    (a.x + b.x) / 2 + NODE_W / 2,
+    (a.y + NODE_H + b.y) / 2,
+  ]
 }
