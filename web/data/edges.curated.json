@@ -52,8 +52,8 @@
     "src": "company:name:sandoz-gmbh",
     "dst": "country:at",
     "rel": "incorporated_in",
-    "layer": 3,
-    "citation": "DECRS cross-reference — DECRS 'Sandoz GmbH' = AUT"
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3002806523, 'Sandoz GmbH', address ends (AUT). https://www.accessdata.fda.gov/cder/drls_reg.zip"
   },
   {
     "src": "precursor:6-apa",
@@ -87,8 +87,8 @@
     "src": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
     "dst": "country:cn",
     "rel": "incorporated_in",
-    "layer": 3,
-    "citation": "DECRS cross-reference — DECRS = CHN"
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3006272230, 'Inner Mongolia Changsheng Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
   },
   {
     "src": "precursor:6-apa",
@@ -115,8 +115,8 @@
     "src": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
     "dst": "country:cn",
     "rel": "incorporated_in",
-    "layer": 3,
-    "citation": "DECRS cross-reference — DECRS = CHN"
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3010166895, 'The United Laboratories (Inner Mongolia) Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
   },
   {
     "src": "precursor:6-apa",
@@ -129,8 +129,8 @@
     "src": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
     "dst": "country:cn",
     "rel": "incorporated_in",
-    "layer": 3,
-    "citation": "DECRS cross-reference — DECRS = CHN"
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3010166430, 'Sinopharm Weiqida Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
   },
   {
     "src": "precursor:6-apa",
