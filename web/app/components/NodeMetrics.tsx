@@ -1,6 +1,7 @@
 'use client'
 
 import type { Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
+import type { Rollup } from '../lib/supply-tree'
 import Metric from './Metric'
 
 interface Props {
@@ -11,7 +12,12 @@ interface Props {
   compliance: Compliance | null
   nodeLabel: (id: NodeId) => string
   onSelect: (id: NodeId) => void
+  /** Switch this node off, or back on. */
   onCascade: (id: NodeId) => void
+  /** True when this node is one of the switched-off ones. */
+  offline: boolean
+  /** Its standing in the current tree, when it is part of one. */
+  rollup?: Rollup
   downstream: number
   ndc?: number
   labelers?: number
@@ -33,8 +39,8 @@ const TILES: Record<string, [string, string, string?][]> = {
 }
 
 export default function NodeMetrics({
-  overview, node, edges, signals, compliance, nodeLabel, onSelect, onCascade, downstream,
-  ndc, labelers,
+  overview, node, edges, signals, compliance, nodeLabel, onSelect, onCascade, offline,
+  rollup, downstream, ndc, labelers,
 }: Props) {
   // Resting state is not empty state: with nothing selected the rail answers the
   // question the operator already has — how concentrated is this supply?
@@ -66,6 +72,13 @@ export default function NodeMetrics({
       </div>
 
       <div className="chips">
+        {offline && <span className="tag" data-t="alarm">offline</span>}
+        {!offline && rollup?.health === 'at-risk' && (
+          <span className="tag" data-t="warn">at risk</span>
+        )}
+        {!offline && rollup?.health === 'down' && (
+          <span className="tag" data-t="alarm">no supply</span>
+        )}
         {node.critical && <span className="tag" data-t="warn">critical</span>}
         {node.resolved_by === 'fuzzy' && <span className="tag" data-t="warn">fuzzy match</span>}
         {a.country_unverified === true && <span className="tag" data-t="warn">country unverified</span>}
@@ -86,13 +99,23 @@ export default function NodeMetrics({
       {ndc !== undefined && ndc > 0 && (
         <Metric label="NDCs" value={ndc} sub={labelers ? `${labelers} labelers` : undefined} />
       )}
+      {rollup && rollup.total > 1 && (
+        <Metric
+          label="Qualified sources"
+          value={`${rollup.up} / ${rollup.total}`}
+          sub="still standing beneath this node"
+          tone={rollup.health === 'down' ? 'alarm' : rollup.health === 'at-risk' ? 'warn' : 'ok'}
+        />
+      )}
       <Metric label="Downstream" value={downstream} sub="nodes depend on this"
         tone={downstream > 0 ? 'alarm' : 'plain'} />
       <Metric label="Edges" value={edges.length} />
       <Metric label="Signals" value={signals.length} />
 
       <div className="rail-foot">
-        <button className="ctl" onClick={() => onCascade(node.id)}>Simulate failure</button>
+        <button className="ctl" onClick={() => onCascade(node.id)}>
+          {offline ? 'Restore node' : 'Simulate failure'}
+        </button>
         {src && <a className="ctl" href={src} target="_blank" rel="noreferrer">Source</a>}
       </div>
 

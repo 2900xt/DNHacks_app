@@ -269,9 +269,12 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .panel-tabs .spacer { flex: 1; }
 .tab {
   font: 600 10px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
-  color: var(--text-faint); padding: 8px 0; border-bottom: 2px solid transparent;
+  color: var(--text-faint); padding: 8px 0; border: 0; border-bottom: 2px solid transparent;
+  background: none; cursor: pointer;
 }
+.tab:hover { color: var(--text-dim); }
 .tab[data-on="1"] { color: var(--text); border-bottom-color: var(--focus); }
+.tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .tab-meta { font: 400 10px/1 var(--mono); color: var(--text-faint); }
 
 /* Three edge colours were on screen for six beats with nothing to read them
@@ -298,6 +301,8 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .gnode[data-lit="on"] text { fill: var(--text); }
 .gnode[data-state="alarm"] rect { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
 .gnode[data-state="alarm"] text { fill: #ffb8ba; }
+.gnode[data-state="warn"] rect { fill: #241a0e; stroke: var(--warn); }
+.gnode[data-state="warn"] text { fill: #f0c489; }
 .gnode[data-state="ok"] rect { stroke: var(--ok); }
 .gnode[data-state="focus"] rect { stroke: var(--focus); stroke-width: 2; }
 .gnode[data-sel="1"] rect { stroke: var(--focus); stroke-width: 2; }
@@ -310,6 +315,126 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .gedge[data-lit="on"] { opacity: .95; stroke-width: 1.8; }
 
 .col-label { font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; fill: var(--text-faint); }
+
+
+/* ---- supply tree ----------------------------------------------------------
+
+   The default reading of the chain, and the one the buyer actually needs. Root
+   is the finished drug she is holding; every level below it is what that drug
+   needs to exist; the leaves are the places it comes from. Failures propagate
+   UP, which is the direction the consequence travels.
+
+   Three health colours and no others. Green is not used for "fine" — an
+   untouched node is simply neutral, so the only colour on screen is damage. A
+   dashboard that paints twenty green boxes has spent its whole colour budget
+   telling you nothing happened. */
+
+.tree-wrap { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+
+.tree-strip {
+  display: flex; align-items: center; gap: 6px; flex: none;
+  padding: 7px 12px; border-bottom: 1px solid var(--line-soft);
+}
+.tree-strip .spacer { flex: 1; }
+.strip-label {
+  font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); margin-right: 2px;
+}
+.strip-hint { font: 400 10px/1 var(--mono); color: var(--text-faint); }
+
+/* Every chip here runs through the same precursor, so they all change colour
+   together the moment it degrades. That simultaneity is the fan-out argument —
+   six drugs, one point of failure — made without a sentence. */
+.drug-chip {
+  font: 500 11px/1 var(--sans); letter-spacing: .02em;
+  background: var(--panel-2); color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px; cursor: pointer;
+  transition: color .3s, border-color .3s, background .3s;
+}
+.drug-chip:hover { color: var(--text); border-color: var(--text-faint); }
+.drug-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.drug-chip[data-on="1"] { color: var(--text); border-color: var(--focus); background: #14202c; }
+.drug-chip[data-health="at-risk"] { color: var(--warn); border-color: var(--warn); }
+.drug-chip[data-health="down"] { color: #ffb8ba; border-color: var(--alarm); background: #2a1114; }
+
+/* The SVG scales itself to whatever box it is given, so the box has to be a
+   real one. An `height: 100%` flex child resolves against the WRAPPER — strip
+   included — and hangs the bottom row of the tree below the panel. An absolutely
+   positioned svg inside a flex-sized frame cannot get that wrong. */
+.tree-body { flex: 1; min-height: 0; position: relative; }
+.tree { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.tlevel {
+  font: 600 9.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  fill: var(--text-faint); dominant-baseline: middle;
+}
+
+/* Jurisdiction bands. Grouping the leaves by country is what makes
+   concentration legible as geometry: four boxes under one label is the whole
+   China argument, before anyone reads a percentage. */
+.tgroup rect { fill: #0f1620; stroke: var(--line-soft); stroke-width: 1; transition: fill .3s, stroke .3s; }
+.tgroup-label {
+  font: 600 9.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+  fill: var(--text-faint); cursor: pointer;
+}
+.tgroup-label:hover { fill: var(--text); }
+.tgroup-label:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.tgroup[data-health="at-risk"] rect { stroke: rgba(217,144,58,.45); }
+.tgroup[data-health="at-risk"] .tgroup-label { fill: var(--warn); }
+.tgroup[data-health="down"] rect { fill: #170f11; stroke: rgba(229,72,77,.4); }
+.tgroup[data-health="down"] .tgroup-label { fill: var(--alarm); }
+
+.tbranch { fill: none; stroke: var(--layer1); stroke-width: 1.4; opacity: .55; transition: stroke .35s, opacity .35s, stroke-width .35s; }
+.tbranch[data-health="at-risk"] { stroke: var(--warn); opacity: .8; }
+.tbranch[data-health="down"] { stroke: #5a6675; opacity: .45; stroke-dasharray: 5 5; }
+
+.tnode .tbox {
+  fill: var(--panel-2); stroke: var(--line); stroke-width: 1; cursor: pointer;
+  transition: fill .3s, stroke .3s;
+}
+.tnode:hover .tbox { stroke: var(--text-faint); }
+.tnode .tbox:focus-visible { outline: none; stroke: var(--focus); stroke-width: 2; }
+.tnode .t-name { font: 500 13px/1 var(--mono); fill: var(--text); pointer-events: none; }
+.tnode .t-sub { font: 400 10px/1 var(--mono); fill: var(--text-faint); pointer-events: none; }
+.tnode .t-geo { fill: var(--text-dim); }
+.tnode .t-cap {
+  font: 500 10px/1 var(--mono); fill: var(--text-dim);
+  font-variant-numeric: tabular-nums; pointer-events: none;
+}
+.tnode[data-kind="drug"] .t-name { font-size: 15px; }
+.tnode[data-kind="drug"] .tbox { fill: #141d29; stroke: var(--text-faint); }
+
+/* Capacity, as a bar rather than a ratio you have to read. It is the one number
+   that answers "can I still buy this", so it gets a shape. */
+.t-bar-bg { fill: var(--line); }
+.t-bar { fill: var(--ok); transition: width .45s ease, fill .3s; }
+.tnode[data-health="at-risk"] .t-bar { fill: var(--warn); }
+.tnode[data-health="down"] .t-bar { fill: var(--alarm); }
+
+.tnode[data-health="at-risk"] .tbox { stroke: var(--warn); }
+.tnode[data-health="at-risk"] .t-cap { fill: var(--warn); }
+.tnode[data-health="down"] .tbox { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
+.tnode[data-health="down"] .t-name { fill: #ffb8ba; }
+.tnode[data-health="down"] .t-sub { fill: #d99a9c; }
+
+/* The node someone actually switched off, as opposed to the ones that failed
+   because of it. Telling those apart is the difference between a cascade and a
+   screen that just went red. */
+.tnode[data-off="1"] .tbox { stroke-dasharray: 5 4; }
+.tnode[data-off="1"] .t-sub { fill: var(--alarm); }
+.tnode[data-sel="1"] .tbox { stroke: var(--focus); stroke-width: 2; }
+.tnode[data-beat="focus"] .tbox { stroke: var(--focus); }
+
+/* The failure switch, on every node, always visible. */
+.t-kill { cursor: pointer; }
+.t-kill circle { fill: var(--panel); stroke: var(--line); stroke-width: 1; transition: fill .2s, stroke .2s; }
+.t-kill path { fill: none; stroke: var(--text-faint); stroke-width: 1.6; stroke-linecap: round; transition: stroke .2s; }
+.t-kill:hover circle { fill: #2a1114; stroke: var(--alarm); }
+.t-kill:hover path { stroke: var(--alarm); }
+.t-kill:focus-visible { outline: none; }
+.t-kill:focus-visible circle { stroke: var(--focus); stroke-width: 2; }
+.tnode[data-off="1"] .t-kill circle { fill: var(--alarm); stroke: var(--alarm); }
+.tnode[data-off="1"] .t-kill path { stroke: #2a1114; }
 
 /* ---- the phone fallback --------------------------------------------------- */
 
@@ -335,6 +460,8 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   .head .spacer { flex-basis: 100%; }
 
   .graph-panel { height: 46vh; }
+  .tree-strip { flex-wrap: wrap; row-gap: 6px; }
+  .strip-hint { display: none; }
   .rail-l, .rail-r { overflow-y: visible; }
 
   /* The tab bar is a single 30px line of five things. At this width it becomes
@@ -349,3 +476,42 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* ---- focus drug selector -------------------------------------------------- */
+
+.drugsel {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+  padding: 8px 12px; border-bottom: 1px solid var(--line-soft);
+}
+.drug-pill {
+  font: 500 10px/1 var(--mono); letter-spacing: .02em;
+  background: var(--panel-2); color: var(--text-faint);
+  border: 1px solid var(--line); border-radius: 3px;
+  padding: 5px 2px; cursor: pointer; text-align: center;
+}
+.drug-pill:hover { color: var(--text-dim); border-color: var(--text-faint); }
+.drug-pill[data-on="1"] { color: var(--text); border-color: var(--focus); background: #14202c; }
+.drug-pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+.drug-facts { padding: 2px 12px 10px; border-bottom: 1px solid var(--line); }
+.df-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 6px;
+  font: 600 11px/1.3 var(--sans); margin: 8px 0 6px;
+}
+.df-route {
+  font: 500 9px/1 var(--mono); color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.df-line { font: 400 10px/1.45 var(--sans); color: var(--text-dim); margin: 0 0 6px; }
+.df-key {
+  display: block; font: 500 8.5px/1 var(--mono); color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px;
+}
+.df-none { color: var(--alarm); font-weight: 600; }
+.df-drivers { display: flex; flex-direction: column; gap: 3px; }
+.df-driver { color: var(--text); }
+.df-driver::before { content: "— "; color: var(--text-faint); }
+.df-rule {
+  font: 400 9px/1.4 var(--mono); color: var(--text-faint); margin: 8px 0 0;
+  padding-top: 6px; border-top: 1px solid var(--line-soft);
+}
