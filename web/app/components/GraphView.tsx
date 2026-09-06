@@ -15,11 +15,15 @@ interface Props {
   selected: NodeId | null
   onSelect: (id: NodeId) => void
   compliance: Record<NodeId, Compliance>
+  /** NDCs collapsed onto their drug, so 760 boxes become one number. */
+  ndcCount: Record<NodeId, number>
   showCompliance: boolean
 }
 
 /** Second line inside a node box: the one fact that matters for its type. */
-function subtitle(n: GraphNode, comp: Compliance | undefined, showCompliance: boolean): string {
+function subtitle(
+  n: GraphNode, comp: Compliance | undefined, showCompliance: boolean, ndc?: number,
+): string {
   const a = (n.attrs ?? {}) as Record<string, unknown>
   if (showCompliance && comp) {
     if (comp.taa_pass === true) return 'TAA PASS'
@@ -27,8 +31,10 @@ function subtitle(n: GraphNode, comp: Compliance | undefined, showCompliance: bo
   }
   if (n.type === 'company' && a.dmf) return `DMF ${a.dmf}${a.dmf_status === 'A' ? ' · active' : ''}`
   if (n.type === 'drug') {
+    if (ndc) return `${ndc} NDCs${a.eo13944_listed ? ' · EO 13944' : ''}`
     return a.eo13944_listed ? 'EO 13944' : `${a.active_dmfs ?? 0} active DMFs`
   }
+  if (n.type === 'facility') return String(a.fei ? `FEI ${a.fei}` : 'site')
   if (n.type === 'country') return String(n.country ?? '').toUpperCase()
   if (n.type === 'precursor') return 'shared nucleus'
   return ''
@@ -39,7 +45,7 @@ function truncate(s: string, max: number): string {
 }
 
 export default function GraphView({
-  nodes, edges, lit, states, selected, onSelect, compliance, showCompliance,
+  nodes, edges, lit, states, selected, onSelect, compliance, ndcCount, showCompliance,
 }: Props) {
   const L = useMemo(() => layoutGraph(nodes, edges), [nodes, edges])
 
@@ -99,7 +105,7 @@ export default function GraphView({
               : showCompliance && comp?.taa_pass === true ? 'ok'
               : 'plain')
           const on = lit.has(p.id)
-          const sub = subtitle(p.node, comp, showCompliance)
+          const sub = subtitle(p.node, comp, showCompliance, ndcCount[p.id])
           return (
             <g
               key={p.id}

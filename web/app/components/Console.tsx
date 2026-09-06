@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
 import { BEATS, type BeatCtx, type NodeState } from '../lib/demo'
 import GraphView from './GraphView'
-import MapView from './MapView'
+import GlobeView from './GlobeView'
 import NodeMetrics from './NodeMetrics'
 import DepotPanel from './DepotPanel'
 import EvidenceBar from './EvidenceBar'
@@ -17,6 +17,11 @@ export interface Payload {
   counts: { nodes: number; edges: number; signals: number; compliance: number }
   layerCounts: Record<number, number>
   backtest: BacktestResult
+  /** Collapsed NDC/labeler counts, keyed by drug id. */
+  ndcCount: Record<NodeId, number>
+  labelerCount: Record<NodeId, number>
+  /** Blast radius per spine node, measured on the FULL graph (products included). */
+  downstreamOf: Record<NodeId, number>
   ctx: BeatCtx
 }
 
@@ -38,7 +43,8 @@ function reachable(edges: GraphEdge[], from: NodeId): Set<NodeId> {
 }
 
 export default function Console({ payload }: { payload: Payload }) {
-  const { nodes, edges, compliance, signals, counts, layerCounts, backtest, ctx } = payload
+  const { nodes, edges, compliance, signals, counts, layerCounts, backtest,
+          ndcCount, labelerCount, downstreamOf, ctx } = payload
 
   const [beat, setBeat] = useState(0)
   const [selected, setSelected] = useState<NodeId | null>(null)
@@ -88,10 +94,7 @@ export default function Console({ payload }: { payload: Payload }) {
     () => (selected ? edges.filter((e) => e.src === selected || e.dst === selected) : []),
     [selected, edges],
   )
-  const downstream = useMemo(
-    () => (selected ? reachable(edges, selected).size - 1 : 0),
-    [selected, edges],
-  )
+  const downstream = selected ? downstreamOf[selected] ?? 0 : 0
 
   /** Resting-state summary for the right rail. */
   const overview = useMemo(() => {
@@ -143,7 +146,7 @@ export default function Console({ payload }: { payload: Payload }) {
       </aside>
 
       <section className="map-wrap" aria-label="World map">
-        <MapView
+        <GlobeView
           nodes={nodes}
           edges={edges}
           lit={lit}
@@ -154,7 +157,8 @@ export default function Console({ payload }: { payload: Payload }) {
           {killed ? (
             <>
               <p className="say">
-                {nodeLabel(killed)} goes down — {lit.size - 1} downstream nodes affected.
+                {nodeLabel(killed)} goes down — {downstreamOf[killed] ?? lit.size - 1} downstream
+                nodes affected, {lit.size - 1} of them on this map.
               </p>
               <p className="note">Esc to return to the demo path.</p>
             </>
@@ -178,6 +182,8 @@ export default function Console({ payload }: { payload: Payload }) {
           onSelect={setSelected}
           onCascade={onCascade}
           downstream={downstream}
+          ndc={selected ? ndcCount[selected] : undefined}
+          labelers={selected ? labelerCount[selected] : undefined}
         />
       </aside>
 
@@ -205,6 +211,7 @@ export default function Console({ payload }: { payload: Payload }) {
               selected={selected}
               onSelect={setSelected}
               compliance={compliance}
+              ndcCount={ndcCount}
               showCompliance={!!b.compliance}
             />
           </div>
