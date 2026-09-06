@@ -1,12 +1,5 @@
 [
   {
-    "src": "facility:fei:3003603933",
-    "dst": "company:name:antibioticos-sa",
-    "rel": "operated_by",
-    "layer": 2,
-    "citation": "entity resolution, matched 'ANTIBIOTICOS SA' at 0.90, next best gap ok (ml/entity_resolution.py)"
-  },
-  {
     "src": "facility:fei:3004021253",
     "dst": "company:name:apitoria-pharma-private-ltd",
     "rel": "operated_by",
@@ -33,12 +26,5 @@
     "rel": "operated_by",
     "layer": 2,
     "citation": "entity resolution, matched 'PURE AND CURE HEALTHCARE PRIVATE LTD' at 1.00, next best gap ok (ml/entity_resolution.py)"
-  },
-  {
-    "src": "facility:fei:3013852651",
-    "dst": "company:name:antibioticos-sa",
-    "rel": "operated_by",
-    "layer": 2,
-    "citation": "entity resolution, matched 'ANTIBIOTICOS SA' at 0.90, next best gap ok (ml/entity_resolution.py)"
   }
 ]
