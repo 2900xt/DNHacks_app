@@ -104,7 +104,11 @@ plant behind the node, which answers *"will one of this node's suppliers hit
 trouble"* — not *"will this node run out"*. The second question needs volumes
 nobody in this repo has, so the count sits next to the number and the reader can
 see the difference: 46% behind one plant is a shortage, 46% behind fifty-two is a
-Tuesday. `api:dicloxacillin-sodium` has 4 upstream, `api:ampicillin` 18.
+Tuesday. It counts distinct **FEIs**, not producer nodes — counting nodes made every
+product read `upstream_plants: 1`, which looks like "single-sourced" when it only
+meant "one marketer, who has six sites". For a `molecule`-attributed node it
+counts the plants making the same substance (14 to 68 of them), which is the only
+honest reading available when the marketer is unresolved.
 
 That propagation caught a real error. `core_tokens` strips place names by design
 — the WuXi lesson — but stripping them makes `UNITED LABORATORIES CHENGDU` and
