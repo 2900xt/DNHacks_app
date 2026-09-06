@@ -2,7 +2,6 @@
   {
     "node_id": "country:at",
     "taa_pass": true,
-    "on_1260h": null,
     "evidence": {
       "reason": "Austria is a designated country (wto_gpa) under FAR 25.003, definition of 'designated country'",
       "far": "25.003",
@@ -17,7 +16,6 @@
   {
     "node_id": "country:in",
     "taa_pass": false,
-    "on_1260h": null,
     "evidence": {
       "reason": "India is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
       "far": "25.003",
@@ -30,7 +28,6 @@
   {
     "node_id": "country:cn",
     "taa_pass": false,
-    "on_1260h": null,
     "evidence": {
       "reason": "China is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
       "far": "25.003",
@@ -42,7 +39,6 @@
   },
   {
     "node_id": "company:name:sandoz-gmbh",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -57,7 +53,6 @@
   },
   {
     "node_id": "company:name:antibioticos-sa",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -72,7 +67,6 @@
   },
   {
     "node_id": "company:name:pure-and-cure-healthcare-private-ltd",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -87,7 +81,6 @@
   },
   {
     "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -102,7 +95,6 @@
   },
   {
     "node_id": "company:name:united-laboratories-chengdu-co-ltd",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -117,7 +109,6 @@
   },
   {
     "node_id": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -132,7 +123,6 @@
   },
   {
     "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
@@ -147,7 +137,6 @@
   },
   {
     "node_id": "company:name:apitoria-pharma-private-ltd",
-    "taa_pass": null,
     "on_1260h": false,
     "evidence": {
       "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",

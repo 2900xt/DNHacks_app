@@ -203,8 +203,21 @@ def _read(path: Path) -> list[dict]:
     return json.loads(text) if text else []
 
 
+def _strip_nulls(rows: list[dict]) -> list[dict]:
+    """Drop keys whose value is None before serialising.
+
+    The app's types declare optionals as `country?: string`, which under
+    `strict: true` means `string | undefined` — **not** `string | null`. With
+    `resolveJsonModule`, a literal null in the JSON types as `null` and will not
+    assign to those fields. Omitting the key is the shape the contract actually
+    declares, and it means the same thing to the merge rule (absent == "no
+    opinion"), so nothing downstream changes.
+    """
+    return [{k: v for k, v in row.items() if v is not None} for row in rows]
+
+
 def _dump(rows: list[dict]) -> str:
-    return json.dumps(rows, indent=2, ensure_ascii=False) + "\n"
+    return json.dumps(_strip_nulls(rows), indent=2, ensure_ascii=False) + "\n"
 
 
 def run_validate() -> subprocess.CompletedProcess:

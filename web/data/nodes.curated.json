@@ -3,7 +3,6 @@
     "id": "precursor:6-apa",
     "type": "precursor",
     "label": "6-Aminopenicillanic acid (6-APA)",
-    "country": null,
     "critical": false,
     "attrs": {
       "feeds_drugs": [
@@ -26,8 +25,7 @@
       ],
       "source": "hand-curated from published synthesis routes",
       "source_url": "https://www.cfr.org/reports/the-pharma-choke-point"
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "company:name:sandoz-gmbh",
@@ -59,14 +57,12 @@
       "taa_basis": [
         "wto_gpa"
       ]
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "company:name:antibioticos-sa",
     "type": "company",
     "label": "ANTIBIOTICOS SA",
-    "country": null,
     "critical": false,
     "attrs": {
       "dmf": 12348,
@@ -109,8 +105,7 @@
       "source": "DECRS cross-reference (curated)",
       "taa_designated": false,
       "taa_basis": null
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
@@ -140,8 +135,7 @@
       "source": "DECRS cross-reference (curated)",
       "taa_designated": false,
       "taa_basis": null
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "company:name:united-laboratories-chengdu-co-ltd",
@@ -222,78 +216,66 @@
     "id": "drug:amoxicillin",
     "type": "drug",
     "label": "Amoxicillin",
-    "country": null,
     "critical": false,
     "attrs": {
       "active_dmfs": 17,
       "distinct_dmf_holders": 12,
       "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "drug:ampicillin",
     "type": "drug",
     "label": "Ampicillin",
-    "country": null,
     "critical": false,
     "attrs": {
       "active_dmfs": 25,
       "distinct_dmf_holders": 14,
       "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "drug:piperacillin",
     "type": "drug",
     "label": "Piperacillin",
-    "country": null,
     "critical": false,
     "attrs": {
       "active_dmfs": 17,
       "distinct_dmf_holders": 12,
       "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "drug:dicloxacillin",
     "type": "drug",
     "label": "Dicloxacillin",
-    "country": null,
     "critical": false,
     "attrs": {
       "active_dmfs": 1,
       "distinct_dmf_holders": 1,
       "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "drug:nafcillin",
     "type": "drug",
     "label": "Nafcillin",
-    "country": null,
     "critical": false,
     "attrs": {
       "active_dmfs": 5,
       "distinct_dmf_holders": 3,
       "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
+    }
   },
   {
     "id": "drug:oxacillin",
     "type": "drug",
     "label": "Oxacillin",
-    "country": null,
     "critical": false,
     "attrs": {
       "active_dmfs": 5,
       "distinct_dmf_holders": 4,
       "dmf_denominator_source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
-    },
-    "resolved_by": null
+    }
   }
 ]
