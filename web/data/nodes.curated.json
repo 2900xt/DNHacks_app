@@ -1,0 +1,75 @@
+[
+  {
+    "id": "precursor:6-apa",
+    "type": "precursor",
+    "label": "6-Aminopenicillanic acid (6-APA)",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "active_us_dmf_holders": 8,
+      "chinese_holders": 4,
+      "distinct_owners_max": 7,
+      "owners_note": "8 filings, at most 7 owners — United Laboratories Chengdu and Inner Mongolia share a parent",
+      "inactive_holders": [
+        {
+          "dmf": 17694,
+          "holder": "NCPC HEBEI HUAMIN",
+          "status": "I",
+          "note": "inactive, not absent"
+        }
+      ],
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "drug:amoxicillin",
+    "type": "drug",
+    "label": "Amoxicillin",
+    "country": null,
+    "critical": true,
+    "attrs": {
+      "eo13944_listed": true,
+      "mcm_use_only": true,
+      "category": "Biological Threat MCMs",
+      "active_dmfs": 17,
+      "distinct_holders": 12,
+      "family_note": "4 penicillins are on the EO 13944 list; 3 of the 6 we trace to 6-APA (amoxicillin, ampicillin, piperacillin). Penicillin G is a 7th derivative, not one of the six.",
+      "source": "FDA EO 13944 Essential Medicines list, Oct 30 2020",
+      "source_url": "https://www.fda.gov/media/143406/download"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "company:name:sinopharm-weiqida",
+    "type": "company",
+    "label": "SINOPHARM WEIQIDA",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "dmf": 30779,
+      "dmf_status": "A",
+      "dmf_filed": "2016",
+      "dmf_subject": "6-AMINOPENICILLANIC ACID",
+      "state_owned": true,
+      "country_confirmed_via": "DECRS (ISO3 CHN)",
+      "on_1260h": false,
+      "trap_note": "State ownership and 1260H designation are different things. This firm is state-owned, makes 6-APA, and is NOT on 1260H — do not conflate.",
+      "source": "FDA Type II DMF register 2Q2026 + FDA DECRS, Sep 4 2026"
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "country:cn",
+    "type": "country",
+    "label": "China",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "taa_designated": false,
+      "api_manufacture_establishments": 511,
+      "source": "FAR 25.003 (132 designated countries) + FDA DECRS, Sep 4 2026"
+    },
+    "resolved_by": null
+  }
+]

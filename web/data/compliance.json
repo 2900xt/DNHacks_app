@@ -1,0 +1,30 @@
+[
+  {
+    "node_id": "country:cn",
+    "taa_pass": false,
+    "on_1260h": null,
+    "evidence": {
+      "reason": "China is not among the 132 TAA-designated countries (FAR 25.003)",
+      "far": "25.003",
+      "url": "https://www.acquisition.gov/far/25.003",
+      "designated_count": 132,
+      "bases": ["wto_gpa", "fta", "least_developed", "caribbean_basin"],
+      "note": "on_1260h is null because 1260H designates entities, not countries"
+    }
+  },
+  {
+    "node_id": "company:name:sinopharm-weiqida",
+    "taa_pass": false,
+    "on_1260h": false,
+    "evidence": {
+      "reason": "API traces to CN, not a TAA-designated country (FAR 25.003)",
+      "far": "25.003",
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "matched_entity": null,
+      "on_1260h_reason": "Not among the 77 designated parents or 98 named subsidiaries. State-owned, but state ownership is not 1260H designation.",
+      "country_source": "FDA DECRS drls_reg, Sep 4 2026 — ISO3 CHN",
+      "resolved_by": "fuzzy"
+    }
+  }
+]

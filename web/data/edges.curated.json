@@ -1,0 +1,23 @@
+[
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:amoxicillin-trihydrate",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus for the semisynthetic penicillins. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:sinopharm-weiqida",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL, DMF 30779, status A, SUBJECT '6-AMINOPENICILLANIC ACID'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sinopharm-weiqida",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg, Sep 4 2026 — address ISO3 CHN. https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  }
+]
