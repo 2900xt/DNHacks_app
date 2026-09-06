@@ -15,6 +15,7 @@ no runtime file paths, no env vars.
 | `signals.json` | Parth |
 | `bins.json` | Taha |
 | `backtest.json` | Nikhil |
+| `reroute.json` | Parth — `ml/aegis.py --write`. Every DMF holder per precursor, scored; the console re-ranks survivors itself |
 
 Nodes and edges from different producers are merged by the app, not by you.
 
