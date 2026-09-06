@@ -1,0 +1,188 @@
+{
+  "model": "claude-opus-5",
+  "n": 20,
+  "rules_correct": 18,
+  "agent_correct": 20,
+  "rows": [
+    {
+      "id": 1,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.95,
+      "reason": "Both names share the distinctive coined token \"Aurobindo\" and differ only by the legal suffix Limited/LTD and casing, and the register confirms this is non-distinguishing \u2014 FEI 3004021229 appears as \"Aurobindo Pharma Limited\" in its establishment record and \"Aurobindo Pharma Ltd\" in its inspection history, with neither input name bearing a site designator.",
+      "contested": false
+    },
+    {
+      "id": 2,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.88,
+      "reason": "No DECRS records exist for either name, but both share the coined distinctive token \"Origincell\" with the same CN country hint, and the only difference (\"Biotechnology\" vs \"Technology\") is a generic industry descriptor equivalent to a legal suffix \u2014 consistent with the Shanghai Origincell group's interchangeable naming.",
+      "contested": false
+    },
+    {
+      "id": 3,
+      "truth": true,
+      "rules": false,
+      "agent": true,
+      "confidence": 0.78,
+      "reason": "\"SUN PHARMA IND LTD\" is a pure abbreviation of \"Sun Pharmaceutical Industries Limited\", and the \"(prev. Ranbaxy)\" tag is a former-name annotation \u2014 Ranbaxy returns no register entry because it was merged into Sun Pharmaceutical Industries Ltd., so both strings denote the same legal establishment with no distinguishing site designator.",
+      "contested": false
+    },
+    {
+      "id": 4,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.96,
+      "reason": "Both names resolve to the same registered establishment, FEI 3006531950 \"Zhuhai United Laboratories Co., Ltd\" (CHN, API manufacture), with the only difference being the omitted legal suffix \"Co.\"; the distinctive tokens \"Zhuhai United Laboratories\" and the site designator are identical.",
+      "contested": false
+    },
+    {
+      "id": 5,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.97,
+      "reason": "Both names resolve to the single registered Indian establishment CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED (FEI 3004497364); \"Pvt Ltd\" is merely the abbreviated legal suffix for \"Private Limited\", with the distinctive token \"Centrient\" and site designator \"India\" identical.",
+      "contested": false
+    },
+    {
+      "id": 6,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.89,
+      "reason": "Both names share the identical distinctive core \"North China Pharmaceutical\" with no differing site or subsidiary designator (unlike the register's Huasheng, Aino, and Beta Branch Factory entries), so the only difference is the legal suffix \"Corporation\".",
+      "contested": false
+    },
+    {
+      "id": 7,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.94,
+      "reason": "Both names resolve to the same registered firm \"CSPC Zhongnuo Pharmaceutical (Shijiazhuang) Co., Ltd.\", with FEI 3010166013 actually registered under the unparenthesized variant \"CSPC Zhongnuo Pharmaceutical Shijiazhuang Co., Ltd.\" \u2014 the two strings share the distinctive token Zhongnuo and the Shijiazhuang site designator and differ only in punctuation and legal suffix.",
+      "contested": false
+    },
+    {
+      "id": 8,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.93,
+      "reason": "Both names share the identical distinctive coined token pair \"WuXi AppTec\" with no differing site designator or subsidiary qualifier, the only variance being casing, punctuation and the legal suffix \"CO., LTD.\", which are non-distinguishing under the graph rules.",
+      "contested": false
+    },
+    {
+      "id": 9,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.96,
+      "reason": "Both names resolve to the identical register record \"The United Laboratories (Inner Mongolia) Co., Ltd.\" (FEI 3010166895, CHN, API manufacture); the only differences are punctuation, the article \"The\", and the omitted legal suffix, with the distinctive site designator \"Inner Mongolia\" shared.",
+      "contested": false
+    },
+    {
+      "id": 10,
+      "truth": true,
+      "rules": true,
+      "agent": true,
+      "confidence": 0.88,
+      "reason": "Register lookups returned no records (non-probative), but the names are character-for-character identical in the distinctive token \"ANTIBIOTICOS\" and differ only in punctuation/casing of the legal suffix SA vs S.A., with no site designator or corporate qualifier separating them.",
+      "contested": false
+    },
+    {
+      "id": 11,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.93,
+      "reason": "The register shows a distinct \"WuXi Biologics Co., Ltd.\" registrant family (FEI 3010606982 and affiliates) whose only shared token with \"WuXi AppTec\" is the geographic city name Wuxi, while the distinctive coined token \"AppTec\" belongs to the separately listed WuXi AppTec group (ex-WuXi PharmaTech), from which WuXi Biologics was spun off as an independent company.",
+      "contested": false
+    },
+    {
+      "id": 12,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.9,
+      "reason": "Neither name is in the register, and the only common token \"WuXi\" is a Jiangsu city name (weak geographic evidence), while the distinctive brand elements differ entirely \u2014 \"Alfino\" versus the WuXi AppTec group's coined \"AppTec\".",
+      "contested": false
+    },
+    {
+      "id": 13,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.93,
+      "reason": "B resolves to the registered Chinese API site \"The United Laboratories (Inner Mongolia) Co., Ltd.\" (FEI 3010166895), a TUL-group site in Inner Mongolia, whereas A is a separate US-based LLC; even under a shared corporate name the site designators and countries differ, so they are different establishments.",
+      "contested": false
+    },
+    {
+      "id": 14,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.97,
+      "reason": "No shared distinctive token \u2014 \"BGI\" (the Chinese genomics group, formerly Beijing Genomics Institute) and \"Webgistix\" (a US e-commerce fulfillment/logistics firm) are unrelated coined names in different countries, and neither appears in the register to suggest any link.",
+      "contested": false
+    },
+    {
+      "id": 15,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.93,
+      "reason": "Both names share only the corporate-parent token \"CSPC\" while differing in the distinctive site designators \"Ouyi\" (registered separately as CSPC Ouyi Pharmaceutical Co., Ltd., FEI 2000021110) and \"Zhongnuo,\" which are two separate subsidiaries/sites of the CSPC Pharmaceutical Group rather than name variants of one establishment.",
+      "contested": false
+    },
+    {
+      "id": 16,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.95,
+      "reason": "Register lookups returned nothing, but by name evidence these are two distinct CSPC Pharmaceutical Group subsidiaries with different distinctive tokens and locations \u2014 CSPC Cenway in Tianjin versus CSPC Zhongnuo in Inner Mongolia \u2014 i.e. separate sites of one parent.",
+      "contested": false
+    },
+    {
+      "id": 17,
+      "truth": false,
+      "rules": true,
+      "agent": false,
+      "confidence": 0.93,
+      "reason": "Both are site-designated affiliates of the same corporate parent (The United Laboratories group), but the distinctive site designators differ \u2014 Chengdu (Sichuan) versus Inner Mongolia, which is registered as its own establishment (FEI 3010166895), alongside the separate Zhuhai site (FEI 3006531950); separate sites of one parent are different establishments.",
+      "contested": true
+    },
+    {
+      "id": 18,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.96,
+      "reason": "The register shows CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED (FEI 3004497364, IND) as a distinct establishment whose registrant is Centrient Pharmaceuticals Netherlands B.V., i.e. a subsidiary/site separate from the Dutch parent entity.",
+      "contested": true
+    },
+    {
+      "id": 19,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.92,
+      "reason": "The distinctive coined tokens differ (MGI vs BGI), and MGI Tech is a spun-off former manufacturing subsidiary of BGI Group, now a separately listed company \u2014 a parent/affiliate relationship, which the graph rules treat as different establishments.",
+      "contested": false
+    },
+    {
+      "id": 20,
+      "truth": false,
+      "rules": false,
+      "agent": false,
+      "confidence": 0.93,
+      "reason": "Register shows two separate API-manufacturing establishments with distinct FEIs (3010166430 vs 3006272230) and wholly different distinctive tokens (\"Weiqida\" vs \"Changsheng\"); their Sinopharm-group affiliation makes them parent/subsidiary sites, which count as different entities.",
+      "contested": false
+    }
+  ]
+}

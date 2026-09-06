@@ -19,14 +19,20 @@ if [ "${1:-}" != "--keep" ]; then
   for f in nodes.curated edges.curated compliance; do printf '[]\n' > "web/data/$f.json"; done
 fi
 
-echo "1/8 precursor node + six-penicillin fan-out";        $PY   ml/load/load_precursor_edges.py
-echo "2/8 DMF register (creates company + country nodes)"; $VENV ml/load/load_dmf.py
-echo "3/8 DECRS (real country + FEI on companies)";        $PY   ml/load/load_decrs.py
-echo "4/8 EO 13944 (critical mark on drug nodes)";         $VENV ml/load/load_eo13944.py
-echo "5/8 EO 14336 (citation only — 0 nodes by design)";   $PY   ml/load/load_eo14336.py
-echo "6/8 TAA pass/fail on country nodes";                 $PY   ml/load/load_taa.py
-echo "7/8 1260H flag on company nodes";                    $PY   ml/load/load_1260h.py
-echo "8/8 compliance engine (company -> country -> TAA)";  $PY   ml/compliance.py
+echo "1/10 precursor node + six-penicillin fan-out";        $PY   ml/load/load_precursor_edges.py
+echo "2/10 DMF register (creates company + country nodes)"; $VENV ml/load/load_dmf.py
+echo "3/10 DECRS (real country + FEI on companies)";        $PY   ml/load/load_decrs.py
+echo "4/10 EO 13944 (critical mark on drug nodes)";         $VENV ml/load/load_eo13944.py
+echo "5/10 EO 14336 (citation only — 0 nodes by design)";   $PY   ml/load/load_eo14336.py
+echo "6/10 TAA pass/fail on country nodes";                 $PY   ml/load/load_taa.py
+echo "7/10 1260H flag on company nodes";                    $PY   ml/load/load_1260h.py
+echo "8/10 compliance engine (company -> country -> TAA)";  $PY   ml/compliance.py
+# Last: it reads the facility nodes the signal lane emits and joins them into the
+# graph. Runs after everything else because it needs the drug nodes to exist.
+echo "9/10 signal-facility joins (ingredient -> drug)";    $PY   ml/load/load_signal_joins.py
+# The hardware -> graph seam. Last because it checks covers_drugs against the
+# drug nodes every step above it declares.
+echo "10/10 depot bins from the API seed";                 $PY   ml/load/load_bins.py
 
 echo; echo "validating"; $PY ml/load/validate.py
 

@@ -1,1 +1,113 @@
-{}
+{
+  "run_at": "2026-09-05T22:28:29",
+  "cutoff": "2023-01-01",
+  "params": {
+    "universe": "generics with >= 3 products listed before the cutoff",
+    "market_structure": "openFDA NDC bulk, marketing_start_date < cutoff",
+    "label": "openFDA shortage with initial_posting_date >= cutoff",
+    "significance": "permutation test, 300 shuffles"
+  },
+  "result": {
+    "catalog": 3902,
+    "went_short": 161,
+    "base_rate": 0.041260891850333166,
+    "features": [
+      {
+        "feature": "HHI of labeler share (concentration)",
+        "auc": 0.1959203122691146,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts the OPPOSITE"
+      },
+      {
+        "feature": "few labelers (1 / labeler count)",
+        "auc": 0.1905774687407127,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts the OPPOSITE"
+      },
+      {
+        "feature": "sterile injectable",
+        "auc": 0.6603616796253037,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts shortage"
+      },
+      {
+        "feature": "product count (exposure)",
+        "auc": 0.7785069259390238,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts shortage"
+      },
+      {
+        "feature": "price erosion (prior-year NADAC fall)",
+        "auc": 0.6117356604089982,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts shortage"
+      }
+    ],
+    "strata": [
+      {
+        "band": "3-4 products",
+        "n": 780,
+        "positives": 5,
+        "base_rate": 0.00641025641025641,
+        "auc_hhi": 0.2512258064516129,
+        "auc_injectable": 0.5987096774193549
+      },
+      {
+        "band": "4-6 products",
+        "n": 780,
+        "positives": 12,
+        "base_rate": 0.015384615384615385,
+        "auc_hhi": 0.3661566840277778,
+        "auc_injectable": 0.517578125
+      },
+      {
+        "band": "6-9 products",
+        "n": 780,
+        "positives": 12,
+        "base_rate": 0.015384615384615385,
+        "auc_hhi": 0.19677734375,
+        "auc_injectable": 0.6171875
+      },
+      {
+        "band": "9-20 products",
+        "n": 780,
+        "positives": 35,
+        "base_rate": 0.04487179487179487,
+        "auc_hhi": 0.32076701821668263,
+        "auc_injectable": 0.638830297219559
+      },
+      {
+        "band": "20-924 products",
+        "n": 782,
+        "positives": 97,
+        "base_rate": 0.12404092071611253,
+        "auc_hhi": 0.422484761833095,
+        "auc_injectable": 0.6952742870042893
+      }
+    ],
+    "combined_model": {
+      "n": 967,
+      "positives": 89,
+      "cv_auc": 0.7009802666939674,
+      "coefficients": {
+        "concentration (HHI)": -0.1623906592616622,
+        "log product count": 0.3452147904367444,
+        "sterile injectable": 0.45471857791643305,
+        "price erosion": 0.25356687693316027
+      },
+      "single_feature_auc": {
+        "concentration (HHI)": 0.3491336285224335,
+        "log product count": 0.6634204397123186,
+        "sterile injectable": 0.6344795372526938,
+        "price erosion": 0.5912313480586624
+      }
+    },
+    "verdict": "Concentration REFUTED \u2014 it does not predict shortage, it points the other way, in every stratum and at every cutoff. But three other public signals do: sterile-injectable form, prior-year NADAC price erosion, and market size. Combined, cross-validated AUC 0.70."
+  },
+  "caveats": [
+    "This measures DOWNSTREAM concentration (who boxes the finished drug). CHOKEPOINT's thesis is UPSTREAM precursor concentration, which is not public and therefore not testable this way. Do not present this as refuting the project.",
+    "The FDA shortage list is a register of REPORTS filed per product per company, so it measures reporting exposure as well as scarcity. That is the most likely cause of the inversion.",
+    "Survivorship: openFDA keeps only 7 Resolved records of 1,634, and the NDC file is a current snapshot, so withdrawn products are missing. Both push measured effects DOWN.",
+    "Never say 'we validated the risk score'. We tested it and it failed."
+  ]
+}

@@ -13,8 +13,18 @@ for f in contracts/schemas/*.json; do
   python3 -c "import json,sys; json.load(open('$f'))" 2>/dev/null && ok "$f" || bad "$f is not valid JSON"
 done
 if [ -f contracts/openapi.yaml ]; then
-  python3 -c "import yaml,sys; yaml.safe_load(open('contracts/openapi.yaml'))" 2>/dev/null \
-    && ok "contracts/openapi.yaml" || echo "  · openapi.yaml unchecked (pip install pyyaml)"
+  # System python3 usually has no pyyaml, so this check quietly never ran. The ml
+  # venv does have it (ml/requirements.txt), so try that before giving up.
+  PY_YAML=python3
+  for cand in ml/.venv/bin/python services/api/.venv/bin/python; do
+    [ -x "$cand" ] && "$cand" -c "import yaml" 2>/dev/null && { PY_YAML="$cand"; break; }
+  done
+  if "$PY_YAML" -c "import yaml" 2>/dev/null; then
+    "$PY_YAML" -c "import yaml; yaml.safe_load(open('contracts/openapi.yaml'))" 2>/dev/null \
+      && ok "contracts/openapi.yaml" || bad "contracts/openapi.yaml is not valid YAML"
+  else
+    echo "  · openapi.yaml unchecked (no pyyaml — run ./scripts/bootstrap.sh)"
+  fi
 fi
 
 echo ".env keys:"
