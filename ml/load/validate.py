@@ -58,8 +58,20 @@ RESOLVED_BY = {"fei", "duns", "fuzzy"}
 VALID_LAYERS = {1, 2, 3}
 
 # Not a closed vocabulary — unknown rels warn rather than fail, so a lane can
-# introduce one without breaking everyone else's build.
-KNOWN_RELS = {"feeds", "produced_by", "formulated_from", "incorporated_in", "labeled_by"}
+# introduce one without breaking everyone else's build. `active_in`,
+# `instance_of` and `markets` were added Sat 20:50 after reconciling against
+# nikhil/openfda-graph; without them his 1,526 legitimate edges warn and drown
+# the real findings.
+KNOWN_RELS = {
+    "feeds",            # precursor -> api          (Yash, layer 3)
+    "produced_by",      # precursor/api -> company
+    "formulated_from",  # product -> api            (Nikhil)
+    "instance_of",      # product -> drug           (Nikhil)
+    "markets",          # company -> product        (Nikhil)
+    "incorporated_in",  # company -> country
+    "active_in",        # company -> country        (Nikhil)
+    "labeled_by",       # product -> company
+}
 
 # Evidence has to carry a source. A PASS/FAIL with no citation is exactly what
 # decision 0003 rules out.

@@ -37,18 +37,19 @@ FEEDS_CITATION = (
     f"beta-lactam nucleus from which the semisynthetic penicillins are made. {CFR_URL}"
 )
 
-# ⚠️ OPEN COUPLING: these ids must match the api: nodes Nikhil emits from openFDA,
-# or the fan-out silently produces nothing. api:amoxicillin-trihydrate is pinned by
-# the shared contract and his brief; the other five are not pinned anywhere, so they
-# are the plain ingredient name until he confirms. The validator's "referenced but
-# not declared" warning is the tripwire.
+# These ids must match the api: nodes Nikhil emits from openFDA, or the fan-out
+# silently produces nothing. Reconciled Sat 20:50 against
+# origin/nikhil/openfda-graph:web/data/nodes.openfda.json — three of the six carry
+# the salt (…-sodium) because that is the active-ingredient name openFDA actually
+# publishes, and three do not. It is not a pattern you can guess; it is a lookup.
+# The validator's "referenced but not declared" warning is the standing tripwire.
 PENICILLINS = [
     {"drug": "Amoxicillin",   "api": "api:amoxicillin-trihydrate", "eo13944": True},
     {"drug": "Ampicillin",    "api": "api:ampicillin",             "eo13944": True},
     {"drug": "Piperacillin",  "api": "api:piperacillin",           "eo13944": True},
-    {"drug": "Dicloxacillin", "api": "api:dicloxacillin",          "eo13944": False},
-    {"drug": "Nafcillin",     "api": "api:nafcillin",              "eo13944": False},
-    {"drug": "Oxacillin",     "api": "api:oxacillin",              "eo13944": False},
+    {"drug": "Dicloxacillin", "api": "api:dicloxacillin-sodium",   "eo13944": False},
+    {"drug": "Nafcillin",     "api": "api:nafcillin-sodium",       "eo13944": False},
+    {"drug": "Oxacillin",     "api": "api:oxacillin-sodium",       "eo13944": False},
 ]
 
 
