@@ -21,6 +21,15 @@ curated layer-3 attribution) plus FEI, DUNS and operations.
   field under a null key.
 * 🔴 **The first column is named `' FEI_NUMBER'` — with a leading space.**
   `row["FEI_NUMBER"]` raises KeyError. Field names are stripped below.
+* 🔴 **146,104 of the values carry their own surrounding whitespace** — `'DSP '`,
+  `'3004446312 '`. Stripped centrally in `read_rows()` rather than at each call
+  site, because one forgotten `.strip()` silently breaks a name match.
+* 🔴 **FEI width is inconsistent.** 8,543 rows are zero-padded to 10 chars, 1,693
+  are a bare 7, and 200 are empty — so the same plant can appear as `0001234567`
+  and `1234567`, and minting `company:fei:` ids straight from the column would
+  create two nodes for one establishment. `normalize_fei()` strips leading zeros.
+  Aurobindo's 3004446312 is genuinely 10 digits and is unaffected, so it still
+  matches the `company:fei:3004446312` node Nikhil emits.
 * **`EXPIRATION_DATE` is `12/31/2026` on every one of the 10,436 rows.** It is an
   annual snapshot, not a live feed, whatever FDA says about daily updates. Never
   present DECRS as real-time.
@@ -82,19 +91,39 @@ def fetch() -> Path:
     return CACHE
 
 
+def normalize_fei(value: str | None) -> str | None:
+    """Canonical FEI: no surrounding space, no leading zeros.
+
+    The file mixes widths — 8,543 rows carry a 10-char zero-padded FEI, 1,693
+    carry a bare 7-char one, and 200 are empty. So the *same* establishment can be
+    written `0001234567` here and `1234567` elsewhere, and minting node ids
+    straight from the column would produce two `company:fei:` nodes for one plant.
+    Stripping leading zeros collapses both to one id, and leaves genuinely 10-digit
+    numbers (Aurobindo's 3004446312) untouched.
+    """
+    fei = (value or "").strip().lstrip("0")
+    return fei or None
+
+
 def read_rows() -> list[dict]:
     raw = zipfile.ZipFile(fetch()).read(MEMBER).decode("utf-8", errors="replace")
     reader = csv.DictReader(StringIO(raw), delimiter="\t")
     rows = []
     for rec in reader:
-        # Strip the leading-space field name and drop the trailing-tab null key.
-        rows.append({(k.strip() if k else k): v
+        # Three defects in one line of the source file:
+        #  * the first column is named ' FEI_NUMBER' — with a leading space, so
+        #    rec["FEI_NUMBER"] raises KeyError. Strip the key.
+        #  * every row ends in a trailing tab, so DictReader emits a 15th field
+        #    under a null key. Drop it.
+        #  * 146,104 of the values carry their own surrounding whitespace. Strip
+        #    centrally rather than hoping every call site remembers.
+        rows.append({k.strip(): (v.strip() if isinstance(v, str) else v)
                      for k, v in rec.items() if k is not None})
     return rows
 
 
 def country_of(row: dict) -> tuple[str | None, str | None]:
-    m = ADDRESS_ISO3.search((row.get("ADDRESS") or "").strip())
+    m = ADDRESS_ISO3.search(row.get("ADDRESS") or "")
     if not m:
         return None, None
     iso3 = m.group(1)
@@ -138,19 +167,19 @@ def main() -> int:
         exact += 1
         rec = matches[0]
         iso2, iso3 = country_of(rec)
-        fei = (rec.get("FEI_NUMBER") or "").strip()
-        registrant = (rec.get("REGISTRANT_NAME") or "").strip()
-        firm = (rec.get("FIRM_NAME") or "").strip()
+        fei = normalize_fei(rec.get("FEI_NUMBER"))
+        registrant = rec.get("REGISTRANT_NAME") or ""
+        firm = rec.get("FIRM_NAME") or ""
 
         attrs = {
-            "fei": fei or None,
-            "duns": (rec.get("DUNS_NUMBER") or "").strip() or None,
+            "fei": fei,
+            "duns": (rec.get("DUNS_NUMBER") or "") or None,
             "decrs_firm_name": firm,
             "decrs_registrant_name": registrant,
             "foreign_ownership_note": (
                 f"registrant '{registrant}' differs from plant '{firm}'"
                 if registrant and registrant != firm else None),
-            "operations": (rec.get("OPERATIONS") or "").strip() or None,
+            "operations": (rec.get("OPERATIONS") or "") or None,
             "decrs_address_iso3": iso3,
             "decrs_sites": len(matches),
             "decrs_source": DECRS_SOURCE,
