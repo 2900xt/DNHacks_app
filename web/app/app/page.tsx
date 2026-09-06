@@ -12,6 +12,7 @@ import { getRiskMeta, riskFor } from '../lib/risk'
 import type { Compliance, GraphEdge, NodeId, Signal } from '../lib/types'
 import Console, { type Payload } from '../components/Console'
 import { APA } from '../lib/demo'
+import { displayName } from '../lib/plain'
 
 export const metadata = {
   title: 'RIPPLE Medicine',
@@ -67,7 +68,11 @@ export default function Page() {
     if (!n || COLLAPSED.has(n.type)) spine.delete(id)
   }
 
-  const nodes = all.filter((n) => spine.has(n.id))
+  // Register spellings are capitals; the screen is not. Done once, here, so the
+  // tree, the rail, the globe and the log all say the same name.
+  const nodes = all
+    .filter((n) => spine.has(n.id))
+    .map((n) => (n.label ? { ...n, label: displayName(n.label) } : n))
   const edges = g.edges.filter(
     (e) => spine.has(e.src) && spine.has(e.dst) && e.rel !== 'markets',
   )

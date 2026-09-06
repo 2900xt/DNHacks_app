@@ -1,5 +1,30 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+// Self-hosted, never fetched: the venue network is assumed hostile. Two faces.
+// A serif display for what is READ — titles, names, the big numbers — and a
+// humanist sans for everything that is scanned. The old instrument look, mono
+// and tracked capitals everywhere, is gone on purpose.
+const sans = localFont({
+  variable: "--font-sans",
+  display: "swap",
+  src: [
+    { path: "./fonts/NotoSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/NotoSans-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/NotoSans-Bold.woff2", weight: "600 700", style: "normal" },
+  ],
+});
+const serif = localFont({
+  variable: "--font-serif",
+  display: "swap",
+  src: [
+    { path: "./fonts/NotoSerifDisplay-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/NotoSerifDisplay-Italic.woff2", weight: "400", style: "italic" },
+    { path: "./fonts/NotoSerifDisplay-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/NotoSerifDisplay-Bold.woff2", weight: "600 700", style: "normal" },
+  ],
+});
 
 // Stage name is RIPPLE — decisions/0005. The repo, docs and node-id scheme stay
 // CHOKEPOINT; only what a judge sees or hears changes. Logo: /ripple-logo.png
@@ -24,7 +49,7 @@ export const metadata: Metadata = {
 // (the full lockup) and public/ripple-logo.ico.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body>{children}</body>
     </html>
   );

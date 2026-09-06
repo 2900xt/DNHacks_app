@@ -17,6 +17,32 @@ const ISO2_NAME: Record<string, string> = {
   nl: 'the Netherlands', ie: 'Ireland', pt: 'Portugal', be: 'Belgium',
 }
 
+/** Company suffixes the register writes in capitals and a reader does not. */
+const SUFFIX: Record<string, string> = {
+  GMBH: 'GmbH', SPA: 'SpA', SRL: 'Srl', SLU: 'SLU', SL: 'SL', SA: 'SA', AG: 'AG',
+  BV: 'BV', NV: 'NV', LTD: 'Ltd', LTDA: 'Ltda', LLC: 'LLC', INC: 'Inc', CO: 'Co',
+  PVT: 'Pvt', PTE: 'Pte', PLC: 'PLC', AS: 'AS', AB: 'AB', OY: 'Oy', KG: 'KG',
+  DE: 'de', CV: 'CV', USA: 'USA', UK: 'UK', API: 'API', ACS: 'ACS', DSM: 'DSM',
+}
+
+/**
+ * The DMF register spells every holder in capitals — "SANDOZ GMBH" — and the
+ * console used to show it that way. A name is read, not scanned; it gets title
+ * case, with the corporate suffixes the way their owners write them. Labels
+ * that already carry lower case ("ACS Dobfar SpA") are left exactly as found.
+ */
+export function displayName(label: string): string {
+  if (label !== label.toUpperCase() || !/[A-Z]/.test(label)) return label
+  return label
+    .split(/(\s+|[()/,.-])/)
+    .map((w) => {
+      if (!/[A-Z]/.test(w)) return w
+      if (SUFFIX[w]) return SUFFIX[w]
+      return w.charAt(0) + w.slice(1).toLowerCase()
+    })
+    .join('')
+}
+
 export function countryName(iso: string): string {
   const k = iso.toLowerCase()
   return ISO2_NAME[k] ?? ISO3_NAME[iso.toUpperCase()] ?? iso.toUpperCase()

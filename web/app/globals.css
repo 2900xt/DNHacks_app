@@ -39,8 +39,14 @@
   --panel-b:   #0b131c;
   --ink:       #eaf2fa;
 
-  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Loaded by app/layout.tsx through next/font/local; the named fallbacks
+     only ever show for the instant before the woff2 lands. */
+  --sans:  var(--font-sans), "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--font-serif), "Noto Serif Display", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  /* The readouts used to be monospaced. They are set in the sans now, with
+     tabular figures where they line up; the token stays so 74 rules need not
+     change their name. */
+  --mono:  var(--sans);
 }
 
 * { box-sizing: border-box; }
@@ -243,7 +249,7 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .reroute {
   pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
   padding: 10px 16px 10px 14px; cursor: pointer;
-  font: 700 12px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+ font: 700 12px/1 var(--sans); letter-spacing: .01em; 
   color: #c9fff5; background: linear-gradient(180deg, #123531, #0c2725);
   border: 1px solid rgba(46,230,197,.75); border-radius: 4px;
   box-shadow: 0 0 0 0 rgba(46,230,197,.5), 0 10px 26px rgba(0,0,0,.4);
@@ -324,7 +330,7 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 /* Clicked: the caption runs to its end instead of stopping at three lines. */
 .metric[data-open="1"] .m-sub { display: block; -webkit-line-clamp: unset; }
 .m-label {
-  font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+ font: 500 8.5px/1.5 var(--sans); letter-spacing: .01em; 
   color: var(--text-faint);
 }
 .m-value {
@@ -391,7 +397,7 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 
 .tag {
   display: inline-block; padding: 1px 5px; border-radius: 2px;
-  font: 600 9px/1.7 var(--mono); letter-spacing: .07em; text-transform: uppercase;
+ font: 600 9px/1.7 var(--mono); letter-spacing: .01em; 
   border: 1px solid currentColor; white-space: nowrap;
 }
 .tag[data-t="ok"] { color: var(--ok); }
@@ -527,7 +533,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .legend .pill { line-height: 1.6; }
 .tab {
   flex: 1 1 0; min-width: 0; white-space: nowrap; text-align: center;
-  font: 700 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+ font: 700 12px/1 var(--sans); letter-spacing: .01em; 
   color: var(--text-faint); padding: 0 4px; border: 0; border-bottom: 2px solid transparent;
   background: none; cursor: pointer;
 }
@@ -570,7 +576,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   border-bottom: 1px solid var(--line-soft); flex: none;
 }
 .audit-title {
-  font: 600 8.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+ font: 600 8.5px/1 var(--sans); letter-spacing: .01em; 
   color: var(--text-faint);
 }
 .audit-count {
@@ -583,7 +589,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 }
 .a-t { color: var(--text-faint); font-variant-numeric: tabular-nums; }
 .a-kind {
-  font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint);
+ font-size: 8.5px; letter-spacing: .01em; color: var(--text-faint);
 }
 .audit-row[data-kind="cascade"] .a-kind, .audit-row[data-kind="cascade"] .a-text { color: var(--alarm); }
 .audit-row[data-kind="reset"] .a-kind { color: var(--ok); }
@@ -614,7 +620,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   padding: 6px 10px; border-bottom: 1px solid var(--line-soft);
 }
 .strip-label {
-  font: 500 8px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+ font: 500 8px/1.5 var(--sans); letter-spacing: .01em; 
   color: var(--text-faint); white-space: nowrap; flex: none;
 }
 .strip-hint {
@@ -672,7 +678,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .tree { width: 100%; height: auto; display: block; }
 
 .tlevel {
-  font: 600 8.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
+ font: 600 8.5px/1 var(--sans); letter-spacing: .01em; 
   fill: var(--text-faint); dominant-baseline: middle;
 }
 
@@ -681,7 +687,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    China argument, before anyone reads a percentage. */
 .tgroup rect { fill: #0f1620; stroke: var(--line-soft); stroke-width: 1; transition: fill .3s, stroke .3s; }
 .tgroup-label {
-  font: 600 9.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+ font: 600 9.5px/1 var(--mono); letter-spacing: .01em; 
   fill: var(--text-faint); cursor: pointer;
 }
 .tgroup-label:hover { fill: var(--text); }
@@ -853,12 +859,12 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 }
 .df-route {
   font: 500 9px/1 var(--mono); color: var(--text-faint);
-  text-transform: uppercase; letter-spacing: .08em;
+ letter-spacing: .01em;
 }
 .df-line { font: 400 10px/1.45 var(--sans); color: var(--text-dim); margin: 0 0 6px; }
 .df-key {
   display: block; font: 500 8.5px/1 var(--mono); color: var(--text-faint);
-  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px;
+ letter-spacing: .01em; margin-bottom: 2px;
 }
 .df-none { color: var(--alarm); font-weight: 600; }
 .df-drivers { display: flex; flex-direction: column; gap: 3px; }
@@ -886,7 +892,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .nav-links { display: flex; gap: 20px; margin-left: 10px; }
 .nav-links a {
   color: var(--text-dim); text-decoration: none;
-  font: 500 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+ font: 500 11px/1 var(--mono); letter-spacing: .01em; 
 }
 .nav-links a:hover { color: var(--sky); }
 .nav-auth { margin-left: auto; display: flex; align-items: center; gap: 8px; }
@@ -899,7 +905,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
-  font: 600 11px/1 var(--mono); letter-spacing: .09em; text-transform: uppercase;
+ font: 600 11px/1 var(--mono); letter-spacing: .01em; 
   text-decoration: none; border-radius: 2px; padding: 10px 16px; cursor: pointer;
   white-space: nowrap; border: 1px solid transparent;
   transition: background .15s, color .15s, border-color .15s, box-shadow .15s;
@@ -950,7 +956,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
 .eyebrow {
   margin: 0 0 18px; font: 600 10px/1 var(--mono);
-  letter-spacing: .3em; text-transform: uppercase; color: var(--sky);
+ letter-spacing: .01em; color: var(--sky);
 }
 .hero h1 {
   margin: 0; font-family: var(--mono); font-weight: 500;
@@ -967,7 +973,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .hero-cta { display: flex; gap: 9px; margin-top: 30px; flex-wrap: wrap; }
 .hero-src {
   margin: 28px 0 0; font: 500 9.5px/1.7 var(--mono);
-  letter-spacing: .18em; text-transform: uppercase; color: var(--text-faint);
+ letter-spacing: .01em; color: var(--text-faint);
 }
 
 /* ---- bands ---------------------------------------------------------------- */
@@ -988,7 +994,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .how-cell { background: var(--panel-b); padding: 19px 20px; }
 .how-step {
   margin: 0 0 13px; font: 600 9px/1 var(--mono);
-  letter-spacing: .24em; text-transform: uppercase; color: var(--sky);
+ letter-spacing: .01em; color: var(--sky);
 }
 .how-n {
   margin: 0 0 9px; font: 500 26px/1 var(--mono);
@@ -1013,11 +1019,11 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .plan-flag {
   position: absolute; top: -7px; right: 14px;
   background: var(--sky); color: #04090f; border-radius: 1px; padding: 3px 7px;
-  font: 600 8px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase;
+ font: 600 8px/1 var(--mono); letter-spacing: .01em; 
 }
 .plan-name {
   margin: 0 0 11px; font: 600 9.5px/1 var(--mono);
-  letter-spacing: .24em; text-transform: uppercase; color: var(--text-faint);
+ letter-spacing: .01em; color: var(--text-faint);
 }
 .plan-price {
   margin: 0 0 10px; font: 500 28px/1 var(--mono);
@@ -1077,7 +1083,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .auth-flag a { color: #ffd9a3; text-decoration: underline; }
 .auth-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 13px; }
 .auth-field span {
-  font: 500 9px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--text-faint);
+ font: 500 9px/1 var(--mono); letter-spacing: .01em; color: var(--text-faint);
 }
 .auth-field input {
   background: #060c13; border: 1px solid var(--edge); border-radius: 2px;
@@ -1159,7 +1165,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   margin: 0; padding: 8px 12px; display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 5px;
   font: 400 10.5px/1.4 var(--sans); border-bottom: 1px solid var(--line);
 }
-.acct-grid dt { color: var(--text-faint); font: 500 9px/1.7 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+.acct-grid dt { color: var(--text-faint); font: 500 9px/1.7 var(--mono); letter-spacing: .01em; }
 .acct-grid dd { margin: 0; color: var(--text); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .acct-mono { font: 400 10px/1.4 var(--mono); }
 .acct-link { color: var(--focus); text-decoration: none; font: 500 10px/1 var(--sans); }
@@ -1169,10 +1175,10 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .acct-stat { display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; border-right: 1px solid var(--line-soft); }
 .acct-stat:last-child { border-right: 0; }
 .acct-stat b { font: 600 14px/1 var(--mono); color: var(--text); font-variant-numeric: tabular-nums; }
-.acct-stat span { font: 400 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .05em; text-transform: uppercase; }
+.acct-stat span { font: 400 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .01em; }
 
 .acct-keys { padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; border-bottom: 1px solid var(--line); }
-.acct-keys-title { grid-column: 1 / -1; font: 500 9px/1.7 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--text-faint); }
+.acct-keys-title { grid-column: 1 / -1; font: 500 9px/1.7 var(--mono); letter-spacing: .01em; color: var(--text-faint); }
 .acct-key { display: flex; align-items: center; gap: 6px; font: 400 10px/1.3 var(--sans); color: var(--text-dim); min-width: 0; }
 .acct-key span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .acct-key kbd {
@@ -1185,7 +1191,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .acct-out {
   background: none; border: 1px solid var(--line); border-radius: 2px; cursor: pointer;
   padding: 5px 9px; color: var(--text-dim); text-decoration: none;
-  font: 600 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+ font: 600 9.5px/1 var(--mono); letter-spacing: .01em; 
   transition: color .15s, border-color .15s;
 }
 .acct-out:hover { color: var(--alarm); border-color: var(--alarm); }
@@ -1231,7 +1237,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .mc { padding: 8px 12px 12px; font: 400 10px/1.45 var(--sans); color: var(--text-dim); }
 .mc-lede { margin: 0 0 10px; color: var(--text-dim); }
 .mc-h {
-  font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+ font: 500 8.5px/1.5 var(--sans); letter-spacing: .01em; 
   color: var(--text-faint); margin: 12px 0 5px;
   padding-bottom: 3px; border-bottom: 1px solid var(--line-soft);
 }
@@ -1263,8 +1269,8 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   font: 400 9.5px/1.7 var(--mono); font-variant-numeric: tabular-nums;
 }
 .mc-tab th {
-  text-align: right; font: 500 8px/1.6 var(--sans); letter-spacing: .12em;
-  text-transform: uppercase; color: var(--text-faint);
+  text-align: right; font: 500 8px/1.6 var(--sans); letter-spacing: .01em;
+ color: var(--text-faint);
   border-bottom: 1px solid var(--line); padding: 0 0 2px;
 }
 .mc-tab th:first-child { text-align: left; }
@@ -1276,3 +1282,19 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   margin-top: 10px; padding-top: 6px; border-top: 1px solid var(--line-soft);
   font: 400 8.5px/1.45 var(--mono); color: var(--text-faint);
 }
+
+/* ---- type ------------------------------------------------------------------
+   The serif carries what is read as a sentence or a name: the tabs, the
+   section titles, the big readings, the node names, the caption, the landing
+   headline. Everything else stays in the sans. No capitals, no tracking. */
+.tab, .sec-title, .m-value, .tnode .t-name, .tgroup-label, .hero h1, .plan-price,
+.caption .say, .rr-name, .buyer-fixed, .drug-select, .strip-hint,
+.login h1, .plans h2, h1, h2 { font-family: var(--serif); }
+.tab { font-weight: 500; font-size: 14px; }
+.sec-title { font-weight: 500; font-size: 13px; }
+.m-value { font-size: 20px; }
+.m-label, .audit-title, .mc-h, .strip-label, .tlevel, .plan-name { font-weight: 600; }
+.tnode .t-name { font-size: 13.5px; }
+.tgroup-label { font-weight: 500; }
+.rr-name { font-size: 12px; }
+.tag { font-weight: 600; }
