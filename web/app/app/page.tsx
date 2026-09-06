@@ -13,7 +13,7 @@ import Console, { type Payload } from '../components/Console'
 import { APA } from '../lib/demo'
 
 export const metadata = {
-  title: 'RIPPLE — sourcing risk console',
+  title: 'RIPPLE Medicine',
   description:
     'Trace a drug product to the precursor it shares, and see what else fails with it.',
 }

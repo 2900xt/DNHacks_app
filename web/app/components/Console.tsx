@@ -8,8 +8,8 @@ import type {
 import { verdicts as computeVerdicts } from '../lib/compliance'
 import { AMOX, BEATS, type BeatCtx, type NodeState } from '../lib/demo'
 import {
-  allocate, buildTree, cutSet, evaluate, impactLine, shortlist, siblingDrugs,
-  walk, type Health, type TreeNode,
+  allocate, buildTree, cutSet, evaluate, impactLine, optimalPath, shortlist, siblingDrugs,
+  walk, type Health,
 } from '../lib/supply-tree'
 import ReroutePanel from './ReroutePanel'
 import { Section } from './Rail'
@@ -112,6 +112,9 @@ export default function Console({ payload }: { payload: Payload }) {
   const rerouting = compromised.size > 0
   if (!rerouting && rerouted) setRerouted(false)
   const showRoute = rerouting && rerouted
+  /** The best path is on screen at rest. A failure takes it down with the
+   *  rest of the picture; it comes back, recomputed, when the operator asks. */
+  const showPath = !rerouting || showRoute
   /** Ask AEGIS. One click, one log line, and the rail unfolds the answer. */
   const doReroute = useCallback(() => {
     setRerouted(true)
@@ -122,7 +125,7 @@ export default function Console({ payload }: { payload: Payload }) {
    *  split says how much load each jurisdiction now carries; this says which
    *  holders a buyer could actually call, and why. Both are derived from the
    *  same `compromised` set, so they can never disagree about who is off. */
-  const sl = useMemo(() => shortlist(reroute, tree, compromised, showRoute), [reroute, tree, compromised, showRoute])
+  const sl = useMemo(() => shortlist(reroute, tree, compromised, showPath), [reroute, tree, compromised, showPath])
 
   /** The chokepoint's own verdict. Every drug on this precursor inherits it —
    *  that inheritance is the fan-out, and it is why one node failing in Inner
@@ -348,22 +351,14 @@ export default function Console({ payload }: { payload: Payload }) {
   /** The route, for every surface that is not the rail: the globe wants a
    *  jurisdiction, the graph wants a node, the readout wants both plus the
    *  share that jurisdiction now carries. One source, so they cannot disagree. */
-  const routeId = showRoute ? sl.best?.id ?? null : null
   const routeIso = showRoute ? sl.best?.holder.iso2[0] ?? null : null
-  /** Every node from the drug down to the route holder. The tree and the graph
-   *  light the whole path, not just the last hop: a route is a line from the
-   *  buyer's product to the plant, and one green box is a dot, not a line. */
-  const routePath = useMemo<Set<NodeId>>(() => {
-    const s = new Set<NodeId>()
-    if (!routeId || !tree) return s
-    const find = (t: TreeNode, trail: NodeId[]): boolean => {
-      const next = [...trail, t.id]
-      if (t.id === routeId) { next.forEach((id) => s.add(id)); return true }
-      return t.children.some((c) => find(c, next))
-    }
-    find(tree, [])
-    return s
-  }, [routeId, tree])
+  /** The best path, end to end: precursor plant, API plant, buyer. The tree
+   *  and the globe light the whole thing, not just the last hop: a route is a
+   *  line from the buyer's product to the plant, and one green box is a dot,
+   *  not a line. Null while a failure is shown and the operator has not yet
+   *  asked for the answer. */
+  const path = useMemo(() => optimalPath(sl, tree, cut, nodes), [sl, tree, cut, nodes])
+  const routePath = useMemo<Set<string>>(() => path?.keys ?? new Set(), [path])
 
   return (
     <div className="console" data-panel={panel ? 'open' : 'closed'}>
@@ -475,7 +470,7 @@ export default function Console({ payload }: { payload: Payload }) {
           rerouting={rerouting}
           showRoute={showRoute}
           routeIso={routeIso}
-          routeId={routeId}
+          path={path}
           cut={cut}
           off={compromised}
           halted={haltedIsos}

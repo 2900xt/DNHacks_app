@@ -416,8 +416,9 @@ export function shortlist(
   reroute: Reroute,
   tree: TreeNode | null,
   compromised: Set<NodeId>,
-  /** Name a route. Off until the operator asks: a failure is shown the moment
-   *  it happens; the answer to it is a step the operator takes. */
+  /** Name a route. At rest this is the best path; after a failure it is off
+   *  until the operator asks: a failure is shown the moment it happens; the
+   *  answer to it is a step the operator takes. */
   wantRoute = true,
 ): Shortlist {
   const empty: Shortlist = {
@@ -472,7 +473,7 @@ export function shortlist(
     }
     standing.sort((a, b) => b.score - a.score || b.holder.score - a.holder.score)
     standing.forEach((a, i) => { a.rank = i + 1 })
-    const best = wantRoute && compromised.size > 0 && standing[0]?.viable ? standing[0] : null
+    const best = wantRoute && standing[0]?.viable ? standing[0] : null
     return { node, row, rows: [...standing, ...down], standing: standing.length,
       viable: standing.filter((a) => a.viable).length, failedIsos, best }
   }
@@ -537,6 +538,119 @@ export function shortlistLine(sl: Shortlist, label: (id: NodeId) => string): str
   const others = sl.viable - 1
   return `AEGIS route for ${sl.substance}: ${label(best.id)} (${iso(best)}, ${signed(best.score)}${away}).`
     + ` ${others} other viable of ${sl.standing} standing.${next}`
+}
+
+// ---------------------------------------------------------------------------
+// the optimal path — one precursor plant, one API plant, the buyer
+// ---------------------------------------------------------------------------
+
+/** The best path from a plant to the buyer, as the map and the tree draw it.
+ *  Material makes at most two hops: a precursor plant ships 6-APA to an API
+ *  plant, and the API plant ships the finished API to the US. */
+export interface OptimalPath {
+  /** The API holder that ships to the buyer. */
+  apiId: NodeId
+  /** The precursor holder that feeds it. Null when the API holder is
+   *  integrated — it holds both filings and ships straight to the buyer. */
+  preId: NodeId | null
+  /** Node ids on the path, for the globe. */
+  ids: Set<NodeId>
+  /** TreeNode keys on the path — drug, API, precursor and both plants — for
+   *  the tree, which is keyed that way because one company can sit in it twice. */
+  keys: Set<string>
+}
+
+/** Great-circle distance, in degrees of arc. Only ever compared. */
+export function arcDeg(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const r = Math.PI / 180
+  const x = Math.sin(((b.lat - a.lat) * r) / 2) ** 2
+    + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lng - a.lng) * r) / 2) ** 2
+  return (2 * Math.asin(Math.sqrt(x))) / r
+}
+
+/** One score point per ~4,000 km between the two plants on a path, so a
+ *  well-scored partner one country over beats a poorly-scored one next door. */
+export const DIST_PENALTY_DEG = 36
+
+/**
+ * Pick the one path the console calls the best.
+ *
+ * Anchored on the shortlist's #1 — the plant a buyer would actually call —
+ * and completed with the best partner in the other register: the highest
+ * score after the distance penalty, among plants still standing. The
+ * register does not record who buys from whom, so the pairing is
+ * illustrative and the hover says so. Null when nothing viable is standing,
+ * or when the path cannot reach the buyer.
+ */
+export function optimalPath(
+  sl: Shortlist,
+  tree: TreeNode | null,
+  cut: Set<NodeId>,
+  nodes: GraphNode[],
+): OptimalPath | null {
+  if (!tree || !sl.best) return null
+  const best = sl.best.id
+
+  const apiLeaves: TreeNode[] = []
+  const preLeaves: TreeNode[] = []
+  walk(tree, (t) => {
+    if (t.kind !== 'supplier') return
+    ;(t.tier === 'api' ? apiLeaves : preLeaves).push(t)
+  })
+  const inApi = apiLeaves.some((l) => l.id === best)
+  const inPre = preLeaves.some((l) => l.id === best)
+
+  const place = new Map<NodeId, { lat: number; lng: number }>()
+  for (const n of nodes) {
+    const a = (n.attrs ?? {}) as Record<string, unknown>
+    if (typeof a.lat === 'number' && typeof a.lng === 'number') place.set(n.id, { lat: a.lat, lng: a.lng })
+  }
+  const partner = (from: NodeId, pool: TreeNode[]): NodeId | null => {
+    const p = place.get(from)
+    let bestId: NodeId | null = null
+    let bestV = -Infinity
+    for (const q of pool) {
+      if (q.id === from || cut.has(q.id)) continue
+      const qp = place.get(q.id)
+      const dist = p && qp ? arcDeg(p, qp) / DIST_PENALTY_DEG : 0
+      const v = (sl.byId.get(q.id)?.score ?? 0) - dist
+      if (v > bestV) { bestV = v; bestId = q.id }
+    }
+    return bestId
+  }
+
+  let apiId: NodeId | null
+  let preId: NodeId | null
+  if (sl.scope === 'api' || (inApi && !inPre)) {
+    apiId = best
+    preId = inPre ? null : partner(best, preLeaves)
+  } else {
+    // The failure is above every API holder, so the shortlist ranks the
+    // precursor register. An integrated holder is its own API plant.
+    if (inApi) { apiId = best; preId = null }
+    else { preId = best; apiId = partner(best, apiLeaves) }
+  }
+  if (!apiId) return null
+
+  const keys = new Set<string>()
+  const ids = new Set<NodeId>()
+  const trail = (target: NodeId, tier: 'api' | 'precursor') => {
+    const find = (t: TreeNode, above: TreeNode[]): boolean => {
+      const next = [...above, t]
+      if (t.kind === 'supplier' && t.id === target && t.tier === tier) {
+        for (const n of next) { keys.add(n.key); ids.add(n.id) }
+        return true
+      }
+      return t.children.some((c) => find(c, next))
+    }
+    find(tree, [])
+  }
+  trail(apiId, 'api')
+  // An integrated holder's precursor filing is part of the path too: the tree
+  // lights both of its boxes and the gate between them, even though the globe
+  // has no second plant to draw an arc to.
+  trail(preId ?? apiId, 'precursor')
+  return { apiId, preId, ids, keys }
 }
 
 // ---------------------------------------------------------------------------

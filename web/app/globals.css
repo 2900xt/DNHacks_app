@@ -21,8 +21,9 @@
   --warn:      #d9903a;
   --alarm:     #e5484d;
   --focus:     #4a9eda;
-  /* The new route. Neither the green of healthy nor the blue of focus. */
-  --route:     #2ee6c5;
+  /* The best path. Green — brighter than the muted green of "healthy", so a
+     highlighted path reads as the answer, not as one more ok node. */
+  --route:     #2fe07a;
 
   --layer1:    #4a9eda;
   --layer2:    #8494a6;
