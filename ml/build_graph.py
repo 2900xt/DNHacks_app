@@ -58,6 +58,8 @@ KNOWN_FEI: dict[str, dict[str, str]] = {
     "centrient pharmaceuticals india private limited": {"fei": "3002807979", "country": "IN", "label": "Centrient Pharmaceuticals India Private Limited"},
 }
 
+COUNTRY_LABELS = {"in": "India", "cn": "China", "us": "United States"}
+
 CITE_OPENFDA = "openFDA /drug/ndc.json"
 
 
@@ -139,10 +141,14 @@ class GraphBuilder:
         can flag it."""
         known = KNOWN_FEI.get(labeler_name.strip().lower())
         if known:
+            # `country` is ISO-2 LOWERCASED per web/app/lib/types.ts -- the display name
+            # goes in the country node's label, not in this field.
+            iso2 = known["country"].lower()
             node_id = f"company:fei:{known['fei']}"
-            self.node(node_id, "company", known["label"], country=known["country"],
+            self.node(node_id, "company", known["label"], country=iso2,
                       resolved_by="fei", attrs={"fei": known["fei"], "labeler_name": labeler_name})
-            country_id = self.node(f"country:{known['country'].lower()}", "country", known["country"])
+            country_id = self.node(f"country:{iso2}", "country", COUNTRY_LABELS.get(iso2, iso2.upper()),
+                                   country=iso2)
             self.edge(node_id, country_id, "incorporated_in", layer=1, citation="FDA FEI registration")
             return node_id
 

@@ -90,7 +90,7 @@
     "id": "company:fei:3002807979",
     "type": "company",
     "label": "Centrient Pharmaceuticals India Private Limited",
-    "country": "IN",
+    "country": "in",
     "critical": false,
     "attrs": {
       "fei": "3002807979",
@@ -103,7 +103,7 @@
     "id": "company:fei:3004446312",
     "type": "company",
     "label": "Aurobindo Pharma Limited",
-    "country": "IN",
+    "country": "in",
     "critical": false,
     "attrs": {
       "fei": "3004446312",
@@ -1039,8 +1039,8 @@
   {
     "id": "country:in",
     "type": "country",
-    "label": "IN",
-    "country": null,
+    "label": "India",
+    "country": "in",
     "critical": false,
     "attrs": {
       "openfda_rows": 42
