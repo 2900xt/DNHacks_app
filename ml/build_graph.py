@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -152,7 +152,9 @@ class GraphBuilder:
                       resolved_by="fei", attrs={"fei": known["fei"], "labeler_name": labeler_name})
             country_id = self.node(f"country:{iso2}", "country", COUNTRY_LABELS.get(iso2, iso2.upper()),
                                    country=iso2)
-            self.edge(node_id, country_id, "incorporated_in", layer=1, citation="FDA FEI registration")
+            # country -> company, not company -> country: a country-level disruption is
+            # what cascades to the firms in it. Same flow-direction rule as above.
+            self.edge(country_id, node_id, "hosts", layer=1, citation="FDA FEI registration")
 
             # 🔴 THE SEAM. Parth's signals attach to `facility:fei:*` (an inspection is of
             # a SITE), but openFDA gives us labelers, which are companies. Without a
@@ -165,7 +167,7 @@ class GraphBuilder:
                                     resolved_by="fei", attrs={"fei": known["fei"]})
             self.edge(facility_id, node_id, "operated_by", layer=1,
                       citation="FDA FEI registration")
-            self.edge(facility_id, country_id, "located_in", layer=1,
+            self.edge(country_id, facility_id, "hosts", layer=1,
                       citation="FDA FEI registration")
             return node_id
 
@@ -229,12 +231,23 @@ def build(refresh: bool = False) -> tuple[GraphBuilder, dict]:
                 },
             )
 
-            g.edge(product_id, api_id, "formulated_from", layer=1, citation=CITE_OPENFDA)
-            g.edge(product_id, drug_id, "instance_of", layer=1, citation=CITE_OPENFDA)
+            # 🔴 DIRECTION: edges point the way material/dependency FLOWS, because
+            # graph.ts cascade() follows OUTGOING edges ("precursor --feeds--> api
+            # --formulated_into--> drug"). briefs/nikhil.md §2.3 specifies the opposite
+            # (`product --formulated_from--> api`); following the brief made
+            # cascade('drug:amoxicillin') return 0 affected and cascade from an api
+            # reach nothing but the drug. graph.ts is the consumer, so it wins.
+            g.edge(api_id, product_id, "formulated_into", layer=1, citation=CITE_OPENFDA)
+            g.edge(drug_id, product_id, "marketed_as", layer=1, citation=CITE_OPENFDA)
 
             company_id = g.company(labeler)
             g.edge(company_id, product_id, "markets", layer=1, citation=CITE_OPENFDA)
-            g.edge(company_id, api_id, "produced_by", layer=1, citation=CITE_OPENFDA)
+            # NOTE: no `company --produced_by--> api` edge. openFDA `labeler_name` is the
+            # MARKETER/relabeler, not the API manufacturer -- "A-S Medication Solutions"
+            # is a repackager. Asserting they produce the API is the exact overreach
+            # OPENFDA-METHOD.md warns about; API manufacture comes from DMF/DECRS, which
+            # is Yash's layer. Emitting it also made killing one labeler light up all six
+            # drugs, which is false.
             kept += 1
 
         stats["products_by_drug"][drug] = kept
@@ -290,7 +303,33 @@ def verify(g: GraphBuilder) -> bool:
     print(f"  {status} 6-APA -> {len(api_nodes)} API nodes -> {len(reached)} drugs (expected 6)")
     print(f"       fan-out: {', '.join(sorted(n.split(':')[1] for n in reached))}")
 
-    # 3. The seam: every signal node this graph is supposed to carry must actually exist
+    # 3. Cascade reachability, mirroring graph.ts cascade(): follow OUTGOING edges.
+    # Direction bugs do not throw -- they return an empty set -- so assert real numbers.
+    outgoing: dict[str, list[dict]] = defaultdict(list)
+    for e in g.edges.values():
+        outgoing[e["src"]].append(e)
+
+    def reach(start: str) -> list[str]:
+        seen, queue, hit = {start}, [start], []
+        while queue:
+            for e in outgoing.get(queue.pop(0), []):
+                if e["dst"] not in seen:
+                    seen.add(e["dst"])
+                    hit.append(e["dst"])
+                    queue.append(e["dst"])
+        return hit
+
+    for start, want in [("api:amoxicillin-trihydrate", 100), ("drug:amoxicillin", 100),
+                        ("facility:fei:3004446312", 20), ("country:in", 20)]:
+        hit = reach(start)
+        kinds = Counter(g.nodes[h]["type"] for h in hit)
+        status = "OK " if len(hit) >= want else "FAIL"
+        if len(hit) < want:
+            ok = False
+        print(f"  {status} cascade({start:26}) -> {len(hit):4} affected "
+              f"{dict(sorted(kinds.items()))}")
+
+    # 4. The seam: every signal node this graph is supposed to carry must actually exist
     # as a node. Reads Parth's signals.json if it has landed; skips quietly if not.
     signals_file = OUT_DIR / "signals.json"
     if signals_file.exists():
@@ -317,7 +356,7 @@ def verify(g: GraphBuilder) -> bool:
         print(f"  -- {len(orphans)} signal node_ids not in this file "
               f"(Yash's + Parth's own to create)")
 
-    # 4. Every company:name: id must be marked fuzzy.
+    # 5. Every company:name: id must be marked fuzzy.
     bad = [n for n, v in g.nodes.items() if n.startswith("company:name:") and v["resolved_by"] != "fuzzy"]
     status = "OK " if not bad else "FAIL"
     if bad:
