@@ -107,6 +107,12 @@ class Bin:
     storage_class: str = "crt"
     material: Optional[str] = None
     covers_drugs: list[str] = field(default_factory=list)
+    # ISO-2 of the point of interest this bin sits in — the depot where supplies
+    # flow in and out. Depots are LOCAL: a bin belongs to one country and the
+    # console lists it there and nowhere else. The seed gives the default; the
+    # device's own reading overrides it, because the device is the one thing
+    # that is actually wherever it is.
+    country: Optional[str] = None
 
     # Tuning. Demo defaults are deliberately fast — a judge will not stand there
     # for 30 minutes. Report window_h honestly in the payload and say it on stage.
@@ -136,12 +142,17 @@ class Bin:
 
     def ingest(self, readings: dict[str, Any], ts: float,
                device_id: Optional[str] = None,
-               battery_pct: Optional[float] = None) -> None:
+               battery_pct: Optional[float] = None,
+               country: Optional[str] = None) -> None:
         self.last_ts = ts
         if device_id:
             self.device_id = device_id
         if battery_pct is not None:
             self.battery_pct = battery_pct
+        if country:
+            # The device reports where it is on every reading, so a node carried
+            # to another depot re-homes itself here — no seed edit, no restart.
+            self.country = country.strip().lower()
 
         temp = _num(readings.get("temp_c"))
         xtemp = _num(readings.get("temp_c_xcheck"))
@@ -280,6 +291,7 @@ class Bin:
         return {
             "node_id": self.node_id,
             "label": self.label,
+            "country": self.country,
             "material": self.material,
             "storage_class": self.storage_class,
             "spec": dict(self.spec()),

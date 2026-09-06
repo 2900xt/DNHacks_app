@@ -60,7 +60,12 @@ def main() -> int:
                 missing.append((b["node_id"], name, drug_id))
                 continue
             covers.append(drug_id)
-        bins.append({"id": b["node_id"], "label": b.get("label"), "covers_drugs": covers})
+        bins.append({
+            "id": b["node_id"], "label": b.get("label"), "covers_drugs": covers,
+            # ISO-2 of the point of interest the bin sits in. Depots are local to a
+            # country, and the console lists a bin only under its own.
+            "country": b.get("country"),
+        })
 
     for node_id, name, drug_id in missing:
         print(f"  ERROR {node_id}: covers_drugs {name!r} -> {drug_id} is not a declared node")

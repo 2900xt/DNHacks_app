@@ -28,6 +28,13 @@
   --layer2:    #8494a6;
   --layer3:    #a97fd9;
 
+  /* Landing / auth palette (nav, hero, plans, login). */
+  --sky:       #5ab0ea;
+  --sky-dim:   rgba(90,176,234,.62);
+  --edge:      #1b2c3d;
+  --edge-soft: #152232;
+  --panel-b:   #0b131c;
+  --ink:       #eaf2fa;
 
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -135,6 +142,8 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
   min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font: 600 11px/1.3 var(--sans); letter-spacing: .04em;
 }
+/* An open section shows its whole name. The ellipsis is for the folded row. */
+.sec[data-open="1"] .sec-title { white-space: normal; overflow: visible; }
 .sec-body { overflow-y: auto; overscroll-behavior: contain; min-height: 0; border-top: 1px solid var(--line); }
 .sec[data-open="0"] .sec-body { display: none; }
 /* The depot draws its own list header; the section already has one. */
@@ -194,6 +203,10 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .rr-rank { font: 500 10px/1.5 var(--mono); color: var(--text-faint); }
 .rr-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .rr-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+/* Unfolded: the whole name, and every reason as its own line. */
+.rr-row[data-open="1"] .rr-name { white-space: normal; overflow: visible; }
+.rr-w { display: block; padding-left: 9px; text-indent: -9px; }
+.rr-w::before { content: '– '; }
 .rr-iso { font: 500 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .08em; }
 .rr-why { font: 400 9.5px/1.35 var(--mono); color: var(--text-faint); white-space: normal; }
 .rr-score {
@@ -282,6 +295,7 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .bin-row[data-pinned="1"] { border-left-color: var(--focus); }
 .bin-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .bin-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bin-row[data-active="1"] .bin-name { white-space: normal; }
 .bin-temp { font: 500 11px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text-faint); }
 .bin-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
 .bin-dot[data-t="ok"] { background: var(--ok); }
@@ -292,6 +306,10 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
   padding: 5px 12px; border-bottom: 1px solid var(--line-soft);
   display: flex; flex-direction: column; gap: 0;
 }
+.metric[role="button"] { cursor: pointer; }
+.metric[role="button"]:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+/* Clicked: the caption runs to its end instead of stopping at three lines. */
+.metric[data-open="1"] .m-sub { display: block; -webkit-line-clamp: unset; }
 .m-label {
   font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
   color: var(--text-faint);
@@ -322,6 +340,39 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .link-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .lr-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lr-rel { font: 400 9px/1 var(--mono); color: var(--text-faint); }
+/* Unfolded: the whole name, then the citation and the jump, under the row. */
+.link-row[data-open="1"] { background: var(--panel-2); color: var(--text); }
+.link-row[data-open="1"] .lr-name { white-space: normal; overflow: visible; }
+.lr-more {
+  grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start;
+  gap: 6px; padding: 2px 0 3px;
+}
+.lr-cite {
+  font: 400 9.5px/1.4 var(--mono); color: var(--text-faint);
+  white-space: normal; overflow-wrap: anywhere;
+}
+
+/* ---- disclosure: click to read, click to put away ------------------------ */
+
+.disc { border-bottom: 1px solid var(--line-soft); }
+.disc-btn {
+  display: flex; align-items: center; gap: 6px; width: 100%; text-align: left;
+  background: none; border: 0; cursor: pointer; padding: 6px 12px 6px 8px;
+  font: 500 10px/1.4 var(--mono); color: var(--text-dim); letter-spacing: .03em;
+}
+.disc-btn:hover { color: var(--text); background: var(--panel-2); }
+.disc-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.disc[data-open="1"] .sec-chev { transform: rotate(90deg); }
+.disc-body {
+  padding: 0 12px 8px; font: 400 9.5px/1.45 var(--mono); color: var(--text-faint);
+  white-space: normal;
+}
+.disc-body p { margin: 0 0 6px; }
+.disc-body p:last-child { margin-bottom: 0; }
+.disc-list { margin: 0; padding-left: 14px; }
+.disc-list li { margin: 0 0 4px; }
+.disc-list li[data-delta="up"] { color: var(--ok); }
+.disc-list li[data-delta="down"] { color: var(--warn); }
 
 /* ---- shared atoms --------------------------------------------------------- */
 
@@ -581,6 +632,14 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   100% { box-shadow: 0 0 0 9px rgba(74,158,218,0); }
 }
 .drug-select[data-flash="1"] { animation: sel-pulse .9s ease-out; }
+
+/* The buyer picker, on the node column's meta row. Same skin as the root
+   picker; the border stays quiet because the buyer is context, not a state. */
+.buyer-select {
+  border-color: var(--line-soft); max-width: 150px;
+  font-size: 10px; padding: 4px 20px 4px 7px;
+}
+.buyer-select:hover { border-color: var(--text-dim); }
 .strip-hint[data-flash="1"] { color: var(--focus); }
 
 /* The SVG scales itself to whatever box it is given, so the box has to be a
@@ -612,7 +671,14 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .tgroup[data-health="down"] rect { fill: #170f11; stroke: rgba(229,72,77,.4); }
 .tgroup[data-health="down"] .tgroup-label { fill: var(--alarm); }
 
-.tbranch { fill: none; stroke: var(--layer1); stroke-width: 1.4; opacity: .55; transition: stroke .35s, opacity .35s, stroke-width .35s; }
+.tbranch {
+  fill: none; stroke: var(--layer1); stroke-width: 1.4; opacity: .55;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke .35s, opacity .35s, stroke-width .35s;
+}
+/* The trunk a parent's suppliers hang off. Heavier than an elbow, so the eye
+   finds the spine first and follows one branch off it. */
+.tbranch[data-trunk="1"] { stroke-width: 1.9; opacity: .7; }
 .tbranch[data-health="at-risk"] { stroke: var(--warn); opacity: .8; }
 .tbranch[data-health="down"] { stroke: #5a6675; opacity: .45; stroke-dasharray: 5 5; }
 .tbranch[data-route="1"] { stroke: var(--route); opacity: .95; stroke-width: 2.2; }
@@ -1015,3 +1081,83 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   .site-foot { padding: 16px 14px; }
   .site-foot > a:last-child { margin-left: 0; }
 }
+
+/* ---- the account chip ------------------------------------------------------
+   Foot of the rail, bottom-right of the map. margin-top:auto pins it to the
+   column's end; the card opens UPWARD from the chip, because there is nothing
+   below the chip but the edge of the screen. Same panel colour, same hairline,
+   as every other instrument surface. */
+.acct { margin-top: auto; flex: none; pointer-events: auto; display: flex; flex-direction: column; gap: 8px; }
+.acct-chip {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 7px 10px 7px 8px; cursor: pointer; text-align: left;
+  background: color-mix(in srgb, var(--panel) 93%, transparent);
+  border: 1px solid var(--line); border-radius: 4px;
+  color: var(--text-dim); font: 500 10.5px/1 var(--sans);
+  transition: border-color .15s, color .15s;
+}
+.acct-chip:hover, .acct[data-open="1"] .acct-chip { color: var(--text); border-color: var(--text-faint); }
+.acct-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.acct-chip-who { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-chev { font-size: 9px; color: var(--text-faint); transition: transform .15s; }
+.acct[data-open="1"] .acct-chev { transform: rotate(180deg); }
+
+.acct-avatar {
+  flex: none; width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center;
+  font: 700 10px/1 var(--mono); color: var(--bg);
+  background: var(--text-faint);
+}
+.acct-avatar[data-t="ok"]   { background: var(--ok); }
+.acct-avatar[data-t="warn"] { background: var(--warn); }
+.acct-avatar-lg { width: 30px; height: 30px; font-size: 13px; }
+
+.acct-card {
+  background: color-mix(in srgb, var(--panel) 96%, transparent);
+  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0,0,0,.45);
+  animation: acct-in .14s ease-out;
+}
+@keyframes acct-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.acct-head { display: flex; align-items: center; gap: 10px; padding: 11px 12px; border-bottom: 1px solid var(--line); }
+.acct-id { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.acct-who { font: 600 12px/1.2 var(--sans); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-sub { font: 400 9.5px/1.35 var(--mono); color: var(--text-faint); }
+
+.acct-grid {
+  margin: 0; padding: 8px 12px; display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 5px;
+  font: 400 10.5px/1.4 var(--sans); border-bottom: 1px solid var(--line);
+}
+.acct-grid dt { color: var(--text-faint); font: 500 9px/1.7 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+.acct-grid dd { margin: 0; color: var(--text); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-mono { font: 400 10px/1.4 var(--mono); }
+.acct-link { color: var(--focus); text-decoration: none; font: 500 10px/1 var(--sans); }
+.acct-link:hover { text-decoration: underline; }
+
+.acct-band { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+.acct-stat { display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; border-right: 1px solid var(--line-soft); }
+.acct-stat:last-child { border-right: 0; }
+.acct-stat b { font: 600 14px/1 var(--mono); color: var(--text); font-variant-numeric: tabular-nums; }
+.acct-stat span { font: 400 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .05em; text-transform: uppercase; }
+
+.acct-keys { padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; border-bottom: 1px solid var(--line); }
+.acct-keys-title { grid-column: 1 / -1; font: 500 9px/1.7 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--text-faint); }
+.acct-key { display: flex; align-items: center; gap: 6px; font: 400 10px/1.3 var(--sans); color: var(--text-dim); min-width: 0; }
+.acct-key span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-key kbd {
+  flex: none; font: 500 9px/1 var(--mono); color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 2px; padding: 3px 4px 2px; background: var(--panel-2);
+}
+
+.acct-foot { display: flex; align-items: center; gap: 12px; padding: 9px 12px; }
+.acct-foot .spacer { flex: 1; }
+.acct-out {
+  background: none; border: 1px solid var(--line); border-radius: 2px; cursor: pointer;
+  padding: 5px 9px; color: var(--text-dim); text-decoration: none;
+  font: 600 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+  transition: color .15s, border-color .15s;
+}
+.acct-out:hover { color: var(--alarm); border-color: var(--alarm); }
+.acct-out:disabled { opacity: .45; cursor: not-allowed; }
+.acct-out:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }

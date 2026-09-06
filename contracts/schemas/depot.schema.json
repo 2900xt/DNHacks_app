@@ -22,6 +22,13 @@
       "type": "string",
       "description": "Human label rendered on the graph node, e.g. 'SNS Depot 01 - Bin A (6-APA)'."
     },
+    "country": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "ISO-2, lowercased. The point of interest this bin belongs to - the graph's `country:` node whose depot it sits in. Depots are local, not global: the console lists this bin only in that country's depot section. Taken from the device's latest reading when it sends one, otherwise from the seed. Null = unplaced; such a bin appears under no country."
+    },
     "material": {
       "type": [
         "string",
