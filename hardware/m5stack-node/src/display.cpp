@@ -301,7 +301,7 @@ void repaint() {
 
 namespace display {
 
-void begin(const char *nodeId) {
+void begin(const char *nodeId, const char *country) {
   auto cfg = M5.config();
 
   // serial_baudrate 0: main.cpp already called Serial.begin, and letting M5
@@ -333,7 +333,13 @@ void begin(const char *nodeId) {
   M5.Lcd.fillScreen(C_BG);
   M5.Lcd.fillRect(0, 0, W, HEADER_H, C_BAR);
   text(6, 5, 2, C_INK, C_BAR, nodeId);
-  text(8, 40, 1, C_DIM, C_BG, "CHOKEPOINT depot-node");
+  // Fixed-width, like everything else on this face. The depot's country is
+  // the one identity fact the node carries besides its bin, and the one most
+  // worth reading off the table before it is reported into the wrong place.
+  char sub[40];
+  snprintf(sub, sizeof(sub), "CHOKEPOINT depot-node   depot %-2.2s", country);
+  for (char *c = sub + 31; *c; ++c) *c = toupper((unsigned char)*c);
+  text(8, 40, 1, C_DIM, C_BG, sub);
   bootY = 56;
   live  = false;
 }
@@ -394,7 +400,7 @@ void tick() {
 #include "pins.h"
 
 namespace display {
-void begin(const char *) {}
+void begin(const char *, const char *) {}
 void boot(const char *) {}
 void health(bool ok) { digitalWrite(STATUS_LED, ok ? HIGH : LOW); }
 void bootHold(bool) {}

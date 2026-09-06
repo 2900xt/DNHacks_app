@@ -57,6 +57,9 @@ export interface Bin {
   label?: string
   /** `drug:` ids. The hardware -> graph seam. */
   covers_drugs: NodeId[]
+  /** ISO-2, lowercased — the `country:` node whose depot this bin sits in.
+   *  Depots are local to a point of interest, not global. */
+  country?: string
 }
 
 /** Live only — in-memory ring buffer in the API, never written to disk. */

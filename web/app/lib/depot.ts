@@ -36,6 +36,10 @@ export interface Spec {
 export interface DepotNode {
   node_id: string;
   label: string;
+  /** ISO-2, lowercased — the `country:` node whose depot this bin sits in.
+   *  Depots are local to a point of interest, not global: a bin is listed
+   *  under this country and under no other. Null = unplaced, listed nowhere. */
+  country?: string | null;
   material?: string | null;
   storage_class: string;
   spec?: Spec;
@@ -96,6 +100,29 @@ export function fmt(n: number | null | undefined, digits = 1): string {
   return n === null || n === undefined || Number.isNaN(n)
     ? "—"
     : n.toFixed(digits);
+}
+
+/** The bins in one country's depot. Depots are local to the point of interest
+ *  the supplies flow in and out of, so a node reporting from the US is listed
+ *  under the US and nowhere else — this is the only way the UI ever reads the
+ *  depot list. */
+export function binsIn(
+  nodes: Record<string, DepotNode>,
+  iso: string | null | undefined,
+): DepotNode[] {
+  if (!iso) return [];
+  const k = iso.toLowerCase();
+  return Object.values(nodes).filter((n) => (n.country ?? "").toLowerCase() === k);
+}
+
+/** Worst first — the same precedence the API sorts by. */
+const RANK: DepotStatus[] = ["mkt_breach", "sensor_fault", "excursion", "stale", "offline", "ok"];
+export function worstOf(bins: DepotNode[]): DepotStatus | null {
+  let worst: DepotStatus | null = null;
+  for (const b of bins) {
+    if (worst === null || RANK.indexOf(b.status) < RANK.indexOf(worst)) worst = b.status;
+  }
+  return worst;
 }
 
 export function elapsed(seconds: number): string {

@@ -15,6 +15,14 @@
 // "Unregistered — <id>" (a warning sign, not a crash).
 #define NODE_ID         "sns-depot-01-bin-a"
 
+// Where the bin IS. ISO-2, lowercased — must match a `country:` node in the
+// graph (us, cn, in, at, ...). Depots are local to one point of interest, the
+// place the supplies flow in and out of, not one global list: the console
+// lists this bin under this country's depot and nowhere else. Sent on every
+// reading, so carrying the node to another depot is a one-line edit here and
+// a reflash — the API's seed never has to know.
+#define DEPOT_COUNTRY   "us"
+
 // --- timing ----------------------------------------------------------------
 #define SAMPLE_MS       2000    // >= DHT_MIN_PERIOD_MS
 #define WIFI_TIMEOUT_MS 10000

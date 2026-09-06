@@ -1,8 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import type { NodeId } from '../lib/types'
 import type { Shortlist } from '../lib/supply-tree'
-import { countryName, plain } from '../lib/plain'
+import { countryName, plain, SCORE_EXPLAINED } from '../lib/plain'
+import { Disclosure } from './Rail'
 
 interface Props {
   sl: Shortlist
@@ -20,11 +22,21 @@ interface Props {
  * and re-ranked here against the current failures. The score is shown WITH its
  * reason: a judge's next question after a number is always "why that number".
  *
- * The footer says what is not modelled. It is not fine print — the demo script
- * reads it out loud, and a shortlist that pretended to be an allocation would be
- * claiming capacity data nobody publishes.
+ * Folded, a row carries the supplier's first reason. Clicking it unfolds the
+ * whole name and EVERY reason the scorer gave, as text on the rail — these used
+ * to live in a hover tooltip, which does not exist on a projector, a phone, or
+ * a keyboard. The click also selects the supplier, so the globe and the tree
+ * go to it at the same time.
  */
 export default function ReroutePanel({ sl, nodeLabel, selected, onSelect }: Props) {
+  const [open, setOpen] = useState<Set<NodeId>>(new Set())
+  const toggle = (id: NodeId) => setOpen((prev) => {
+    const next = new Set(prev)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    return next
+  })
+
   if (!sl.scopeNode) {
     return (
       <div className="rr-sub">
@@ -42,21 +54,26 @@ export default function ReroutePanel({ sl, nodeLabel, selected, onSelect }: Prop
         )}
       </div>
 
-      <div className="rail-list" role="list" aria-label="Ranked alternate suppliers">
+      <Disclosure label="How suppliers are scored">
+        {SCORE_EXPLAINED.map((t) => <p key={t}>{t}</p>)}
+      </Disclosure>
+
+      <div className="rail-list" role="group" aria-label="Ranked alternate suppliers">
         {sl.rows.map((a) => {
           const h = a.holder
           const iso = h.iso2.map((c) => c.toUpperCase()).join('/')
-          const why = plain(h.why[0] ?? '')
+          const reasons = [...h.why, a.deltaWhy].filter((w): w is string => !!w).map(plain)
+          const isOpen = open.has(a.id)
           return (
             <button
               key={a.id}
-              role="listitem"
               className="rr-row"
               data-standing={a.standing ? '1' : '0'}
               data-route={a.recommended ? '1' : '0'}
               data-sel={selected === a.id ? '1' : '0'}
-              onClick={() => onSelect(a.id)}
-              title={[...h.why, a.deltaWhy].filter((w): w is string => !!w).map(plain).join(' · ')}
+              data-open={isOpen ? '1' : '0'}
+              aria-expanded={isOpen}
+              onClick={() => { toggle(a.id); onSelect(a.id) }}
             >
               <span className="rr-rank">{a.standing ? `#${a.rank}` : 'off'}</span>
               <span className="rr-main">
@@ -65,7 +82,10 @@ export default function ReroutePanel({ sl, nodeLabel, selected, onSelect }: Prop
                   {iso && <span className="rr-iso"> {iso}</span>}
                   {a.recommended && <span className="tag" data-t="route">best</span>}
                 </span>
-                <span className="rr-why">{a.standing ? why : 'not shipping — disrupted'}</span>
+                {!a.standing && <span className="rr-why">not shipping — disrupted</span>}
+                {isOpen
+                  ? reasons.map((w, i) => <span key={i} className="rr-why rr-w">{w}</span>)
+                  : a.standing && <span className="rr-why">{reasons[0] ?? ''}</span>}
               </span>
               <span className="rr-score" data-v={a.viable ? '1' : '0'}>
                 {a.score > 0 ? '+' : ''}{a.score.toFixed(1)}

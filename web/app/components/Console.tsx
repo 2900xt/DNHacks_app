@@ -11,13 +11,16 @@ import {
   walk, type Health, type TreeNode,
 } from '../lib/supply-tree'
 import ReroutePanel from './ReroutePanel'
-import { Info, Section } from './Rail'
-import { countryName, SCORE_EXPLAINED } from '../lib/plain'
+import { Section } from './Rail'
+import { countryName } from '../lib/plain'
+import { useDepot } from '../lib/useDepot'
+import { binsIn, worstOf, STATUS_LABEL } from '../lib/depot'
 import TreeView, { type DrugOption } from './TreeView'
 import GlobeView from './GlobeView'
 import NodeMetrics from './NodeMetrics'
 import DepotPanel from './DepotPanel'
 import AuditLog, { type AuditEntry, type AuditKind } from './AuditLog'
+import AccountChip from './AccountChip'
 
 export interface Payload {
   nodes: GraphNode[]
@@ -52,13 +55,17 @@ export default function Console({ payload }: { payload: Payload }) {
   /** The operator has asked for the way around the failure. Cleared the
    *  moment there is no failure left to route around. */
   const [rerouted, setRerouted] = useState(false)
-  /** Which rail sections are unfolded. The depot starts folded: it is the
-   *  physical half's evidence, read when asked, not a dashboard. */
-  const [secOpen, setSecOpen] = useState({ node: true, aegis: true, depot: false })
+  /** Which rail sections are unfolded. The depot starts open: it only exists
+   *  while a country is selected, and selecting the country is the ask. */
+  const [secOpen, setSecOpen] = useState({ node: true, aegis: true, depot: true })
   const toggleSec = useCallback(
     (k: 'node' | 'aegis' | 'depot') => setSecOpen((o) => ({ ...o, [k]: !o[k] })),
     [],
   )
+  /** The one connection to the depot service. Global stream, local depots:
+   *  each node says which country it is in, and the rail shows a country's
+   *  slice under that country and nowhere else. */
+  const depot = useDepot()
 
   /** The console's paper trail. Appended from effects rather than from the
    *  handlers, so a state change logs once no matter which control caused it —
@@ -271,6 +278,23 @@ export default function Console({ payload }: { payload: Payload }) {
   }, [showRoute, sl, log, nodeLabel])
 
   const sel = selected ? byId.get(selected) ?? null : null
+  /** The depot under the selected country. Depots are local to a point of
+   *  interest — the place supplies flow in and out of — so the sensor that is
+   *  configured for the US is listed when the US is selected and under no
+   *  other country. Nothing selected, or a plant: there is no depot to be
+   *  under, so there is no depot section. */
+  const depotBins = useMemo(
+    () => (sel?.type === 'country' ? binsIn(depot.nodes, sel.country) : []),
+    [depot.nodes, sel],
+  )
+  const depotWorst = worstOf(depotBins)
+  const depotTag = depotBins.length === 0
+    ? 'none'
+    : depotWorst === null || depotWorst === 'ok'
+      ? `${depotBins.length} bin${depotBins.length === 1 ? '' : 's'}`
+      : STATUS_LABEL[depotWorst].toLowerCase()
+  const depotTone = depotBins.length === 0
+    ? 'dim' : depotWorst === 'mkt_breach' ? 'alarm' : depotWorst === 'ok' ? 'ok' : 'warn'
   const selOffline = selected ? compromised.has(selected) : false
   /** A plant inside a jurisdiction whose exports are halted. */
   const selHalted = !!sel && sel.type !== 'country' && !!sel.country
@@ -460,34 +484,46 @@ export default function Console({ payload }: { payload: Payload }) {
               tone={sl.viable === 0 ? 'alarm' : 'ok'}
               open={secOpen.aegis}
               onToggle={() => toggleSec('aegis')}
-              info={
-                <Info label="How suppliers are scored">
-                  <b>How suppliers are scored</b>
-                  {SCORE_EXPLAINED.map((t) => <p key={t}>{t}</p>)}
-                </Info>
-              }
             >
               <ReroutePanel sl={sl} nodeLabel={nodeLabel} selected={selected} onSelect={setSelected} />
             </Section>
           )}
 
-          <Section
-            title="Depot"
-            tag={secOpen.depot ? undefined : 'sensors'}
-            open={secOpen.depot}
-            onToggle={() => toggleSec('depot')}
-          >
-            <DepotPanel onBreach={onBreach} />
-          </Section>
+          {/* The depot, under the country it is in. A node reporting from the
+              US appears here when the US is selected and under no other
+              country; a country with no node says so rather than borrowing
+              someone else's. */}
+          {sel?.type === 'country' && (
+            <Section
+              title={`Depot · ${sel.label ?? sel.id}`}
+              tag={depotTag}
+              tone={depotTone}
+              open={secOpen.depot}
+              onToggle={() => toggleSec('depot')}
+            >
+              <DepotPanel
+                bins={depotBins}
+                link={depot.link}
+                place={sel.label ?? sel.id}
+                onBreach={onBreach}
+              />
+            </Section>
+          )}
+
+          {/* Bottom-right: the operator. Last in the column and pushed to its
+              foot, so it is always in the corner and never under a section. */}
+          <AccountChip medicines={drugs.length} sessionEvents={audit.length} />
         </aside>
 
-        {/* Bottom-left: the claim, then the step. At rest it is the beat's own
-            sentence. After a failure it is the consequence, and under it the
-            one control this screen exists for — until it is pressed, when the
-            pathfinder's answer takes its place. */}
-        <div className="ov-read">
-          <div className="caption" data-killed={rerouting ? '1' : '0'} aria-live="polite">
-            {rerouting ? (
+        {/* Bottom-left: only after a failure. The consequence, and under it
+            the one control this screen exists for — until it is pressed, when
+            the pathfinder's answer takes its place. At rest there is nothing
+            here: the beat's narration used to sit in this corner and read as
+            noise next to the picture, so it stays in the presenter's script
+            (lib/demo.ts) and off the screen. */}
+        {rerouting && (
+          <div className="ov-read">
+            <div className="caption" data-killed="1" aria-live="polite">
               <p className="say">
                 {impact}
                 {showRoute && sl.best && (
@@ -495,21 +531,16 @@ export default function Console({ payload }: { payload: Payload }) {
                 )}
                 {showRoute && !sl.best && <> <span className="say-route">No usable supplier is left.</span></>}
               </p>
-            ) : (
-              <>
-                <p className="say">{b.say}</p>
-                {b.note && <p className="note">{b.note}</p>}
-              </>
+            </div>
+            {!rerouted && (
+              <button className="reroute" onClick={doReroute} title="Show the new route (Enter)">
+                <span className="reroute-arrow" aria-hidden>➜</span>
+                See new route
+                <kbd>↵</kbd>
+              </button>
             )}
           </div>
-          {rerouting && !rerouted && (
-            <button className="reroute" onClick={doReroute} title="Show the new route (Enter)">
-              <span className="reroute-arrow" aria-hidden>➜</span>
-              See new route
-              <kbd>↵</kbd>
-            </button>
-          )}
-        </div>
+        )}
       </section>
 
 

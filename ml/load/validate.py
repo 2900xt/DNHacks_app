@@ -10,7 +10,7 @@ Contract: DNHacks_brain/team/briefs/README.md - "The data contract"
     edges.*.json       [{ src, dst, rel, layer, citation }]
     compliance.json    [{ node_id, taa_pass, on_1260h, evidence }]
     signals.json       [{ node_id, kind, severity, source, observed_at, url, payload }]
-    bins.json          [{ id, label, covers_drugs }]
+    bins.json          [{ id, label, covers_drugs, country }]
     backtest.json      { run_at, cutoff, params, result }
 
 Usage:
@@ -59,7 +59,7 @@ COMPLIANCE_KEYS = {"node_id", "taa_pass", "on_1260h", "evidence"}
 COMPLIANCE_REQUIRED = {"node_id", "evidence"}
 SIGNAL_KEYS = {"node_id", "kind", "severity", "source", "observed_at", "url", "payload"}
 SIGNAL_REQUIRED = {"node_id", "kind", "observed_at"}
-BIN_KEYS = {"id", "label", "covers_drugs"}
+BIN_KEYS = {"id", "label", "covers_drugs", "country"}
 BIN_REQUIRED = {"id", "covers_drugs"}
 
 RESOLVED_BY = {"fei", "duns", "fuzzy"}
