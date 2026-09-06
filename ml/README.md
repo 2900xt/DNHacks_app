@@ -8,12 +8,15 @@ see training effort; they can see a demo that doesn't work.
 
 ## Contract
 
-Consumes windows of `Telemetry`, produces `Detection`
-(see [`../contracts/schemas/detection.schema.json`](../contracts/schemas/detection.schema.json)).
+This lane does not run a model. It builds the graph artifacts in `web/data/` from
+openFDA and the official lists, and it owns the transparent risk rules
+(`cascade_rules.py`, decision 0003) rather than a learned scorer.
 
-Fill in `explanation` on every detection. A model that says *why* reads as far more
-sophisticated than one that emits a number, and it gives you something to narrate
-on stage.
+Storage evaluation lives in `services/api/depot.py`, against
+[`../contracts/schemas/depot.schema.json`](../contracts/schemas/depot.schema.json).
+
+Every verdict names the rule that fired it. A rule that says *why* reads as far more
+sophisticated than a number, and it gives you something to narrate on stage.
 
 ## Rules of thumb for 26 hours
 
