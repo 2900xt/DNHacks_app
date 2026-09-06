@@ -632,6 +632,14 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   100% { box-shadow: 0 0 0 9px rgba(74,158,218,0); }
 }
 .drug-select[data-flash="1"] { animation: sel-pulse .9s ease-out; }
+
+/* The buyer picker, on the node column's meta row. Same skin as the root
+   picker; the border stays quiet because the buyer is context, not a state. */
+.buyer-select {
+  border-color: var(--line-soft); max-width: 150px;
+  font-size: 10px; padding: 4px 20px 4px 7px;
+}
+.buyer-select:hover { border-color: var(--text-dim); }
 .strip-hint[data-flash="1"] { color: var(--focus); }
 
 /* The SVG scales itself to whatever box it is given, so the box has to be a

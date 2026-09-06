@@ -7,7 +7,7 @@
 // drug, and every number that quantifies blast radius is still computed against
 // the FULL graph, not the reduced one.
 
-import { loadGraph, getBacktest, getReroute, counts } from '../lib/graph'
+import { loadGraph, getBacktest, getReroute, getJurisdictions, counts } from '../lib/graph'
 import type { Compliance, GraphEdge, NodeId, Signal } from '../lib/types'
 import Console, { type Payload } from '../components/Console'
 import { APA } from '../lib/demo'
@@ -134,6 +134,11 @@ export default function Page() {
     // AEGIS alternates, keyed by node. Server-side because the artifact is
     // static — the client only ever looks one up.
     reroute: getReroute(),
+    // The buyer-side rule table, and the default buyer: the jurisdiction the
+    // depot sits in. That is the hardware seam and the compliance layer
+    // sharing one input.
+    jurisdictions: getJurisdictions(),
+    buyer: g.bins.find((b) => b.country)?.country?.toLowerCase() ?? 'us',
     ndcCount,
     labelerCount,
     downstreamOf,

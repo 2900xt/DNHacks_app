@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import type { Compliance, GraphEdge, GraphNode, NodeId } from '../lib/types'
+import type { GraphEdge, GraphNode, NodeId } from '../lib/types'
+import { TONE, type Verdict } from '../lib/compliance'
 import type { Alternate, Rollup } from '../lib/supply-tree'
 import { relVerb } from '../lib/graph-layout'
 import Metric from './Metric'
@@ -16,7 +17,8 @@ const LAYER_NAME: Record<number, string> = {
 interface Props {
   node: GraphNode | null
   edges: GraphEdge[]
-  compliance: Compliance | null
+  /** This node's procurement verdict for the buyer the console is set to. */
+  verdict: Verdict | null
   nodeLabel: (id: NodeId) => string
   onSelect: (id: NodeId) => void
   /** Switch this node off, or back on. */
@@ -45,7 +47,7 @@ interface Props {
  * score, the blast radius, the switch.
  */
 export default function NodeMetrics({
-  node, edges, compliance, nodeLabel, onSelect, onCascade, offline, halted,
+  node, edges, verdict, nodeLabel, onSelect, onCascade, offline, halted,
   rollup, downstream, ndc, labelers, alt,
 }: Props) {
   /** Which connection row is unfolded. One at a time: the rail is narrow and
@@ -72,12 +74,12 @@ export default function NodeMetrics({
           <span className="tag" data-t="alarm">no supply</span>
         )}
         {node.critical && <span className="tag" data-t="warn">critical</span>}
-        {compliance?.taa_pass !== undefined && (
-          <span className="tag" data-t={compliance.taa_pass ? 'ok' : 'alarm'}>
-            TAA {compliance.taa_pass ? 'PASS' : 'FAIL'}
+        {verdict && (
+          <span className="tag" data-t={TONE[verdict.status]} title={verdict.reason}>
+            {verdict.tag}
           </span>
         )}
-        {compliance?.on_1260h && <span className="tag" data-t="alarm">1260H</span>}
+        {verdict?.flag1260h && <span className="tag" data-t="alarm">1260H</span>}
         {a.eo13944_listed === true && <span className="tag" data-t="warn">EO 13944</span>}
         {alt && !offline && !halted && (
           <span className="tag" data-t={alt.recommended ? 'route' : alt.viable ? 'ok' : 'alarm'}>
@@ -86,6 +88,17 @@ export default function NodeMetrics({
         )}
         {where && <span className="tag" data-t="dim">{where}</span>}
       </div>
+
+      {/* The verdict, with its reason under it. The chip says PASS; the judge's
+          next question is "under whose rule", and that answer is one tap away. */}
+      {verdict && (
+        <Metric
+          label="Procurement"
+          value={verdict.tag}
+          sub={verdict.reason}
+          tone={verdict.status === 'pass' ? 'ok' : verdict.status === 'fail' ? 'alarm' : 'plain'}
+        />
+      )}
 
       {alt && (
         <>
