@@ -1,1 +1,163 @@
-[]
+[
+  {
+    "node_id": "country:at",
+    "taa_pass": true,
+    "on_1260h": null,
+    "evidence": {
+      "reason": "Austria is a designated country (wto_gpa) under FAR 25.003, definition of 'designated country'",
+      "far": "25.003",
+      "url": "https://www.acquisition.gov/far/25.003",
+      "designated_rows": 132,
+      "designated_distinct": 127,
+      "basis": [
+        "wto_gpa"
+      ]
+    }
+  },
+  {
+    "node_id": "country:in",
+    "taa_pass": false,
+    "on_1260h": null,
+    "evidence": {
+      "reason": "India is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "far": "25.003",
+      "url": "https://www.acquisition.gov/far/25.003",
+      "designated_rows": 132,
+      "designated_distinct": 127,
+      "basis": null
+    }
+  },
+  {
+    "node_id": "country:cn",
+    "taa_pass": false,
+    "on_1260h": null,
+    "evidence": {
+      "reason": "China is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "far": "25.003",
+      "url": "https://www.acquisition.gov/far/25.003",
+      "designated_rows": 132,
+      "designated_distinct": 127,
+      "basis": null
+    }
+  },
+  {
+    "node_id": "company:name:sandoz-gmbh",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:antibioticos-sa",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:pure-and-cure-healthcare-private-ltd",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:united-laboratories-chengdu-co-ltd",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  },
+  {
+    "node_id": "company:name:apitoria-pharma-private-ltd",
+    "taa_pass": null,
+    "on_1260h": false,
+    "evidence": {
+      "on_1260h_reason": "not among the 80 designated parents or 109 named subsidiaries",
+      "matched_entity": null,
+      "fr_doc": "2026-11571",
+      "fr_citation": "91 FR 35189, Jun 10 2026",
+      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "designated_parents": 80,
+      "named_subsidiaries": 109,
+      "match_method": "exact on normalised name — no fuzzy matching"
+    }
+  }
+]

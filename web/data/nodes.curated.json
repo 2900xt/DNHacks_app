@@ -54,7 +54,11 @@
     "country": "at",
     "critical": false,
     "attrs": {
-      "source": "DECRS cross-reference (curated)"
+      "source": "DECRS cross-reference (curated)",
+      "taa_designated": true,
+      "taa_basis": [
+        "wto_gpa"
+      ]
     },
     "resolved_by": null
   },
@@ -102,7 +106,9 @@
     "country": "in",
     "critical": false,
     "attrs": {
-      "source": "DECRS cross-reference (curated)"
+      "source": "DECRS cross-reference (curated)",
+      "taa_designated": false,
+      "taa_basis": null
     },
     "resolved_by": null
   },
@@ -131,7 +137,9 @@
     "country": "cn",
     "critical": false,
     "attrs": {
-      "source": "DECRS cross-reference (curated)"
+      "source": "DECRS cross-reference (curated)",
+      "taa_designated": false,
+      "taa_basis": null
     },
     "resolved_by": null
   },
