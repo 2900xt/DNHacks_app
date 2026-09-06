@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1,
+      "total": 514
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "50090-1511",
+      "generic_name": "Amoxicillin",
+      "labeler_name": "A-S Medication Solutions",
+      "brand_name": "Amoxicillin",
+      "active_ingredients": [
+        {
+          "name": "AMOXICILLIN",
+          "strength": "500 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "50090-1511-0",
+          "description": "30 CAPSULE in 1 BOTTLE (50090-1511-0)",
+          "marketing_start_date": "20141210",
+          "sample": false
+        },
+        {
+          "package_ndc": "50090-1511-1",
+          "description": "40 CAPSULE in 1 BOTTLE (50090-1511-1)",
+          "marketing_start_date": "20141210",
+          "sample": false
+        },
+        {
+          "package_ndc": "50090-1511-2",
+          "description": "21 CAPSULE in 1 BOTTLE (50090-1511-2)",
+          "marketing_start_date": "20141210",
+          "sample": false
+        },
+        {
+          "package_ndc": "50090-1511-5",
+          "description": "15 CAPSULE in 1 BOTTLE (50090-1511-5)",
+          "marketing_start_date": "20210326",
+          "sample": false
+        },
+        {
+          "package_ndc": "50090-1511-7",
+          "description": "10 CAPSULE in 1 BOTTLE (50090-1511-7)",
+          "marketing_start_date": "20210326",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "A-S Medication Solutions"
+        ],
+        "rxcui": [
+          "308191"
+        ],
+        "spl_set_id": [
+          "4b15c5b4-460c-449f-9e48-99870b382826"
+        ],
+        "unii": [
+          "804826J2HU"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE",
+      "spl_id": "112e3e34-07bd-4b92-abe7-94b08391f30d",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20051109",
+      "product_id": "50090-1511_112e3e34-07bd-4b92-abe7-94b08391f30d",
+      "application_number": "ANDA065271",
+      "brand_name_base": "Amoxicillin",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]"
+      ]
+    }
+  ]
+}
