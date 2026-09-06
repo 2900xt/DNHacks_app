@@ -15,7 +15,9 @@
 
   --text:      #dde5ee;
   --text-dim:  #8494a6;
-  --text-faint:#4f5d6e;
+  /* Was #4f5d6e: the rail's captions and reasons are set in this at 9.5px,
+     and at that size it did not survive a projector. */
+  --text-faint:#75859a;
 
   --ok:        #3fb27f;
   --warn:      #d9903a;
@@ -210,6 +212,8 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .rr-w::before { content: '– '; }
 .rr-iso { font: 500 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .08em; }
 .rr-why { font: 400 9.5px/1.35 var(--mono); color: var(--text-faint); white-space: normal; }
+/* The buyer, stated rather than chosen. */
+.buyer-fixed { font: 500 11px/1 var(--mono); color: var(--text); padding: 5px 2px; white-space: nowrap; }
 .rr-score {
   font: 500 11px/1.5 var(--mono); font-variant-numeric: tabular-nums;
 }
@@ -272,6 +276,14 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 }
 .gl-tip b { font-weight: 600; }
 .gl-tip i { color: var(--text-faint); font-style: normal; }
+/* The model's line in the hover: the number in its band's colour, the reason
+   under it in the caption's grey. */
+.gl-tip .gl-risk { font-weight: 600; }
+.gl-tip .gl-risk[data-t="ok"] { color: var(--ok); }
+.gl-tip .gl-risk[data-t="warn"] { color: var(--warn); }
+.gl-tip .gl-risk[data-t="alarm"] { color: var(--alarm); }
+.gl-tip .gl-risk[data-t="dim"] { color: var(--text-faint); font-weight: 400; }
+.gl-tip .gl-why { color: var(--text-dim); }
 
 /* ---- rails ---------------------------------------------------------------- */
 
@@ -743,6 +755,13 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    call off the diagram, in the same green the rail and the caption use. */
 /* An export halt is not a plant failure: amber and dashed, not red. The plant
    is producing; the border is shut. */
+/* The risk overlay (Console: riskOverlay) and the beats speak one vocabulary,
+   ok / warn / alarm, on the box's stroke. Unscored stays 'plain' and keeps the
+   default border. Above the halt, route and cascade rules, so a box that is
+   dead, halted or on the path keeps that meaning while the overlay is on. */
+.tnode[data-beat="ok"] .tbox { stroke: var(--ok); }
+.tnode[data-beat="warn"] .tbox { stroke: var(--warn); }
+.tnode[data-beat="alarm"] .tbox { stroke: var(--alarm); }
 .tnode[data-halt="1"] .tbox { stroke: var(--warn); stroke-dasharray: 4 3; fill: #1b150d; }
 .tnode[data-halt="1"] .t-sub { fill: var(--warn); }
 .tgroup[data-halt="1"] rect { stroke: rgba(217,144,58,.6); stroke-dasharray: 4 3; fill: #151109; }

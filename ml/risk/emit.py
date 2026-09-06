@@ -705,7 +705,9 @@ def main() -> int:
             k: {kk: v[kk] for kk in
                 ("p12", "p12_range", "band", "evidence", "basis", "attribution",
                  "label", "upstream_plants", "at_ceiling")
-                if kk in v and v[kk] not in (None, False)}
+                # Identity, not `in (None, False)`: 0.0 == False in Python, and
+                # that test silently dropped p12 from every plant scored at 0.
+                if kk in v and v[kk] is not None and v[kk] is not False}
             for k, v in scored.items()
         },
     }

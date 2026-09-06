@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphEdge, GraphNode, NodeId } from '../lib/types'
+import type { NodeState } from '../lib/demo'
+import { pct, RISK_TONE, type NodeRisk } from '../lib/risk-view'
 import { arcDeg, DIST_PENALTY_DEG, type Alternate, type OptimalPath, type Route } from '../lib/supply-tree'
 
 interface Centroid { lat: number; lng: number }
@@ -41,6 +43,21 @@ interface Props {
    *  with the best-scoring API plant it could reasonably feed, not merely
    *  the nearest. */
   scoreOf: Map<NodeId, Alternate>
+  /** The risk overlay: a tone per scored node, in the tree's beat vocabulary.
+   *  Null when the overlay is off. A plant with no entry is unscored and is
+   *  drawn grey, not green — the model did not check it. */
+  overlay: Record<NodeId, NodeState> | null
+  /** The next-failure model's answer per node, for the hover: the number and
+   *  its top reason, without a click. Absent means not scored. */
+  risk: Record<NodeId, NodeRisk>
+}
+
+/** The overlay's colours, the same three the rail and the tree use. */
+const TONE_RGB: Partial<Record<NodeState, string>> = {
+  ok: '63,178,127', warn: '217,144,58', alarm: '229,72,77',
+}
+const TONE_WORD: Partial<Record<NodeState, string>> = {
+  ok: 'low risk', warn: 'raised risk', alarm: 'high risk',
 }
 
 /** The best path's colour. Green, and brighter than the muted green of
@@ -87,7 +104,7 @@ const BUMP = '/globe/earth-topology.png'
 
 export default function GlobeView({
   nodes, edges, lit, selected, onSelect, routes, rerouting, showRoute, routeIso, path, cut,
-  off, halted, apiIds, preIds, scoreOf,
+  off, halted, apiIds, preIds, scoreOf, overlay, risk,
 }: Props) {
   const holder = useRef<HTMLDivElement | null>(null)
   const globeRef = useRef<any>(null)
@@ -189,8 +206,15 @@ export default function GlobeView({
           const a = (d.plant.node.attrs ?? {}) as Record<string, unknown>
           const where = [d.plant.city, String(d.plant.node.country ?? '').toUpperCase()].filter(Boolean).join(', ')
           const filing = a.dmf ? `DMF ${a.dmf}${a.dmf_subject ? ` · ${a.dmf_subject}` : ''}` : ''
+          // The model's answer, and the one reason that moved it most. "Not
+          // scored" is said out loud: a blank would read as "fine".
+          const r: NodeRisk | undefined = d.risk
+          const riskLine = r
+            ? `<span class="gl-risk" data-t="${RISK_TONE[r.band]}">${r.atCeiling ? '≥ ' : ''}${pct(r.p12)} disruption risk · 12 mo · ${r.band}</span>`
+              + (r.why[0] ? `<br><span class="gl-why">${r.why[0]}</span>` : '')
+            : `<span class="gl-risk" data-t="dim">not scored — no FDA establishment matched</span>`
           return `<div class="gl-tip"><b>${d.plant.node.label ?? d.plant.node.id}</b><br>${where}`
-            + `${filing ? `<br>${filing}` : ''}<br><i>${d.state}</i></div>`
+            + `${filing ? `<br>${filing}` : ''}<br>${riskLine}<br><i>${d.state}</i></div>`
         })
         .onPointClick((d: any) => d.nodeId && onSelect(d.nodeId))
         // The ripple. Named for it, so it had better be here: each live source
@@ -376,9 +400,17 @@ export default function GlobeView({
         : pair ? `${who} — ships 6-APA to ${pair.node.label ?? pair.node.id}${pair.city ? ` (${pair.city})` : ''}, the best-scoring API plant within reach; the register does not record who buys from whom`
         : `${who} — ships 6-APA`
 
+      // The overlay recolours the plants by predicted risk. A failure, a halt
+      // and the route keep their own colours: those are facts on the ground,
+      // and a plant that is merely likely to fail must not look like one that
+      // has. Unscored is grey — not the green of "low".
+      const toneRgb = overlay ? TONE_RGB[overlay[id]] : undefined
+      const overlaid = !!overlay && !haltedHere && !dead && !isRoute
       points.push({
         lat: pl.lat, lng: pl.lng,
-        color: !inChain ? 'rgba(229,72,77,0.28)'
+        color: overlaid
+          ? (toneRgb ? `rgba(${toneRgb},${inChain ? 0.95 : 0.4})` : `rgba(120,132,148,${inChain ? 0.6 : 0.3})`)
+          : !inChain ? 'rgba(229,72,77,0.28)'
           : haltedHere ? 'rgba(217,144,58,0.85)'
           : dead ? 'rgba(120,132,148,0.55)'
           : isRoute ? ROUTE
@@ -387,7 +419,10 @@ export default function GlobeView({
         alt: 0.012,
         nodeId: id,
         plant: pl,
-        state,
+        risk: risk[id],
+        state: overlay
+          ? `${state} · ${TONE_WORD[overlay[id]] ?? 'not scored'}`
+          : state,
       })
       if (!inChain) continue
 
@@ -484,9 +519,13 @@ export default function GlobeView({
       const iso = pl.node.country ?? ''
       const dead = rerouting && cut.has(id)
       const isRoute = routeChain.has(id)
+      // While the route is shown, each usable backup carries its rail rank on
+      // the map, so "#2 VIL" is the same row the operator just read.
+      const alt = scoreOf.get(id)
+      const rank = showRoute && !isRoute && alt?.standing && alt.viable && alt.rank ? `#${alt.rank} ` : ''
       labels.push({
         lat: pl.lat, lng: pl.lng,
-        text: cityCode(pl.city, pl.node.country),
+        text: rank + cityCode(pl.city, pl.node.country),
         size: isRoute ? 0.8 : 0.66,
         color: dead ? (halted.has(iso) ? 'rgba(217,144,58,0.6)' : 'rgba(150,162,178,0.45)')
           : isRoute ? '#b6f0d0'
@@ -516,7 +555,7 @@ export default function GlobeView({
       nodeId: '',
     })
     g.labelsData(labels)
-  }, [ready, world, jurisdictions, plants, lit, routes, rerouting, path, cut, off, halted, apiIds, preIds, scoreOf, reduced])
+  }, [ready, world, jurisdictions, plants, lit, routes, rerouting, showRoute, path, cut, off, halted, apiIds, preIds, scoreOf, overlay, risk, reduced])
 
   // --- fly to the focused jurisdiction --------------------------------------
   //
