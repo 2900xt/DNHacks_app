@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-09-05T22:20:18",
+  "run_at": "2026-09-05T22:28:29",
   "cutoff": "2023-01-01",
   "params": {
     "universe": "generics with >= 3 products listed before the cutoff",
@@ -33,6 +33,12 @@
       {
         "feature": "product count (exposure)",
         "auc": 0.7785069259390238,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts shortage"
+      },
+      {
+        "feature": "price erosion (prior-year NADAC fall)",
+        "auc": 0.6117356604089982,
         "p_value": 0.0033222591362126247,
         "direction": "predicts shortage"
       }
@@ -79,7 +85,24 @@
         "auc_injectable": 0.6952742870042893
       }
     ],
-    "verdict": "REFUTED \u2014 supply concentration does not predict shortage; it points the other way. Sterile injectable form does predict, inside every exposure stratum."
+    "combined_model": {
+      "n": 967,
+      "positives": 89,
+      "cv_auc": 0.7009802666939674,
+      "coefficients": {
+        "concentration (HHI)": -0.1623906592616622,
+        "log product count": 0.3452147904367444,
+        "sterile injectable": 0.45471857791643305,
+        "price erosion": 0.25356687693316027
+      },
+      "single_feature_auc": {
+        "concentration (HHI)": 0.3491336285224335,
+        "log product count": 0.6634204397123186,
+        "sterile injectable": 0.6344795372526938,
+        "price erosion": 0.5912313480586624
+      }
+    },
+    "verdict": "Concentration REFUTED \u2014 it does not predict shortage, it points the other way, in every stratum and at every cutoff. But three other public signals do: sterile-injectable form, prior-year NADAC price erosion, and market size. Combined, cross-validated AUC 0.70."
   },
   "caveats": [
     "This measures DOWNSTREAM concentration (who boxes the finished drug). CHOKEPOINT's thesis is UPSTREAM precursor concentration, which is not public and therefore not testable this way. Do not present this as refuting the project.",
