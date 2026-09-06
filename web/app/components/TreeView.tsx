@@ -5,7 +5,7 @@ import type { NodeId } from '../lib/types'
 import type { Verdict } from '../lib/compliance'
 import type { NodeState } from '../lib/demo'
 import {
-  branchPath, elbowPath, feedPath, layoutTree, trunkPath, UNRESOLVED,
+  branchPath, elbowPath, feedPath, layoutTree, trunkPath, trunkPathTo, UNRESOLVED,
   type Alternate, type Health, type Placed, type Rollup, type TreeNode,
 } from '../lib/supply-tree'
 
@@ -245,6 +245,11 @@ export default function TreeView({
               .map((c) => L.pos.get(c.key))
               .filter((x): x is Placed => !!x)
             const pr = rollups.get(p.t.id)
+            // The one supplier on the path, if any: the trunk goes green only
+            // as far as its elbow. The rest of the trunk keeps its own colour.
+            const routeKid = routePath.has(p.t.key)
+              ? supPlaced.find((c) => routePath.has(c.t.key))
+              : undefined
             return (
               <g key={`b|${p.t.key}`}>
                 {supPlaced.length > 0 && (
@@ -252,9 +257,17 @@ export default function TreeView({
                     className="tbranch"
                     data-trunk="1"
                     data-health={pr?.up === 0 ? 'down' : pr?.health ?? 'ok'}
-                    data-route={routePath.has(p.t.key) && sups.some((c) => routePath.has(c.key)) ? '1' : '0'}
                     style={{ '--d': p.t.depth } as React.CSSProperties}
                     d={trunkPath(p, supPlaced)}
+                  />
+                )}
+                {routeKid && (
+                  <path
+                    className="tbranch"
+                    data-trunk="1"
+                    data-route="1"
+                    style={{ '--d': p.t.depth } as React.CSSProperties}
+                    d={trunkPathTo(p, routeKid)}
                   />
                 )}
                 {p.t.children.map((c) => {
