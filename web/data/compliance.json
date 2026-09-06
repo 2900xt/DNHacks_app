@@ -45,11 +45,28 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:at",
+      "country_label": "Austria",
+      "country_reason": "Austria is a designated country (wto_gpa) under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 2: FDA DECRS drls_reg — FEI 3002806523, 'Sandoz GmbH', address ends (AUT). https://www.accessdata.fda.gov/cder/drls_reg.zip",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to AT, which is a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": true
   },
   {
     "node_id": "company:name:antibioticos-sa",
@@ -59,10 +76,14 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "resolved_by": "fuzzy",
+      "country_resolution": "unresolved",
+      "reason": "cannot determine TAA status: no country resolved for ANTIBIOTICOS SA. NOT in DECRS. Only 'Antibioticos do Brasil Ltda' (BRA) matches, a different entity. Spain is likely but unverified — do not assert it."
     }
   },
   {
@@ -73,11 +94,28 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:in",
+      "country_label": "India",
+      "country_reason": "India is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 3: DECRS cross-reference — DECRS = IND",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to IN, which is not a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": false
   },
   {
     "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
@@ -87,11 +125,28 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:cn",
+      "country_label": "China",
+      "country_reason": "China is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 2: FDA DECRS drls_reg — FEI 3006272230, 'Inner Mongolia Changsheng Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to CN, which is not a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": false
   },
   {
     "node_id": "company:name:united-laboratories-chengdu-co-ltd",
@@ -101,11 +156,28 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:cn",
+      "country_label": "China",
+      "country_reason": "China is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 3: DECRS cross-reference — partial — DECRS carries TUL Inner Mongolia and Zhuhai (both CHN), not the Chengdu site",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to CN, which is not a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": false
   },
   {
     "node_id": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
@@ -115,11 +187,28 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:cn",
+      "country_label": "China",
+      "country_reason": "China is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 2: FDA DECRS drls_reg — FEI 3010166895, 'The United Laboratories (Inner Mongolia) Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to CN, which is not a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": false
   },
   {
     "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
@@ -129,11 +218,28 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:cn",
+      "country_label": "China",
+      "country_reason": "China is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 2: FDA DECRS drls_reg — FEI 3010166430, 'Sinopharm Weiqida Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to CN, which is not a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": false
   },
   {
     "node_id": "company:name:apitoria-pharma-private-ltd",
@@ -143,10 +249,27 @@
       "matched_entity": null,
       "fr_doc": "2026-11571",
       "fr_citation": "91 FR 35189, Jun 10 2026",
-      "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11571/notice-of-availability-of-designation-of-chinese-military-companies",
+      "url": "https://www.acquisition.gov/far/25.003",
       "designated_parents": 80,
       "named_subsidiaries": 109,
-      "match_method": "exact on normalised name — no fuzzy matching"
-    }
+      "match_method": "exact on normalised name — no fuzzy matching",
+      "far": "25.003",
+      "country": "country:in",
+      "country_label": "India",
+      "country_reason": "India is not a TAA-designated country under FAR 25.003, definition of 'designated country'",
+      "country_via": "incorporated_in edge at layer 3: DECRS cross-reference — DECRS = IND",
+      "resolved_by": "fuzzy",
+      "resolution_caveat": "company identified by normalised name match, not FEI — treat the company-to-country hop as fuzzy",
+      "precedent": {
+        "case": "Cosette Pharmaceuticals, Inc. v. United States",
+        "court": "U.S. Court of Federal Claims",
+        "holding": "the VA violated the Trade Agreements Act",
+        "status": "decided, not pending",
+        "drug": "prasugrel — not an antibiotic",
+        "say": "a court has already ruled"
+      },
+      "reason": "API traces to IN, which is not a TAA-designated country (FAR 25.003)"
+    },
+    "taa_pass": false
   }
 ]

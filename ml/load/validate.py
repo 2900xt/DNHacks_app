@@ -344,8 +344,10 @@ def main() -> int:
             referenced |= validate_bins(path, rep)
         elif name == "signals.json":
             referenced |= validate_signals(path, rep)
-        elif name == "backtest.json":
-            continue  # a single object, and Nikhil owns its shape
+        elif name in ("backtest.json", "eo14336.citation.json"):
+            # backtest.json is a single object and Nikhil owns its shape.
+            # eo14336.citation.json is a pinned citation, deliberately not graph data.
+            continue
         else:
             rep.warn(name, "not a file the contract names — nothing validated")
             continue
