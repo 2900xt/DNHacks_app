@@ -1,0 +1,5760 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1000,
+      "total": 97
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "0781-3117",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Sandoz Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "12 g/100mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "1.5 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sandoz Inc"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "b1cb1314-d3e0-4b44-a1df-de14c32e8cc6"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "27be0ff3-ee57-4d56-a73b-ca773d763a1e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20141029",
+      "product_id": "0781-3117_27be0ff3-ee57-4d56-a73b-ca773d763a1e",
+      "application_number": "ANDA203557",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "66721-300",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Yuhan Chemical Inc.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "75 kg/75kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "66721-300-30",
+          "description": "75 kg in 1 DRUM (66721-300-30)",
+          "marketing_start_date": "21-NOV-03"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "45c36773-c409-d6a6-e063-6294a90a066e",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20031121",
+      "product_id": "66721-300_45c36773-c409-d6a6-e063-6294a90a066e",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "0781-3110",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Sandoz Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0781-3110-95",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (0781-3110-95)  / 10 mL in 1 VIAL, SINGLE-USE (0781-3110-90)",
+          "marketing_start_date": "20101021",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sandoz Inc"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "9b682c66-61c6-4ade-baf4-9d68911a16b8"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5432f00b-f1d7-4ac2-a9ea-ef6f1e7ef958",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20101021",
+      "product_id": "0781-3110_5432f00b-f1d7-4ac2-a9ea-ef6f1e7ef958",
+      "application_number": "ANDA065362",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "60505-6262",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Apotex Corp.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "60505-6262-0",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (60505-6262-0)  / 180 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20230926",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Apotex Corp."
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "c18109cf-d5db-4cc1-83da-537c8ab0e05c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0360505626205"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "36e76c91-4d5f-402d-addd-eef8d5cef887",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230926",
+      "product_id": "60505-6262_36e76c91-4d5f-402d-addd-eef8d5cef887",
+      "application_number": "ANDA217243",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0409-3383",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Hospira, Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0409-3383-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (0409-3383-10)  / 10 mL in 1 VIAL, SINGLE-USE (0409-3383-11)",
+          "marketing_start_date": "20250609",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Hospira, Inc"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "4d3f4b69-b0b9-494f-9cda-4537fa420d47"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "fd775790-2345-483f-ba4c-4d4898da3450",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20101021",
+      "product_id": "0409-3383_fd775790-2345-483f-ba4c-4d4898da3450",
+      "application_number": "ANDA065362",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0781-3113",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Sandoz Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0781-3113-95",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (0781-3113-95)  / 15 mL in 1 VIAL, SINGLE-USE (0781-3113-90)",
+          "marketing_start_date": "20101021",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sandoz Inc"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "9b682c66-61c6-4ade-baf4-9d68911a16b8"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5432f00b-f1d7-4ac2-a9ea-ef6f1e7ef958",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20101021",
+      "product_id": "0781-3113_5432f00b-f1d7-4ac2-a9ea-ef6f1e7ef958",
+      "application_number": "ANDA065362",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "83270-301",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "ONESOURCE SPECIALTY PHARMA LIMITED",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-301-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (83270-301-10)  / 10 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "20160630",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "ONESOURCE SPECIALTY PHARMA LIMITED"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "28258745-12e4-4f0f-b318-4a1a1bebc928"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3a7222e4-4885-cb5c-e063-6394a90ab6cb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20160630",
+      "product_id": "83270-301_3a7222e4-4885-cb5c-e063-6394a90ab6cb",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0409-3385",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Hospira, Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0409-3385-15",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (0409-3385-15)  / 15 mL in 1 VIAL, SINGLE-USE (0409-3385-11)",
+          "marketing_start_date": "20250609",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Hospira, Inc"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "4d3f4b69-b0b9-494f-9cda-4537fa420d47"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "fd775790-2345-483f-ba4c-4d4898da3450",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20101021",
+      "product_id": "0409-3385_fd775790-2345-483f-ba4c-4d4898da3450",
+      "application_number": "ANDA065362",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "83270-302",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "ONESOURCE SPECIALTY PHARMA LIMITED",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-302-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (83270-302-10)  / 15 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "20150814",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "ONESOURCE SPECIALTY PHARMA LIMITED"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "28258745-12e4-4f0f-b318-4a1a1bebc928"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3a7222e4-4885-cb5c-e063-6394a90ab6cb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20150814",
+      "product_id": "83270-302_3a7222e4-4885-cb5c-e063-6394a90ab6cb",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0409-2999",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Hospira, Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "12 g/60mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "1.5 g/60mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0409-2999-14",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (0409-2999-14)  / 60 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20161214",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Hospira, Inc"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "5e8bbfcd-3618-43ed-a158-9d524426fdc5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5710e08a-545c-4957-8a7a-6418423234e8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20161214",
+      "product_id": "0409-2999_5710e08a-545c-4957-8a7a-6418423234e8",
+      "application_number": "ANDA203557",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "83270-303",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "ONESOURCE SPECIALTY PHARMA LIMITED",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83270-303-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (83270-303-10)  / 20 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "20160630",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "ONESOURCE SPECIALTY PHARMA LIMITED"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "28258745-12e4-4f0f-b318-4a1a1bebc928"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3a7222e4-4885-cb5c-e063-6394a90ab6cb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20160630",
+      "product_id": "83270-303_3a7222e4-4885-cb5c-e063-6394a90ab6cb",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0781-3114",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Sandoz Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0781-3114-95",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (0781-3114-95)  / 20 mL in 1 VIAL, SINGLE-USE (0781-3114-91)",
+          "marketing_start_date": "20101021",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sandoz Inc"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "9b682c66-61c6-4ade-baf4-9d68911a16b8"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5432f00b-f1d7-4ac2-a9ea-ef6f1e7ef958",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20101021",
+      "product_id": "0781-3114_5432f00b-f1d7-4ac2-a9ea-ef6f1e7ef958",
+      "application_number": "ANDA065362",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0409-3390",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Hospira, Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0409-3390-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (0409-3390-10)  / 20 mL in 1 VIAL, SINGLE-USE (0409-3390-11)",
+          "marketing_start_date": "20250609",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Hospira, Inc"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "4d3f4b69-b0b9-494f-9cda-4537fa420d47"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "fd775790-2345-483f-ba4c-4d4898da3450",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20101021",
+      "product_id": "0409-3390_fd775790-2345-483f-ba4c-4d4898da3450",
+      "application_number": "ANDA065362",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0264-3446",
+      "generic_name": "Piperacillin and Tazobactam and Sodium Chloride",
+      "labeler_name": "B. Braun Medical Inc.",
+      "brand_name": "Piperacillin and Tazobactam and Sodium Chloride",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "250 mg/50mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0264-3446-11",
+          "description": "24 CONTAINER in 1 CASE (0264-3446-11)  / 50 mL in 1 CONTAINER",
+          "marketing_start_date": "20250930",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "B. Braun Medical Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a63ca653-27d4-45fe-a744-77e0efe45220"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "7c603d0f-caa7-4da2-a44b-dd19fa04b631",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250930",
+      "product_id": "0264-3446_7c603d0f-caa7-4da2-a44b-dd19fa04b631",
+      "application_number": "NDA206056",
+      "brand_name_base": "Piperacillin and Tazobactam and Sodium Chloride",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0264-3448",
+      "generic_name": "Piperacillin and Tazobactam and Sodium Chloride",
+      "labeler_name": "B. Braun Medical Inc.",
+      "brand_name": "Piperacillin and Tazobactam and Sodium Chloride",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "375 mg/50mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0264-3448-11",
+          "description": "24 CONTAINER in 1 CASE (0264-3448-11)  / 50 mL in 1 CONTAINER",
+          "marketing_start_date": "20250930",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "B. Braun Medical Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a63ca653-27d4-45fe-a744-77e0efe45220"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "7c603d0f-caa7-4da2-a44b-dd19fa04b631",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250930",
+      "product_id": "0264-3448_7c603d0f-caa7-4da2-a44b-dd19fa04b631",
+      "application_number": "NDA206056",
+      "brand_name_base": "Piperacillin and Tazobactam and Sodium Chloride",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-300",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-300-36",
+          "description": "10 VIAL in 1 BOX (63323-300-36)  / 15 mL in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "ba87ade3-4d41-40c0-9f6a-27e121a4136d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "59b329ea-8524-414d-ac6e-ef67d79536ce",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "63323-300_59b329ea-8524-414d-ac6e-ef67d79536ce",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "81284-151",
+      "generic_name": "Piperacillin sodium and Tazobactam sodium",
+      "labeler_name": "Provepharm Inc.",
+      "brand_name": "PIPERACILLIN AND TAZOBACTAM",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "81284-151-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (81284-151-10)  / 10 mL in 1 VIAL, SINGLE-DOSE (81284-151-00)",
+          "marketing_start_date": "20190801",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Provepharm Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "bc26ffd8-1a6e-4e16-91c1-ec67c928b3bf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0381284152105",
+          "0381284151108",
+          "0381284153102"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5e55a3fe-170f-4509-a4dd-307a6b24fc71",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190801",
+      "product_id": "81284-151_5e55a3fe-170f-4509-a4dd-307a6b24fc71",
+      "application_number": "ANDA207847",
+      "brand_name_base": "PIPERACILLIN AND TAZOBACTAM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-304",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-304-78",
+          "description": "1 BOTTLE in 1 CARTON (63323-304-78)  / 180 mL in 1 BOTTLE",
+          "marketing_start_date": "20110531",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "e53ebafc-3afa-4a1e-9313-fecd1c1c5d7c"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "46a8c499-9f29-471c-9ace-ba0bb9780ad8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110531",
+      "product_id": "63323-304_46a8c499-9f29-471c-9ace-ba0bb9780ad8",
+      "application_number": "ANDA090498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-304",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-304-94",
+          "description": "1 BOTTLE in 1 CARTON (63323-304-94)  / 180 mL in 1 BOTTLE",
+          "marketing_start_date": "20110531",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "2cfa6723-175b-4c4d-8212-266844b07610"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "71554f30-2eda-48b2-b89a-82a58fcfb421",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110531",
+      "product_id": "63323-304_71554f30-2eda-48b2-b89a-82a58fcfb421",
+      "application_number": "ANDA090498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-304",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-304-74",
+          "description": "1 BOTTLE in 1 CARTON (63323-304-74)  / 180 mL in 1 BOTTLE",
+          "marketing_start_date": "20110531",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "c78e0931-ec79-58e5-8658-7fe692dc3b8b"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "c76215c6-e9f9-447a-8ce2-ecba738b25d8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20110531",
+      "product_id": "63323-304_c76215c6-e9f9-447a-8ce2-ecba738b25d8",
+      "application_number": "ANDA090498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "81284-155",
+      "generic_name": "Piperacillin sodium and Tazobactam sodium",
+      "labeler_name": "Provepharm Inc.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "81284-155-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (81284-155-01)  / 180 mL in 1 VIAL, PHARMACY BULK PACKAGE (81284-155-00)",
+          "marketing_start_date": "20190801",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Provepharm Inc."
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "68d5384d-1691-4afc-8a1a-488f8e2ef2c5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "1c01a9c8-0256-4129-adc7-38d1f3cf2183",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190801",
+      "product_id": "81284-155_1c01a9c8-0256-4129-adc7-38d1f3cf2183",
+      "application_number": "ANDA207848",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0264-3450",
+      "generic_name": "Piperacillin and Tazobactam and Sodium Chloride",
+      "labeler_name": "B. Braun Medical Inc.",
+      "brand_name": "Piperacillin and Tazobactam and Sodium Chloride",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "500 mg/100mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0264-3450-22",
+          "description": "24 CONTAINER in 1 CASE (0264-3450-22)  / 100 mL in 1 CONTAINER",
+          "marketing_start_date": "20250930",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "B. Braun Medical Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a63ca653-27d4-45fe-a744-77e0efe45220"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "7c603d0f-caa7-4da2-a44b-dd19fa04b631",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250930",
+      "product_id": "0264-3450_7c603d0f-caa7-4da2-a44b-dd19fa04b631",
+      "application_number": "NDA206056",
+      "brand_name_base": "Piperacillin and Tazobactam and Sodium Chloride",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "81284-152",
+      "generic_name": "Piperacillin sodium and Tazobactam sodium",
+      "labeler_name": "Provepharm Inc.",
+      "brand_name": "PIPERACILLIN AND TAZOBACTAM",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "81284-152-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (81284-152-10)  / 15 mL in 1 VIAL, SINGLE-DOSE (81284-152-00)",
+          "marketing_start_date": "20190801",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Provepharm Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "bc26ffd8-1a6e-4e16-91c1-ec67c928b3bf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0381284152105",
+          "0381284151108",
+          "0381284153102"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5e55a3fe-170f-4509-a4dd-307a6b24fc71",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190801",
+      "product_id": "81284-152_5e55a3fe-170f-4509-a4dd-307a6b24fc71",
+      "application_number": "ANDA207847",
+      "brand_name_base": "PIPERACILLIN AND TAZOBACTAM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "81284-153",
+      "generic_name": "Piperacillin sodium and Tazobactam sodium",
+      "labeler_name": "Provepharm Inc.",
+      "brand_name": "PIPERACILLIN AND TAZOBACTAM",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "81284-153-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (81284-153-10)  / 20 mL in 1 VIAL, SINGLE-DOSE (81284-153-00)",
+          "marketing_start_date": "20190801",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Provepharm Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "bc26ffd8-1a6e-4e16-91c1-ec67c928b3bf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0381284152105",
+          "0381284151108",
+          "0381284153102"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "5e55a3fe-170f-4509-a4dd-307a6b24fc71",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190801",
+      "product_id": "81284-153_5e55a3fe-170f-4509-a4dd-307a6b24fc71",
+      "application_number": "ANDA207847",
+      "brand_name_base": "PIPERACILLIN AND TAZOBACTAM",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-309",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-309-20",
+          "description": "10 VIAL in 1 BOX (63323-309-20)  / 10 mL in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "fc4d1e35-23eb-4654-8691-ae5bfd50a48a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "25123257-e41e-420d-9735-74fc71840b6c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "63323-309_25123257-e41e-420d-9735-74fc71840b6c",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "81284-154",
+      "generic_name": "Piperacillin sodium and Tazobactam sodium",
+      "labeler_name": "Provepharm Inc.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "12 g/60mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "1.5 g/60mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "81284-154-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (81284-154-01)  / 60 mL in 1 VIAL, PHARMACY BULK PACKAGE (81284-154-00)",
+          "marketing_start_date": "20230111",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Provepharm Inc."
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "68d5384d-1691-4afc-8a1a-488f8e2ef2c5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "1c01a9c8-0256-4129-adc7-38d1f3cf2183",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230111",
+      "product_id": "81284-154_1c01a9c8-0256-4129-adc7-38d1f3cf2183",
+      "application_number": "ANDA207848",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "35369-0501",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "35369-0501-2",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (35369-0501-2)  / 20 mL in 1 VIAL, SINGLE-DOSE (35369-0501-1)",
+          "marketing_start_date": "20180810",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Shandong Anxin Pharmaceutical Co., Ltd."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "420196a5-f62d-473f-84d8-d7fc3f31c3d3"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0335369050114",
+          "0335369050329",
+          "0335369050220",
+          "0335369050213",
+          "0335369050312",
+          "0335369050121"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "83e081fa-7103-403a-b275-7d7205835a91",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180810",
+      "product_id": "35369-0501_83e081fa-7103-403a-b275-7d7205835a91",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0206-8861",
+      "generic_name": "TAZOBACTAM SODIUM and PIPERACILLIN SODIUM",
+      "labeler_name": "Wyeth Pharmaceuticals LLC, a subsidiary of Pfizer Inc.",
+      "brand_name": "Zosyn in Galaxy Containers",
+      "brand_name_suffix": "in Galaxy Containers",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "375 mg/50mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0206-8861-02",
+          "description": "24 BAG in 1 BOX (0206-8861-02)  / 50 mL in 1 BAG (0206-8861-01)",
+          "marketing_start_date": "19980301",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Wyeth Pharmaceuticals LLC, a subsidiary of Pfizer Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659134",
+          "1659137",
+          "1659139",
+          "1659149",
+          "1659151"
+        ],
+        "spl_set_id": [
+          "8ab9d90d-2f7f-4599-a44f-3d0a8f8ab623"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0302068860016"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "30496b61-307a-43af-8369-971593382a70",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "19980301",
+      "product_id": "0206-8861_30496b61-307a-43af-8369-971593382a70",
+      "application_number": "NDA050750",
+      "brand_name_base": "Zosyn",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-309",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-309-26",
+          "description": "10 VIAL in 1 BOX (63323-309-26)  / 10 mL in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "ba87ade3-4d41-40c0-9f6a-27e121a4136d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "59b329ea-8524-414d-ac6e-ef67d79536ce",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "63323-309_59b329ea-8524-414d-ac6e-ef67d79536ce",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-119",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-119-30",
+          "description": "10 VIAL in 1 BOX (55150-119-30)  / 1 INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20120123",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "39e19789-de4b-4fd1-ab1c-92f59496f496"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150119301",
+          "0355150120307",
+          "0355150121502"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "a14027c8-ca29-4846-b798-6970a3239ca8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20120123",
+      "product_id": "55150-119_a14027c8-ca29-4846-b798-6970a3239ca8",
+      "application_number": "ANDA065498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "35369-0502",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "35369-0502-2",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (35369-0502-2)  / 10 mL in 1 VIAL, SINGLE-DOSE (35369-0502-1)",
+          "marketing_start_date": "20180810",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Shandong Anxin Pharmaceutical Co., Ltd."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "420196a5-f62d-473f-84d8-d7fc3f31c3d3"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0335369050114",
+          "0335369050329",
+          "0335369050220",
+          "0335369050213",
+          "0335369050312",
+          "0335369050121"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "83e081fa-7103-403a-b275-7d7205835a91",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180810",
+      "product_id": "35369-0502_83e081fa-7103-403a-b275-7d7205835a91",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "35369-0503",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "35369-0503-2",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (35369-0503-2)  / 15 mL in 1 VIAL, SINGLE-DOSE (35369-0503-1)",
+          "marketing_start_date": "20180810",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Shandong Anxin Pharmaceutical Co., Ltd."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "420196a5-f62d-473f-84d8-d7fc3f31c3d3"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0335369050114",
+          "0335369050329",
+          "0335369050220",
+          "0335369050213",
+          "0335369050312",
+          "0335369050121"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "83e081fa-7103-403a-b275-7d7205835a91",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180810",
+      "product_id": "35369-0503_83e081fa-7103-403a-b275-7d7205835a91",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "35369-0504",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "35369-0504-1",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (35369-0504-1)  / 180 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20230414",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Shandong Anxin Pharmaceutical Co., Ltd."
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "f817b9be-b12b-48ac-8e4e-57ef6812eb32"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0335369050411"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "7557a940-1967-4f48-8c56-d494b793d934",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230414",
+      "product_id": "35369-0504_7557a940-1967-4f48-8c56-d494b793d934",
+      "application_number": "ANDA217243",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-120",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-120-09",
+          "description": "10 VIAL in 1 BOX (55150-120-09)  / 1 INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20120123",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a5d8625e-e630-4076-bc55-46ebe861c6a5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150119097",
+          "0355150120093",
+          "0355150121090"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "e9860d57-f7ab-4430-8a53-713d78c1dd30",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20120123",
+      "product_id": "55150-120_e9860d57-f7ab-4430-8a53-713d78c1dd30",
+      "application_number": "ANDA065498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-320",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-320-56",
+          "description": "10 VIAL in 1 BOX (63323-320-56)  / 20 mL in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "ba87ade3-4d41-40c0-9f6a-27e121a4136d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "59b329ea-8524-414d-ac6e-ef67d79536ce",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "63323-320_59b329ea-8524-414d-ac6e-ef67d79536ce",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "68001-507",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "BluePoint Laboratories",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "68001-507-82",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (68001-507-82)  / 15 mL in 1 VIAL, SINGLE-DOSE (68001-507-53)",
+          "marketing_start_date": "20210811",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "BluePoint Laboratories"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "1aba753c-d0c2-4b35-917a-9143dd4be468"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0368001506281",
+          "0368001507530",
+          "0368001508292"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3774b148-777d-9de2-e063-6394a90a5245",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20210811",
+      "product_id": "68001-507_3774b148-777d-9de2-e063-6394a90a5245",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-119",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-119-09",
+          "description": "10 VIAL in 1 BOX (55150-119-09)  / 1 INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20120123",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a5d8625e-e630-4076-bc55-46ebe861c6a5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150119097",
+          "0355150120093",
+          "0355150121090"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "e9860d57-f7ab-4430-8a53-713d78c1dd30",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20120123",
+      "product_id": "55150-119_e9860d57-f7ab-4430-8a53-713d78c1dd30",
+      "application_number": "ANDA065498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-120",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-120-30",
+          "description": "10 VIAL in 1 BOX (55150-120-30)  / 1 INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20120123",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "39e19789-de4b-4fd1-ab1c-92f59496f496"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150119301",
+          "0355150120307",
+          "0355150121502"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "a14027c8-ca29-4846-b798-6970a3239ca8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20120123",
+      "product_id": "55150-120_a14027c8-ca29-4846-b798-6970a3239ca8",
+      "application_number": "ANDA065498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-320",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-320-50",
+          "description": "10 VIAL in 1 BOX (63323-320-50)  / 20 mL in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "fc4d1e35-23eb-4654-8691-ae5bfd50a48a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "25123257-e41e-420d-9735-74fc71840b6c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "63323-320_25123257-e41e-420d-9735-74fc71840b6c",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "68001-506",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "BluePoint Laboratories",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "68001-506-30",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (68001-506-30)  / 10 mL in 1 VIAL, SINGLE-DOSE (68001-506-28)",
+          "marketing_start_date": "20210811",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "BluePoint Laboratories"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "1aba753c-d0c2-4b35-917a-9143dd4be468"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0368001506281",
+          "0368001507530",
+          "0368001508292"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3774b148-777d-9de2-e063-6394a90a5245",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20210811",
+      "product_id": "68001-506_3774b148-777d-9de2-e063-6394a90a5245",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-121",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-121-50",
+          "description": "10 VIAL in 1 BOX (55150-121-50)  / 1 INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20120123",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "39e19789-de4b-4fd1-ab1c-92f59496f496"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150119301",
+          "0355150120307",
+          "0355150121502"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "a14027c8-ca29-4846-b798-6970a3239ca8",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20120123",
+      "product_id": "55150-121_a14027c8-ca29-4846-b798-6970a3239ca8",
+      "application_number": "ANDA065498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "68001-508",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "BluePoint Laboratories",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "68001-508-31",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (68001-508-31)  / 20 mL in 1 VIAL, SINGLE-DOSE (68001-508-29)",
+          "marketing_start_date": "20210811",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "BluePoint Laboratories"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "1aba753c-d0c2-4b35-917a-9143dd4be468"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0368001506281",
+          "0368001507530",
+          "0368001508292"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3774b148-777d-9de2-e063-6394a90a5245",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20210811",
+      "product_id": "68001-508_3774b148-777d-9de2-e063-6394a90a5245",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0206-8862",
+      "generic_name": "TAZOBACTAM SODIUM and PIPERACILLIN SODIUM",
+      "labeler_name": "Wyeth Pharmaceuticals LLC, a subsidiary of Pfizer Inc.",
+      "brand_name": "Zosyn in Galaxy Containers",
+      "brand_name_suffix": "in Galaxy Containers",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "500 mg/100mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0206-8862-02",
+          "description": "12 BAG in 1 BOX (0206-8862-02)  / 100 mL in 1 BAG (0206-8862-01)",
+          "marketing_start_date": "19980301",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Wyeth Pharmaceuticals LLC, a subsidiary of Pfizer Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659134",
+          "1659137",
+          "1659139",
+          "1659149",
+          "1659151"
+        ],
+        "spl_set_id": [
+          "8ab9d90d-2f7f-4599-a44f-3d0a8f8ab623"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0302068860016"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "30496b61-307a-43af-8369-971593382a70",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "19980301",
+      "product_id": "0206-8862_30496b61-307a-43af-8369-971593382a70",
+      "application_number": "NDA050750",
+      "brand_name_base": "Zosyn",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-121",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-121-09",
+          "description": "10 VIAL in 1 BOX (55150-121-09)  / 1 INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20120123",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a5d8625e-e630-4076-bc55-46ebe861c6a5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150119097",
+          "0355150120093",
+          "0355150121090"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "e9860d57-f7ab-4430-8a53-713d78c1dd30",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20120123",
+      "product_id": "55150-121_e9860d57-f7ab-4430-8a53-713d78c1dd30",
+      "application_number": "ANDA065498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "83634-106",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Avenacy, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83634-106-50",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (83634-106-50)  / 20 mL in 1 VIAL, SINGLE-DOSE (83634-106-41)",
+          "marketing_start_date": "20250201",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Avenacy, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "9114cea1-3338-487e-87fa-cc3a409d501a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "2e787de2-4294-4caf-9f68-fa65e574eede",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250201",
+      "product_id": "83634-106_2e787de2-4294-4caf-9f68-fa65e574eede",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-256",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-256-28",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (65219-256-28)  / 180 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20171116",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "6a894b94-171f-4217-81a2-0e84796b0b41"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "1c3dc47a-2988-4d82-8d64-eeaeb6083eba",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20171116",
+      "product_id": "65219-256_1c3dc47a-2988-4d82-8d64-eeaeb6083eba",
+      "application_number": "ANDA203720",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "83634-104",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Avenacy, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83634-104-20",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (83634-104-20)  / 10 mL in 1 VIAL, SINGLE-DOSE (83634-104-41)",
+          "marketing_start_date": "20250201",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Avenacy, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "9114cea1-3338-487e-87fa-cc3a409d501a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "2e787de2-4294-4caf-9f68-fa65e574eede",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250201",
+      "product_id": "83634-104_2e787de2-4294-4caf-9f68-fa65e574eede",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-256",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-256-24",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (65219-256-24)  / 180 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20171116",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "c5cddf50-e486-4ffb-9bc6-ed67ad6bc154"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "630fa34d-c117-4a27-8bbe-b837d2093a53",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20171116",
+      "product_id": "65219-256_630fa34d-c117-4a27-8bbe-b837d2093a53",
+      "application_number": "ANDA203720",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "83634-105",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Avenacy, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83634-105-30",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (83634-105-30)  / 15 mL in 1 VIAL, SINGLE-DOSE (83634-105-41)",
+          "marketing_start_date": "20250201",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Avenacy, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "9114cea1-3338-487e-87fa-cc3a409d501a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "2e787de2-4294-4caf-9f68-fa65e574eede",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250201",
+      "product_id": "83634-105_2e787de2-4294-4caf-9f68-fa65e574eede",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-256",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-256-00",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (65219-256-00)  / 180 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20171116",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "c8e3cc43-238d-4a23-95dc-157c85f83184"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "f84e1d66-142a-4b63-9023-e751d0915e76",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20171116",
+      "product_id": "65219-256_f84e1d66-142a-4b63-9023-e751d0915e76",
+      "application_number": "ANDA203720",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-259",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-259-55",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (65219-259-55)  / 20 mL in 1 VIAL, SINGLE-USE (65219-259-15)",
+          "marketing_start_date": "20210524",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659149"
+        ],
+        "spl_set_id": [
+          "b9bd733c-1176-42cb-b318-1223b7e48dcb"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "35f3281c-1865-4958-ae33-acdfbf8b1b28",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20210524",
+      "product_id": "65219-259_35f3281c-1865-4958-ae33-acdfbf8b1b28",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-259",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-259-45",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (65219-259-45)  / 20 mL in 1 VIAL, SINGLE-USE (65219-259-05)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a798faf5-cd97-4e35-a700-94c372978c46"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "76af03be-bc73-40f9-bde0-31fe9c359ca2",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "65219-259_76af03be-bc73-40f9-bde0-31fe9c359ca2",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "52946-0927",
+      "generic_name": "Piperacillin and Tazobactam (Sterile)",
+      "labeler_name": "ACS Dobfar SpA",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "1 kg/kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "52946-0927-0",
+          "description": "20 kg in 1 BOX (52946-0927-0)",
+          "marketing_start_date": "01-JAN-25"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "d7f87a8a-131f-4660-be6f-f18b2d1e7235",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20250101",
+      "product_id": "52946-0927_d7f87a8a-131f-4660-be6f-f18b2d1e7235",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "83634-112",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Avenacy, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/180mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/180mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "83634-112-99",
+          "description": "1 BOTTLE in 1 CARTON (83634-112-99)  / 180 mL in 1 BOTTLE",
+          "marketing_start_date": "20250901",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Avenacy, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "668a2730-e95a-4639-a506-ae95a6502ca1"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "2f01070f-edc6-404f-bad8-1b0071c32b5e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250901",
+      "product_id": "83634-112_2f01070f-edc6-404f-bad8-1b0071c32b5e",
+      "application_number": "ANDA090498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-474",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "12 g/100mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "1.5 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-474-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (55150-474-01)  / 51 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20231012",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "80f4bdb8-131e-4485-b7a2-accd596d4cde"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150474011"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "d55bf2c9-ae5b-4a09-8151-9ba0046a7d3e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20231012",
+      "product_id": "55150-474_d55bf2c9-ae5b-4a09-8151-9ba0046a7d3e",
+      "application_number": "ANDA217409",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "55150-473",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Eugia US LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/250mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/250mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "55150-473-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (55150-473-01)  / 152 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20231012",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Eugia US LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "80f4bdb8-131e-4485-b7a2-accd596d4cde"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0355150474011"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "d55bf2c9-ae5b-4a09-8151-9ba0046a7d3e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20231012",
+      "product_id": "55150-473_d55bf2c9-ae5b-4a09-8151-9ba0046a7d3e",
+      "application_number": "ANDA217409",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "50915-118",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Shandong Ruiying Pioneer Pharmaceutical Co., Ltd.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "60 kg/60kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "50915-118-60",
+          "description": "60 kg in 1 DRUM (50915-118-60)",
+          "marketing_start_date": "15-JUN-10"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "45c38fc3-fb92-ffd4-e063-6394a90a1046",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20100615",
+      "product_id": "50915-118_45c38fc3-fb92-ffd4-e063-6394a90a1046",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "25021-181",
+      "generic_name": "Piperacillin Sodium, Tazobactam Sodium",
+      "labeler_name": "Sagent Pharmaceuticals",
+      "brand_name": "Piperacillin, Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/152mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/152mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "25021-181-99",
+          "description": "1 BOTTLE in 1 CARTON (25021-181-99)  / 152 mL in 1 BOTTLE",
+          "marketing_start_date": "20210228",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sagent Pharmaceuticals"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "83f4adcd-893c-4e9e-8f2b-e06299dcf34d"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "a6724256-14c5-4408-83a5-a964f146f0d5",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20210228",
+      "product_id": "25021-181_a6724256-14c5-4408-83a5-a964f146f0d5",
+      "application_number": "ANDA208675",
+      "brand_name_base": "Piperacillin, Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-436",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-436-20",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (65219-436-20)  / 15 mL in 1 VIAL, SINGLE-DOSE (65219-436-02)",
+          "marketing_start_date": "20230320",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a798faf5-cd97-4e35-a700-94c372978c46"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "76af03be-bc73-40f9-bde0-31fe9c359ca2",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230320",
+      "product_id": "65219-436_76af03be-bc73-40f9-bde0-31fe9c359ca2",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65219-434",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "65219-434-20",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (65219-434-20)  / 10 mL in 1 VIAL, SINGLE-DOSE (65219-434-02)",
+          "marketing_start_date": "20230320",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "a798faf5-cd97-4e35-a700-94c372978c46"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "76af03be-bc73-40f9-bde0-31fe9c359ca2",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230320",
+      "product_id": "65219-434_76af03be-bc73-40f9-bde0-31fe9c359ca2",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "65862-277",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Aurobindo Pharma Limited",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "50 kg/50kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "65862-277-37",
+          "description": "50 kg in 1 DRUM (65862-277-37)",
+          "marketing_start_date": "17-JAN-24"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "1728e688-6348-4589-b4f4-1977235d22c5",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20240117",
+      "product_id": "65862-277_1728e688-6348-4589-b4f4-1977235d22c5",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "0781-3180",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Sandoz Inc",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/250mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/250mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0781-3180-94",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (0781-3180-94)  / 250 mL in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20211025",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Sandoz Inc"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "b1cb1314-d3e0-4b44-a1df-de14c32e8cc6"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "27be0ff3-ee57-4d56-a73b-ca773d763a1e",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS",
+        "PARENTERAL"
+      ],
+      "marketing_start_date": "20211025",
+      "product_id": "0781-3180_27be0ff3-ee57-4d56-a73b-ca773d763a1e",
+      "application_number": "ANDA203557",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72485-403",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Armas Pharmaceuticals Inc.",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72485-403-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 BOX (72485-403-10)  / 15 mL in 1 VIAL, SINGLE-DOSE (72485-403-01)",
+          "marketing_start_date": "20220414",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Armas Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1659137"
+        ],
+        "spl_set_id": [
+          "24d9b4f1-109c-4db4-8a99-03afff045b47"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "461fc738-1117-cbbe-e063-6394a90af8de",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20220414",
+      "product_id": "72485-403_461fc738-1117-cbbe-e063-6394a90af8de",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72485-404",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Armas Pharmaceuticals Inc.",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72485-404-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 BOX (72485-404-10)  / 20 mL in 1 VIAL, SINGLE-DOSE (72485-404-01)",
+          "marketing_start_date": "20220414",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Armas Pharmaceuticals Inc."
+        ],
+        "rxcui": [
+          "1659149"
+        ],
+        "spl_set_id": [
+          "bbd1e6ae-e19a-4572-a0ec-e78c8aa31d2a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "461fcd55-d5e4-d99d-e063-6394a90a77ce",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20220414",
+      "product_id": "72485-404_461fcd55-d5e4-d99d-e063-6394a90a77ce",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0206-8860",
+      "generic_name": "TAZOBACTAM SODIUM and PIPERACILLIN SODIUM",
+      "labeler_name": "Wyeth Pharmaceuticals LLC, a subsidiary of Pfizer Inc.",
+      "brand_name": "Zosyn in Galaxy Containers",
+      "brand_name_suffix": "in Galaxy Containers",
+      "active_ingredients": [
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "250 mg/50mL"
+        },
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0206-8860-02",
+          "description": "24 BAG in 1 BOX (0206-8860-02)  / 50 mL in 1 BAG (0206-8860-01)",
+          "marketing_start_date": "19980301",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Wyeth Pharmaceuticals LLC, a subsidiary of Pfizer Inc."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659134",
+          "1659137",
+          "1659139",
+          "1659149",
+          "1659151"
+        ],
+        "spl_set_id": [
+          "8ab9d90d-2f7f-4599-a44f-3d0a8f8ab623"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0302068860016"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "30496b61-307a-43af-8369-971593382a70",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "19980301",
+      "product_id": "0206-8860_30496b61-307a-43af-8369-971593382a70",
+      "application_number": "NDA050750",
+      "brand_name_base": "Zosyn",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-300",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-300-30",
+          "description": "10 VIAL in 1 BOX (63323-300-30)  / 15 mL in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "fc4d1e35-23eb-4654-8691-ae5bfd50a48a"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "25123257-e41e-420d-9735-74fc71840b6c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "63323-300_25123257-e41e-420d-9735-74fc71840b6c",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "66558-0150",
+      "generic_name": "PIPERACILLIN SODIUM, TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi iPSUM S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "7112 g/8kg"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "889 g/8kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "66558-0150-7",
+          "description": "8 kg in 1 CONTAINER (66558-0150-7)",
+          "marketing_start_date": "08-DEC-10"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "POWDER",
+      "spl_id": "edcdf8cf-0341-3566-e053-2995a90a55a3",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20101208",
+      "product_id": "66558-0150_edcdf8cf-0341-3566-e053-2995a90a55a3",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "22607-012",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Mitim S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "22607-012-02",
+          "description": "10 CARTON in 1 BOX (22607-012-02)  / 10 VIAL, SINGLE-USE in 1 CARTON / 20 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "22-MAR-17"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "309d400d-275e-44bb-e063-6394a90a56bb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "marketing_start_date": "20170322",
+      "product_id": "22607-012_309d400d-275e-44bb-e063-6394a90a56bb",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "22607-034",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Mitim S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "22607-034-02",
+          "description": "16 CARTON in 1 BOX (22607-034-02)  / 10 VIAL, SINGLE-USE in 1 CARTON / 10 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "22-MAR-17"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "309d400d-275e-44bb-e063-6394a90a56bb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "marketing_start_date": "20170322",
+      "product_id": "22607-034_309d400d-275e-44bb-e063-6394a90a56bb",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "22607-056",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Mitim S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "22607-056-02",
+          "description": "16 CARTON in 1 BOX (22607-056-02)  / 10 VIAL, SINGLE-USE in 1 CARTON / 15 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "22-MAR-17"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "309d400d-275e-44bb-e063-6394a90a56bb",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "marketing_start_date": "20170322",
+      "product_id": "22607-056_309d400d-275e-44bb-e063-6394a90a56bb",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "63323-982",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-982-54",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (63323-982-54)  / 20 mL in 1 VIAL, SINGLE-USE (63323-982-43)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "1eb40c84-0cb3-4648-a39f-f4ebc4dbcb16"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "6487ad37-921c-4994-bef4-38854cdecec9",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "63323-982_6487ad37-921c-4994-bef4-38854cdecec9",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72572-418",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Civica, Inc.",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72572-418-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (72572-418-10)  / 20 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "20250908",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Civica, Inc."
+        ],
+        "rxcui": [
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "7aebc0e6-89db-4ef0-b5ab-d6b3199bcfc4"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372572414012"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3e4c7057-3747-4bcc-e063-6394a90a91a7",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250908",
+      "product_id": "72572-418_3e4c7057-3747-4bcc-e063-6394a90a91a7",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-981",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-981-21",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (63323-981-21)  / 10 mL in 1 VIAL, SINGLE-USE (63323-981-23)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "dc8208ea-a632-4291-a90b-2eba9a33bb40"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0363323981235",
+          "0363323982218",
+          "0363323983239"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "0802b499-4d2a-43ad-8fea-ad80b6738a46",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "63323-981_0802b499-4d2a-43ad-8fea-ad80b6738a46",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72572-414",
+      "generic_name": "piperacillin and tazobactam",
+      "labeler_name": "Civica, Inc.",
+      "brand_name": "piperacillin and tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72572-414-10",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (72572-414-10)  / 15 mL in 1 VIAL, SINGLE-USE",
+          "marketing_start_date": "20250908",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Civica, Inc."
+        ],
+        "rxcui": [
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "7aebc0e6-89db-4ef0-b5ab-d6b3199bcfc4"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0372572414012"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "3e4c7057-3747-4bcc-e063-6394a90a91a7",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20250908",
+      "product_id": "72572-414_3e4c7057-3747-4bcc-e063-6394a90a91a7",
+      "application_number": "ANDA065458",
+      "brand_name_base": "piperacillin and tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-981",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-981-53",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (63323-981-53)  / 10 mL in 1 VIAL, SINGLE-USE (63323-981-41)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "1eb40c84-0cb3-4648-a39f-f4ebc4dbcb16"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "6487ad37-921c-4994-bef4-38854cdecec9",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "63323-981_6487ad37-921c-4994-bef4-38854cdecec9",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "63323-982",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-982-52",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (63323-982-52)  / 20 mL in 1 VIAL, SINGLE-USE (63323-982-21)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "dc8208ea-a632-4291-a90b-2eba9a33bb40"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0363323981235",
+          "0363323982218",
+          "0363323983239"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "0802b499-4d2a-43ad-8fea-ad80b6738a46",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "63323-982_0802b499-4d2a-43ad-8fea-ad80b6738a46",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "66558-0209",
+      "generic_name": "PIPERACILLIN SODIUM, TAZOBACTAM SODIUM, SODIUM CITRATE",
+      "labeler_name": "Fresenius Kabi iPSUM S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "7.65 kg/9kg"
+        },
+        {
+          "name": "SODIUM CITRATE",
+          "strength": ".37 kg/9kg"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".98 kg/9kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "66558-0209-0",
+          "description": "9 kg in 1 CONTAINER (66558-0209-0)",
+          "marketing_start_date": "30-APR-22"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "POWDER",
+      "spl_id": "e04bb540-d9d9-598a-e053-2995a90a0931",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20220430",
+      "product_id": "66558-0209_e04bb540-d9d9-598a-e053-2995a90a0931",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "63323-983",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-983-21",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (63323-983-21)  / 15 mL in 1 VIAL, SINGLE-USE (63323-983-23)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "dc8208ea-a632-4291-a90b-2eba9a33bb40"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0363323981235",
+          "0363323982218",
+          "0363323983239"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "0802b499-4d2a-43ad-8fea-ad80b6738a46",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "63323-983_0802b499-4d2a-43ad-8fea-ad80b6738a46",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "66558-0208",
+      "generic_name": "PIPERACILLIN SODIUM, TAZOBACTAM SODIUM",
+      "labeler_name": "Fresenius Kabi iPSUM S.r.l.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "7.97 kg/9kg"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "1.03 kg/9kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "66558-0208-0",
+          "description": "9 kg in 1 CONTAINER (66558-0208-0)",
+          "marketing_start_date": "20-OCT-20"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "DRUG FOR FURTHER PROCESSING",
+      "dosage_form": "POWDER",
+      "spl_id": "e04b4924-11a7-43c7-e053-2995a90a7cd7",
+      "product_type": "DRUG FOR FURTHER PROCESSING",
+      "marketing_start_date": "20201020",
+      "product_id": "66558-0208_e04b4924-11a7-43c7-e053-2995a90a7cd7",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "63323-983",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "Fresenius Kabi USA, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "63323-983-53",
+          "description": "10 VIAL, SINGLE-USE in 1 CARTON (63323-983-53)  / 15 mL in 1 VIAL, SINGLE-USE (63323-983-41)",
+          "marketing_start_date": "20180518",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Fresenius Kabi USA, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "1eb40c84-0cb3-4648-a39f-f4ebc4dbcb16"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, LYOPHILIZED, FOR SOLUTION",
+      "spl_id": "6487ad37-921c-4994-bef4-38854cdecec9",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20180518",
+      "product_id": "63323-983_6487ad37-921c-4994-bef4-38854cdecec9",
+      "application_number": "ANDA203719",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "32903-098",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "1 kg/kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "32903-098-25",
+          "description": "25 kg in 1 DRUM (32903-098-25)",
+          "marketing_start_date": "20-NOV-23"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT FOR HUMAN PRESCRIPTION COMPOUNDING",
+      "dosage_form": "POWDER",
+      "spl_id": "4142fd31-315a-a83d-e063-6394a90aedf6",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20231120",
+      "product_id": "32903-098_4142fd31-315a-a83d-e063-6394a90aedf6",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "72572-574",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Civica, Inc.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72572-574-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (72572-574-10)  / 20 mL in 1 VIAL, SINGLE-DOSE (72572-574-01)",
+          "marketing_start_date": "20210101",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Civica, Inc."
+        ],
+        "rxcui": [
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "19e89f8b-316b-4dd2-9724-bfe0faeba408"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "7bc55307-0d44-4b72-a698-2483af36ff51",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20210101",
+      "product_id": "72572-574_7bc55307-0d44-4b72-a698-2483af36ff51",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72572-573",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Civica, Inc.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "72572-573-10",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (72572-573-10)  / 15 mL in 1 VIAL, SINGLE-DOSE (72572-573-01)",
+          "marketing_start_date": "20201201",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Civica, Inc."
+        ],
+        "rxcui": [
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "19e89f8b-316b-4dd2-9724-bfe0faeba408"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "7bc55307-0d44-4b72-a698-2483af36ff51",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20201201",
+      "product_id": "72572-573_7bc55307-0d44-4b72-a698-2483af36ff51",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0338-9632",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Baxter Healthcare Corporation",
+      "brand_name": "Zosyn",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/50mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0338-9632-24",
+          "description": "24 BAG in 1 CARTON (0338-9632-24)  / 50 mL in 1 BAG (0338-9632-01)",
+          "marketing_start_date": "20230401",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Baxter Healthcare Corporation"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659134",
+          "1659137",
+          "1659139",
+          "1659149",
+          "1659151"
+        ],
+        "spl_set_id": [
+          "8db6bd91-2106-4bfd-8cc8-38aaf1e18d17"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "d44ebbea-a212-4060-a50b-e7fab8e70ff6",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230401",
+      "product_id": "0338-9632_d44ebbea-a212-4060-a50b-e7fab8e70ff6",
+      "application_number": "NDA050750",
+      "brand_name_base": "Zosyn",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0338-9636",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Baxter Healthcare Corporation",
+      "brand_name": "Zosyn",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/50mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/50mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0338-9636-24",
+          "description": "24 BAG in 1 CARTON (0338-9636-24)  / 50 mL in 1 BAG (0338-9636-01)",
+          "marketing_start_date": "20230401",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Baxter Healthcare Corporation"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659134",
+          "1659137",
+          "1659139",
+          "1659149",
+          "1659151"
+        ],
+        "spl_set_id": [
+          "8db6bd91-2106-4bfd-8cc8-38aaf1e18d17"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "d44ebbea-a212-4060-a50b-e7fab8e70ff6",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230401",
+      "product_id": "0338-9636_d44ebbea-a212-4060-a50b-e7fab8e70ff6",
+      "application_number": "NDA050750",
+      "brand_name_base": "Zosyn",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "60505-6157",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "Apotex Corp.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/15mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/15mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "60505-6157-4",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (60505-6157-4)  / 15 mL in 1 VIAL, SINGLE-DOSE (60505-6157-0)",
+          "marketing_start_date": "20190315",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Apotex Corp."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "2c8f06a2-49b2-4169-94ef-182d13d248bf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0360505615902",
+          "0360505615742",
+          "0360505615643",
+          "0360505615605",
+          "0360505615704",
+          "0360505615940"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "0702bfe3-61ba-4c3e-a9e4-ceafca2a8821",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190315",
+      "product_id": "60505-6157_0702bfe3-61ba-4c3e-a9e4-ceafca2a8821",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "60505-6156",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "Apotex Corp.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/10mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/10mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "60505-6156-4",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (60505-6156-4)  / 10 mL in 1 VIAL, SINGLE-DOSE (60505-6156-0)",
+          "marketing_start_date": "20190315",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Apotex Corp."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "2c8f06a2-49b2-4169-94ef-182d13d248bf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0360505615902",
+          "0360505615742",
+          "0360505615643",
+          "0360505615605",
+          "0360505615704",
+          "0360505615940"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "0702bfe3-61ba-4c3e-a9e4-ceafca2a8821",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190315",
+      "product_id": "60505-6156_0702bfe3-61ba-4c3e-a9e4-ceafca2a8821",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "60505-6159",
+      "generic_name": "PIPERACILLIN and TAZOBACTAM",
+      "labeler_name": "Apotex Corp.",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/20mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/20mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "60505-6159-4",
+          "description": "10 VIAL, SINGLE-DOSE in 1 CARTON (60505-6159-4)  / 20 mL in 1 VIAL, SINGLE-DOSE (60505-6159-0)",
+          "marketing_start_date": "20190315",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Apotex Corp."
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "2c8f06a2-49b2-4169-94ef-182d13d248bf"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "upc": [
+          "0360505615902",
+          "0360505615742",
+          "0360505615643",
+          "0360505615605",
+          "0360505615704",
+          "0360505615940"
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "0702bfe3-61ba-4c3e-a9e4-ceafca2a8821",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20190315",
+      "product_id": "60505-6159_0702bfe3-61ba-4c3e-a9e4-ceafca2a8821",
+      "application_number": "ANDA204959",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72977-0002",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Shandong Anshun Pharmaceutical Co., Ltd.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "25 kg/25kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "72977-0002-2",
+          "description": "25 kg in 1 DRUM (72977-0002-2)",
+          "marketing_start_date": "22-JUL-19"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "31c492f4-3b4d-4ed8-ad70-54108cdc7600",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20190722",
+      "product_id": "72977-0002_31c492f4-3b4d-4ed8-ad70-54108cdc7600",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "44567-804",
+      "generic_name": "Piperacillin and Tazobactam",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "36 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "4.5 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-804-01",
+          "description": "1 VIAL, PHARMACY BULK PACKAGE in 1 CARTON (44567-804-01)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL, PHARMACY BULK PACKAGE",
+          "marketing_start_date": "20091020",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "rxcui": [
+          "312447"
+        ],
+        "spl_set_id": [
+          "17a400ae-cbaa-4d07-95f4-c6917dfc0585"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "M98T69Q7HP",
+          "UXA545ABTT"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "f5fd38a2-b097-41c8-a92c-f43be6e68e4c",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091020",
+      "product_id": "44567-804_f5fd38a2-b097-41c8-a92c-f43be6e68e4c",
+      "application_number": "ANDA090498",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "44567-801",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "2 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".25 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-801-10",
+          "description": "10 VIAL in 1 BOX (44567-801-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "2cd82553-79dc-45f0-9755-2c08df524ed5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "99cd13ca-d66b-4bfe-9057-33dbb8c63718",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "44567-801_99cd13ca-d66b-4bfe-9057-33dbb8c63718",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72977-0002",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Shandong Anshun Pharmaceutical Co., Ltd.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "10 kg/10kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "72977-0002-1",
+          "description": "10 kg in 1 CAN (72977-0002-1)",
+          "marketing_start_date": "22-JUL-19"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "1adcd983-e88a-4dff-95c5-326c824db127",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20190722",
+      "product_id": "72977-0002_1adcd983-e88a-4dff-95c5-326c824db127",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "44567-802",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "3 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".375 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-802-10",
+          "description": "10 VIAL in 1 BOX (44567-802-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "2cd82553-79dc-45f0-9755-2c08df524ed5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "99cd13ca-d66b-4bfe-9057-33dbb8c63718",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "44567-802_99cd13ca-d66b-4bfe-9057-33dbb8c63718",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "72977-0002",
+      "generic_name": "Piperacillin",
+      "labeler_name": "Shandong Anshun Pharmaceutical Co., Ltd.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN",
+          "strength": "15 kg/15kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "72977-0002-4",
+          "description": "15 kg in 1 CAN (72977-0002-4)",
+          "marketing_start_date": "21-AUG-26"
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT",
+      "dosage_form": "POWDER",
+      "spl_id": "2d330add-38f8-493f-9f70-f04c4d4959e2",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20260821",
+      "product_id": "72977-0002_2d330add-38f8-493f-9f70-f04c4d4959e2",
+      "brand_name_base": null
+    },
+    {
+      "product_ndc": "44567-803",
+      "generic_name": "PIPERACILLIN SODIUM,TAZOBACTAM SODIUM",
+      "labeler_name": "WG Critical Care, LLC",
+      "brand_name": "Piperacillin and Tazobactam",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/1"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "44567-803-10",
+          "description": "10 VIAL in 1 BOX (44567-803-10)  / 1 INJECTION, POWDER, FOR SOLUTION in 1 VIAL",
+          "marketing_start_date": "20091013",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "WG Critical Care, LLC"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659137",
+          "1659149"
+        ],
+        "spl_set_id": [
+          "2cd82553-79dc-45f0-9755-2c08df524ed5"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "INJECTION, POWDER, FOR SOLUTION",
+      "spl_id": "99cd13ca-d66b-4bfe-9057-33dbb8c63718",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20091013",
+      "product_id": "44567-803_99cd13ca-d66b-4bfe-9057-33dbb8c63718",
+      "application_number": "ANDA065523",
+      "brand_name_base": "Piperacillin and Tazobactam",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "0338-9638",
+      "generic_name": "piperacillin sodium and tazobactam sodium",
+      "labeler_name": "Baxter Healthcare Corporation",
+      "brand_name": "Zosyn",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "4 g/100mL"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": ".5 g/100mL"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "0338-9638-12",
+          "description": "12 BAG in 1 CARTON (0338-9638-12)  / 100 mL in 1 BAG (0338-9638-01)",
+          "marketing_start_date": "20230401",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20271231",
+      "openfda": {
+        "manufacturer_name": [
+          "Baxter Healthcare Corporation"
+        ],
+        "rxcui": [
+          "1659131",
+          "1659134",
+          "1659137",
+          "1659139",
+          "1659149",
+          "1659151"
+        ],
+        "spl_set_id": [
+          "8db6bd91-2106-4bfd-8cc8-38aaf1e18d17"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "unii": [
+          "UXA545ABTT",
+          "M98T69Q7HP"
+        ]
+      },
+      "marketing_category": "NDA",
+      "dosage_form": "INJECTION, SOLUTION",
+      "spl_id": "d44ebbea-a212-4060-a50b-e7fab8e70ff6",
+      "product_type": "HUMAN PRESCRIPTION DRUG",
+      "route": [
+        "INTRAVENOUS"
+      ],
+      "marketing_start_date": "20230401",
+      "product_id": "0338-9638_d44ebbea-a212-4060-a50b-e7fab8e70ff6",
+      "application_number": "NDA050750",
+      "brand_name_base": "Zosyn",
+      "pharm_class": [
+        "Penicillin-class Antibacterial [EPC]",
+        "Penicillins [CS]",
+        "beta Lactamase Inhibitor [EPC]",
+        "beta Lactamase Inhibitors [MoA]"
+      ]
+    },
+    {
+      "product_ndc": "35369-0007",
+      "generic_name": "Piperacillin Sodium and Tazobactam Sodium",
+      "labeler_name": "Shandong Anxin Pharmaceutical Co., Ltd.",
+      "active_ingredients": [
+        {
+          "name": "PIPERACILLIN SODIUM",
+          "strength": "8.86 kg/10kg"
+        },
+        {
+          "name": "TAZOBACTAM SODIUM",
+          "strength": "1.14 kg/10kg"
+        }
+      ],
+      "finished": false,
+      "packaging": [
+        {
+          "package_ndc": "35369-0007-2",
+          "description": "1 CANISTER in 1 CARTON (35369-0007-2)  / 10 kg in 1 CANISTER (35369-0007-1)",
+          "marketing_start_date": "23-NOV-19"
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {},
+      "marketing_category": "BULK INGREDIENT FOR HUMAN PRESCRIPTION COMPOUNDING",
+      "dosage_form": "POWDER",
+      "spl_id": "1132e62f-56e2-4cd2-a69b-a4a882d76559",
+      "product_type": "BULK INGREDIENT",
+      "marketing_start_date": "20191123",
+      "product_id": "35369-0007_1132e62f-56e2-4cd2-a69b-a4a882d76559",
+      "brand_name_base": null
+    }
+  ]
+}
