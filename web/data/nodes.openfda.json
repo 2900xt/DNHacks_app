@@ -87,19 +87,6 @@
     "resolved_by": null
   },
   {
-    "id": "company:fei:3002807979",
-    "type": "company",
-    "label": "Centrient Pharmaceuticals India Private Limited",
-    "country": "in",
-    "critical": false,
-    "attrs": {
-      "fei": "3002807979",
-      "labeler_name": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
-      "openfda_rows": 2
-    },
-    "resolved_by": "fei"
-  },
-  {
     "id": "company:fei:3004446312",
     "type": "company",
     "label": "Aurobindo Pharma Limited",
@@ -109,6 +96,19 @@
       "fei": "3004446312",
       "labeler_name": "Aurobindo Pharma Limited",
       "openfda_rows": 40
+    },
+    "resolved_by": "fei"
+  },
+  {
+    "id": "company:fei:3004497364",
+    "type": "company",
+    "label": "Centrient Pharmaceuticals India Private Limited",
+    "country": "in",
+    "critical": false,
+    "attrs": {
+      "fei": "3004497364",
+      "labeler_name": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
+      "openfda_rows": 2
     },
     "resolved_by": "fei"
   },
@@ -1118,6 +1118,30 @@
       "openfda_rows": 1
     },
     "resolved_by": null
+  },
+  {
+    "id": "facility:fei:3004446312",
+    "type": "facility",
+    "label": "Aurobindo Pharma Limited (site)",
+    "country": "in",
+    "critical": false,
+    "attrs": {
+      "fei": "3004446312",
+      "openfda_rows": 40
+    },
+    "resolved_by": "fei"
+  },
+  {
+    "id": "facility:fei:3004497364",
+    "type": "facility",
+    "label": "Centrient Pharmaceuticals India Private Limited (site)",
+    "country": "in",
+    "critical": false,
+    "attrs": {
+      "fei": "3004497364",
+      "openfda_rows": 2
+    },
+    "resolved_by": "fei"
   },
   {
     "id": "product:ndc:0049-0013",
