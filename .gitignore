@@ -112,3 +112,5 @@ data/cache/decrs/*.zip
 # Source registers and the derived tables; all re-fetched by the loaders.
 # `make risk` rebuilds web/data/risk.json from them in about a minute.
 data/cache/risk/
+.vercel
+.env*
