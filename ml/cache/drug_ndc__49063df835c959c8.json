@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04"
+  },
+  "results": [
+    {
+      "term": "A-S Medication Solutions",
+      "count": 63
+    },
+    {
+      "term": "NuCare Pharmaceuticals,Inc.",
+      "count": 57
+    },
+    {
+      "term": "Proficient Rx LP",
+      "count": 41
+    },
+    {
+      "term": "Aurobindo Pharma Limited",
+      "count": 26
+    },
+    {
+      "term": "Bryant Ranch Prepack",
+      "count": 26
+    },
+    {
+      "term": "Preferred Pharmaceuticals Inc.",
+      "count": 25
+    },
+    {
+      "term": "REMEDYREPACK INC.",
+      "count": 23
+    },
+    {
+      "term": "PD-Rx Pharmaceuticals, Inc.",
+      "count": 22
+    },
+    {
+      "term": "Asclemed USA, Inc.",
+      "count": 21
+    },
+    {
+      "term": "Chartwell RX, LLC",
+      "count": 21
+    },
+    {
+      "term": "Sandoz Inc",
+      "count": 15
+    },
+    {
+      "term": "Teva Pharmaceuticals USA, Inc.",
+      "count": 14
+    },
+    {
+      "term": "NuCare Pharmaceuticals, Inc.",
+      "count": 13
+    },
+    {
+      "term": "Sportpharm LLC",
+      "count": 11
+    },
+    {
+      "term": "USAntibiotics, LLC",
+      "count": 11
+    },
+    {
+      "term": "Hikma Pharmaceuticals USA Inc.",
+      "count": 10
+    },
+    {
+      "term": "Redpharm Drug",
+      "count": 9
+    },
+    {
+      "term": "NorthStar Rx LLC",
+      "count": 8
+    },
+    {
+      "term": "American Health Packaging",
+      "count": 7
+    },
+    {
+      "term": "Coupler LLC",
+      "count": 7
+    },
+    {
+      "term": "HAWAII REPACK, INC.",
+      "count": 7
+    },
+    {
+      "term": "Rising Pharma Holdings, Inc.",
+      "count": 7
+    },
+    {
+      "term": "Deretil SA",
+      "count": 5
+    },
+    {
+      "term": "Micro Labs Limited",
+      "count": 5
+    },
+    {
+      "term": "Northwind Health Company, LLC",
+      "count": 5
+    },
+    {
+      "term": "Devatis, Inc.",
+      "count": 4
+    },
+    {
+      "term": "Advanced Rx Pharmacy of Tennessee, LLC",
+      "count": 3
+    },
+    {
+      "term": "Chartwell Governmental & Specialty RX, LLC",
+      "count": 3
+    },
+    {
+      "term": "DirectRx",
+      "count": 3
+    },
+    {
+      "term": "Direct_Rx",
+      "count": 3
+    },
+    {
+      "term": "Fersinsa GB, S.A. de C.V",
+      "count": 3
+    },
+    {
+      "term": "Preferred Pharmaceuticals, Inc.",
+      "count": 3
+    },
+    {
+      "term": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
+      "count": 2
+    },
+    {
+      "term": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+      "count": 2
+    },
+    {
+      "term": "Medsource Pharmaceuticals",
+      "count": 2
+    },
+    {
+      "term": "NuCare Pharmaceutials,Inc.",
+      "count": 2
+    },
+    {
+      "term": "Phathom Pharmaceuticals Inc.",
+      "count": 2
+    },
+    {
+      "term": "QPharma Inc",
+      "count": 2
+    },
+    {
+      "term": "QPharma, Inc.",
+      "count": 2
+    },
+    {
+      "term": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+      "count": 2
+    },
+    {
+      "term": "ACS Dobfar S.p.A",
+      "count": 1
+    },
+    {
+      "term": "ASCLEMED USA INC.",
+      "count": 1
+    },
+    {
+      "term": "Allegis Holdings, LLC",
+      "count": 1
+    },
+    {
+      "term": "Cipla USA Inc.",
+      "count": 1
+    },
+    {
+      "term": "DIRECT RX",
+      "count": 1
+    },
+    {
+      "term": "Devatis Inc.",
+      "count": 1
+    },
+    {
+      "term": "Fersinsa GB, S.A. de C.V.",
+      "count": 1
+    },
+    {
+      "term": "Fresenius Kabi iPSUM S.r.l.",
+      "count": 1
+    },
+    {
+      "term": "Health Department, Oklahoma State",
+      "count": 1
+    },
+    {
+      "term": "Henan Lvyuan Pharmaceutical Co., Ltd.",
+      "count": 1
+    },
+    {
+      "term": "Northwind Pharmaceuticals, LLC",
+      "count": 1
+    },
+    {
+      "term": "NuCare Pharmaceuticals Inc.",
+      "count": 1
+    },
+    {
+      "term": "Preferred Phamraceuticals Inc.",
+      "count": 1
+    },
+    {
+      "term": "QPharma, Inc",
+      "count": 1
+    },
+    {
+      "term": "RedHill Biopharma Ltd",
+      "count": 1
+    },
+    {
+      "term": "Sandoz GmbH",
+      "count": 1
+    },
+    {
+      "term": "Shandong New Time Pharmaceutical Co., Ltd.",
+      "count": 1
+    }
+  ]
+}
