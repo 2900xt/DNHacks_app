@@ -17,9 +17,9 @@ Scope — deliberately NOT every facility
 no edges, which is clutter, not a graph. We emit a facility node only when it
 can actually connect to something:
 
-  * it is a demo anchor, or
-  * it has a signal on an ingredient the graph tracks, or
-  * its name resolves to a curated company node (the 6-APA producers).
+Scope is enforced in the OASIS loader instead: refusals are kept only for
+chokepoint countries (CN/IN) or tracked ingredients. Everything that survives
+that gets a node here, so no signal references a node that does not exist.
 
 --------------------------------------------------------------------------------
 The bridge, and why it refuses more than it accepts
@@ -100,9 +100,11 @@ def build() -> tuple[list[dict], list[dict]]:
         # would otherwise drop, so filtering first made it invisible.
         if "AMBIGUOUS" in why:
             refusals.append((fei, name, why))
-        keep = fei in ANCHORS or bool(f["ingredients"]) or bool(match)
-        if not keep:
-            continue
+        # Declare a node for every facility we reference. The scope filter now
+        # lives in the OASIS loader (chokepoint countries + tracked ingredients),
+        # so anything reaching here is in scope by construction - and a signal
+        # referencing an undeclared node is dead weight that the validator is
+        # right to warn about.
 
         nodes.append({
             "id": f"facility:fei:{fei}",
@@ -120,6 +122,26 @@ def build() -> tuple[list[dict], list[dict]]:
                 "layer": 2,
                 "citation": f"entity resolution, {why} (ml/entity_resolution.py)",
             })
+
+    # Company nodes referenced by Federal Register signals. These are 1260H
+    # designations read out of the notice's full text; nobody else declares them.
+    # Per the contract a `company:name:` id MUST be resolved_by 'fuzzy' - it is a
+    # normalized name, not an identifier, and the UI has to be able to mark it.
+    declared = {n["id"] for n in nodes}
+    referenced = {s["node_id"] for s in signals if s["node_id"].startswith("company:name:")}
+    for cid in sorted(referenced - declared):
+        srcs = {s["source"] for s in signals if s["node_id"] == cid}
+        nodes.append({
+            "id": cid,
+            "type": "company",
+            "label": cid.rsplit(":", 1)[1].replace("-", " ").title(),
+            "resolved_by": "fuzzy",
+            "attrs": {"note": "named in a Federal Register 1260H designation; "
+                              "country deliberately not asserted - the list designates "
+                              "Chinese military companies but some entities are "
+                              "incorporated elsewhere",
+                      "sources": sorted(srcs)},
+        })
 
     return nodes, edges, refusals
 
