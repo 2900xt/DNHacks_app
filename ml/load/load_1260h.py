@@ -182,6 +182,11 @@ def main() -> int:
                 "match_method": "exact on normalised name — no fuzzy matching",
             }))
 
+    if not compliance:
+        sys.exit("FAIL: no company nodes in the graph to annotate. Company nodes come "
+                 "from load_dmf.py — run the loaders in order:\n"
+                 "  load_precursor_edges -> load_dmf -> load_taa -> load_1260h")
+
     io.write_compliance(compliance)
     print(f"\n  on_1260h written for {len(compliance)} company node(s); "
           f"{len(hits)} on the list")

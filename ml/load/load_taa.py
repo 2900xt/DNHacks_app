@@ -193,6 +193,11 @@ def main() -> int:
                       "designated_distinct": len(designated),
                       "basis": bases or None}))
 
+    if not compliance:
+        sys.exit("FAIL: no country nodes in the graph to annotate. Country nodes come "
+                 "from load_dmf.py — run the loaders in order:\n"
+                 "  load_precursor_edges -> load_dmf -> load_taa -> load_1260h")
+
     io.write_nodes(nodes)
     io.write_compliance(compliance)
     verdict = {c["node_id"]: c["taa_pass"] for c in compliance}
