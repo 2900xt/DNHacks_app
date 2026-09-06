@@ -55,7 +55,9 @@
       "country_confirmed_via": "DECRS (ISO3 CHN)",
       "on_1260h": false,
       "trap_note": "State ownership and 1260H designation are different things. This firm is state-owned, makes 6-APA, and is NOT on 1260H — do not conflate.",
-      "source": "FDA Type II DMF register 2Q2026 + FDA DECRS, Sep 4 2026"
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "DECRS = CHN"
     },
     "resolved_by": "fuzzy"
   },
@@ -68,8 +70,145 @@
     "attrs": {
       "taa_designated": false,
       "api_manufacture_establishments": 511,
-      "source": "FAR 25.003 (132 designated countries) + FDA DECRS, Sep 4 2026"
+      "source": "FDA DECRS drls_reg, Sep 4 2026"
     },
     "resolved_by": null
+  },
+  {
+    "id": "company:name:sandoz-gmbh",
+    "type": "company",
+    "label": "SANDOZ GMBH",
+    "country": "at",
+    "critical": false,
+    "attrs": {
+      "dmf": 8757,
+      "dmf_status": "A",
+      "dmf_filed": "1990",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "DECRS 'Sandoz GmbH' = AUT",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "country:at",
+    "type": "country",
+    "label": "Austria",
+    "country": "at",
+    "critical": false,
+    "attrs": {
+      "source": "FDA DECRS drls_reg, Sep 4 2026"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "company:name:antibioticos-sa",
+    "type": "company",
+    "label": "ANTIBIOTICOS SA",
+    "country": null,
+    "critical": false,
+    "attrs": {
+      "dmf": 12348,
+      "dmf_status": "A",
+      "dmf_filed": "1997",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "NOT in DECRS. Only 'Antibioticos do Brasil Ltda' (BRA) matches, a different entity. Spain is likely but unverified — do not assert it.",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "country_unverified": true
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "company:name:pure-and-cure-healthcare-pvt-ltd",
+    "type": "company",
+    "label": "PURE AND CURE HEALTHCARE PVT LTD",
+    "country": "in",
+    "critical": false,
+    "attrs": {
+      "dmf": 18525,
+      "dmf_status": "A",
+      "dmf_filed": "2005",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "DECRS = IND",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "country:in",
+    "type": "country",
+    "label": "India",
+    "country": "in",
+    "critical": false,
+    "attrs": {
+      "source": "FDA DECRS drls_reg, Sep 4 2026"
+    },
+    "resolved_by": null
+  },
+  {
+    "id": "company:name:inner-mongolia-changsheng",
+    "type": "company",
+    "label": "INNER MONGOLIA CHANGSHENG",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "dmf": 19525,
+      "dmf_status": "A",
+      "dmf_filed": "2006",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "DECRS = CHN",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "company:name:united-laboratories-chengdu",
+    "type": "company",
+    "label": "UNITED LABORATORIES CHENGDU",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "dmf": 21994,
+      "dmf_status": "A",
+      "dmf_filed": "2008",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "partial — DECRS carries TUL Inner Mongolia and Zhuhai (both CHN), not the Chengdu site",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "parent": "The United Laboratories"
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "company:name:the-united-laboratories-inner-mongolia",
+    "type": "company",
+    "label": "THE UNITED LABORATORIES INNER MONGOLIA",
+    "country": "cn",
+    "critical": false,
+    "attrs": {
+      "dmf": 27248,
+      "dmf_status": "A",
+      "dmf_filed": "2013",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "DECRS = CHN",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL",
+      "parent": "The United Laboratories"
+    },
+    "resolved_by": "fuzzy"
+  },
+  {
+    "id": "company:name:apitoria-pharma-pvt-ltd",
+    "type": "company",
+    "label": "APITORIA PHARMA PVT LTD",
+    "country": "in",
+    "critical": false,
+    "attrs": {
+      "dmf": 40387,
+      "dmf_status": "A",
+      "dmf_filed": "2024",
+      "dmf_subject_normalised": "6-aminopenicillanic acid",
+      "country_evidence": "DECRS = IND",
+      "source": "FDA Type II DMF register, sheet 2Q2026-EXCEL"
+    },
+    "resolved_by": "fuzzy"
   }
 ]
