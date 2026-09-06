@@ -48,11 +48,19 @@ NODE_ID_PATTERNS = [
     (re.compile(r"^facility:fei:\d+$"), "facility"),
 ]
 
+# Required vs optional mirrors the app's TypeScript interfaces: a field declared
+# `country?: string` is `string | undefined` under strict mode, so the artifacts
+# OMIT it rather than writing null. Absent is correct; null would not type-check.
 NODE_KEYS = {"id", "type", "label", "country", "critical", "attrs", "resolved_by"}
+NODE_REQUIRED = {"id", "type"}
 EDGE_KEYS = {"src", "dst", "rel", "layer", "citation"}
+EDGE_REQUIRED = {"src", "dst", "rel", "layer"}
 COMPLIANCE_KEYS = {"node_id", "taa_pass", "on_1260h", "evidence"}
+COMPLIANCE_REQUIRED = {"node_id", "evidence"}
 SIGNAL_KEYS = {"node_id", "kind", "severity", "source", "observed_at", "url", "payload"}
+SIGNAL_REQUIRED = {"node_id", "kind", "observed_at"}
 BIN_KEYS = {"id", "label", "covers_drugs"}
+BIN_REQUIRED = {"id", "covers_drugs"}
 
 RESOLVED_BY = {"fei", "duns", "fuzzy"}
 VALID_LAYERS = {1, 2, 3}
@@ -97,13 +105,19 @@ def node_type_for(node_id: str) -> str | None:
     return None
 
 
-def check_keys(rec: dict, required: set[str], where: str, rep: Report) -> None:
+def check_keys(rec: dict, known: set[str], required: set[str],
+               where: str, rep: Report) -> None:
     missing = required - rec.keys()
     if missing:
-        rep.error(where, f"missing key(s): {', '.join(sorted(missing))}")
-    extra = rec.keys() - required
+        rep.error(where, f"missing required key(s): {', '.join(sorted(missing))}")
+    nulls = {k for k in rec if rec[k] is None}
+    if nulls:
+        rep.error(where, f"key(s) set to null — omit them instead, the app's types "
+                         f"declare optionals as `?: T` (undefined, not null): "
+                         f"{', '.join(sorted(nulls))}")
+    extra = rec.keys() - known
     if extra:
-        rep.warn(where, f"extra key(s) not in the contract: {', '.join(sorted(extra))}")
+        rep.warn(where, f"key(s) not in the contract: {', '.join(sorted(extra))}")
 
 
 def load_array(path: Path, rep: Report) -> list | None:
@@ -130,7 +144,7 @@ def validate_nodes(path: Path, rep: Report) -> set[str]:
         if not isinstance(rec, dict):
             rep.error(where, "is not an object")
             continue
-        check_keys(rec, NODE_KEYS, where, rep)
+        check_keys(rec, NODE_KEYS, NODE_REQUIRED, where, rep)
 
         node_id = rec.get("id")
         if not isinstance(node_id, str) or not node_id:
@@ -187,7 +201,7 @@ def validate_edges(path: Path, rep: Report) -> set[str]:
         if not isinstance(rec, dict):
             rep.error(where, "is not an object")
             continue
-        check_keys(rec, EDGE_KEYS, where, rep)
+        check_keys(rec, EDGE_KEYS, EDGE_REQUIRED, where, rep)
 
         src, dst = rec.get("src"), rec.get("dst")
         rel = rec.get("rel")
@@ -228,7 +242,7 @@ def validate_compliance(path: Path, rep: Report) -> set[str]:
         if not isinstance(rec, dict):
             rep.error(where, "is not an object")
             continue
-        check_keys(rec, COMPLIANCE_KEYS, where, rep)
+        check_keys(rec, COMPLIANCE_KEYS, COMPLIANCE_REQUIRED, where, rep)
 
         node_id = rec.get("node_id")
         where = f"{path.name}[{i}] {node_id}"
@@ -265,7 +279,7 @@ def validate_bins(path: Path, rep: Report) -> set[str]:
         if not isinstance(rec, dict):
             rep.error(where, "is not an object")
             continue
-        check_keys(rec, BIN_KEYS, where, rep)
+        check_keys(rec, BIN_KEYS, BIN_REQUIRED, where, rep)
 
         covers = rec.get("covers_drugs")
         if not isinstance(covers, list):
@@ -292,7 +306,7 @@ def validate_signals(path: Path, rep: Report) -> set[str]:
         if not isinstance(rec, dict):
             rep.error(where, "is not an object")
             continue
-        check_keys(rec, SIGNAL_KEYS, where, rep)
+        check_keys(rec, SIGNAL_KEYS, SIGNAL_REQUIRED, where, rep)
 
         node_id = rec.get("node_id")
         if not isinstance(node_id, str) or node_type_for(node_id) is None:
