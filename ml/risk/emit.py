@@ -26,6 +26,7 @@ not usable by a procurement officer and not defensible on stage.
 
 from __future__ import annotations
 
+import collections
 import json
 import math
 import sys
@@ -227,6 +228,21 @@ def chain_plants() -> dict[str, list[dict]]:
 #: downstream.
 REVERSED = {"produced_by"}
 
+#: Relations that are MOLECULE-LEVEL association, not supply. `drug:amoxicillin
+#: -marketed_as-> product:ndc:0093-2267` says that NDC contains amoxicillin. It
+#: does NOT say the 52 plants making amoxicillin worldwide make *that* pack.
+#:
+#: Propagating risk across them was wrong and loudly so: 504 of the 521 nodes
+#: sitting at the calibration ceiling traced to ONE unnamed Guatemalan plant,
+#: because every amoxicillin NDC inherited the worst of all 52. NDC 0093-2267 is
+#: a Teva product and Teva is scored — the graph had the right answer one edge
+#: away, via `company -markets-> product`.
+#:
+#: So a product takes its MARKETER's risk. Where the marketer is unresolved there
+#: is no honest supply path, and the node is left to the molecule-level fallback
+#: with `attribution: "molecule"` set so the weaker claim is visible.
+MOLECULE_ONLY = {"marketed_as", "formulated_into"}
+
 
 def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
     """Give every reachable node the risk of the worst plant behind it.
@@ -242,17 +258,21 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
     a second healthy supplier does not fix the first one's shutdown unless it can
     absorb the volume, and nothing in these files says whether it can.
     """
-    edges = []
+    edges, weak = [], []
     for f in sorted((REPO / "web" / "data").glob("edges.*.json")):
         for e in json.loads(f.read_text()):
             src, dst, rel = e.get("src"), e.get("dst"), e.get("rel", "")
             if not src or not dst:
                 continue
-            edges.append((dst, src) if rel in REVERSED else (src, dst))
+            pair = (dst, src) if rel in REVERSED else (src, dst)
+            (weak if rel in MOLECULE_ONLY else edges).append(pair)
 
     out = defaultdict(list)
     for a, b in edges:
         out[a].append(b)
+    weak_out = defaultdict(list)
+    for a, b in weak:
+        weak_out[a].append(b)
 
     # Relax until nothing changes. Bounded by node count so a cycle in the graph
     # (company -hosts-> facility -operated_by-> company is a real one) terminates
@@ -303,6 +323,7 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
                        and "sit upstream of this" not in e]
                 scored[dst] = {**base, "node_id": dst,
                                "basis": "inherited",
+                               "attribution": "supply",
                                "inherited_from": origin,
                                "inherited_via": src,
                                "upstream_plants": len(behind.get(dst) or ()),
@@ -317,6 +338,36 @@ def propagate(scored: dict[str, dict], nodes: set[str]) -> int:
                            f"at once.")
                 if not cur:
                     added += 1
+                changed = True
+        if not changed:
+            break
+
+    # Second pass, molecule-level, for whatever the supply path could not reach —
+    # a product whose marketer we could not resolve. Marked so it is never
+    # mistaken for the real thing.
+    for _ in range(len(nodes) + 1):
+        changed = False
+        for src in list(weak_out):
+            base = scored.get(src)
+            if not base:
+                continue
+            for dst in weak_out[src]:
+                if dst not in nodes or dst in scored:
+                    continue
+                why = [e for e in base["evidence"]
+                       if not e.startswith("No FDA record of its own")
+                       and "sit upstream of this" not in e]
+                scored[dst] = {**base, "node_id": dst, "basis": "inherited",
+                               "attribution": "molecule",
+                               "inherited_from": base.get("inherited_from") or src,
+                               "inherited_via": src,
+                               "upstream_plants": len(behind.get(dst) or ()),
+                               "evidence": [f"No supplier we could resolve — this is "
+                                            f"the risk of the most at-risk plant "
+                                            f"making the same substance "
+                                            f"({base['label']}), which may not be "
+                                            f"the plant that makes this one."] + why[:2]}
+                added += 1
                 changed = True
         if not changed:
             break
@@ -369,7 +420,11 @@ def main() -> int:
         # "CN"/"IN", so `country_cn` and `country_in` silently stayed 0 for every
         # plant that reached us through a reroute — a feature that never fires is
         # worse than an absent one, because it looks like evidence of safety.
-        country = (country or "").upper()
+        # Fall back to DECRS when the caller has no country. 77 plants reached
+        # here with none, and an absent country is not neutral: it silently reads
+        # as "not China, not India", which is the model asserting something it was
+        # never told. DECRS knows all 77.
+        country = (country or reg.get(fei_key, {}).get("country") or "").upper()
         if len(country) == 3:
             from ml.risk.universe import _ISO3_TO_2
             country = _ISO3_TO_2.get(country, "")
@@ -512,5 +567,71 @@ def main() -> int:
     return 0
 
 
+def selftest() -> int:
+    """Check the ARTIFACT, not the model. Every one of these caught a real bug.
+
+    A model self-check cannot see any of this: the model was fine while a Teva
+    product was reading a Guatemalan plant's risk, while 77 plants were being
+    told they were not in China, and while 46 plants published a probability
+    outside their own confidence interval.
+    """
+    doc = json.loads((REPO / "web" / "data" / "risk.json").read_text())
+    P, cov = doc["plants"], doc["coverage"]
+    fails = []
+
+    def check(ok, msg):
+        print(f"  [{'OK ' if ok else 'FAIL'}] {msg}")
+        if not ok:
+            fails.append(msg)
+
+    bad_range = [k for k, v in P.items()
+                 if not (v["p12_range"][0] <= v["p12"] <= v["p12_range"][1])]
+    check(not bad_range, f"every p12 lies inside its own p12_range "
+                         f"({len(bad_range)} violations)")
+
+    ceil = doc["calibration"]["ceiling"]
+    check(all(v["p12"] <= ceil + 1e-9 for v in P.values()),
+          f"nothing is shown above the {ceil*100:.0f}% calibration ceiling")
+
+    at = [v for v in P.values() if abs(v["p12"] - ceil) < 1e-9]
+    check(len(at) / len(P) < 0.05,
+          f"the ceiling is rare, not the default — {len(at)}/{len(P)} nodes "
+          f"({len(at)/len(P)*100:.1f}%)")
+
+    # One plant driving a large share of the board means risk is being propagated
+    # across an edge that is association rather than supply. That is exactly how
+    # 504 amoxicillin packs came to inherit one Guatemalan plant.
+    inh = [v for v in P.values() if v["basis"] == "inherited"]
+    if inh:
+        top, n = collections.Counter(v["inherited_from"] for v in inh).most_common(1)[0]
+        check(n / len(inh) < 0.25,
+              f"no single plant dominates the inherited nodes — worst is {top} "
+              f"at {n}/{len(inh)} ({n/len(inh)*100:.0f}%)")
+
+    direct = [v for v in P.values() if v["basis"] != "inherited"]
+    seen, uniq = set(), []
+    for v in direct:
+        if v["fei"] not in seen:
+            seen.add(v["fei"])
+            uniq.append(v)
+    noc = [v for v in uniq if not v.get("country")]
+    check(len(noc) / len(uniq) < 0.02,
+          f"country is known for essentially every plant — {len(noc)}/{len(uniq)} "
+          f"missing (absent reads as 'not China, not India')")
+
+    check(all(v.get("evidence") for v in P.values()), "every node has evidence")
+    check(all(v["basis"] != "inherited" or v.get("inherited_from")
+              for v in P.values()), "every inherited node names its origin")
+    check(cov["scored"] / cov["ui_nodes"] > 0.95,
+          f"UI coverage {cov['scored']}/{cov['ui_nodes']} "
+          f"({cov['scored']/cov['ui_nodes']*100:.1f}%)")
+
+    print("\n  PASS" if not fails else f"\n  FAIL — {len(fails)} problem(s)")
+    return 0 if not fails else 1
+
+
 if __name__ == "__main__":
+    if "--selftest" in sys.argv:
+        print("risk artifact self-check\n")
+        sys.exit(selftest())
     sys.exit(main())

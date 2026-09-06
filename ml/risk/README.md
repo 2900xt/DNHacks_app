@@ -116,6 +116,30 @@ Zhuhai, not the Chengdu site"*. A GEO token can now **veto** a match but still
 never create one, so the WuXi rule is intact. It fires exactly once, and 6-APA
 now reads 8.4% from Sandoz GmbH, which actually makes it.
 
+## A product takes its marketer's risk, not its molecule's
+
+The first propagation used every edge into a node. That was wrong, and the
+artifact check is what caught it: **504 of the 521 nodes sitting at the ceiling
+traced back to one unnamed Guatemalan plant.**
+
+`drug:amoxicillin -marketed_as-> product:ndc:0093-2267` says that pack contains
+amoxicillin. It does **not** say the 52 plants making amoxicillin worldwide make
+*that* pack. Propagating risk across it told a Teva product it was 46% likely to
+be disrupted because an unrelated plant in Guatemala had refusals — and the graph
+had the right answer one edge away, in `company -markets-> product`.
+
+Routing products through their marketer instead:
+
+| | before | after |
+|---|---:|---:|
+| nodes at the 46% ceiling | 521 (29%) | **19 (1.1%)** |
+| nodes in the `high` band | 1,073 | **584** |
+| NDC 0093-2267 (a Teva pack) | 46.0%, from a Guatemalan plant | **1.9%, from Teva** |
+
+108 products whose marketer could not be resolved still fall back to the
+molecule-level path, tagged `attribution: "molecule"` with an evidence line
+saying so in as many words: *"which may not be the plant that makes this one."*
+
 ## Six models tried, and the transparent one won
 
 | | AUC (2023) | |
@@ -180,6 +204,7 @@ Sandoz GmbH                     6.6%  high     1 shipment refused on paperwork�
 | `model.py` | logistic with momentum + early stop — 30 s/fold → 3 s |
 | `train.py` | six variants, three cutoffs, AUC + permutation p + calibration |
 | `calibrate.py` | isotonic recalibration + the check that it worked |
+| `emit.py --selftest` | eight checks on the ARTIFACT, four of them regression tests |
 | `emit.py` | `web/data/risk.json`, graph propagation, the GEO veto |
 
 ## Honest limits
@@ -199,6 +224,9 @@ Sandoz GmbH                     6.6%  high     1 shipment refused on paperwork�
 - **46% is a ceiling, not a maximum.** It is the highest rate ever observed at
   any score, on 61 plants. A plant reading 46% may well be riskier than that —
   the data cannot say by how much, so it does not.
+- **`attribution: "molecule"` is a weaker claim than `"supply"`.** 108 nodes
+  carry it: the risk of the most at-risk plant making the same substance, which
+  may not be the plant that makes that pack.
 - **Inherited nodes are only as good as the edge.** A product's risk is the risk
   of the plant the graph says makes it. If an edge is wrong, the number is wrong,
   which is why `inherited_from` ships next to every one of them.
