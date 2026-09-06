@@ -530,6 +530,46 @@ def main() -> int:
         excl = args[args.index("--exclude") + 1] if "--exclude" in args else None
         report(s, alternates(s, exclude=excl), excl)
         return 0
+    if "--emit-all" in args:
+        # One artifact keyed by node id, so the UI can look up alternates for
+        # whatever the operator switches off. Substance names come from the node
+        # labels rather than a hand-written table, so adding an API node to the
+        # graph is enough to get it a route.
+        nodes, _ = load_graph()
+        out = {}
+        for nid, n in sorted(nodes.items()):
+            if n.get("type") not in ("precursor", "api"):
+                continue
+            label = n.get("label") or nid.split(":", 1)[1].replace("-", " ")
+            try:
+                r = route(label, graph_node=nid)
+            except SystemExit as e:
+                print(f"  skip {nid}: {e}")
+                continue
+            out[nid] = {
+                "node": nid, "label": label,
+                "affected_drugs": r["affected_drugs"],
+                "affected_products": r["affected_products"],
+                "active_holders": r["active_holders"], "spellings": r["spellings"],
+                "alternates": [
+                    {k: a[k] for k in ("holder", "matched_firm", "countries",
+                                       "score", "risk_flags", "why")}
+                    for a in r["alternates"]
+                ],
+                "viable": len(r["viable"]),
+            }
+            print(f"  {nid:34} {len(r['alternates']):>2} alternates, "
+                  f"{len(r['viable'])} viable, {len(r['affected_drugs'])} drugs")
+        dest = REPO / "web" / "data" / "reroute.json"
+        dest.write_text(json.dumps({
+            "generated": date.today().isoformat(),
+            "method": "active Type II DMF holders for the same substance, located via "
+                      "DECRS, scored on registration / geography / TAA / own enforcement "
+                      "history. Capacity and lead time are NOT modelled - no public source.",
+            "nodes": out,
+        }, indent=2) + "\n")
+        print(f"\nwrote {dest.relative_to(REPO)} — {len(out)} node(s)")
+        return 0
     if "--route" in args:
         sub = args[args.index("--route") + 1]
         excl = args[args.index("--exclude") + 1] if "--exclude" in args else None

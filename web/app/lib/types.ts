@@ -81,3 +81,40 @@ export interface CascadeResult {
   rule: string
   firedBy: Signal[]
 }
+
+/** One alternate supplier AEGIS proposes for a disrupted substance.
+ *  Emitted by `ml/aegis.py --emit-all`; the scoring lives in Python so the
+ *  numbers cannot drift between the two implementations. */
+export interface Alternate {
+  /** DMF holder name, as filed. */
+  holder: string
+  /** The DECRS establishment it resolved to, or null when unresolved/ambiguous. */
+  matched_firm: string | null
+  /** ISO-3 codes of that firm's registered sites. */
+  countries: string[]
+  /** Higher is a better re-route target. Negative means its own enforcement
+   *  history outweighs its capability. */
+  score: number
+  /** The alternate's OWN OAI / cGMP refusals — routing out of one fire into
+   *  another is the failure this exists to prevent. */
+  risk_flags: string[]
+  /** Plain-language reasons, in scoring order. First line is the headline. */
+  why: string[]
+}
+
+export interface RerouteNode {
+  node: NodeId
+  label: string
+  affected_drugs: NodeId[]
+  affected_products: number
+  active_holders: number
+  spellings: number
+  alternates: Alternate[]
+  viable: number
+}
+
+export interface RerouteData {
+  generated: string
+  method: string
+  nodes: Record<NodeId, RerouteNode>
+}

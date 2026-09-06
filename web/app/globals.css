@@ -108,6 +108,10 @@ html, body {
 
 .ov-depot { top: 12px; left: 12px; }
 .ov-node  { top: 12px; right: 12px; }
+/* AEGIS sits bottom-left, under the depot: it only exists once something is
+   switched off, so it must not take space from the globe the rest of the time,
+   and it must not collide with the depot panel that owns the top-left. */
+.ov-aegis { bottom: 14px; left: 12px; width: 300px; max-height: 48%; }
 /* The overlay scrolls, and the browser keeps the focused control in view — so
    pressing "Simulate failure" near the bottom used to scroll the node's NAME off
    the top, leaving a panel of numbers about nothing. The header stays put. */
@@ -628,4 +632,52 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .df-rule {
   font: 400 9px/1.4 var(--mono); color: var(--text-faint); margin: 8px 0 0;
   padding-top: 6px; border-top: 1px solid var(--line-soft);
+}
+
+
+/* ---------------------------------------------------------------------------
+   AEGIS re-route panel
+   Dense on purpose: a procurement officer reads a shortlist, not a dashboard.
+   Every reason the algorithm gave is shown, including the ones that argue
+   against the candidate - suppressing those would make it look more certain
+   than it is.
+--------------------------------------------------------------------------- */
+.aegis { padding: 10px 12px 12px; font-size: 11px; }
+.aegis h3 {
+  margin: 0 0 8px; font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--text);
+}
+.aegis-impact { margin: 0 0 6px; color: var(--dim); }
+.aegis-verdict {
+  margin: 0 0 8px; padding: 6px 8px; border-radius: 3px; line-height: 1.45;
+  border: 1px solid var(--line);
+}
+.aegis-verdict.bad { border-color: var(--alarm, #e0575b); color: var(--alarm, #e0575b); }
+.aegis-verdict.ok  { color: var(--dim); }
+.aegis-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.aegis-row {
+  padding: 6px 7px; border-radius: 3px;
+  border: 1px solid var(--line); border-left-width: 3px;
+}
+.aegis-row.ok      { border-left-color: var(--ok, #4fb477); }
+.aegis-row.risk    { border-left-color: var(--alarm, #e0575b); }
+.aegis-row.unknown { border-left-color: var(--line); }
+.aegis-head {
+  display: grid; grid-template-columns: 14px 1fr auto auto;
+  gap: 6px; align-items: baseline;
+}
+.aegis-rank { color: var(--dim); font-variant-numeric: tabular-nums; }
+.aegis-holder {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text);
+}
+.aegis-geo { color: var(--dim); font-size: 10px; letter-spacing: .04em; }
+.aegis-score { font-variant-numeric: tabular-nums; color: var(--dim); }
+.aegis-why { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 2px; }
+.aegis-why li { color: var(--dim); font-size: 10px; line-height: 1.4; }
+.aegis-why li.bad  { color: var(--alarm, #e0575b); }
+.aegis-why li.warn { color: var(--warn, #d9a441); }
+.aegis-note, .aegis-empty { margin: 6px 0 0; color: var(--dim); line-height: 1.45; }
+.aegis-limit {
+  margin: 8px 0 0; padding-top: 7px; border-top: 1px solid var(--line);
+  color: var(--dim); font-size: 10px; line-height: 1.45;
 }
