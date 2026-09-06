@@ -7,8 +7,8 @@
 // drug, and every number that quantifies blast radius is still computed against
 // the FULL graph, not the reduced one.
 
-import { loadGraph, getBacktest, counts } from './lib/graph'
-import type { Compliance, GraphEdge, GraphNode, NodeId, Signal } from './lib/types'
+import { loadGraph, getBacktest, getReroute, counts } from './lib/graph'
+import type { Compliance, GraphEdge, NodeId, Signal } from './lib/types'
 import Console, { type Payload } from './components/Console'
 import { APA } from './lib/demo'
 
@@ -115,6 +115,7 @@ export default function Page() {
   const layerCounts: Record<number, number> = {}
   for (const e of g.edges) layerCounts[e.layer] = (layerCounts[e.layer] ?? 0) + 1
 
+
   const ids = (p: string) => nodes.filter((n) => n.id.startsWith(p)).map((n) => n.id)
 
   const payload: Payload = {
@@ -125,6 +126,7 @@ export default function Page() {
     counts: counts(),
     layerCounts,
     backtest: getBacktest(),
+    reroute: getReroute(),
     ndcCount,
     labelerCount,
     downstreamOf,

@@ -21,12 +21,13 @@
   --warn:      #d9903a;
   --alarm:     #e5484d;
   --focus:     #4a9eda;
+  /* The new route. Neither the green of healthy nor the blue of focus. */
+  --route:     #2ee6c5;
 
   --layer1:    #4a9eda;
   --layer2:    #8494a6;
   --layer3:    #a97fd9;
 
-  --audit-h:  108px;
 
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -52,11 +53,12 @@ html, body {
 
 .console {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  grid-template-areas:
-    "graph map"
-    "graph audit";
-  grid-template-rows: minmax(0, 1fr) var(--audit-h);
+  /* Was 1:2. The tree's viewBox lost its 120-unit gutter — about a fifth of
+     its width — so the column gives up the same fifth and the boxes render at
+     the size they did. What the column gives up, the globe takes. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.75fr);
+  grid-template-areas: "graph map";
+  grid-template-rows: minmax(0, 1fr);
   height: 100vh;
   gap: 1px;
   background: var(--line-soft);
@@ -75,7 +77,6 @@ html, body {
   grid-area: graph; background: var(--panel);
   display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden;
 }
-.audit-wrap { grid-area: audit; background: var(--panel); min-height: 0; overflow: hidden; }
 
 /* ---- overlays on the map --------------------------------------------------
 
@@ -84,18 +85,10 @@ html, body {
    surfaces — so these are the same panel colour at 92%, with the same hairline
    border as everything else. */
 
-.ov {
-  position: absolute; z-index: 3; width: 234px;
-  max-height: calc(100% - 210px);
-  overflow-y: auto; overscroll-behavior: contain;
-  background: color-mix(in srgb, var(--panel) 92%, transparent);
-  border: 1px solid var(--line); border-radius: 4px;
-}
-/* Shown only when the node column is collapsed. Bottom-left, not mid-left: the
-   depot overlay owns the top-left corner and a control hiding behind another
-   panel is the same bug as a control that is not there. */
+/* Shown only when the node column is collapsed. Top-left is free: the rail
+   owns the right edge and the caption the bottom-left. */
 .reopen {
-  position: absolute; z-index: 4; left: 12px; bottom: 14px;
+  position: absolute; z-index: 4; left: 12px; top: 12px;
   display: flex; align-items: center; gap: 6px;
   padding: 6px 10px; cursor: pointer;
   background: color-mix(in srgb, var(--panel) 92%, transparent);
@@ -106,14 +99,106 @@ html, body {
 .reopen:hover { color: var(--text); border-color: var(--text-faint); }
 .reopen:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-.ov-depot { top: 12px; left: 12px; }
-.ov-node  { top: 12px; right: 12px; }
-/* The overlay scrolls, and the browser keeps the focused control in view — so
-   pressing "Simulate failure" near the bottom used to scroll the node's NAME off
-   the top, leaving a panel of numbers about nothing. The header stays put. */
-.ov .rail-head {
-  position: sticky; top: 0; z-index: 1;
-  background: var(--panel); border-bottom: 1px solid var(--line);
+/* ---- the rail --------------------------------------------------------------
+   One column on the right edge, every panel a fold. Sections share the height:
+   an open one takes what its content needs and scrolls past that; a folded
+   one is one header row. The column itself takes no clicks, so the globe stays
+   draggable between and beside the sections. */
+.rail {
+  position: absolute; z-index: 3; right: 12px; top: 12px; bottom: 12px; width: 300px;
+  display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+}
+.sec {
+  pointer-events: auto; display: flex; flex-direction: column; min-height: 0; flex: 0 1 auto;
+  background: color-mix(in srgb, var(--panel) 93%, transparent);
+  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+}
+.sec[data-open="0"] { flex: none; }
+.sec-head { display: flex; align-items: center; gap: 8px; padding: 0 10px 0 0; }
+.sec-toggle {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px;
+  padding: 10px 6px 10px 12px; background: none; border: 0; cursor: pointer;
+  color: var(--text); text-align: left;
+}
+.sec-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.sec-chev {
+  width: 10px; color: var(--text-faint); font-size: 10px; line-height: 1;
+  transition: transform .18s ease;
+}
+.sec[data-open="1"] .sec-chev { transform: rotate(90deg); }
+.sec-title {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font: 600 11px/1.3 var(--sans); letter-spacing: .04em;
+}
+.sec-body { overflow-y: auto; overscroll-behavior: contain; min-height: 0; border-top: 1px solid var(--line); }
+.sec[data-open="0"] .sec-body { display: none; }
+/* The depot draws its own list header; the section already has one. */
+.sec-body > .rail-head:first-child { display: none; }
+
+/* The circled i. Hover or focus; the tip is the scorer's own words. */
+.info { position: relative; display: inline-flex; flex: none; }
+.info-i {
+  width: 15px; height: 15px; border-radius: 50%; box-sizing: border-box;
+  border: 1px solid var(--text-faint); color: var(--text-faint);
+  font: 600 9px/13px var(--mono); text-align: center; cursor: help; user-select: none;
+}
+.info:hover .info-i, .info:focus-within .info-i { color: var(--focus); border-color: var(--focus); }
+.info-tip {
+  display: none; position: absolute; top: calc(100% + 6px); right: -4px; z-index: 6; width: 272px;
+  padding: 9px 11px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px;
+  font: 400 10.5px/1.5 var(--sans); color: var(--text-dim); text-align: left;
+  letter-spacing: 0; text-transform: none; white-space: normal;
+  box-shadow: 0 10px 28px rgba(0,0,0,.45);
+}
+.info:hover .info-tip, .info:focus-within .info-tip { display: block; }
+.info-tip b { display: block; color: var(--text); margin-bottom: 4px; font-weight: 600; }
+.info-tip p { margin: 0 0 6px; }
+.info-tip p:last-child { margin-bottom: 0; }
+.info-tip ul { margin: 0; padding-left: 16px; }
+.info-tip li { margin: 2px 0; }
+.info-tip li[data-delta="up"] { color: var(--ok); }
+.info-tip li[data-delta="down"] { color: var(--warn); }
+.metric-row { display: flex; align-items: flex-start; gap: 6px; padding-right: 12px; }
+.metric-row .metric { flex: 1; }
+.metric-row .info { margin-top: 12px; }
+.lr-more { padding: 6px 12px 8px; font: 400 9.5px/1 var(--mono); color: var(--text-faint); }
+
+.rr-sub {
+  padding: 7px 12px 4px; font: 400 10px/1.4 var(--mono); color: var(--text-dim);
+}
+.rr-sub code { color: var(--text); }
+.rr-row {
+  display: grid; grid-template-columns: 28px 1fr auto; align-items: start; gap: 8px;
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  padding: 6px 12px; border-bottom: 1px solid var(--line-soft); color: var(--text-dim);
+  font: 400 11px/1.3 var(--sans);
+}
+.rr-row:hover { background: var(--panel-2); color: var(--text); }
+.rr-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.rr-row[data-sel="1"] { box-shadow: inset 2px 0 0 var(--focus); }
+.rr-row[data-standing="0"] { opacity: .42; }
+/* The route. One row, not a colour wash: the rest of the list is the evidence
+   that it is the best one, and that evidence has to stay legible beside it. */
+.rr-row[data-route="1"] { background: color-mix(in srgb, var(--route) 10%, transparent); }
+.rr-row[data-route="1"] .rr-name { color: var(--text); }
+.rr-name .tag { margin-left: 6px; vertical-align: 1px; }
+.rr-score { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.rr-delta { font: 500 9px/1 var(--mono); letter-spacing: .02em; }
+.rr-delta[data-d="up"] { color: var(--ok); }
+.rr-delta[data-d="down"] { color: var(--warn); }
+.rr-rank { font: 500 10px/1.5 var(--mono); color: var(--text-faint); }
+.rr-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.rr-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+.rr-iso { font: 500 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .08em; }
+.rr-why { font: 400 9.5px/1.35 var(--mono); color: var(--text-faint); white-space: normal; }
+.rr-score {
+  font: 500 11px/1.5 var(--mono); font-variant-numeric: tabular-nums;
+}
+.rr-score[data-v="1"] { color: var(--ok); }
+.rr-score[data-v="0"] { color: var(--alarm); }
+.rr-foot {
+  padding: 8px 12px 10px; border-top: 1px solid var(--line);
+  font: 400 9.5px/1.45 var(--mono); color: var(--text-faint);
 }
 .ov-close {
   background: none; border: 0; cursor: pointer; padding: 0 0 0 6px;
@@ -122,23 +207,52 @@ html, body {
 .ov-close:hover { color: var(--text); }
 .ov-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-/* Bottom right: the numbers, then the claim they support. */
+/* Bottom-left: the claim, then the step. Keeps clear of the rail. */
 .ov-read {
-  position: absolute; z-index: 2; right: 22px; bottom: 16px; left: 22px;
-  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  position: absolute; z-index: 2; left: 22px; bottom: 18px; right: 332px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
   pointer-events: none;
 }
-.readout { display: flex; gap: 22px; align-items: flex-end; }
-.ro { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
-.ro b {
-  font: 500 21px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text);
-  text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg);
+
+/* The one control this screen exists for. Green — the route's colour — on a
+   dark field, with a slow pulse until it is pressed, because after a failure
+   the next thing to do should not have to be looked for. */
+.reroute {
+  pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 16px 10px 14px; cursor: pointer;
+  font: 700 12px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: #c9fff5; background: linear-gradient(180deg, #123531, #0c2725);
+  border: 1px solid rgba(46,230,197,.75); border-radius: 4px;
+  box-shadow: 0 0 0 0 rgba(46,230,197,.5), 0 10px 26px rgba(0,0,0,.4);
+  animation: reroute-pulse 2.4s ease-out infinite;
+  transition: background .2s, border-color .2s, color .2s;
 }
-.ro span {
-  font: 500 8.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase;
-  color: var(--text-faint); text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
+.reroute:hover, .reroute:focus-visible {
+  outline: none; color: #ecfffb; border-color: var(--route);
+  background: linear-gradient(180deg, #17453f, #103330);
+  box-shadow: 0 0 24px rgba(46,230,197,.4), 0 10px 26px rgba(0,0,0,.4);
+  animation: none;
 }
-.ro[data-tone="alarm"] b { color: var(--alarm); }
+.reroute-arrow { font-size: 15px; line-height: 1; color: var(--route); }
+.reroute kbd {
+  font: 500 9.5px/1 var(--mono); letter-spacing: 0; text-transform: none;
+  color: rgba(201,255,245,.6); border: 1px solid rgba(201,255,245,.28); border-radius: 2px;
+  padding: 3px 5px 2px;
+}
+@keyframes reroute-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46,230,197,.5), 0 10px 26px rgba(0,0,0,.4); }
+  60%  { box-shadow: 0 0 0 11px rgba(46,230,197,0), 0 10px 26px rgba(0,0,0,.4); }
+  100% { box-shadow: 0 0 0 0 rgba(46,230,197,0), 0 10px 26px rgba(0,0,0,.4); }
+}
+
+/* Hover card for a context site on the globe. */
+.gl-tip {
+  font: 400 10.5px/1.45 var(--sans); color: var(--text);
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+  border: 1px solid var(--line); border-radius: 3px; padding: 6px 8px; max-width: 240px;
+}
+.gl-tip b { font-weight: 600; }
+.gl-tip i { color: var(--text-faint); font-style: normal; }
 
 /* ---- rails ---------------------------------------------------------------- */
 
@@ -216,6 +330,7 @@ html, body {
 .tag[data-t="alarm"] { color: var(--alarm); }
 .tag[data-t="dim"] { color: var(--text-faint); }
 .tag[data-t="focus"] { color: var(--focus); }
+.tag[data-t="route"] { color: var(--route); }
 
 .pill { display: inline-flex; align-items: center; gap: 4px; font: 500 10px/1 var(--mono); color: var(--text-dim); }
 .pill i { width: 9px; height: 2px; display: inline-block; background: currentColor; }
@@ -251,18 +366,19 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    the one element carrying the argument — and it is what the demo video and the
    phone fallback have instead of a presenter. Shadowed, not boxed: a panel here
    would cut the globe in half. */
-.caption { text-align: right; }
+.caption { text-align: left; }
 .caption .say {
   margin: 0; font: 400 17px/1.35 var(--sans); color: var(--text);
-  max-width: 52ch; margin-left: auto; text-wrap: balance;
+  max-width: 52ch; text-wrap: balance;
   text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg), 0 1px 2px var(--bg);
 }
 .caption .note {
   margin: 7px 0 0; font: 400 11.5px/1.5 var(--mono); color: var(--text-dim);
-  max-width: 66ch; margin-left: auto;
+  max-width: 66ch;
   text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
 }
 .caption[data-killed="1"] .say { color: #ffb8ba; }
+.caption .say-route { color: var(--route); }
 
 .country { fill: #1a2432; stroke: #26333f; stroke-width: 0.6; transition: fill .4s, stroke .4s; }
 .country[data-role="source"] { fill: #35485d; stroke: #4a6076; }
@@ -301,9 +417,12 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .mark { display: block; opacity: .95; flex: none; }
 .mark-sm { width: 14px; height: 14px; opacity: .8; margin-right: -4px; }
 
+/* Three tabs, the whole row, split evenly. Set large enough to read from
+   the back of a room: this is the one piece of chrome the presenter points
+   at when saying "and here is the log". */
 .panel-tabs {
-  display: flex; align-items: center; gap: 12px; height: 30px; padding: 0 10px;
-  flex: none;
+  display: flex; align-items: stretch; gap: 0; height: 38px; padding: 0 6px;
+  flex: none; border-bottom: 1px solid var(--line-soft);
 }
 .panel-tabs .spacer, .panel-sub .spacer { flex: 1; }
 
@@ -313,23 +432,44 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    the counts grew a digit — a flex spacer distributes slack, it does not stop
    two nowrap runs from colliding once there is none. Two short lines always
    fit; one long line only fits sometimes. */
+/* Both runs get real leading. At line-height 1 the meta and the key sat with
+   their ascenders in each other's descenders; a 3px gap between two 10px lines
+   with no leading of their own is a collision, not a gap. They share one row
+   while it fits and wrap onto two when the counts appear, and either way each
+   line is tall enough to be a line. */
+/* The line under the tabs: mark, counts, and the collapse control. One row,
+   no wrap — the legend that used to share it is gone. */
 .panel-sub {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
-  padding: 0 10px 7px; border-bottom: 1px solid var(--line); flex: none;
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 10px 5px; border-bottom: 1px solid var(--line); flex: none;
   min-width: 0;
 }
-.panel-sub .spacer { display: none; }
-.panel-sub .tab-meta, .panel-sub .legend { max-width: 100%; }
-.legend { flex-wrap: wrap; row-gap: 3px; }
+.panel-sub .tab-meta {
+  line-height: 1.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+.legend { flex-wrap: wrap; row-gap: 2px; }
+.legend .pill { line-height: 1.6; }
 .tab {
-  font: 600 10px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
-  color: var(--text-faint); padding: 8px 0; border: 0; border-bottom: 2px solid transparent;
+  flex: 1 1 0; min-width: 0; white-space: nowrap; text-align: center;
+  font: 700 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-faint); padding: 0 4px; border: 0; border-bottom: 2px solid transparent;
   background: none; cursor: pointer;
 }
 .tab:hover { color: var(--text-dim); }
 .tab[data-on="1"] { color: var(--text); border-bottom-color: var(--focus); }
 .tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .tab-meta { font: 400 10px/1 var(--mono); color: var(--text-faint); }
+.tab-count {
+  margin-left: 5px; padding: 1px 4px; border-radius: 2px;
+  font: 500 9px/1.2 var(--mono); letter-spacing: 0; text-transform: none;
+  background: var(--panel-2); color: var(--text-faint); vertical-align: 1px;
+}
+.tab[data-on="1"] .tab-count { color: var(--text-dim); }
+/* In the column the tab is the header, and the column is narrow: the row
+   drops the kind word (its colour already says it) so the text gets the width. */
+.panel-body .audit-head { display: none; }
+.panel-body .audit-row { grid-template-columns: 58px 1fr; }
+.panel-body .audit-row .a-kind { display: none; }
 
 /* Three edge colours were on screen for six beats with nothing to read them
    against. The key is permanent rather than a beat-6 reveal: a legend you only
@@ -341,58 +481,6 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   background: repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px);
 }
 .panel-body { flex: 1; min-height: 0; overflow: hidden; }
-
-.graph { width: 100%; height: 100%; display: block; }
-
-.gnode rect { fill: var(--panel-2); stroke: var(--line); stroke-width: 1; transition: fill .25s, stroke .25s; }
-.gnode text { font-family: var(--mono); font-size: 12px; fill: var(--text-dim); transition: fill .25s; }
-.gnode .n-sub { font-size: 10px; fill: var(--text-faint); }
-.gnode { cursor: pointer; transition: opacity .3s; }
-.gnode:focus-visible { outline: none; }
-.gnode:focus-visible rect { stroke: var(--focus); stroke-width: 2; }
-.gnode[data-lit="off"] { opacity: .28; }
-.gnode[data-lit="on"] rect { stroke: var(--text-faint); }
-.gnode[data-lit="on"] text { fill: var(--text); }
-.gnode[data-state="alarm"] rect { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
-.gnode[data-state="alarm"] text { fill: #ffb8ba; }
-.gnode[data-state="warn"] rect { fill: #241a0e; stroke: var(--warn); }
-.gnode[data-state="warn"] text { fill: #f0c489; }
-.gnode[data-state="ok"] rect { stroke: var(--ok); }
-.gnode[data-state="focus"] rect { stroke: var(--focus); stroke-width: 2; }
-.gnode[data-sel="1"] rect { stroke: var(--focus); stroke-width: 2; }
-
-.gedge { fill: none; stroke-width: 1.2; transition: opacity .3s; }
-.gedge[data-layer="1"] { stroke: var(--layer1); }
-.gedge[data-layer="2"] { stroke: var(--layer2); }
-.gedge[data-layer="3"] { stroke: var(--layer3); stroke-dasharray: 4 3; }
-.gedge[data-lit="off"] { opacity: .15; }
-.gedge[data-lit="on"] { opacity: .95; stroke-width: 1.8; }
-
-/* Band header. Left says what stage this is, right says what the arrows coming
-   into it DO. The relation between two adjacent bands is uniform, so stating it
-   once on the header beats stamping the same verb on ten converging arrows. */
-.band-label {
-  font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
-  fill: var(--text-faint);
-}
-.band-count { fill: var(--text-faint); opacity: .65; letter-spacing: .06em; }
-.band-rel {
-  font: 500 10px/1 var(--mono); letter-spacing: .02em; fill: var(--text-dim);
-}
-.band-rel[data-layer="1"] { fill: var(--layer1); }
-.band-rel[data-layer="2"] { fill: var(--layer2); }
-.band-rel[data-layer="3"] { fill: var(--layer3); }
-
-/* Per-edge verbs, but only for the node under inspection — where the question
-   is "how is THIS attached" rather than "what is this diagram". Punched out of
-   the line it sits on rather than boxed. */
-.gedge-label {
-  font: 500 9.5px/1 var(--mono); fill: var(--text);
-  paint-order: stroke; stroke: var(--panel); stroke-width: 3.5px;
-}
-.gedge-label[data-layer="1"] { fill: var(--layer1); }
-.gedge-label[data-layer="2"] { fill: var(--text-dim); }
-.gedge-label[data-layer="3"] { fill: var(--layer3); }
 
 /* ---- audit log ------------------------------------------------------------
 
@@ -441,44 +529,63 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
 .tree-wrap { display: flex; flex-direction: column; height: 100%; min-height: 0; }
 
-/* The strip wraps rather than scrolls, and it stays SHORT: every row it takes
-   comes straight off the tree's height, and the tree is what the column is for.
-   Six chips, a label and a hint fit in two lines at this size. */
+/* One row, always. Every row the strip takes comes straight off the tree's
+   height, and the tree is what the column is for — so the strip does not wrap,
+   the hint is the thing that gives way, and the picker is a select rather than
+   a run of chips because a select is one row at six drugs and at sixty. */
 .tree-strip {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 5px; flex: none;
-  padding: 5px 10px 6px; border-bottom: 1px solid var(--line-soft);
+  display: flex; align-items: center; gap: 8px; flex: none; min-width: 0;
+  padding: 6px 10px; border-bottom: 1px solid var(--line-soft);
 }
-.tree-strip .spacer { flex-basis: 100%; height: 0; margin: 0; }
 .strip-label {
   font: 500 8px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
-  color: var(--text-faint); margin-right: 1px;
+  color: var(--text-faint); white-space: nowrap; flex: none;
 }
 .strip-hint {
   font: 400 9.5px/1.4 var(--mono); color: var(--text-faint);
+  flex: 1 1 0; min-width: 0; text-align: right;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+.tree-strip .ctl { flex: none; }
 
-/* Every chip here runs through the same precursor, so they all change colour
-   together the moment it degrades. That simultaneity is the fan-out argument —
-   six drugs, one point of failure — made without a sentence. */
-.drug-chip {
-  font: 500 10.5px/1 var(--sans); letter-spacing: .02em;
-  background: var(--panel-2); color: var(--text-dim);
-  border: 1px solid var(--line); border-radius: 3px; padding: 4px 7px; cursor: pointer;
-  transition: color .3s, border-color .3s, background .3s;
+/* The root picker. Native select, so the keyboard, the screen reader and the
+   phone's wheel all come for free; only the skin is ours. The border carries
+   the root drug's own health, the same three colours the tree uses, and each
+   option that shares the precursor says so in its label — that is the fan-out,
+   readable from inside the list. */
+.drug-select {
+  appearance: none; -webkit-appearance: none;
+  font: 500 11px/1 var(--sans); letter-spacing: .02em;
+  color: var(--text); background-color: var(--panel-2);
+  border: 1px solid var(--focus); border-radius: 3px;
+  padding: 5px 22px 5px 8px; cursor: pointer; flex: 0 1 auto; min-width: 0; max-width: 60%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'><path d='M1 1l3 3 3-3' fill='none' stroke='%238494a6' stroke-width='1.4' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 7px center;
+  transition: color .3s, border-color .3s, background-color .3s;
 }
-.drug-chip:hover { color: var(--text); border-color: var(--text-faint); }
-.drug-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
-.drug-chip[data-on="1"] { color: var(--text); border-color: var(--focus); background: #14202c; }
-.drug-chip[data-health="at-risk"] { color: var(--warn); border-color: var(--warn); }
-.drug-chip[data-health="down"] { color: #ffb8ba; border-color: var(--alarm); background: #2a1114; }
+.drug-select:hover { border-color: var(--text-dim); }
+.drug-select:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.drug-select[data-health="at-risk"] { color: var(--warn); border-color: var(--warn); }
+.drug-select[data-health="down"] { color: #ffb8ba; border-color: var(--alarm); background-color: #2a1114; }
+.drug-select option { background: var(--panel); color: var(--text); font-size: 12px; }
+/* The moment of the swap: the control that caused it and the hint that names
+   it both light up for as long as the chain takes to redraw. */
+@keyframes sel-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(74,158,218,.55); }
+  100% { box-shadow: 0 0 0 9px rgba(74,158,218,0); }
+}
+.drug-select[data-flash="1"] { animation: sel-pulse .9s ease-out; }
+.strip-hint[data-flash="1"] { color: var(--focus); }
 
 /* The SVG scales itself to whatever box it is given, so the box has to be a
    real one. An `height: 100%` flex child resolves against the WRAPPER — strip
    included — and hangs the bottom row of the tree below the panel. An absolutely
    positioned svg inside a flex-sized frame cannot get that wrong. */
-.tree-body { flex: 1; min-height: 0; position: relative; }
-.tree { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* The tree scrolls. Two registers of holders do not fit a column at a
+   readable size, and a diagram shrunk to fit is a diagram nobody reads. */
+.tree-body { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; }
+.tree { width: 100%; height: auto; display: block; }
 
 .tlevel {
   font: 600 8.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
@@ -503,6 +610,28 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .tbranch { fill: none; stroke: var(--layer1); stroke-width: 1.4; opacity: .55; transition: stroke .35s, opacity .35s, stroke-width .35s; }
 .tbranch[data-health="at-risk"] { stroke: var(--warn); opacity: .8; }
 .tbranch[data-health="down"] { stroke: #5a6675; opacity: .45; stroke-dasharray: 5 5; }
+.tbranch[data-route="1"] { stroke: var(--route); opacity: .95; stroke-width: 2.2; }
+/* The feed line: API to its precursor, down the margin. Dashed, because it is
+   a dependency, not a source — and red when the gate is shut. */
+.tbranch[data-feed="1"] { stroke: var(--layer2); stroke-dasharray: 4 4; opacity: .7; }
+.tbranch[data-feed="1"][data-health="down"] { stroke: var(--alarm); opacity: .9; }
+
+/* Re-rooting. The svg is keyed on the root, so a new drug redraws the whole
+   chain; each level enters a beat after the one above it, top-down, in the
+   order material does not flow — the order a buyer reads. `--d` is the depth. */
+/* Opacity ONLY. Every node is positioned by its svg `transform` attribute,
+   and a CSS transform in a keyframe replaces that attribute for as long as
+   the animation holds — with `both` fill, forever. The first cut slid boxes
+   in by 8px and left all seven stacked at the origin. */
+@keyframes tnode-in { from { opacity: 0; } to { opacity: 1; } }
+.tnode, .tgroup {
+  animation: tnode-in .5s ease-out both;
+  animation-delay: calc(var(--d, 0) * 110ms);
+}
+.tbranch {
+  animation: tnode-in .5s ease-out both;
+  animation-delay: calc(var(--d, 0) * 110ms + 140ms);
+}
 
 .tnode .tbox {
   fill: var(--panel-2); stroke: var(--line); stroke-width: 1; cursor: pointer;
@@ -528,6 +657,16 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .tnode[data-health="down"] .t-bar { fill: var(--alarm); }
 
 .tnode[data-health="at-risk"] .tbox { stroke: var(--warn); }
+/* The recommended route, on the tree itself: the buyer reads which box to
+   call off the diagram, in the same green the rail and the caption use. */
+/* An export halt is not a plant failure: amber and dashed, not red. The plant
+   is producing; the border is shut. */
+.tnode[data-halt="1"] .tbox { stroke: var(--warn); stroke-dasharray: 4 3; fill: #1b150d; }
+.tnode[data-halt="1"] .t-sub { fill: var(--warn); }
+.tgroup[data-halt="1"] rect { stroke: rgba(217,144,58,.6); stroke-dasharray: 4 3; fill: #151109; }
+.tgroup[data-halt="1"] .tgroup-label { fill: var(--warn); }
+.tnode[data-route="1"] .tbox { stroke: var(--route); stroke-width: 1.6; fill: #0c1c1a; }
+.tnode[data-route="1"] .t-geo { fill: var(--route); font-weight: 600; }
 .tnode[data-health="at-risk"] .t-cap { fill: var(--warn); }
 .tnode[data-health="down"] .tbox { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
 .tnode[data-health="down"] .t-name { fill: #ffb8ba; }
@@ -566,8 +705,8 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   .console[data-panel="open"],
   .console[data-panel="closed"] {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "map" "graph" "audit";
-    grid-template-rows: 46vh auto var(--audit-h);
+    grid-template-areas: "map" "graph";
+    grid-template-rows: 46vh auto;
     height: auto; min-height: 100vh;
   }
 
@@ -575,14 +714,11 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
   /* The overlays have nowhere to float at this width — they would cover the
      globe entirely. The phone fallback is "graph only, no telemetry" anyway. */
-  .ov-depot, .ov-node { display: none; }
+  .rail { display: none; }
   .ov-read { left: 14px; right: 14px; bottom: 12px; }
-  .readout { gap: 14px; }
-  .ro b { font-size: 17px; }
   .caption .say { font-size: 15px; }
 
-  .panel-tabs { height: auto; padding: 6px 10px; gap: 8px; }
-  .panel-tabs .mark-sm { display: none; }
+  .panel-tabs { height: 40px; }
   .panel-sub { font-size: 9px; }
   .legend { gap: 9px; }
   .audit-row { grid-template-columns: 58px 1fr; }

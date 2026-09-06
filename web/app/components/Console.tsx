@@ -2,18 +2,21 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
-import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
+import type {
+  BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Reroute, Signal,
+} from '../lib/types'
 import { AMOX, BEATS, type BeatCtx, type NodeState } from '../lib/demo'
 import {
-  allocate, buildTree, evaluate, impactLine, siblingDrugs, type Health,
+  allocate, buildTree, cutSet, evaluate, impactLine, shortlist, siblingDrugs,
+  walk, type Health, type TreeNode,
 } from '../lib/supply-tree'
-import TreeView from './TreeView'
-import GraphView from './GraphView'
+import ReroutePanel from './ReroutePanel'
+import { Info, Section } from './Rail'
+import { countryName, SCORE_EXPLAINED } from '../lib/plain'
+import TreeView, { type DrugOption } from './TreeView'
 import GlobeView from './GlobeView'
 import NodeMetrics from './NodeMetrics'
 import DepotPanel from './DepotPanel'
-import EvidenceKey from './EvidenceKey'
-import Readout from './Readout'
 import AuditLog, { type AuditEntry, type AuditKind } from './AuditLog'
 
 export interface Payload {
@@ -24,6 +27,8 @@ export interface Payload {
   counts: { nodes: number; edges: number; signals: number; compliance: number }
   layerCounts: Record<number, number>
   backtest: BacktestResult
+  /** The AEGIS shortlist — every DMF holder per precursor, scored once. */
+  reroute: Reroute
   /** Collapsed NDC/labeler counts, keyed by drug id. */
   ndcCount: Record<NodeId, number>
   labelerCount: Record<NodeId, number>
@@ -33,8 +38,8 @@ export interface Payload {
 }
 
 export default function Console({ payload }: { payload: Payload }) {
-  const { nodes, edges, compliance, signals, counts, layerCounts,
-          ndcCount, labelerCount, downstreamOf, ctx } = payload
+  const { nodes, edges, compliance, counts,
+          ndcCount, labelerCount, downstreamOf, ctx, reroute } = payload
 
   const [beat, setBeat] = useState(0)
   const [selected, setSelected] = useState<NodeId | null>(null)
@@ -43,7 +48,17 @@ export default function Console({ payload }: { payload: Payload }) {
   const [root, setRoot] = useState<NodeId>(AMOX)
   /** Everything the operator has switched off. The failure simulation IS this set. */
   const [compromised, setCompromised] = useState<Set<NodeId>>(new Set())
-  const [view, setView] = useState<'tree' | 'graph'>('tree')
+  const [view, setView] = useState<'tree' | 'audit'>('tree')
+  /** The operator has asked for the way around the failure. Cleared the
+   *  moment there is no failure left to route around. */
+  const [rerouted, setRerouted] = useState(false)
+  /** Which rail sections are unfolded. The depot starts folded: it is the
+   *  physical half's evidence, read when asked, not a dashboard. */
+  const [secOpen, setSecOpen] = useState({ node: true, aegis: true, depot: false })
+  const toggleSec = useCallback(
+    (k: 'node' | 'aegis' | 'depot') => setSecOpen((o) => ({ ...o, [k]: !o[k] })),
+    [],
+  )
 
   /** The console's paper trail. Appended from effects rather than from the
    *  handlers, so a state change logs once no matter which control caused it —
@@ -68,7 +83,23 @@ export default function Console({ payload }: { payload: Payload }) {
   const tree = useMemo(() => buildTree(nodes, edges, root), [nodes, edges, root])
   const rollups = useMemo(() => evaluate(tree, compromised), [tree, compromised])
   const routes = useMemo(() => allocate(tree, compromised), [tree, compromised])
+  /** Every node that cannot ship — switched off, beneath one, or gated. The
+   *  globe greys these; it is the same set the tree paints red. */
+  const cut = useMemo(() => cutSet(tree, compromised), [tree, compromised])
   const rerouting = compromised.size > 0
+  if (!rerouting && rerouted) setRerouted(false)
+  const showRoute = rerouting && rerouted
+  /** Ask AEGIS. One click, one log line, and the rail unfolds the answer. */
+  const doReroute = useCallback(() => {
+    setRerouted(true)
+    setSecOpen((o) => ({ ...o, aegis: true }))
+  }, [])
+
+  /** The pathfinder, re-ranked against the same failures. The globe's even
+   *  split says how much load each jurisdiction now carries; this says which
+   *  holders a buyer could actually call, and why. Both are derived from the
+   *  same `compromised` set, so they can never disagree about who is off. */
+  const sl = useMemo(() => shortlist(reroute, tree, compromised, showRoute), [reroute, tree, compromised, showRoute])
 
   /** The chokepoint's own verdict. Every drug on this precursor inherits it —
    *  that inheritance is the fan-out, and it is why one node failing in Inner
@@ -78,26 +109,40 @@ export default function Console({ payload }: { payload: Payload }) {
     return 'ok'
   }, [rollups])
 
-  const siblings = useMemo(
-    () => siblingDrugs(edges, tree).map((id) => ({
-      id,
-      label: nodeLabel(id),
-      health: compromised.has(id) ? ('down' as Health) : chainHealth,
-    })),
-    [edges, tree, nodeLabel, compromised, chainHealth],
-  )
-
   const rootHealth = rollups.get(root)?.health ?? 'ok'
 
-  const toggle = useCallback((id: NodeId) => {
-    setCompromised((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-    setSelected(id)
-  }, [])
+  const [lastSel, setLastSel] = useState<NodeId | null>(selected)
+  if (selected !== lastSel) {
+    setLastSel(selected)
+    if (selected) setSecOpen((o) => ({ ...o, node: true }))
+  }
+
+  /** Which register each supplier in the tree filed in — the globe needs it to
+   *  know which plants ship the API to the buyer and which ship the precursor
+   *  to an API plant. */
+  const tiers = useMemo(() => {
+    const api = new Set<NodeId>()
+    const pre = new Set<NodeId>()
+    if (tree) walk(tree, (t) => { if (t.kind === 'supplier') (t.tier === 'api' ? api : pre).add(t.id) })
+    return { api, pre }
+  }, [tree])
+
+  /** Every finished drug in the graph, for the root picker. The ones that
+   *  share this tree's precursor inherit the chokepoint's verdict; a drug on
+   *  some other chain is only ever down if the operator switched it off. The
+   *  list is derived from the nodes, so it grows with the data, not the code. */
+  const drugs = useMemo<DrugOption[]>(() => {
+    const onChain = new Set(siblingDrugs(edges, tree))
+    const health = (id: NodeId): Health => {
+      if (compromised.has(id)) return 'down'
+      if (id === root) return rootHealth
+      return onChain.has(id) ? chainHealth : 'ok'
+    }
+    return nodes
+      .filter((n) => n.type === 'drug')
+      .map((n) => ({ id: n.id, label: n.label ?? n.id, health: health(n.id), onChain: n.id === root || onChain.has(n.id) }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+  }, [nodes, edges, tree, compromised, chainHealth, root, rootHealth])
 
   /** One click takes a whole jurisdiction out — an export ban, a border closure.
    *  All-off toggles back to all-on, so the same control undoes itself. */
@@ -111,6 +156,23 @@ export default function Console({ payload }: { payload: Payload }) {
       }
       return next
     })
+  }, [])
+
+
+  /** Switch one node off, or back on. For a PLANT that is a failure: it stops
+   *  producing. For a COUNTRY it is an export halt: the country id goes into
+   *  the same set, cutSet() reads it, and every plant inside keeps its own
+   *  state — producing, unable to ship — which the tree and the globe draw in
+   *  amber rather than red. Two disruptions, one switch, told apart by what
+   *  was switched. */
+  const toggle = useCallback((id: NodeId) => {
+    setCompromised((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+    setSelected(id)
   }, [])
 
   const restoreAll = useCallback(() => setCompromised(new Set()), [])
@@ -137,17 +199,18 @@ export default function Console({ payload }: { payload: Payload }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null
-      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return
       if (e.key === ' ' || e.key === 'ArrowRight') { e.preventDefault(); go(beat + 1) }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); go(beat - 1) }
       else if (e.key === 'r' || e.key === 'R') {
         e.preventDefault(); go(0); setSelected(null); restoreAll()
       } else if (e.key === 'Escape') { restoreAll(); setSelected(null) }
       else if (e.key === 'g' || e.key === 'G') { e.preventDefault(); setPanel((p) => !p) }
+      else if (e.key === 'Enter' && rerouting && !rerouted) { e.preventDefault(); doReroute() }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [beat, go, restoreAll])
+  }, [beat, go, restoreAll, rerouting, rerouted, doReroute])
 
   // --- what goes in the log --------------------------------------------------
   //
@@ -179,54 +242,49 @@ export default function Console({ payload }: { payload: Payload }) {
   useEffect(() => {
     const prev = prevOff.current
     if (prev.size === compromised.size && [...compromised].every((id) => prev.has(id))) return
+    const isPlace = (id: NodeId) => id.startsWith('country:')
     for (const id of compromised) {
-      if (!prev.has(id)) log('cascade', `${nodeLabel(id)} switched offline`)
+      if (!prev.has(id)) {
+        log('cascade', isPlace(id) ? `Exports halted from ${nodeLabel(id)}` : `${nodeLabel(id)} switched offline`)
+      }
     }
     for (const id of prev) {
-      if (!compromised.has(id)) log('reset', `${nodeLabel(id)} restored`)
+      if (!compromised.has(id)) {
+        log('reset', isPlace(id) ? `Exports reopened from ${nodeLabel(id)}` : `${nodeLabel(id)} restored`)
+      }
     }
     prevOff.current = new Set(compromised)
   }, [compromised, log, nodeLabel])
 
+  /** The pathfinder's verdict goes in the log too — it is the line the buyer
+   *  would act on, and an auditor wants to see it changing with the failures. */
+  const prevVerdict = useRef<string | null>(null)
+  useEffect(() => {
+    if (!showRoute || !sl.scopeNode) { prevVerdict.current = null; return }
+    const key = `${sl.scopeNode}|${sl.viable}/${sl.standing}|${sl.best?.id ?? ''}`
+    if (prevVerdict.current === key) return
+    prevVerdict.current = key
+    log('cascade', sl.best
+      ? `New route for ${sl.substance}: ${nodeLabel(sl.best.id)} (${sl.best.holder.iso2.map(countryName).join('/') || 'location unknown'})`
+        + ` — ${sl.viable - 1} other usable supplier${sl.viable === 2 ? '' : 's'}`
+      : `No usable supplier left for ${sl.substance}`)
+  }, [showRoute, sl, log, nodeLabel])
+
   const sel = selected ? byId.get(selected) ?? null : null
+  const selOffline = selected ? compromised.has(selected) : false
+  /** A plant inside a jurisdiction whose exports are halted. */
+  const selHalted = !!sel && sel.type !== 'country' && !!sel.country
+    && compromised.has(`country:${sel.country}`)
+  /** ISO-2 of every jurisdiction whose exports are halted, for the globe. */
+  const haltedIsos = useMemo(() => new Set(
+    [...compromised].filter((id) => id.startsWith('country:'))
+      .map((id) => byId.get(id)?.country).filter((c): c is string => !!c),
+  ), [compromised, byId])
   const selEdges = useMemo(
     () => (selected ? edges.filter((e) => e.src === selected || e.dst === selected) : []),
     [selected, edges],
   )
   const downstream = selected ? downstreamOf[selected] ?? 0 : 0
-
-  /** Resting-state summary for the right rail.
-   *
-   *  Counts FILINGS, not company boxes. "8 active US filings to supply this
-   *  precursor" is a locked line in DEMO_PATH, and the spine carries ten
-   *  company nodes — the extra two are FEI site operators with no DMF of their
-   *  own. Counting nodes puts 10 on the projector while the presenter says 8.
-   *  The concentration figure shares the same denominator for the same reason:
-   *  a percentage whose base is a different set than its label is a wrong
-   *  number that happens to look right. */
-  const overview = useMemo(() => {
-    const filers = new Set(
-      nodes
-        .filter((n) => (n.attrs as Record<string, unknown> | undefined)?.dmf_status === 'A')
-        .map((n) => n.id),
-    )
-    const byCountry = new Map<string, number>()
-    for (const e of edges) {
-      if (e.rel !== 'incorporated_in' || !filers.has(e.src)) continue
-      const c = byId.get(e.dst)?.country
-      if (c) byCountry.set(c, (byCountry.get(c) ?? 0) + 1)
-    }
-    const filings = filers.size
-    const top = [...byCountry.entries()].sort((a, b) => b[1] - a[1])[0]
-    return {
-      jurisdictions: ctx.countries.length,
-      filings,
-      drugs: ctx.drugs.length,
-      concentration: top && filings
-        ? `${top[0].toUpperCase()} ${Math.round((top[1] / filings) * 100)}%`
-        : '—',
-    }
-  }, [nodes, edges, byId, ctx])
 
   const onBreach = useCallback((drugs: string[]) => {
     const d = drugs.find((x) => ctx.drugs.includes(x)) ?? drugs[0]
@@ -238,29 +296,61 @@ export default function Console({ payload }: { payload: Payload }) {
     ? impactLine(nodeLabel(root), rollups.get(root), routes, compromised.size)
     : ''
 
+  /** The route, for every surface that is not the rail: the globe wants a
+   *  jurisdiction, the graph wants a node, the readout wants both plus the
+   *  share that jurisdiction now carries. One source, so they cannot disagree. */
+  const routeId = showRoute ? sl.best?.id ?? null : null
+  const routeIso = showRoute ? sl.best?.holder.iso2[0] ?? null : null
+  /** Every node from the drug down to the route holder. The tree and the graph
+   *  light the whole path, not just the last hop: a route is a line from the
+   *  buyer's product to the plant, and one green box is a dot, not a line. */
+  const routePath = useMemo<Set<NodeId>>(() => {
+    const s = new Set<NodeId>()
+    if (!routeId || !tree) return s
+    const find = (t: TreeNode, trail: NodeId[]): boolean => {
+      const next = [...trail, t.id]
+      if (t.id === routeId) { next.forEach((id) => s.add(id)); return true }
+      return t.children.some((c) => find(c, next))
+    }
+    find(tree, [])
+    return s
+  }, [routeId, tree])
+
   return (
     <div className="console" data-panel={panel ? 'open' : 'closed'}>
       {/* The nodes, vertical, in the third of the screen next to the map.
           Material flows DOWN the column — jurisdiction to drug product — and the
           map answers "where", so the two read as one sentence left to right. */}
       <section className="graph-panel" aria-label="Sourcing graph">
-        <div className="panel-tabs">
-          <Image className="mark mark-sm" src="/ripple-mark.png" alt="" width={14} height={14} />
-          {/* Two readings of the same data. The tree is what the buyer needs;
-              the columned graph is what an auditor asks for. Neither is a
-              simplification of the other, so both stay. */}
+        {/* Two readings of the same session, and nothing else on the row:
+            the labels get the whole width, split evenly, so they can be set
+            at a size a projector can read. The mark and the collapse control
+            live on the line below with the counts. */}
+        <div className="panel-tabs" role="tablist">
           <button
-            className="tab" data-on={view === 'tree' ? '1' : '0'}
+            className="tab" role="tab" aria-selected={view === 'tree'}
+            data-on={view === 'tree' ? '1' : '0'}
             onClick={() => setView('tree')}
+            title="The chain for one drug"
           >
             Supply tree
           </button>
           <button
-            className="tab" data-on={view === 'graph' ? '1' : '0'}
-            onClick={() => setView('graph')}
+            className="tab" role="tab" aria-selected={view === 'audit'}
+            data-on={view === 'audit' ? '1' : '0'}
+            onClick={() => setView('audit')}
+            title="What this session did, and when"
           >
-            Full graph
+            Audit log
+            <span className="tab-count">{audit.length}</span>
           </button>
+        </div>
+        <div className="panel-sub">
+          <Image className="mark mark-sm" src="/ripple-mark.png" alt="" width={14} height={14} />
+          <span className="tab-meta">
+            {counts.nodes.toLocaleString()} nodes · {counts.edges.toLocaleString()} edges
+            {b.evidence && ` · ${counts.signals.toLocaleString()} signals · ${counts.compliance} compliance rows`}
+          </span>
           <div className="spacer" />
           <button
             className="ctl"
@@ -271,17 +361,11 @@ export default function Console({ payload }: { payload: Payload }) {
             {panel ? '◂' : '▸'}
           </button>
         </div>
-        <div className="panel-sub">
-          <span className="tab-meta">
-            {counts.nodes.toLocaleString()} nodes · {counts.edges.toLocaleString()} edges
-            {b.evidence && ` · ${counts.signals.toLocaleString()} signals · ${counts.compliance} compliance rows`}
-          </span>
-          <div className="spacer" />
-          <EvidenceKey layerCounts={layerCounts} open={!!b.evidence} />
-        </div>
         {panel && (
           <div className="panel-body">
-            {view === 'tree' ? (
+            {view === 'audit' ? (
+              <AuditLog entries={audit} />
+            ) : (
               <TreeView
                 tree={tree}
                 rollups={rollups}
@@ -290,7 +374,7 @@ export default function Console({ payload }: { payload: Payload }) {
                 onToggleGroup={toggleGroup}
                 selected={selected}
                 onSelect={setSelected}
-                siblings={siblings}
+                drugs={drugs}
                 rootHealth={rootHealth}
                 onRoot={setRoot}
                 onReset={restoreAll}
@@ -298,18 +382,8 @@ export default function Console({ payload }: { payload: Payload }) {
                 ndcCount={ndcCount}
                 showCompliance={!!b.compliance}
                 states={states}
-              />
-            ) : (
-              <GraphView
-                nodes={nodes}
-                edges={edges}
-                lit={lit}
-                states={states}
-                selected={selected}
-                onSelect={setSelected}
-                compliance={compliance}
-                ndcCount={ndcCount}
-                showCompliance={!!b.compliance}
+                aegis={sl.byId}
+                routePath={routePath}
               />
             )}
           </div>
@@ -317,10 +391,8 @@ export default function Console({ payload }: { payload: Payload }) {
       </section>
 
       <section className="map-wrap" aria-label="World map">
-        {/* The way back. The collapse control lives INSIDE the node column, so
-            collapsing it took the control with it and left the keyboard as the
-            only way back — a shortcut nobody can see. This tab is the door on
-            the outside of the door. */}
+        {/* The way back, when the node column is collapsed. Top-left is free
+            now that the rail owns the right edge. */}
         {!panel && (
           <button
             className="reopen"
@@ -340,53 +412,89 @@ export default function Console({ payload }: { payload: Payload }) {
           onSelect={setSelected}
           routes={routes}
           rerouting={rerouting}
+          showRoute={showRoute}
+          routeIso={routeIso}
+          routeId={routeId}
+          cut={cut}
+          off={compromised}
+          halted={haltedIsos}
+          apiIds={tiers.api}
+          preIds={tiers.pre}
+          scoreOf={sl.byId}
         />
 
-        {/* The physical half and the inspector float over the globe rather than
-            taking columns off it. The globe is mostly empty ocean at the edges,
-            and neither of these is on screen for the whole story: the depot
-            carries beats 0–2, the inspector only exists once you ask it a
-            question. */}
-        <aside className="ov ov-depot" aria-label="Depot readings">
-          <DepotPanel onBreach={onBreach} />
+        {/* The rail. Everything that is ABOUT the picture — the node under
+            inspection, the pathfinder's answer, the depot's readings — folds
+            into one column on the right edge, and the picture keeps the rest. */}
+        <aside className="rail" aria-label="Details">
+          {sel && (
+            <Section
+              title={sel.label ?? sel.id}
+              tag={sel.type}
+              open={secOpen.node}
+              onToggle={() => toggleSec('node')}
+              onClose={() => setSelected(null)}
+            >
+              <NodeMetrics
+                node={sel}
+                edges={selEdges}
+                compliance={selected ? compliance[selected] ?? null : null}
+                nodeLabel={nodeLabel}
+                onSelect={setSelected}
+                onCascade={toggle}
+                offline={selOffline}
+                halted={selHalted}
+                rollup={selected ? rollups.get(selected) : undefined}
+                downstream={downstream}
+                ndc={selected ? ndcCount[selected] : undefined}
+                labelers={selected ? labelerCount[selected] : undefined}
+                alt={selected ? sl.byId.get(selected) : undefined}
+              />
+            </Section>
+          )}
+
+          {showRoute && (
+            <Section
+              title="Backup suppliers"
+              tag={`${sl.viable} usable`}
+              tone={sl.viable === 0 ? 'alarm' : 'ok'}
+              open={secOpen.aegis}
+              onToggle={() => toggleSec('aegis')}
+              info={
+                <Info label="How suppliers are scored">
+                  <b>How suppliers are scored</b>
+                  {SCORE_EXPLAINED.map((t) => <p key={t}>{t}</p>)}
+                </Info>
+              }
+            >
+              <ReroutePanel sl={sl} nodeLabel={nodeLabel} selected={selected} onSelect={setSelected} />
+            </Section>
+          )}
+
+          <Section
+            title="Depot"
+            tag={secOpen.depot ? undefined : 'sensors'}
+            open={secOpen.depot}
+            onToggle={() => toggleSec('depot')}
+          >
+            <DepotPanel onBreach={onBreach} />
+          </Section>
         </aside>
 
-        {sel && (
-          <aside className="ov ov-node" aria-label="Selection">
-            <NodeMetrics
-              node={sel}
-              edges={selEdges}
-              signals={selected ? signals[selected] ?? [] : []}
-              compliance={selected ? compliance[selected] ?? null : null}
-              nodeLabel={nodeLabel}
-              onSelect={setSelected}
-              onCascade={toggle}
-              onClose={() => setSelected(null)}
-              offline={selected ? compromised.has(selected) : false}
-              rollup={selected ? rollups.get(selected) : undefined}
-              downstream={downstream}
-              ndc={selected ? ndcCount[selected] : undefined}
-              labelers={selected ? labelerCount[selected] : undefined}
-            />
-          </aside>
-        )}
-
-        {/* Bottom right: the numbers, then the claim they support. The beat's
-            own wording — and once anything is switched off, the consequence
-            instead. Both are live text, not a caption written in advance: the
-            numbers in the failure line are the same ones the tree and the globe
-            are drawing. */}
+        {/* Bottom-left: the claim, then the step. At rest it is the beat's own
+            sentence. After a failure it is the consequence, and under it the
+            one control this screen exists for — until it is pressed, when the
+            pathfinder's answer takes its place. */}
         <div className="ov-read">
-          <Readout overview={overview} />
           <div className="caption" data-killed={rerouting ? '1' : '0'} aria-live="polite">
             {rerouting ? (
-              <>
-                <p className="say">{impact}</p>
-                <p className="note">
-                  Load is split evenly across surviving qualified sources — there is no
-                  public per-holder capacity figure to weight it with. Esc restores.
-                </p>
-              </>
+              <p className="say">
+                {impact}
+                {showRoute && sl.best && (
+                  <> <span className="say-route">New route: {nodeLabel(sl.best.id)}, {sl.best.holder.iso2.map(countryName).join('/') || 'location unknown'}.</span></>
+                )}
+                {showRoute && !sl.best && <> <span className="say-route">No usable supplier is left.</span></>}
+              </p>
             ) : (
               <>
                 <p className="say">{b.say}</p>
@@ -394,12 +502,16 @@ export default function Console({ payload }: { payload: Payload }) {
               </>
             )}
           </div>
+          {rerouting && !rerouted && (
+            <button className="reroute" onClick={doReroute} title="Show the new route (Enter)">
+              <span className="reroute-arrow" aria-hidden>➜</span>
+              See new route
+              <kbd>↵</kbd>
+            </button>
+          )}
         </div>
       </section>
 
-      <section className="audit-wrap">
-        <AuditLog entries={audit} />
-      </section>
 
     </div>
   )
