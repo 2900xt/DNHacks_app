@@ -84,18 +84,29 @@ def fit_isotonic(scores: list[float], labels: list[int], min_bin: int = 40):
     return [{"at": b[0] / b[2], "p": b[1] / b[2], "n": b[2]} for b in pooled]
 
 
+def _bracket(bins: list[dict], score: float):
+    """The two blocks a score falls between, and how far along it sits.
+
+    Shared by `apply_isotonic` and `interval` so the two cannot disagree. They
+    did: `interval` used to snap to the NEAREST block while `apply_isotonic`
+    interpolated between two, which left 46 plants whose p12 sat outside their
+    own published range.
+    """
+    if score <= bins[0]["at"]:
+        return bins[0], bins[0], 0.0
+    for a, b in zip(bins, bins[1:]):
+        if score <= b["at"]:
+            span = b["at"] - a["at"]
+            return a, b, (0.0 if span <= 0 else (score - a["at"]) / span)
+    return bins[-1], bins[-1], 0.0
+
+
 def apply_isotonic(bins: list[dict], score: float) -> float:
     """Map a raw logit onto the calibrated curve, interpolating between blocks."""
     if not bins:
         return _sigmoid(score)
-    if score <= bins[0]["at"]:
-        return bins[0]["p"]
-    for a, b in zip(bins, bins[1:]):
-        if score <= b["at"]:
-            span = b["at"] - a["at"]
-            t = 0.0 if span <= 0 else (score - a["at"]) / span
-            return a["p"] + t * (b["p"] - a["p"])
-    return bins[-1]["p"]
+    a, b, t = _bracket(bins, score)
+    return a["p"] + t * (b["p"] - a["p"])
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -208,5 +219,10 @@ def interval(bins: list[dict], score: float) -> tuple[float, float]:
     """
     if not bins:
         return 0.0, 1.0
-    b = min(bins, key=lambda b: abs(b["at"] - score))
-    return wilson(round(b["p"] * b["n"]), b["n"])
+    a, b, t = _bracket(bins, score)
+    la, ha = wilson(round(a["p"] * a["n"]), a["n"])
+    lb, hb = wilson(round(b["p"] * b["n"]), b["n"])
+    # Interpolate the BOUNDS on the same bracket and the same t as the estimate.
+    # Because each block's own p sits inside its own interval, convexity then
+    # guarantees the interpolated p12 sits inside the interpolated range.
+    return la + t * (lb - la), ha + t * (hb - ha)
