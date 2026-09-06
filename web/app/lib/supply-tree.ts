@@ -859,6 +859,17 @@ export function trunkPath(parent: Placed, children: Placed[]): string {
   return `M${x},${y1} V${Math.max(y1, y2)}`
 }
 
+/** The part of the trunk that is actually on a path: from the parent's foot
+ *  down to ONE child's elbow, and no further. The full trunk runs past every
+ *  band to the last supplier; painting all of it green says the path visits
+ *  plants it never touches. */
+export function trunkPathTo(parent: Placed, child: Placed): string {
+  const x = parent.x + parent.w / 2
+  const y1 = parent.y + parent.h
+  const y2 = child.y - ELBOW_Y - ELBOW_R
+  return `M${x},${y1} V${Math.max(y1, y2)}`
+}
+
 /** One child's elbow off the trunk: out along the row gap above it, then down
  *  into its own top edge. */
 export function elbowPath(parent: Placed, child: Placed): string {
