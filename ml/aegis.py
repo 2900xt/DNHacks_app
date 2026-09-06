@@ -95,6 +95,43 @@ NOT_DESIGNATED = {"CHN", "IND", "RUS", "BRA", "ARG", "THA", "VNM", "IDN", "MYS"}
 CHOKEPOINT_ISO3 = {"CHN", "IND"}
 
 
+def _tokens(v: str) -> list[str]:
+    return re.sub(r"[^a-z0-9]+", " ", (v or "").lower()).split()
+
+
+def same_substance(query: str, candidate: str) -> bool:
+    """Is `candidate` a spelling of the substance `query`?
+
+    Two traps, and they pull in opposite directions - Yash's load_dmf.py states
+    the rule exactly: *use squash for spelling variants of one molecule; use
+    boundaries for one name inside another. They are not interchangeable.*
+
+    SQUASH ALONE OVER-MATCHES. `oxacillin` is a substring of `CLOXACILLIN`,
+    `DICLOXACILLIN` and `FLUCLOXACILLIN`, so squash-substring matching returned
+    cloxacillin holders as oxacillin alternates - a buyer routed to a firm that
+    does not make the molecule at all. A one-character subject spelled `L` also
+    matched every query, because "l" is a substring of nearly anything.
+
+    BOUNDARIES ALONE UNDER-MATCH. 6-APA is spelled `6-AMINOPENICILLANIC ACID`
+    and `6-AMINO PENICILLANIC ACID` - the split falls *inside* a word, so no
+    token boundary can bridge them.
+
+    So: accept on a whole-token match, OR on squash equality/prefix (which covers
+    intra-word punctuation), and nothing else.
+    """
+    q, c = _tokens(query), _tokens(candidate)
+    if not q or not c:
+        return False
+    qs, cs = squash(query), squash(candidate)
+    if len(qs) < 4 or len(cs) < 4:
+        return False
+    # whole-token containment, in either direction
+    if all(t in c for t in q) or all(t in q for t in c):
+        return True
+    # intra-word punctuation variants of one molecule
+    return qs == cs or cs.startswith(qs) or qs.startswith(cs)
+
+
 def squash(v: str) -> str:
     """Collapse a substance name to letters+digits only.
 
@@ -119,14 +156,12 @@ def dmf_holders(substance: str) -> tuple[dict[str, set[str]], list[str]]:
     fetch(DMF_URL, DMF_XLSX)
     it = xlsx_rows(DMF_XLSX)
     next(it)
-    want = squash(substance)
     out = {"active": set(), "inactive": set()}
     spellings: set[str] = set()
     for r in it:
         if len(r) < 6 or r[2] != "II" or not (r[4] and r[5]):
             continue
-        sq = squash(r[5])
-        if want not in sq and sq not in want:
+        if not same_substance(substance, r[5]):
             continue
         spellings.add(r[5].strip())
         out["active" if r[1] == "A" else "inactive"].add(r[4].strip())
@@ -306,6 +341,99 @@ def alternates(substance_key: str, exclude: str | None = None, cutoff: date | No
     return out, groups, spellings
 
 
+# --------------------------------------------------------------------------
+# Route mapping — the path, not just the shortlist
+# --------------------------------------------------------------------------
+
+
+def load_graph() -> tuple[dict, list]:
+    d = REPO / "web" / "data"
+    nodes, edges = {}, []
+    for f in ("nodes.openfda.json", "nodes.curated.json", "nodes.signals.json"):
+        if (d / f).exists():
+            for n in json.loads((d / f).read_text()):
+                nodes[n["id"]] = n
+    for f in ("edges.openfda.json", "edges.curated.json", "edges.signals.json"):
+        if (d / f).exists():
+            edges += json.loads((d / f).read_text())
+    return nodes, edges
+
+
+def downstream(start: str, edges: list, rels=("feeds", "active_in", "formulated_into")) -> dict:
+    """Everything that depends on `start`, by node type.
+
+    Edges point the way material flows, so dependants are reached by following
+    OUTGOING edges - the same direction graph.ts walks for the cascade.
+    """
+    out = defaultdict(list)
+    for e in edges:
+        out[e["src"]].append(e)
+    seen, order, stack = set(), [], [start]
+    while stack:
+        cur = stack.pop()
+        for e in out.get(cur, []):
+            if e["rel"] in rels and e["dst"] not in seen:
+                seen.add(e["dst"])
+                order.append((cur, e["rel"], e["dst"]))
+                stack.append(e["dst"])
+    return {"edges": order, "nodes": seen}
+
+
+def route(substance: str, graph_node: str | None = None, exclude: str | None = None) -> dict:
+    """A supplier goes down. What breaks, and what is the path around it?"""
+    nodes, edges = load_graph()
+    rows, groups, spellings = alternates(substance, exclude=exclude)
+
+    # Which graph node is this substance?
+    node = graph_node
+    if not node:
+        sq = squash(substance)
+        for nid, n in nodes.items():
+            if nid.split(":", 1)[0] in ("precursor", "api") and (
+                    squash(n.get("label") or nid.split(":", 1)[1]).startswith(sq[:12])
+                    or sq.startswith(squash(n.get("label") or "")[:12])):
+                node = nid
+                break
+
+    impact = downstream(node, edges) if node else {"edges": [], "nodes": set()}
+    drugs = sorted(n for n in impact["nodes"] if n.startswith("drug:"))
+    products = [n for n in impact["nodes"] if n.startswith("product:")]
+    viable = [r for r in rows if r["score"] > 0]
+
+    return {"substance": substance, "graph_node": node, "excluded": exclude,
+            "affected_drugs": drugs, "affected_products": len(products),
+            "alternates": rows, "viable": viable,
+            "active_holders": len(groups["active"]), "spellings": len(spellings)}
+
+
+def report_route(r: dict) -> None:
+    print(f"AEGIS ROUTE — {r['substance']}")
+    if r["excluded"]:
+        print(f"  DOWN: {r['excluded']}")
+    if not r["graph_node"]:
+        print("  ⚠️ this substance is not a node in the graph — impact not traced\n")
+    else:
+        print(f"  node: {r['graph_node']}")
+        print(f"  IMPACT: {len(r['affected_drugs'])} drug(s), {r['affected_products']} product(s)")
+        print(f"          {', '.join(d.split(':')[1] for d in r['affected_drugs'])}\n")
+
+    if not r["viable"]:
+        print("  🔴 NO VIABLE RE-ROUTE. Every alternate is unregistered, inside the")
+        print("     same chokepoint, or carries its own enforcement history.\n")
+    else:
+        print(f"  {len(r['viable'])} candidate route(s), best first:\n")
+        for i, a in enumerate(r["viable"][:5], 1):
+            c = "/".join(a["countries"]) or "?"
+            print(f"   {i}. {a['holder'][:44]}  [{c}]  score {a['score']}")
+            hop = r["graph_node"] or "?"
+            path = " → ".join([a["holder"][:22], hop] +
+                              [d.split(":")[1] for d in r["affected_drugs"][:3]])
+            print(f"      path: {path}")
+            print(f"      {a['why'][0]}")
+    print(f"\n  ❌ capacity · lead time · willingness to supply — no public source. "
+          f"Shortlist, not allocation.")
+
+
 def report(substance: str, result, disrupted: str | None) -> None:
     rows, groups, spellings = result
     print(f"AEGIS — alternate suppliers for {substance!r}")
@@ -334,8 +462,60 @@ def report(substance: str, result, disrupted: str | None) -> None:
           f"registered\n  US establishments and {len(outside)} of those sit outside China/India.")
 
 
+ANCHORS = {
+    "6-aminopenicillanic acid": {"min_active": 8, "node": "precursor:6-apa", "drugs": 6},
+    "oxacillin": {"max_active": 6},          # must NOT pull in cloxacillin holders
+}
+
+
+def selftest() -> int:
+    """Assert the things that would fail silently. Run before trusting output."""
+    ok = True
+    print("AEGIS self-check\n")
+
+    g, sp = dmf_holders("6-aminopenicillanic acid")
+    n = len(g["active"])
+    good = n >= 8
+    ok &= good
+    print(f"  [{'OK ' if good else 'FAIL'}] 6-APA active holders {n} (>=8; squash must "
+          f"bridge {len(sp)} spellings)")
+
+    g2, _ = dmf_holders("oxacillin")
+    bleed = [h for h in g2["active"]]
+    clean = len(g2["active"]) <= 6
+    ok &= clean
+    print(f"  [{'OK ' if clean else 'FAIL'}] oxacillin active holders {len(g2['active'])} "
+          f"(<=6; boundary check must exclude CLOXACILLIN)")
+
+    r = route("6-aminopenicillanic acid")
+    node_ok = r["graph_node"] == "precursor:6-apa"
+    ok &= node_ok
+    print(f"  [{'OK ' if node_ok else 'FAIL'}] 6-APA resolves to {r['graph_node']}")
+    drugs_ok = len(r["affected_drugs"]) == 6
+    ok &= drugs_ok
+    print(f"  [{'OK ' if drugs_ok else 'FAIL'}] cascade reaches {len(r['affected_drugs'])} "
+          f"drugs (expect 6)")
+
+    rows, _, _ = alternates("6-aminopenicillanic acid")
+    amb = [x for x in rows if any("AMBIGUOUS" in w for w in x["why"])]
+    amb_ok = len(amb) >= 1
+    ok &= amb_ok
+    print(f"  [{'OK ' if amb_ok else 'FAIL'}] ambiguity guard refuses {len(amb)} holder(s) "
+          f"rather than attributing another plant's risk")
+
+    outside = [x for x in rows if x["matched_firm"] and x["countries"]
+               and not (set(x["countries"]) & CHOKEPOINT_ISO3)]
+    print(f"\n  headline: {len(rows)} active 6-APA holders, "
+          f"{len([x for x in rows if x['matched_firm']])} DECRS-registered, "
+          f"{len(outside)} outside CN/IN")
+    print(f"\n  {'all checks passed' if ok else 'SELF-CHECK FAILED'}")
+    return 0 if ok else 1
+
+
 def main() -> int:
     args = sys.argv[1:]
+    if "--selftest" in args:
+        return selftest()
     if "--demo" in args:
         subs = ["6 aminopenicillanic acid", "amoxicillin trihydrate"]
         for s in subs:
@@ -349,6 +529,16 @@ def main() -> int:
         s = args[args.index("--substance") + 1]
         excl = args[args.index("--exclude") + 1] if "--exclude" in args else None
         report(s, alternates(s, exclude=excl), excl)
+        return 0
+    if "--route" in args:
+        sub = args[args.index("--route") + 1]
+        excl = args[args.index("--exclude") + 1] if "--exclude" in args else None
+        r = route(sub, exclude=excl)
+        report_route(r)
+        if "--write" in args:
+            out = REPO / "web" / "data" / "reroute.json"
+            out.write_text(json.dumps(r, indent=2) + "\n")
+            print(f"\n  wrote {out.relative_to(REPO)}")
         return 0
     if "--facility" in args:
         fei = args[args.index("--facility") + 1]
