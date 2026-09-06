@@ -40,7 +40,6 @@ interface Props {
   /** The next-failure model's answer for this node. Null when it has none. */
   risk: NodeRisk | null
   /** Top of what the calibration supports — the risk bar's axis. */
-  riskCeiling: number
 }
 
 /**
@@ -54,7 +53,7 @@ interface Props {
  */
 export default function NodeMetrics({
   node, edges, verdict, nodeLabel, onSelect, onCascade, offline, halted,
-  rollup, downstream, ndc, labelers, alt, risk, riskCeiling,
+  rollup, downstream, ndc, labelers, alt, risk,
 }: Props) {
   /** Which connection row is unfolded. One at a time: the rail is narrow and
    *  an unfolded row is the full name plus its citation. */
@@ -98,7 +97,7 @@ export default function NodeMetrics({
       {/* First reading, above procurement and the supplier score. Those two say
           what this plant IS; this one says what is about to happen to it, which
           is the question that brought anyone to the panel. */}
-      <RiskPanel risk={risk} ceiling={riskCeiling} />
+      <RiskPanel risk={risk} />
 
       {/* The verdict, with its reason under it. The chip says PASS; the judge's
           next question is "under whose rule", and that answer is one tap away. */}

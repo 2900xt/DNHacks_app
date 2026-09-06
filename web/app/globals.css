@@ -41,8 +41,11 @@
 
   /* Loaded by app/layout.tsx through next/font/local; the named fallbacks
      only ever show for the instant before the woff2 lands. */
-  --sans:  var(--font-sans), "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --serif: var(--font-serif), "Noto Serif Display", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans:  var(--font-sans), "IBM Plex Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  /* Titles, names and the big readings used to be a display serif. They are
+     the same sans now, set heavier; the token stays so the type block below
+     keeps one selector list. */
+  --display: var(--sans);
   /* The readouts used to be monospaced. They are set in the sans now, with
      tabular figures where they line up; the token stays so 74 rules need not
      change their name. */
@@ -1200,32 +1203,6 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
 /* ---- risk: the model's answer on the rail --------------------------------- */
 
-/* The estimate as a line inside its 95% band. A bare percentage claims three
-   digits of precision that 61 plants cannot pay for; this shows what the number
-   is worth without spending a second reading on it.
-
-   The axis ends at the calibration ceiling, not at 100%. The ceiling is the
-   highest rate ever actually observed at any score, so a 0-100% axis would draw
-   every real plant as a sliver against an empty right-hand half that nothing
-   can reach. */
-.rk-bar { padding: 2px 12px 8px; border-bottom: 1px solid var(--line-soft); }
-.rk-track {
-  position: relative; display: block; height: 5px; border-radius: 3px;
-  background: var(--line-soft); overflow: hidden;
-}
-.rk-range { position: absolute; top: 0; bottom: 0; background: var(--line); }
-.rk-point {
-  position: absolute; top: -2px; width: 2px; height: 9px; margin-left: -1px;
-  background: var(--text);
-}
-.rk-point[data-t="ok"]    { background: var(--ok); }
-.rk-point[data-t="warn"]  { background: var(--warn); }
-.rk-point[data-t="alarm"] { background: var(--alarm); }
-.rk-scale {
-  display: flex; justify-content: space-between; gap: 8px; margin-top: 4px;
-  font: 400 8.5px/1.3 var(--mono); color: var(--text-faint);
-}
-.rk-scale em { font-style: normal; }
 .rk-from {
   margin: 0; padding: 5px 12px; border-bottom: 1px solid var(--line-soft);
   font: 400 9.5px/1.4 var(--mono); color: var(--text-faint);
@@ -1284,12 +1261,12 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 }
 
 /* ---- type ------------------------------------------------------------------
-   The serif carries what is read as a sentence or a name: the tabs, the
-   section titles, the big readings, the node names, the caption, the landing
-   headline. Everything else stays in the sans. No capitals, no tracking. */
+   The display weight carries what is read as a sentence or a name: the tabs,
+   the section titles, the big readings, the node names, the caption, the
+   landing headline. Everything else stays regular. No capitals, no tracking. */
 .tab, .sec-title, .m-value, .tnode .t-name, .tgroup-label, .hero h1, .plan-price,
 .caption .say, .rr-name, .buyer-fixed, .drug-select, .strip-hint,
-.login h1, .plans h2, h1, h2 { font-family: var(--serif); }
+.login h1, .plans h2, h1, h2 { font-family: var(--display); font-weight: 600; letter-spacing: -.01em; }
 .tab { font-weight: 500; font-size: 14px; }
 .sec-title { font-weight: 500; font-size: 13px; }
 .m-value { font-size: 20px; }

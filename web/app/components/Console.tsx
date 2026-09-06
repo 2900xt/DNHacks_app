@@ -556,7 +556,6 @@ export default function Console({ payload }: { payload: Payload }) {
                 labelers={selected ? labelerCount[selected] : undefined}
                 alt={selected ? sl.byId.get(selected) : undefined}
                 risk={selected ? risk[selected] ?? null : null}
-                riskCeiling={riskMeta.ceiling}
               />
             </Section>
           )}

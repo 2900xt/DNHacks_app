@@ -2,27 +2,19 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-// Self-hosted, never fetched: the venue network is assumed hostile. Two faces.
-// A serif display for what is READ — titles, names, the big numbers — and a
-// humanist sans for everything that is scanned. The old instrument look, mono
-// and tracked capitals everywhere, is gone on purpose.
+// Self-hosted, never fetched: the venue network is assumed hostile. One face,
+// IBM Plex Sans: an engineered grotesque that sits between a product-marketing
+// sans and a terminal mono. Titles and readings use the same family, heavier,
+// so nothing on screen reads as antique or as a shell.
 const sans = localFont({
   variable: "--font-sans",
   display: "swap",
   src: [
-    { path: "./fonts/NotoSans-Regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/NotoSans-Medium.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/NotoSans-Bold.woff2", weight: "600 700", style: "normal" },
-  ],
-});
-const serif = localFont({
-  variable: "--font-serif",
-  display: "swap",
-  src: [
-    { path: "./fonts/NotoSerifDisplay-Regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/NotoSerifDisplay-Italic.woff2", weight: "400", style: "italic" },
-    { path: "./fonts/NotoSerifDisplay-Medium.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/NotoSerifDisplay-Bold.woff2", weight: "600 700", style: "normal" },
+    { path: "./fonts/IBMPlexSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/IBMPlexSans-Italic.woff2", weight: "400", style: "italic" },
+    { path: "./fonts/IBMPlexSans-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/IBMPlexSans-SemiBold.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/IBMPlexSans-Bold.woff2", weight: "700", style: "normal" },
   ],
 });
 
@@ -49,7 +41,7 @@ export const metadata: Metadata = {
 // (the full lockup) and public/ripple-logo.ico.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+    <html lang="en" className={sans.variable}>
       <body>{children}</body>
     </html>
   );
