@@ -1,0 +1,194 @@
+{
+  "substance": "6-aminopenicillanic acid",
+  "graph_node": "precursor:6-apa",
+  "excluded": null,
+  "affected_drugs": [
+    "drug:amoxicillin",
+    "drug:ampicillin",
+    "drug:dicloxacillin",
+    "drug:nafcillin",
+    "drug:oxacillin",
+    "drug:piperacillin"
+  ],
+  "affected_products": 760,
+  "alternates": [
+    {
+      "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
+      "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+      "countries": [
+        "CHN"
+      ],
+      "feis": [
+        "3006272230"
+      ],
+      "score": 3.0,
+      "risk_flags": [],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (CHN)",
+        "not TAA-designated \u2014 VA/DoD cannot buy"
+      ]
+    },
+    {
+      "holder": "PURE AND CURE HEALTHCARE PRIVATE LTD",
+      "matched_firm": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+      "countries": [
+        "IND"
+      ],
+      "feis": [
+        "3007577941",
+        "3008176882",
+        "3024206690"
+      ],
+      "score": 3.0,
+      "risk_flags": [],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (IND)",
+        "not TAA-designated \u2014 VA/DoD cannot buy"
+      ]
+    },
+    {
+      "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
+      "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+      "countries": [
+        "CHN"
+      ],
+      "feis": [
+        "3010166430"
+      ],
+      "score": 3.0,
+      "risk_flags": [],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (CHN)",
+        "not TAA-designated \u2014 VA/DoD cannot buy"
+      ]
+    },
+    {
+      "holder": "ANTIBIOTICOS SA",
+      "matched_firm": null,
+      "countries": [],
+      "feis": [],
+      "score": 0.0,
+      "risk_flags": [],
+      "why": [
+        "not found in DECRS \u2014 capability unverified"
+      ]
+    },
+    {
+      "holder": "SANDOZ GMBH",
+      "matched_firm": null,
+      "countries": [],
+      "feis": [],
+      "score": 0.0,
+      "risk_flags": [],
+      "why": [
+        "\u26a0\ufe0f AMBIGUOUS in DECRS (2 firms tie: Sandoz GmbH, Sandoz Private Limited) \u2014 not attributing risk"
+      ]
+    },
+    {
+      "holder": "THE UNITED LABORATORIES INNER MONGOLIA CO LTD",
+      "matched_firm": null,
+      "countries": [],
+      "feis": [],
+      "score": 0.0,
+      "risk_flags": [],
+      "why": [
+        "\u26a0\ufe0f AMBIGUOUS in DECRS (2 firms tie: The United Laboratories (Inn, Zhuhai United Laboratories C) \u2014 not attributing risk"
+      ]
+    },
+    {
+      "holder": "UNITED LABORATORIES CHENGDU CO LTD",
+      "matched_firm": null,
+      "countries": [],
+      "feis": [],
+      "score": 0.0,
+      "risk_flags": [],
+      "why": [
+        "\u26a0\ufe0f AMBIGUOUS in DECRS (2 firms tie: The United Laboratories (Inn, Zhuhai United Laboratories C) \u2014 not attributing risk"
+      ]
+    },
+    {
+      "holder": "APITORIA PHARMA PRIVATE LTD",
+      "matched_firm": "Apitoria Pharma Private Limited",
+      "countries": [
+        "IND"
+      ],
+      "feis": [
+        "3004021253",
+        "3004051616",
+        "3004086884"
+      ],
+      "score": -3.0,
+      "risk_flags": [
+        "OAI 2019-02-02",
+        "OAI 2019-02-09",
+        "OAI 2021-08-12"
+      ],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (IND)",
+        "not TAA-designated \u2014 VA/DoD cannot buy",
+        "\ud83d\udd34 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+      ]
+    }
+  ],
+  "viable": [
+    {
+      "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
+      "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+      "countries": [
+        "CHN"
+      ],
+      "feis": [
+        "3006272230"
+      ],
+      "score": 3.0,
+      "risk_flags": [],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (CHN)",
+        "not TAA-designated \u2014 VA/DoD cannot buy"
+      ]
+    },
+    {
+      "holder": "PURE AND CURE HEALTHCARE PRIVATE LTD",
+      "matched_firm": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+      "countries": [
+        "IND"
+      ],
+      "feis": [
+        "3007577941",
+        "3008176882",
+        "3024206690"
+      ],
+      "score": 3.0,
+      "risk_flags": [],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (IND)",
+        "not TAA-designated \u2014 VA/DoD cannot buy"
+      ]
+    },
+    {
+      "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
+      "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+      "countries": [
+        "CHN"
+      ],
+      "feis": [
+        "3010166430"
+      ],
+      "score": 3.0,
+      "risk_flags": [],
+      "why": [
+        "registered API manufacturer",
+        "\u26a0\ufe0f same chokepoint region (CHN)",
+        "not TAA-designated \u2014 VA/DoD cannot buy"
+      ]
+    }
+  ],
+  "active_holders": 8,
+  "spellings": 11
+}
