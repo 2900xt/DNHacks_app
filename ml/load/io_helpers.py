@@ -235,6 +235,12 @@ def _write_and_validate(path: Path, rows: list[dict]) -> int:
     return len(rows)
 
 
+def read_nodes() -> list[dict]:
+    """Current curated nodes. Loaders that annotate existing nodes (TAA marks
+    countries, 1260H marks companies) read this to know what is in the graph."""
+    return _read(NODES_PATH)
+
+
 def write_nodes(nodes: Iterable[dict]) -> int:
     rows = _upsert(_read(NODES_PATH), nodes, lambda r: r["id"], NODE_FIELDS,
                    NODE_DEFAULTS)
