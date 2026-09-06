@@ -38,6 +38,10 @@ depot-demo: ## Replay 24h of storage history into a running API (no hardware nee
 	@# sample with receipt time and the 24h window collapses to a few seconds.
 	@curl -sf $${API:-http://localhost:8000}/health >/dev/null \
 	  || { echo "API not up — run 'make dev' first"; exit 1; }
+	@# Reset first. A bin that still holds the previous run's history computes its
+	@# MKT over a window that mixes the two, and the breach silently fails to latch
+	@# — it reports `ok` at 25.9 C against a 25.0 C ceiling. Do not remove this.
+	@curl -sf -X POST $${API:-http://localhost:8000}/depot/nodes/$${NODE:-sns-depot-01-bin-a}/reset >/dev/null || true
 	@./hardware/m5stack-node/replay.py --api $${API:-http://localhost:8000} \
 	  synth --scenario $${SCENARIO:-breach}
 

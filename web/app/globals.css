@@ -1,29 +1,631 @@
+/* CHOKEPOINT — operations console.
+   Design decision, from the persona: a GPO supply-chain risk manager defending a
+   sourcing call. The interface reads as an instrument — readings, not prose. The
+   map answers "where is this coming from", the graph answers "what breaks with
+   it". One alarm colour, used only for condemned stock and FAIL verdicts. */
+
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  padding: 24px;
-  background: #fff;
-  color: #111;
-  font: 14px/1.5 ui-sans-serif, system-ui, sans-serif;
+:root {
+  --bg:        #080b10;
+  --panel:     #0e141c;
+  --panel-2:   #131b25;
+  --line:      #1d2732;
+  --line-soft: #161e28;
+
+  --text:      #dde5ee;
+  --text-dim:  #8494a6;
+  --text-faint:#4f5d6e;
+
+  --ok:        #3fb27f;
+  --warn:      #d9903a;
+  --alarm:     #e5484d;
+  --focus:     #4a9eda;
+
+  --layer1:    #4a9eda;
+  --layer2:    #8494a6;
+  --layer3:    #a97fd9;
+
+  --audit-h:  108px;
+
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-h1 { font-size: 18px; margin: 0 0 4px; }
-h2 { font-size: 14px; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: .06em; color: #666; }
+* { box-sizing: border-box; }
 
-table { border-collapse: collapse; width: 100%; max-width: 760px; }
-th, td { text-align: left; padding: 5px 12px 5px 0; vertical-align: top; }
-th { font-weight: 600; color: #555; width: 220px; }
-td { font-variant-numeric: tabular-nums; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: var(--bg); color: var(--text);
+  font: 13px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
 
-.status { font-weight: 700; text-transform: uppercase; }
-.status[data-s="ok"] { color: #0a7a45; }
-.status[data-s="excursion"] { color: #b06000; }
-.status[data-s="mkt_breach"] { color: #c00; }
-.status[data-s="sensor_fault"] { color: #6b3fd4; }
-.status[data-s="stale"], .status[data-s="offline"] { color: #777; }
+/* ---- shell ---------------------------------------------------------------- */
 
-.reason { margin: 4px 0 0; color: #333; }
-hr { border: 0; border-top: 1px solid #ddd; margin: 24px 0; }
-button { font: inherit; padding: 4px 10px; cursor: pointer; }
-code { background: #f2f2f2; padding: 1px 4px; }
+/* One third nodes, two thirds map. The node column runs the FULL height beside
+   the map, so the vertical chain and the geography sit adjacent and read as one
+   sentence: what the chain is, and where it comes from. The audit strip takes
+   the bottom of the map side only — the column keeps its height, because a
+   graph cut short to make room for a log is the wrong trade. */
+
+.console {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  grid-template-areas:
+    "graph map"
+    "graph audit";
+  grid-template-rows: minmax(0, 1fr) var(--audit-h);
+  height: 100vh;
+  gap: 1px;
+  background: var(--line-soft);
+}
+/* Collapsed, the column gets out of the way entirely and the globe takes the
+   screen. Nothing is hidden behind a scroll — it is either there or it is not. */
+.console[data-panel="closed"] { grid-template-columns: 0 minmax(0, 1fr); }
+
+/* No header row. The demo is driven from the keyboard — space and the arrows
+   move between beats, r resets, g collapses the node column — and a bar that
+   only restated which beat you were on was 38px spent saying what the caption
+   already says out loud. The mark lives on the node column's tab bar. */
+
+.map-wrap { grid-area: map; background: var(--bg); position: relative; overflow: hidden; }
+.graph-panel {
+  grid-area: graph; background: var(--panel);
+  display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden;
+}
+.audit-wrap { grid-area: audit; background: var(--panel); min-height: 0; overflow: hidden; }
+
+/* ---- overlays on the map --------------------------------------------------
+
+   Panels, not glass. A blur filter over a live WebGL globe costs frames on a
+   demo laptop, and the console's whole visual argument is flat instrument
+   surfaces — so these are the same panel colour at 92%, with the same hairline
+   border as everything else. */
+
+.ov {
+  position: absolute; z-index: 3; width: 234px;
+  max-height: calc(100% - 210px);
+  overflow-y: auto; overscroll-behavior: contain;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border: 1px solid var(--line); border-radius: 4px;
+}
+/* Shown only when the node column is collapsed. Bottom-left, not mid-left: the
+   depot overlay owns the top-left corner and a control hiding behind another
+   panel is the same bug as a control that is not there. */
+.reopen {
+  position: absolute; z-index: 4; left: 12px; bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; cursor: pointer;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border: 1px solid var(--line); border-radius: 4px;
+  color: var(--text-dim);
+  font: 500 10.5px/1 var(--sans); letter-spacing: .04em;
+}
+.reopen:hover { color: var(--text); border-color: var(--text-faint); }
+.reopen:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.ov-depot { top: 12px; left: 12px; }
+.ov-node  { top: 12px; right: 12px; }
+/* The overlay scrolls, and the browser keeps the focused control in view — so
+   pressing "Simulate failure" near the bottom used to scroll the node's NAME off
+   the top, leaving a panel of numbers about nothing. The header stays put. */
+.ov .rail-head {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.ov-close {
+  background: none; border: 0; cursor: pointer; padding: 0 0 0 6px;
+  color: var(--text-faint); font: 400 12px/1 var(--sans);
+}
+.ov-close:hover { color: var(--text); }
+.ov-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Bottom right: the numbers, then the claim they support. */
+.ov-read {
+  position: absolute; z-index: 2; right: 22px; bottom: 16px; left: 22px;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  pointer-events: none;
+}
+.readout { display: flex; gap: 22px; align-items: flex-end; }
+.ro { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.ro b {
+  font: 500 21px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text);
+  text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg);
+}
+.ro span {
+  font: 500 8.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
+}
+.ro[data-tone="alarm"] b { color: var(--alarm); }
+
+/* ---- rails ---------------------------------------------------------------- */
+
+.rail-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 9px 12px; border-bottom: 1px solid var(--line);
+}
+.rail-title { font: 600 11px/1.3 var(--sans); letter-spacing: .04em; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 12px 4px; }
+.rail-foot { display: flex; gap: 6px; padding: 10px 12px; flex-wrap: wrap; }
+.rail-list { border-top: 1px solid var(--line); }
+
+.bin-list { border-bottom: 1px solid var(--line); }
+.bin-row {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px;
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  padding: 7px 12px; color: var(--text-dim); font: 400 11.5px/1.3 var(--sans);
+  border-left: 2px solid transparent;
+}
+.bin-row:hover { background: var(--panel-2); color: var(--text); }
+.bin-row[data-active="1"] { background: var(--panel-2); color: var(--text); }
+.bin-row[data-pinned="1"] { border-left-color: var(--focus); }
+.bin-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.bin-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bin-temp { font: 500 11px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text-faint); }
+.bin-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
+.bin-dot[data-t="ok"] { background: var(--ok); }
+.bin-dot[data-t="warn"] { background: var(--warn); }
+.bin-dot[data-t="alarm"] { background: var(--alarm); box-shadow: 0 0 6px var(--alarm); }
+
+.metric {
+  padding: 5px 12px; border-bottom: 1px solid var(--line-soft);
+  display: flex; flex-direction: column; gap: 0;
+}
+.m-label {
+  font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.m-value {
+  font: 500 18px/1.2 var(--mono); font-variant-numeric: tabular-nums;
+  color: var(--text); word-break: break-all;
+}
+.m-value em { font-style: normal; font-size: 11px; color: var(--text-dim); margin-left: 3px; }
+.m-sub {
+  font: 400 9.5px/1.35 var(--mono); color: var(--text-faint);
+  /* A reading's caption explains the number above it. Past three lines it has
+     stopped captioning and started pushing the next reading off a 208px rail. */
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.metric[data-tone="alarm"] .m-value { color: var(--alarm); }
+.metric[data-tone="ok"]    .m-value { color: var(--ok); }
+.metric[data-tone="warn"]  .m-value { color: var(--warn); }
+
+.link-row {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 7px;
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  padding: 6px 12px; border-bottom: 1px solid var(--line-soft); color: var(--text-dim);
+  font: 400 11px/1.3 var(--sans);
+}
+.link-row:hover { background: var(--panel-2); color: var(--text); }
+.link-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.lr-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lr-rel { font: 400 9px/1 var(--mono); color: var(--text-faint); }
+
+/* ---- shared atoms --------------------------------------------------------- */
+
+.tag {
+  display: inline-block; padding: 1px 5px; border-radius: 2px;
+  font: 600 9px/1.7 var(--mono); letter-spacing: .07em; text-transform: uppercase;
+  border: 1px solid currentColor; white-space: nowrap;
+}
+.tag[data-t="ok"] { color: var(--ok); }
+.tag[data-t="warn"] { color: var(--warn); }
+.tag[data-t="alarm"] { color: var(--alarm); }
+.tag[data-t="dim"] { color: var(--text-faint); }
+.tag[data-t="focus"] { color: var(--focus); }
+
+.pill { display: inline-flex; align-items: center; gap: 4px; font: 500 10px/1 var(--mono); color: var(--text-dim); }
+.pill i { width: 9px; height: 2px; display: inline-block; background: currentColor; }
+.pill.l1 { color: var(--layer1); }
+.pill.l2 { color: var(--layer2); }
+.pill.l3 { color: var(--layer3); }
+
+button.ctl, a.ctl {
+  font: 500 10.5px/1 var(--sans); letter-spacing: .04em; text-decoration: none;
+  background: var(--panel-2); color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px; cursor: pointer;
+}
+button.ctl:hover, a.ctl:hover { color: var(--text); border-color: var(--text-faint); }
+button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+/* ---- map ------------------------------------------------------------------ */
+
+/* The globe owns the pane; the 2D .map rules below are kept because MapView is
+   the rehearsed fallback if WebGL misbehaves on the demo machine — swapping the
+   import in Console.tsx is the whole change. */
+.globe-holder { width: 100%; height: 100%; position: relative; }
+.globe-canvas { position: absolute; inset: 0; }
+.globe-holder canvas { display: block; }
+.globe-loading { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+.map { width: 100%; height: 100%; display: block;
+  background: radial-gradient(ellipse at 50% 40%, #0d141d 0%, #070a0e 75%); }
+.map-empty { display: grid; place-items: center; height: 100%; color: var(--text-faint); font: 11px var(--mono); }
+
+/* The beat's claim, in the presenter's own words, across the bottom of the map.
+   Every other string on this screen sits between 8.5px and 13px, which means
+   nothing has priority. This is the one element given real size, because it is
+   the one element carrying the argument — and it is what the demo video and the
+   phone fallback have instead of a presenter. Shadowed, not boxed: a panel here
+   would cut the globe in half. */
+.caption { text-align: right; }
+.caption .say {
+  margin: 0; font: 400 17px/1.35 var(--sans); color: var(--text);
+  max-width: 52ch; margin-left: auto; text-wrap: balance;
+  text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg), 0 1px 2px var(--bg);
+}
+.caption .note {
+  margin: 7px 0 0; font: 400 11.5px/1.5 var(--mono); color: var(--text-dim);
+  max-width: 66ch; margin-left: auto;
+  text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
+}
+.caption[data-killed="1"] .say { color: #ffb8ba; }
+
+.country { fill: #1a2432; stroke: #26333f; stroke-width: 0.6; transition: fill .4s, stroke .4s; }
+.country[data-role="source"] { fill: #35485d; stroke: #4a6076; }
+.country[data-role="source"][data-lit="on"] { fill: #3a1e24; stroke: var(--alarm); stroke-width: 1.2; }
+.country[data-role="dest"] { fill: #1c3547; stroke: #2f5b7a; }
+.country[data-sel="1"] { stroke: var(--focus); stroke-width: 1.6; }
+
+.route { fill: none; stroke: url(#arcgrad); stroke-linecap: round; opacity: .3; transition: opacity .4s; }
+.route[data-lit="on"] { opacity: .9; stroke-dasharray: 10 14; animation: flow 1.4s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+
+.pin { cursor: pointer; }
+.pin[data-lit="off"] { opacity: .62; }
+.pin-dot { fill: var(--alarm); stroke: var(--bg); stroke-width: 2.5; }
+.pin.dest .pin-dot { fill: var(--focus); }
+.pin-pulse { animation: breathe 2.6s ease-in-out infinite; }
+@keyframes breathe { 0%,100% { opacity: .35; transform: scale(.85); } 50% { opacity: .8; transform: scale(1.1); } }
+.pin-count {
+  font: 600 15px/1 var(--mono); fill: var(--text); text-anchor: middle;
+  paint-order: stroke; stroke: var(--bg); stroke-width: 3px;
+}
+.pin-name {
+  font: 500 11px/1 var(--sans); fill: var(--text-dim); text-anchor: middle;
+  letter-spacing: .06em; paint-order: stroke; stroke: var(--bg); stroke-width: 3px;
+}
+.pin:focus-visible { outline: none; }
+.pin:focus-visible .pin-dot { stroke: var(--focus); stroke-width: 3; }
+.pin[data-sel="1"] .pin-dot { fill: var(--focus); stroke-width: 3; }
+.pin[data-sel="1"] { opacity: 1; }
+
+/* ---- graph panel (VS Code terminal pattern) -------------------------------- */
+
+/* The wordmark. The asset is the favicon: a black disc with a white triangle,
+   transparent outside the disc — so on these panels the disc reads as a faint
+   well and the triangle carries the mark. */
+.mark { display: block; opacity: .95; flex: none; }
+.mark-sm { width: 14px; height: 14px; opacity: .8; margin-right: -4px; }
+
+.panel-tabs {
+  display: flex; align-items: center; gap: 12px; height: 30px; padding: 0 10px;
+  flex: none;
+}
+.panel-tabs .spacer, .panel-sub .spacer { flex: 1; }
+
+/* The column is a third of the screen; the header does not fit on one line, so
+   what it IS goes on the first line and what it MEANS goes on the second. */
+/* Stacked, not spaced. Side by side these two ran into each other the moment
+   the counts grew a digit — a flex spacer distributes slack, it does not stop
+   two nowrap runs from colliding once there is none. Two short lines always
+   fit; one long line only fits sometimes. */
+.panel-sub {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+  padding: 0 10px 7px; border-bottom: 1px solid var(--line); flex: none;
+  min-width: 0;
+}
+.panel-sub .spacer { display: none; }
+.panel-sub .tab-meta, .panel-sub .legend { max-width: 100%; }
+.legend { flex-wrap: wrap; row-gap: 3px; }
+.tab {
+  font: 600 10px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-faint); padding: 8px 0; border: 0; border-bottom: 2px solid transparent;
+  background: none; cursor: pointer;
+}
+.tab:hover { color: var(--text-dim); }
+.tab[data-on="1"] { color: var(--text); border-bottom-color: var(--focus); }
+.tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.tab-meta { font: 400 10px/1 var(--mono); color: var(--text-faint); }
+
+/* Three edge colours were on screen for six beats with nothing to read them
+   against. The key is permanent rather than a beat-6 reveal: a legend you only
+   get after the diagram it explains is a legend that arrived too late. */
+.legend { display: flex; align-items: center; gap: 13px; }
+.legend .pill { white-space: nowrap; }
+.legend .pill b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.pill.l3 i {
+  background: repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px);
+}
+.panel-body { flex: 1; min-height: 0; overflow: hidden; }
+
+.graph { width: 100%; height: 100%; display: block; }
+
+.gnode rect { fill: var(--panel-2); stroke: var(--line); stroke-width: 1; transition: fill .25s, stroke .25s; }
+.gnode text { font-family: var(--mono); font-size: 12px; fill: var(--text-dim); transition: fill .25s; }
+.gnode .n-sub { font-size: 10px; fill: var(--text-faint); }
+.gnode { cursor: pointer; transition: opacity .3s; }
+.gnode:focus-visible { outline: none; }
+.gnode:focus-visible rect { stroke: var(--focus); stroke-width: 2; }
+.gnode[data-lit="off"] { opacity: .28; }
+.gnode[data-lit="on"] rect { stroke: var(--text-faint); }
+.gnode[data-lit="on"] text { fill: var(--text); }
+.gnode[data-state="alarm"] rect { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
+.gnode[data-state="alarm"] text { fill: #ffb8ba; }
+.gnode[data-state="warn"] rect { fill: #241a0e; stroke: var(--warn); }
+.gnode[data-state="warn"] text { fill: #f0c489; }
+.gnode[data-state="ok"] rect { stroke: var(--ok); }
+.gnode[data-state="focus"] rect { stroke: var(--focus); stroke-width: 2; }
+.gnode[data-sel="1"] rect { stroke: var(--focus); stroke-width: 2; }
+
+.gedge { fill: none; stroke-width: 1.2; transition: opacity .3s; }
+.gedge[data-layer="1"] { stroke: var(--layer1); }
+.gedge[data-layer="2"] { stroke: var(--layer2); }
+.gedge[data-layer="3"] { stroke: var(--layer3); stroke-dasharray: 4 3; }
+.gedge[data-lit="off"] { opacity: .15; }
+.gedge[data-lit="on"] { opacity: .95; stroke-width: 1.8; }
+
+/* Band header. Left says what stage this is, right says what the arrows coming
+   into it DO. The relation between two adjacent bands is uniform, so stating it
+   once on the header beats stamping the same verb on ten converging arrows. */
+.band-label {
+  font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
+  fill: var(--text-faint);
+}
+.band-count { fill: var(--text-faint); opacity: .65; letter-spacing: .06em; }
+.band-rel {
+  font: 500 10px/1 var(--mono); letter-spacing: .02em; fill: var(--text-dim);
+}
+.band-rel[data-layer="1"] { fill: var(--layer1); }
+.band-rel[data-layer="2"] { fill: var(--layer2); }
+.band-rel[data-layer="3"] { fill: var(--layer3); }
+
+/* Per-edge verbs, but only for the node under inspection — where the question
+   is "how is THIS attached" rather than "what is this diagram". Punched out of
+   the line it sits on rather than boxed. */
+.gedge-label {
+  font: 500 9.5px/1 var(--mono); fill: var(--text);
+  paint-order: stroke; stroke: var(--panel); stroke-width: 3.5px;
+}
+.gedge-label[data-layer="1"] { fill: var(--layer1); }
+.gedge-label[data-layer="2"] { fill: var(--text-dim); }
+.gedge-label[data-layer="3"] { fill: var(--layer3); }
+
+/* ---- audit log ------------------------------------------------------------
+
+   Reserved and running. The pitch is that nothing on screen is a model
+   guessing, and the next question after "where did this number come from" is
+   "who looked at it, and when". */
+
+.audit { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.audit-head {
+  display: flex; align-items: center; gap: 8px; padding: 6px 12px 5px;
+  border-bottom: 1px solid var(--line-soft); flex: none;
+}
+.audit-title {
+  font: 600 8.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.audit-count {
+  font: 500 9px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text-faint);
+}
+.audit-body { flex: 1; min-height: 0; overflow-y: auto; padding: 3px 0 4px; }
+.audit-row {
+  display: grid; grid-template-columns: 62px 62px 1fr; align-items: baseline; gap: 8px;
+  padding: 2px 12px; font: 400 10.5px/1.5 var(--mono); color: var(--text-dim);
+}
+.a-t { color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.a-kind {
+  font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint);
+}
+.audit-row[data-kind="cascade"] .a-kind, .audit-row[data-kind="cascade"] .a-text { color: var(--alarm); }
+.audit-row[data-kind="reset"] .a-kind { color: var(--ok); }
+.audit-row[data-kind="beat"] .a-text { color: var(--text); }
+.a-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+
+/* ---- supply tree ----------------------------------------------------------
+
+   The default reading of the chain, and the one the buyer actually needs. Root
+   is the finished drug she is holding; every level below it is what that drug
+   needs to exist; the leaves are the places it comes from. Failures propagate
+   UP, which is the direction the consequence travels.
+
+   Three health colours and no others. Green is not used for "fine" — an
+   untouched node is simply neutral, so the only colour on screen is damage. A
+   dashboard that paints twenty green boxes has spent its whole colour budget
+   telling you nothing happened. */
+
+.tree-wrap { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+
+/* The strip wraps rather than scrolls, and it stays SHORT: every row it takes
+   comes straight off the tree's height, and the tree is what the column is for.
+   Six chips, a label and a hint fit in two lines at this size. */
+.tree-strip {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 5px; flex: none;
+  padding: 5px 10px 6px; border-bottom: 1px solid var(--line-soft);
+}
+.tree-strip .spacer { flex-basis: 100%; height: 0; margin: 0; }
+.strip-label {
+  font: 500 8px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); margin-right: 1px;
+}
+.strip-hint {
+  font: 400 9.5px/1.4 var(--mono); color: var(--text-faint);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Every chip here runs through the same precursor, so they all change colour
+   together the moment it degrades. That simultaneity is the fan-out argument —
+   six drugs, one point of failure — made without a sentence. */
+.drug-chip {
+  font: 500 10.5px/1 var(--sans); letter-spacing: .02em;
+  background: var(--panel-2); color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 3px; padding: 4px 7px; cursor: pointer;
+  transition: color .3s, border-color .3s, background .3s;
+}
+.drug-chip:hover { color: var(--text); border-color: var(--text-faint); }
+.drug-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.drug-chip[data-on="1"] { color: var(--text); border-color: var(--focus); background: #14202c; }
+.drug-chip[data-health="at-risk"] { color: var(--warn); border-color: var(--warn); }
+.drug-chip[data-health="down"] { color: #ffb8ba; border-color: var(--alarm); background: #2a1114; }
+
+/* The SVG scales itself to whatever box it is given, so the box has to be a
+   real one. An `height: 100%` flex child resolves against the WRAPPER — strip
+   included — and hangs the bottom row of the tree below the panel. An absolutely
+   positioned svg inside a flex-sized frame cannot get that wrong. */
+.tree-body { flex: 1; min-height: 0; position: relative; }
+.tree { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.tlevel {
+  font: 600 8.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
+  fill: var(--text-faint); dominant-baseline: middle;
+}
+
+/* Jurisdiction bands. Grouping the leaves by country is what makes
+   concentration legible as geometry: four boxes under one label is the whole
+   China argument, before anyone reads a percentage. */
+.tgroup rect { fill: #0f1620; stroke: var(--line-soft); stroke-width: 1; transition: fill .3s, stroke .3s; }
+.tgroup-label {
+  font: 600 9.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+  fill: var(--text-faint); cursor: pointer;
+}
+.tgroup-label:hover { fill: var(--text); }
+.tgroup-label:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.tgroup[data-health="at-risk"] rect { stroke: rgba(217,144,58,.45); }
+.tgroup[data-health="at-risk"] .tgroup-label { fill: var(--warn); }
+.tgroup[data-health="down"] rect { fill: #170f11; stroke: rgba(229,72,77,.4); }
+.tgroup[data-health="down"] .tgroup-label { fill: var(--alarm); }
+
+.tbranch { fill: none; stroke: var(--layer1); stroke-width: 1.4; opacity: .55; transition: stroke .35s, opacity .35s, stroke-width .35s; }
+.tbranch[data-health="at-risk"] { stroke: var(--warn); opacity: .8; }
+.tbranch[data-health="down"] { stroke: #5a6675; opacity: .45; stroke-dasharray: 5 5; }
+
+.tnode .tbox {
+  fill: var(--panel-2); stroke: var(--line); stroke-width: 1; cursor: pointer;
+  transition: fill .3s, stroke .3s;
+}
+.tnode:hover .tbox { stroke: var(--text-faint); }
+.tnode .tbox:focus-visible { outline: none; stroke: var(--focus); stroke-width: 2; }
+.tnode .t-name { font: 500 13px/1 var(--mono); fill: var(--text); pointer-events: none; }
+.tnode .t-sub { font: 400 10px/1 var(--mono); fill: var(--text-faint); pointer-events: none; }
+.tnode .t-geo { fill: var(--text-dim); }
+.tnode .t-cap {
+  font: 500 10px/1 var(--mono); fill: var(--text-dim);
+  font-variant-numeric: tabular-nums; pointer-events: none;
+}
+.tnode[data-kind="drug"] .t-name { font-size: 15px; }
+.tnode[data-kind="drug"] .tbox { fill: #141d29; stroke: var(--text-faint); }
+
+/* Capacity, as a bar rather than a ratio you have to read. It is the one number
+   that answers "can I still buy this", so it gets a shape. */
+.t-bar-bg { fill: var(--line); }
+.t-bar { fill: var(--ok); transition: width .45s ease, fill .3s; }
+.tnode[data-health="at-risk"] .t-bar { fill: var(--warn); }
+.tnode[data-health="down"] .t-bar { fill: var(--alarm); }
+
+.tnode[data-health="at-risk"] .tbox { stroke: var(--warn); }
+.tnode[data-health="at-risk"] .t-cap { fill: var(--warn); }
+.tnode[data-health="down"] .tbox { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
+.tnode[data-health="down"] .t-name { fill: #ffb8ba; }
+.tnode[data-health="down"] .t-sub { fill: #d99a9c; }
+
+/* The node someone actually switched off, as opposed to the ones that failed
+   because of it. Telling those apart is the difference between a cascade and a
+   screen that just went red. */
+.tnode[data-off="1"] .tbox { stroke-dasharray: 5 4; }
+.tnode[data-off="1"] .t-sub { fill: var(--alarm); }
+.tnode[data-sel="1"] .tbox { stroke: var(--focus); stroke-width: 2; }
+.tnode[data-beat="focus"] .tbox { stroke: var(--focus); }
+
+/* The failure switch, on every node, always visible. */
+.t-kill { cursor: pointer; }
+.t-kill circle { fill: var(--panel); stroke: var(--line); stroke-width: 1; transition: fill .2s, stroke .2s; }
+.t-kill path { fill: none; stroke: var(--text-faint); stroke-width: 1.6; stroke-linecap: round; transition: stroke .2s; }
+.t-kill:hover circle { fill: #2a1114; stroke: var(--alarm); }
+.t-kill:hover path { stroke: var(--alarm); }
+.t-kill:focus-visible { outline: none; }
+.t-kill:focus-visible circle { stroke: var(--focus); stroke-width: 2; }
+.tnode[data-off="1"] .t-kill circle { fill: var(--alarm); stroke: var(--alarm); }
+.tnode[data-off="1"] .t-kill path { stroke: #2a1114; }
+
+/* ---- the phone fallback --------------------------------------------------- */
+
+/* DEMO_PATH rehearses one: the Vercel link on a handset if the laptop will not
+   project. The console is a three-column instrument and it does not survive
+   375px, so narrow viewports get a stack instead — globe and its caption, then
+   the graph, then the readings. Behind a media query, so the machine the demo
+   actually runs on is untouched by any of it. */
+@media (max-width: 860px) {
+  html, body { overflow: auto; height: auto; }
+
+  .console,
+  .console[data-panel="open"],
+  .console[data-panel="closed"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "map" "graph" "audit";
+    grid-template-rows: 46vh auto var(--audit-h);
+    height: auto; min-height: 100vh;
+  }
+
+  .graph-panel { height: 62vh; }
+
+  /* The overlays have nowhere to float at this width — they would cover the
+     globe entirely. The phone fallback is "graph only, no telemetry" anyway. */
+  .ov-depot, .ov-node { display: none; }
+  .ov-read { left: 14px; right: 14px; bottom: 12px; }
+  .readout { gap: 14px; }
+  .ro b { font-size: 17px; }
+  .caption .say { font-size: 15px; }
+
+  .panel-tabs { height: auto; padding: 6px 10px; gap: 8px; }
+  .panel-tabs .mark-sm { display: none; }
+  .panel-sub { font-size: 9px; }
+  .legend { gap: 9px; }
+  .audit-row { grid-template-columns: 58px 1fr; }
+  .audit-row .a-kind { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* ---- focus drug selector -------------------------------------------------- */
+
+.drugsel {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+  padding: 8px 12px; border-bottom: 1px solid var(--line-soft);
+}
+.drug-pill {
+  font: 500 10px/1 var(--mono); letter-spacing: .02em;
+  background: var(--panel-2); color: var(--text-faint);
+  border: 1px solid var(--line); border-radius: 3px;
+  padding: 5px 2px; cursor: pointer; text-align: center;
+}
+.drug-pill:hover { color: var(--text-dim); border-color: var(--text-faint); }
+.drug-pill[data-on="1"] { color: var(--text); border-color: var(--focus); background: #14202c; }
+.drug-pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+.drug-facts { padding: 2px 12px 10px; border-bottom: 1px solid var(--line); }
+.df-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 6px;
+  font: 600 11px/1.3 var(--sans); margin: 8px 0 6px;
+}
+.df-route {
+  font: 500 9px/1 var(--mono); color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.df-line { font: 400 10px/1.45 var(--sans); color: var(--text-dim); margin: 0 0 6px; }
+.df-key {
+  display: block; font: 500 8.5px/1 var(--mono); color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .1em; margin-bottom: 2px;
+}
+.df-none { color: var(--alarm); font-weight: 600; }
+.df-drivers { display: flex; flex-direction: column; gap: 3px; }
+.df-driver { color: var(--text); }
+.df-driver::before { content: "— "; color: var(--text-faint); }
+.df-rule {
+  font: 400 9px/1.4 var(--mono); color: var(--text-faint); margin: 8px 0 0;
+  padding-top: 6px; border-top: 1px solid var(--line-soft);
+}
