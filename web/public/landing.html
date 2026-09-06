@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ripple — a supplier goes down. What else just broke?</title>
+<meta name="description" content="Detects supply disruptions in public FDA feeds, propagates them through a real sourcing graph, and ranks the alternates that can actually supply you.">
+<meta property="og:title" content="Ripple">
+<meta property="og:description" content="A supplier goes down. What else just broke — and where can you actually go?">
+<meta property="og:image" content="/ripple-logo.png">
+<link rel="icon" href="/ripple-logo.ico">
+<style>
+  :root{
+    --bg:#080b10; --line:#1d2732; --line-soft:#161e28;
+    --text:#dde5ee; --dim:#8494a6; --faint:#4f5d6e;
+    --alarm:#e5484d; --focus:#4a9eda;
+    --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+  .ann{background:#05080c;border-bottom:1px solid rgba(255,255,255,.06);text-align:center;
+    padding:9px 16px;font-size:12.5px;color:var(--dim)}
+  .ann a{color:var(--text)}
+
+  nav{position:absolute;top:40px;left:0;right:0;z-index:20}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:16px}
+  .logo img{width:22px;height:22px;object-fit:contain}
+  .nl{display:flex;gap:28px;font-size:13.5px;color:rgba(221,229,238,.72)}
+  .nl a:hover{color:#fff}
+  .pill{display:inline-flex;align-items:center;background:#fff;color:#0b0f14;border-radius:999px;
+    padding:9px 19px;font-size:13.5px;font-weight:600;transition:.15s}
+  .pill:hover{transform:translateY(-1px)}
+  .pill.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.22)}
+  .pill.lg{padding:13px 26px;font-size:15px}
+
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;background:#04070b;overflow:hidden}
+  .hero .bgimg{position:absolute;inset:0;background:url(/globe/earth-night.jpg) center 42%/cover no-repeat;
+    opacity:.85;filter:saturate(.9) contrast(1.05)}
+  .hero .veil{position:absolute;inset:0;background:
+    linear-gradient(90deg,rgba(4,7,11,.94) 0%,rgba(4,7,11,.7) 44%,rgba(4,7,11,.08) 100%),
+    linear-gradient(180deg,rgba(4,7,11,.9) 0%,transparent 26%,transparent 60%,rgba(8,11,16,1) 100%)}
+  .hero .wrap{position:relative;z-index:2;padding-top:80px;padding-bottom:60px}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6.4vw,88px);line-height:1.02;
+    letter-spacing:-.02em;color:#fff;max-width:15ch}
+  h1 em{font-style:italic;color:rgba(255,255,255,.7)}
+  .hero p{color:rgba(221,229,238,.8);font-size:clamp(15px,1.35vw,18.5px);max-width:46ch;margin-top:22px}
+  .cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+  .fine{margin-top:24px;font:500 11.5px/1.6 var(--mono);letter-spacing:.15em;text-transform:uppercase;
+    color:rgba(132,148,166,.85)}
+
+  section{padding:clamp(58px,6.6vw,92px) 0;border-top:1px solid var(--line-soft)}
+  .eyebrow{font:600 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:15px}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.08;
+    letter-spacing:-.015em;color:#fff}
+  .lead{color:var(--dim);font-size:16.5px;max-width:60ch;margin-top:16px}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:44px;flex-wrap:wrap}
+
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);
+    border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;margin-top:40px}
+  .cell{background:var(--bg);padding:30px 28px}
+  .st{font:600 11px/1 var(--mono);color:var(--focus);letter-spacing:.14em;margin-bottom:16px}
+  .cell h3{font-size:18.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:9px}
+  .cell p{color:var(--dim);font-size:14px}
+  .n{font-family:var(--serif);font-size:40px;color:#fff;line-height:1;margin-bottom:12px}
+  .n .u{color:var(--faint);font-size:.42em}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:34px}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{font:600 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  td.r{text-align:right;font-family:var(--mono);color:var(--dim);white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .cn{color:#f0a0a2}
+  .sm{color:var(--faint);font-size:12.5px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);
+    border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;margin-top:24px}
+
+  footer{border-top:1px solid var(--line-soft);padding:40px 0 56px;color:var(--faint);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:flex-start}
+
+  @media(max-width:880px){.g3,.split{grid-template-columns:1fr}.nl{display:none}.hero .bgimg{background-position:70% 42%}}
+</style>
+</head>
+<body>
+
+<div class="ann">Built at DNHacks 2026 — Health &amp; Public Service &nbsp;<a href="/">Open the console →</a></div>
+
+<nav><div class="wrap">
+  <a class="logo" href="/landing.html"><img src="/ripple-mark.png" alt="">Ripple</a>
+  <div class="nl"><a href="#how">Platform</a><a href="#reroute">Re-route</a><a href="#evidence">Evidence</a></div>
+  <a class="pill" href="/">Open the console</a>
+</div></nav>
+
+<header class="hero">
+  <div class="bgimg"></div><div class="veil"></div>
+  <div class="wrap">
+    <h1>A supplier goes down.<br><em>What else just broke?</em></h1>
+    <p>Ripple detects disruptions in public FDA feeds, propagates each one through a real
+      sourcing graph, and ranks the alternates that can actually supply you — including
+      when the honest answer is that none of them can.</p>
+    <div class="cta">
+      <a class="pill lg" href="/">Open the console</a>
+      <a class="pill ghost lg" href="#reroute">See a re-route</a>
+    </div>
+    <div class="fine">openFDA · DMF register · DECRS · Federal Register · UN Comtrade</div>
+  </div>
+</header>
+
+<section id="how"><div class="wrap">
+  <div class="head">
+    <div><div class="eyebrow">Platform</div><h2>Detect. Ripple. Re-route.</h2></div>
+    <p class="lead" style="max-width:42ch;margin:0">Other tools tell you a drug is already
+      short. That is the symptom, and by then it is months old.</p>
+  </div>
+  <div class="g3">
+    <div class="cell"><div class="st">01 — DETECT</div><div class="n">1,318</div>
+      <h3>Signals on real facilities</h3>
+      <p>750 import refusals, 479 inspection classifications, 14 regulatory actions — each
+        joined to an FEI-registered establishment. Plus a physical sensor when the failure
+        is a pallet, not a plant.</p></div>
+    <div class="cell"><div class="st">02 — RIPPLE</div><div class="n">6 <span class="u">drugs · 760 products</span></div>
+      <h3>One node down, everything with it</h3>
+      <p>Not “this drug is short” — everything structurally downstream of the thing that
+        broke, at once, before any of it reaches a shortage list.</p></div>
+    <div class="cell"><div class="st">03 — RE-ROUTE</div><div class="n">8</div>
+      <h3>Alternates, scored and explained</h3>
+      <p>Who else holds an active filing and a US registration, ranked by whether moving
+        there actually diversifies you — with every disqualifier shown.</p></div>
+  </div>
+</div></section>
+
+<section id="reroute"><div class="wrap">
+  <div class="eyebrow">Re-route</div>
+  <h2>Where do you go instead?</h2>
+  <p class="lead">Real output for 6-APA, the precursor under every penicillin.
+    <b style="color:var(--text)">Every alternate is compromised</b> — and knowing that
+    before the shortage is the whole point.</p>
+  <table>
+    <thead><tr><th>Alternate</th><th>Reasoning</th><th style="text-align:right">Score</th></tr></thead>
+    <tbody>
+      <tr><td>Inner Mongolia Changsheng<div class="sm">CHN · FEI 3006272230</div></td>
+        <td class="sm">Registered API manufacturer · <span class="cn">same chokepoint region</span> · <span class="cn">not TAA-designated, VA/DoD cannot buy</span></td><td class="r">3.0</td></tr>
+      <tr><td>Pure &amp; Cure Healthcare<div class="sm">IND · 3 FEIs</div></td>
+        <td class="sm">Registered API manufacturer · <span class="cn">same chokepoint region</span> · <span class="cn">not TAA-designated</span></td><td class="r">3.0</td></tr>
+      <tr><td>Sinopharm Weiqida<div class="sm">CHN · FEI 3010166430</div></td>
+        <td class="sm">Registered API manufacturer · <span class="cn">same chokepoint region</span> · <span class="cn">not TAA-designated</span></td><td class="r">3.0</td></tr>
+      <tr><td>Sandoz GmbH<div class="sm">Austria</div></td>
+        <td class="sm">Ambiguous in DECRS — two firms tie. <b style="color:var(--text)">We refuse to attribute risk rather than guess.</b></td><td class="r">0.0</td></tr>
+      <tr><td>United Laboratories<div class="sm">Chengdu &amp; Inner Mongolia</div></td>
+        <td class="sm">Ambiguous in DECRS — and the two share a parent, so they are not independent alternates</td><td class="r">0.0</td></tr>
+      <tr><td>Apitoria Pharma<div class="sm">IND</div></td>
+        <td class="sm"><span class="cn">Own risk: OAI 2019-02-02, 2019-02-09, 2021-08-12</span> — routing out of one fire into another</td><td class="r cn">−3.0</td></tr>
+    </tbody>
+  </table>
+  <div class="split">
+    <div class="cell"><h3>There is no clean re-route.</h3>
+      <p>Every path out either lands in the same region, cannot be bought by a federal
+        purchaser, resolves ambiguously, or carries its own open FDA action.</p></div>
+    <div class="cell"><h3>It ranks. It does not pretend to optimise.</h3>
+      <p>Capacity and lead time are published nowhere, so Ripple will not invent them.
+        The limits print on every row.</p></div>
+  </div>
+</div></section>
+
+<section id="evidence"><div class="wrap">
+  <div class="head">
+    <div><div class="eyebrow">Evidence</div><h2>Built on the public record.<br>Nothing invented.</h2></div>
+    <p class="lead" style="max-width:42ch;margin:0">Author both the network and the
+      disruption and an impressive cascade is just a traversal over data you wrote.
+      Every node here comes from a government file.</p>
+  </div>
+  <div class="g3">
+    <div class="cell"><div class="n">1,731</div><h3>Nodes, every one sourced</h3>
+      <p>Real filings, real facilities, real signals — openFDA, the FDA Type II DMF
+        register, DECRS establishment registrations and the Federal Register.</p></div>
+    <div class="cell"><div class="n">2,382</div><h3>Edges, tagged by layer</h3>
+      <p>Layer 1 live API, layer 2 official list, layer 3 hand-curated. A curated edge
+        carries a citation or the loader refuses it.</p></div>
+    <div class="cell"><div class="n">0.70</div><h3>Validated, not asserted</h3>
+      <p>Our shortage model is backtested against ten years of real events — 3,902
+        generics, 161 shortages, a frozen 2023 cutoff — at cross-validated AUC 0.70.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><a class="logo" href="/landing.html" style="margin-bottom:10px"><img src="/ripple-mark.png" alt="">Ripple</a>
+    <div>DNHacks 2026 · Station DC</div></div>
+  <div style="max-width:46ch">openFDA · FDA Type II DMF register · DECRS establishment
+    registrations · Federal Register · UN Comtrade · EO 13944 · DoD 1260H.
+    Not medical or procurement advice.</div>
+  <a class="pill" href="/">Open the console</a>
+</div></footer>
+
+</body>
+</html>
