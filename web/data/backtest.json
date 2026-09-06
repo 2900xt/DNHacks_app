@@ -1,93 +1,90 @@
 {
-  "run_at": "2026-09-05T22:13:34",
+  "run_at": "2026-09-05T22:20:18",
   "cutoff": "2023-01-01",
   "params": {
-    "score": "distinct Type II DMF holders filed before the cutoff",
+    "universe": "generics with >= 3 products listed before the cutoff",
+    "market_structure": "openFDA NDC bulk, marketing_start_date < cutoff",
     "label": "openFDA shortage with initial_posting_date >= cutoff",
-    "universe": "marketed drug substances (openFDA NDC generic names) with >=1 Type II DMF filed before the cutoff",
-    "dmf_substances_total": 14567
+    "significance": "permutation test, 300 shuffles"
   },
   "result": {
-    "catalog": 456,
-    "went_short": 74,
-    "base_rate": 0.16228070175438597,
-    "thresholds": [
+    "catalog": 3902,
+    "went_short": 161,
+    "base_rate": 0.041260891850333166,
+    "features": [
       {
-        "rule": "<= 1 supplier",
-        "flagged": 31,
-        "flagged_pct": 0.06798245614035088,
-        "caught": 2,
-        "recall": 0.02702702702702703,
-        "precision": 0.06451612903225806,
-        "lift": 0.3975588491717524
+        "feature": "HHI of labeler share (concentration)",
+        "auc": 0.1959203122691146,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts the OPPOSITE"
       },
       {
-        "rule": "<= 2 suppliers",
-        "flagged": 59,
-        "flagged_pct": 0.12938596491228072,
-        "caught": 5,
-        "recall": 0.06756756756756757,
-        "precision": 0.0847457627118644,
-        "lift": 0.5222171323866239
+        "feature": "few labelers (1 / labeler count)",
+        "auc": 0.1905774687407127,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts the OPPOSITE"
       },
       {
-        "rule": "<= 3 suppliers",
-        "flagged": 106,
-        "flagged_pct": 0.2324561403508772,
-        "caught": 11,
-        "recall": 0.14864864864864866,
-        "precision": 0.10377358490566038,
-        "lift": 0.6394696583375828
+        "feature": "sterile injectable",
+        "auc": 0.6603616796253037,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts shortage"
       },
       {
-        "rule": "<= 5 suppliers",
-        "flagged": 196,
-        "flagged_pct": 0.4298245614035088,
-        "caught": 30,
-        "recall": 0.40540540540540543,
-        "precision": 0.15306122448979592,
-        "lift": 0.9431880860452289
-      },
-      {
-        "rule": "<= 10 suppliers",
-        "flagged": 350,
-        "flagged_pct": 0.7675438596491229,
-        "caught": 57,
-        "recall": 0.7702702702702703,
-        "precision": 0.16285714285714287,
-        "lift": 1.0035521235521236
+        "feature": "product count (exposure)",
+        "auc": 0.7785069259390238,
+        "p_value": 0.0033222591362126247,
+        "direction": "predicts shortage"
       }
     ],
-    "diagnostics": {
-      "corr_suppliers_vs_shortage": -0.015089791859025816,
-      "corr_exposure_vs_shortage": 0.011870502542694613,
-      "corr_suppliers_vs_exposure": 0.026597325570364844
-    },
     "strata": [
       {
-        "stratum": "low exposure",
-        "n": 233,
-        "base_rate": 0.13733905579399142,
-        "fewest_supplier_half": 127,
-        "precision": 0.13385826771653545,
-        "lift": 0.9746555118110237
+        "band": "3-4 products",
+        "n": 780,
+        "positives": 5,
+        "base_rate": 0.00641025641025641,
+        "auc_hhi": 0.2512258064516129,
+        "auc_injectable": 0.5987096774193549
       },
       {
-        "stratum": "high exposure",
-        "n": 223,
-        "base_rate": 0.18834080717488788,
-        "fewest_supplier_half": 118,
-        "precision": 0.16101694915254236,
-        "lift": 0.8549233252623083
+        "band": "4-6 products",
+        "n": 780,
+        "positives": 12,
+        "base_rate": 0.015384615384615385,
+        "auc_hhi": 0.3661566840277778,
+        "auc_injectable": 0.517578125
+      },
+      {
+        "band": "6-9 products",
+        "n": 780,
+        "positives": 12,
+        "base_rate": 0.015384615384615385,
+        "auc_hhi": 0.19677734375,
+        "auc_injectable": 0.6171875
+      },
+      {
+        "band": "9-20 products",
+        "n": 780,
+        "positives": 35,
+        "base_rate": 0.04487179487179487,
+        "auc_hhi": 0.32076701821668263,
+        "auc_injectable": 0.638830297219559
+      },
+      {
+        "band": "20-924 products",
+        "n": 782,
+        "positives": 97,
+        "base_rate": 0.12404092071611253,
+        "auc_hhi": 0.422484761833095,
+        "auc_injectable": 0.6952742870042893
       }
     ],
-    "verdict": "NULL \u2014 supplier count as of the cutoff does not predict shortage onset in this universe"
+    "verdict": "REFUTED \u2014 supply concentration does not predict shortage; it points the other way. Sterile injectable form does predict, inside every exposure stratum."
   },
   "caveats": [
-    "Validates the risk SCORE, not the graph \u2014 no precursor edge is used here.",
-    "Survivorship: shortages resolved and purged before the snapshot are invisible, so true positives are undercounted. The bias runs conservative.",
-    "STATUS is current-state, so filtering on it would leak 2026 knowledge into a 2023 decision. We filter on SUBMIT DATE only and accept a noisier score.",
-    "openFDA generic_name carries a dosage form and the register does not; the join normalises both and keys on the first ingredient.",
-    "The universe is defined from a CURRENT NDC snapshot, so it uses 2026 knowledge of what is marketed to score a 2023 decision. Marketed-ness is far more stable than supplier count, but it is an anachronism - disclosed."
+    "This measures DOWNSTREAM concentration (who boxes the finished drug). CHOKEPOINT's thesis is UPSTREAM precursor concentration, which is not public and therefore not testable this way. Do not present this as refuting the project.",
+    "The FDA shortage list is a register of REPORTS filed per product per company, so it measures reporting exposure as well as scarcity. That is the most likely cause of the inversion.",
+    "Survivorship: openFDA keeps only 7 Resolved records of 1,634, and the NDC file is a current snapshot, so withdrawn products are missing. Both push measured effects DOWN.",
+    "Never say 'we validated the risk score'. We tested it and it failed."
   ]
 }
