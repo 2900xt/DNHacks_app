@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+    "terms": "https://open.fda.gov/terms/",
+    "license": "https://open.fda.gov/license/",
+    "last_updated": "2026-09-04",
+    "results": {
+      "skip": 0,
+      "limit": 1,
+      "total": 1486
+    }
+  },
+  "results": [
+    {
+      "product_ndc": "11822-0789",
+      "generic_name": "IBUPROFEN, DIPHENHYDRAMINE HCL",
+      "labeler_name": "Rite Aid Corporation",
+      "brand_name": "IBUPROFEN, DIPHENHYDRAMINE HCL",
+      "active_ingredients": [
+        {
+          "name": "IBUPROFEN",
+          "strength": "200 mg/1"
+        },
+        {
+          "name": "DIPHENHYDRAMINE HYDROCHLORIDE",
+          "strength": "25 mg/1"
+        }
+      ],
+      "finished": true,
+      "packaging": [
+        {
+          "package_ndc": "11822-0789-4",
+          "description": "1 BOTTLE in 1 CARTON (11822-0789-4)  / 40 CAPSULE, LIQUID FILLED in 1 BOTTLE",
+          "marketing_start_date": "20200415",
+          "sample": false
+        }
+      ],
+      "listing_expiration_date": "20261231",
+      "openfda": {
+        "manufacturer_name": [
+          "Rite Aid Corporation"
+        ],
+        "rxcui": [
+          "901814"
+        ],
+        "spl_set_id": [
+          "a35f68f3-c7f8-a55f-e053-2a95a90a9047"
+        ],
+        "is_original_packager": [
+          true
+        ],
+        "nui": [
+          "N0000000160",
+          "M0001335",
+          "N0000175722"
+        ],
+        "pharm_class_moa": [
+          "Cyclooxygenase Inhibitors [MoA]"
+        ],
+        "pharm_class_cs": [
+          "Anti-Inflammatory Agents, Non-Steroidal [CS]"
+        ],
+        "pharm_class_epc": [
+          "Nonsteroidal Anti-inflammatory Drug [EPC]"
+        ],
+        "unii": [
+          "WK2XYI10QM",
+          "TC2D6JAD40"
+        ]
+      },
+      "marketing_category": "ANDA",
+      "dosage_form": "CAPSULE, LIQUID FILLED",
+      "spl_id": "a35f6b2b-8e67-dd2d-e053-2995a90a27e1",
+      "product_type": "HUMAN OTC DRUG",
+      "route": [
+        "ORAL"
+      ],
+      "marketing_start_date": "20200415",
+      "product_id": "11822-0789_a35f6b2b-8e67-dd2d-e053-2995a90a27e1",
+      "application_number": "ANDA090397",
+      "brand_name_base": "IBUPROFEN, DIPHENHYDRAMINE HCL",
+      "pharm_class": [
+        "Anti-Inflammatory Agents",
+        "Non-Steroidal [CS]",
+        "Cyclooxygenase Inhibitors [MoA]",
+        "Histamine H1 Receptor Antagonists [MoA]",
+        "Histamine-1 Receptor Antagonist [EPC]",
+        "Nonsteroidal Anti-inflammatory Drug [EPC]"
+      ]
+    }
+  ]
+}
