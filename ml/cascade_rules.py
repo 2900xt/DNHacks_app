@@ -21,7 +21,7 @@ signal in 90 days". Applied literally it cannot fire our best evidence:
     Aurobindo      OAI      2025-09-05   365 days   does not
 
 Aurobindo is the node the amoxicillin story rests on (FEI 3004446312 -> exact
-openFDA labeler_name on 26 amoxicillin NDCs, no fuzzy matching). Widening the
+openFDA labeler_name on 19 amoxicillin NDCs, no fuzzy matching). Widening the
 window to catch it is the wrong fix, because the problem is not the number:
 
   * An import refusal is an EVENT. It happened on a date and it is over.
