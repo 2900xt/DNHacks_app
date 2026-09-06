@@ -1,29 +1,210 @@
+/* CHOKEPOINT — operations console.
+   Design decision, from the persona: the user is a GPO supply-chain risk manager
+   who has to defend a sourcing call to a procurement board. The interface reads
+   as an instrument, not a product: dense, tabular, monospaced numerals, one alarm
+   colour used only for "condemned" and "FAIL". Nothing decorative competes with
+   the graph, because the graph is the argument. */
+
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  padding: 24px;
-  background: #fff;
-  color: #111;
-  font: 14px/1.5 ui-sans-serif, system-ui, sans-serif;
+:root {
+  --bg:        #0a0e13;
+  --panel:     #10161e;
+  --panel-2:   #151d27;
+  --line:      #1f2a37;
+  --line-soft: #18212c;
+
+  --text:      #dbe3ec;
+  --text-dim:  #8899ab;
+  --text-faint:#546375;
+
+  --ok:        #3fb27f;
+  --warn:      #d9903a;
+  --alarm:     #e5484d;
+  --focus:     #4a9eda;
+
+  /* Provenance layers. These are load-bearing, not decoration: saying which
+     layer an edge came from is the whole credibility strategy. */
+  --layer1:    #4a9eda;
+  --layer2:    #8899ab;
+  --layer3:    #a97fd9;
+
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-h1 { font-size: 18px; margin: 0 0 4px; }
-h2 { font-size: 14px; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: .06em; color: #666; }
+* { box-sizing: border-box; }
 
-table { border-collapse: collapse; width: 100%; max-width: 760px; }
-th, td { text-align: left; padding: 5px 12px 5px 0; vertical-align: top; }
-th { font-weight: 600; color: #555; width: 220px; }
-td { font-variant-numeric: tabular-nums; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
 
-.status { font-weight: 700; text-transform: uppercase; }
-.status[data-s="ok"] { color: #0a7a45; }
-.status[data-s="excursion"] { color: #b06000; }
-.status[data-s="mkt_breach"] { color: #c00; }
-.status[data-s="sensor_fault"] { color: #6b3fd4; }
-.status[data-s="stale"], .status[data-s="offline"] { color: #777; }
+/* Tabular numerals everywhere a number can change. A number that reflows while
+   it updates is a number the operator cannot read at a glance. */
+.num, td, .mono { font-variant-numeric: tabular-nums; font-family: var(--mono); }
 
-.reason { margin: 4px 0 0; color: #333; }
-hr { border: 0; border-top: 1px solid #ddd; margin: 24px 0; }
-button { font: inherit; padding: 4px 10px; cursor: pointer; }
-code { background: #f2f2f2; padding: 1px 4px; }
+/* ---- shell ---------------------------------------------------------------- */
+
+.console {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 320px;
+  grid-template-rows: 44px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "head head head"
+    "left main right"
+    "bar  bar  bar";
+  height: 100vh;
+  gap: 1px;
+  background: var(--line-soft);
+}
+
+.head {
+  grid-area: head; background: var(--panel);
+  display: flex; align-items: center; gap: 16px; padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+.head h1 {
+  font: 600 13px/1 var(--sans); letter-spacing: .18em; margin: 0;
+  text-transform: uppercase;
+}
+.head .sub { color: var(--text-faint); font-size: 11px; letter-spacing: .04em; }
+.head .spacer { flex: 1; }
+
+.rail-l { grid-area: left;  background: var(--panel); overflow-y: auto; }
+.main   { grid-area: main;  background: var(--bg); position: relative; overflow: hidden;
+          display: flex; flex-direction: column; padding-bottom: 118px; }
+.rail-r { grid-area: right; background: var(--panel); overflow-y: auto; }
+.bar    { grid-area: bar;   background: var(--panel); border-top: 1px solid var(--line); }
+
+.pane { padding: 12px 14px; border-bottom: 1px solid var(--line-soft); }
+.pane h2 {
+  font: 600 10px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); margin: 0 0 10px;
+}
+
+/* ---- generic bits --------------------------------------------------------- */
+
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 12px; }
+.kv dt { color: var(--text-dim); }
+.kv dd { margin: 0; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+.tag {
+  display: inline-block; padding: 1px 6px; border-radius: 2px;
+  font: 600 10px/1.6 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+.tag[data-t="ok"]     { color: var(--ok); }
+.tag[data-t="warn"]   { color: var(--warn); }
+.tag[data-t="alarm"]  { color: var(--alarm); }
+.tag[data-t="dim"]    { color: var(--text-faint); }
+.tag[data-t="focus"]  { color: var(--focus); }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 500 11px/1 var(--mono); color: var(--text-dim);
+}
+.pill i { width: 8px; height: 2px; display: inline-block; background: currentColor; }
+.pill.l1 { color: var(--layer1); }
+.pill.l2 { color: var(--layer2); }
+.pill.l3 { color: var(--layer3); }
+
+button.ctl {
+  font: 500 11px/1 var(--sans); letter-spacing: .04em;
+  background: var(--panel-2); color: var(--text-dim);
+  border: 1px solid var(--line); border-radius: 3px;
+  padding: 5px 9px; cursor: pointer;
+}
+button.ctl:hover { color: var(--text); border-color: var(--text-faint); }
+button.ctl:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+button.ctl[aria-pressed="true"] { color: var(--text); border-color: var(--focus); }
+
+a { color: var(--focus); }
+
+/* ---- graph ---------------------------------------------------------------- */
+
+.graph { width: 100%; height: 100%; display: block; }
+
+.gnode rect {
+  fill: var(--panel-2); stroke: var(--line); stroke-width: 1;
+  transition: fill .25s, stroke .25s, opacity .25s;
+}
+.gnode text { font-family: var(--mono); font-size: 10.5px; fill: var(--text-dim); transition: fill .25s; }
+.gnode .n-sub { font-size: 9px; fill: var(--text-faint); }
+.gnode { cursor: pointer; transition: opacity .3s; }
+.gnode:focus-visible { outline: none; }
+.gnode:focus-visible rect { stroke: var(--focus); stroke-width: 2; }
+
+/* dimmed = still on the map, just not part of this beat. Never hidden: an
+   operator who loses the surrounding map loses the context for the claim. */
+.gnode[data-lit="off"] { opacity: .22; }
+.gnode[data-lit="on"] rect { stroke: var(--text-faint); }
+.gnode[data-lit="on"] text { fill: var(--text); }
+
+.gnode[data-state="alarm"] rect { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
+.gnode[data-state="alarm"] text { fill: #ffb8ba; }
+.gnode[data-state="ok"]    rect { stroke: var(--ok); }
+.gnode[data-state="focus"] rect { stroke: var(--focus); stroke-width: 2; }
+.gnode[data-sel="1"] rect  { stroke: var(--focus); stroke-width: 2; }
+
+.gedge { fill: none; stroke-width: 1.2; transition: opacity .3s, stroke .25s; }
+.gedge[data-layer="1"] { stroke: var(--layer1); }
+.gedge[data-layer="2"] { stroke: var(--layer2); }
+.gedge[data-layer="3"] { stroke: var(--layer3); stroke-dasharray: 4 3; }
+.gedge[data-lit="off"] { opacity: .12; }
+.gedge[data-lit="on"]  { opacity: .95; stroke-width: 1.8; }
+
+.col-label {
+  font: 600 9px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
+  fill: var(--text-faint);
+}
+
+.caption {
+  position: absolute; left: 20px; right: 20px; bottom: 16px;
+  pointer-events: none;
+}
+.caption .beat {
+  font: 600 10px/1 var(--mono); letter-spacing: .14em;
+  color: var(--focus); text-transform: uppercase;
+}
+.caption .say {
+  margin: 6px 0 0; font: 400 17px/1.4 var(--sans); color: var(--text);
+  max-width: 62ch; text-wrap: balance;
+}
+.caption .note { margin: 4px 0 0; font-size: 11.5px; color: var(--text-dim); max-width: 70ch; }
+
+/* ---- inspector ------------------------------------------------------------ */
+
+.insp-title { font: 600 14px/1.3 var(--sans); margin: 0 0 2px; }
+.insp-id { font: 400 10.5px/1.4 var(--mono); color: var(--text-faint); word-break: break-all; }
+
+.cite {
+  font-size: 11px; color: var(--text-dim); line-height: 1.45;
+  border-left: 2px solid var(--line); padding-left: 8px; margin: 6px 0 0;
+}
+.edge-row { padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 11.5px; }
+.edge-row:last-child { border-bottom: 0; }
+.edge-rel { font-family: var(--mono); font-size: 10px; color: var(--text-faint); letter-spacing: .04em; }
+
+.sig-row { display: grid; grid-template-columns: auto 1fr; gap: 8px; padding: 5px 0; font-size: 11.5px; }
+.sig-row time { font-family: var(--mono); color: var(--text-faint); font-size: 10.5px; }
+
+/* ---- evidence bar --------------------------------------------------------- */
+
+.evbar { display: flex; align-items: center; gap: 22px; padding: 8px 16px; flex-wrap: wrap; }
+.evbar .stat { display: flex; align-items: baseline; gap: 6px; }
+.evbar .stat b { font: 600 15px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.evbar .stat span { font-size: 10.5px; color: var(--text-faint); letter-spacing: .08em; text-transform: uppercase; }
+.evbar .legend { display: flex; gap: 14px; margin-left: auto; }
+
+.warnbar {
+  background: #2a1114; color: #ffb8ba; border-top: 1px solid var(--alarm);
+  padding: 6px 16px; font-size: 11.5px; font-family: var(--mono);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
