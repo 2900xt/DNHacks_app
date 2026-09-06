@@ -8,6 +8,7 @@
 // the FULL graph, not the reduced one.
 
 import { loadGraph, getBacktest, getReroute, getJurisdictions, counts } from '../lib/graph'
+import { getRiskMeta, riskFor } from '../lib/risk'
 import type { Compliance, GraphEdge, NodeId, Signal } from '../lib/types'
 import Console, { type Payload } from '../components/Console'
 import { APA } from '../lib/demo'
@@ -138,6 +139,10 @@ export default function Page() {
     // depot sits in. That is the hardware seam and the compliance layer
     // sharing one input.
     jurisdictions: getJurisdictions(),
+    // The next-failure model's answer, cut to the nodes on screen. Server-side:
+    // the artifact covers 1,706 nodes and the console draws about a hundred.
+    risk: riskFor(nodes.map((n) => n.id)),
+    riskMeta: getRiskMeta(),
     buyer: g.bins.find((b) => b.country)?.country?.toLowerCase() ?? 'us',
     ndcCount,
     labelerCount,

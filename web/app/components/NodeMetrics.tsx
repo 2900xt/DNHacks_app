@@ -4,8 +4,10 @@ import { useState } from 'react'
 import type { GraphEdge, GraphNode, NodeId } from '../lib/types'
 import { TONE, type Verdict } from '../lib/compliance'
 import type { Alternate, Rollup } from '../lib/supply-tree'
+import type { NodeRisk } from '../lib/risk-view'
 import { relVerb } from '../lib/graph-layout'
 import Metric from './Metric'
+import RiskPanel from './RiskPanel'
 import { Disclosure } from './Rail'
 import { plain } from '../lib/plain'
 
@@ -35,6 +37,10 @@ interface Props {
   labelers?: number
   /** This node's row in the AEGIS shortlist, re-ranked, when it is a DMF holder. */
   alt?: Alternate
+  /** The next-failure model's answer for this node. Null when it has none. */
+  risk: NodeRisk | null
+  /** Top of what the calibration supports — the risk bar's axis. */
+  riskCeiling: number
 }
 
 /**
@@ -48,7 +54,7 @@ interface Props {
  */
 export default function NodeMetrics({
   node, edges, verdict, nodeLabel, onSelect, onCascade, offline, halted,
-  rollup, downstream, ndc, labelers, alt,
+  rollup, downstream, ndc, labelers, alt, risk, riskCeiling,
 }: Props) {
   /** Which connection row is unfolded. One at a time: the rail is narrow and
    *  an unfolded row is the full name plus its citation. */
@@ -88,6 +94,11 @@ export default function NodeMetrics({
         )}
         {where && <span className="tag" data-t="dim">{where}</span>}
       </div>
+
+      {/* First reading, above procurement and the supplier score. Those two say
+          what this plant IS; this one says what is about to happen to it, which
+          is the question that brought anyone to the panel. */}
+      <RiskPanel risk={risk} ceiling={riskCeiling} />
 
       {/* The verdict, with its reason under it. The chip says PASS; the judge's
           next question is "under whose rule", and that answer is one tap away. */}

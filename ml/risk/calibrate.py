@@ -170,24 +170,13 @@ def _selftest() -> int:
     # The claim the whole thing exists to make: what we print is what happens.
     print(f"\n  {'predicted':>10}{'observed':>10}{'n':>7}  {'95% Wilson':^15} verdict")
     worst, sig = 0.0, 0
-    for lo, hi in [(0, .01), (.01, .02), (.02, .05), (.05, .10), (.10, .25), (.25, 1.01)]:
-        grp = [i for i, c in enumerate(cal) if lo <= c < hi]
-        if not grp:
-            continue
-        pred = sum(cal[i] for i in grp) / len(grp)
-        obs = sum(Y[i] for i in grp) / len(grp)
-        # Wilson interval, not the normal approximation. At obs = 0 or 1 the
-        # normal se is exactly 0, so 6 plants that all failed would "reject" any
-        # prediction whatsoever — the band below reported a 66-point miss on a
-        # group of six. Wilson stays finite at the boundaries, which is the whole
-        # reason it exists.
-        lo_w, hi_w = wilson(sum(Y[i] for i in grp), len(grp))
-        bad = not (lo_w <= pred <= hi_w)
-        sig += bad
-        worst = max(worst, abs(pred - obs))
-        print(f"  {pred*100:>9.2f}%{obs*100:>9.2f}%{len(grp):>7,}  "
-              f"[{lo_w*100:>5.1f}–{hi_w*100:>5.1f}%]  "
-              f"{'OUTSIDE' if bad else 'inside'}")
+    for r in reliability(bins, oof, Y):
+        sig += not r["inside"]
+        worst = max(worst, abs(r["predicted"] - r["observed"]))
+        print(f"  {r['predicted']*100:>9.2f}%{r['observed']*100:>9.2f}%{r['n']:>7,}  "
+              f"[{r['range'][0]*100:>5.1f}–{r['range'][1]*100:>5.1f}%]  "
+              f"{'inside' if r['inside'] else 'OUTSIDE'}")
+
     ok_fit = sig == 0
     print(f"\n  [{'OK ' if ok_fit else 'FAIL'}] every band's prediction inside the "
           f"95% interval of what was observed")
@@ -204,9 +193,6 @@ def _selftest() -> int:
     return 0 if (ok_rank and ok_mono and ok_fit) else 1
 
 
-if __name__ == "__main__":
-    import sys
-    sys.exit(_selftest())
 
 
 def interval(bins: list[dict], score: float) -> tuple[float, float]:
@@ -226,3 +212,40 @@ def interval(bins: list[dict], score: float) -> tuple[float, float]:
     # Because each block's own p sits inside its own interval, convexity then
     # guarantees the interpolated p12 sits inside the interpolated range.
     return la + t * (lb - la), ha + t * (hb - ha)
+
+
+#: The bands the reliability table is reported over. Not deciles: at a 2.35% base
+#: rate the top decile holds nearly every positive and the lower nine are noise,
+#: so the split is by what the number would MEAN to someone reading it.
+REPORT_BANDS = [(0.0, 0.01), (0.01, 0.02), (0.02, 0.05),
+                (0.05, 0.10), (0.10, 0.25), (0.25, 1.01)]
+
+
+def reliability(bins: list[dict], scores: list[float], labels: list[int]) -> list[dict]:
+    """Predicted vs observed, out of fold. The whole claim, in one table.
+
+    This is the evidence that the percentage is a percentage. A model can rank
+    perfectly and still be wrong about magnitude — this one was, reaching 100%
+    for a group that failed 36% of the time — and no rank metric can detect it.
+    """
+    cal = [apply_isotonic(bins, s) for s in scores]
+    out = []
+    for lo, hi in REPORT_BANDS:
+        grp = [i for i, c in enumerate(cal) if lo <= c < hi]
+        if not grp:
+            continue
+        k = sum(labels[i] for i in grp)
+        w_lo, w_hi = wilson(k, len(grp))
+        out.append({
+            "predicted": round(sum(cal[i] for i in grp) / len(grp), 5),
+            "observed": round(k / len(grp), 5),
+            "n": len(grp),
+            "range": [round(w_lo, 5), round(w_hi, 5)],
+            "inside": bool(w_lo <= sum(cal[i] for i in grp) / len(grp) <= w_hi),
+        })
+    return out
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(_selftest())

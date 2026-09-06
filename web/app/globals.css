@@ -401,6 +401,13 @@ button.ctl, a.ctl {
   border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px; cursor: pointer;
 }
 button.ctl:hover, a.ctl:hover { color: var(--text); border-color: var(--text-faint); }
+/* A control that is a toggle, currently on. The risk overlay is the only one,
+   and it has to read as engaged at a glance from the back of a room — the map
+   underneath changes meaning while it is pressed. */
+button.ctl[data-on="1"] {
+  color: var(--focus); border-color: var(--focus);
+  background: color-mix(in srgb, var(--focus) 12%, transparent);
+}
 button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
 /* ---- map ------------------------------------------------------------------ */
@@ -1162,3 +1169,88 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .acct-out:hover { color: var(--alarm); border-color: var(--alarm); }
 .acct-out:disabled { opacity: .45; cursor: not-allowed; }
 .acct-out:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---- risk: the model's answer on the rail --------------------------------- */
+
+/* The estimate as a line inside its 95% band. A bare percentage claims three
+   digits of precision that 61 plants cannot pay for; this shows what the number
+   is worth without spending a second reading on it.
+
+   The axis ends at the calibration ceiling, not at 100%. The ceiling is the
+   highest rate ever actually observed at any score, so a 0-100% axis would draw
+   every real plant as a sliver against an empty right-hand half that nothing
+   can reach. */
+.rk-bar { padding: 2px 12px 8px; border-bottom: 1px solid var(--line-soft); }
+.rk-track {
+  position: relative; display: block; height: 5px; border-radius: 3px;
+  background: var(--line-soft); overflow: hidden;
+}
+.rk-range { position: absolute; top: 0; bottom: 0; background: var(--line); }
+.rk-point {
+  position: absolute; top: -2px; width: 2px; height: 9px; margin-left: -1px;
+  background: var(--text);
+}
+.rk-point[data-t="ok"]    { background: var(--ok); }
+.rk-point[data-t="warn"]  { background: var(--warn); }
+.rk-point[data-t="alarm"] { background: var(--alarm); }
+.rk-scale {
+  display: flex; justify-content: space-between; gap: 8px; margin-top: 4px;
+  font: 400 8.5px/1.3 var(--mono); color: var(--text-faint);
+}
+.rk-scale em { font-style: normal; }
+.rk-from {
+  margin: 0; padding: 5px 12px; border-bottom: 1px solid var(--line-soft);
+  font: 400 9.5px/1.4 var(--mono); color: var(--text-faint);
+}
+.rk-from strong { color: var(--text-dim); font-weight: 500; }
+
+/* ---- the model card ------------------------------------------------------- */
+
+.mc { padding: 8px 12px 12px; font: 400 10px/1.45 var(--sans); color: var(--text-dim); }
+.mc-lede { margin: 0 0 10px; color: var(--text-dim); }
+.mc-h {
+  font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); margin: 12px 0 5px;
+  padding-bottom: 3px; border-bottom: 1px solid var(--line-soft);
+}
+.mc-src { margin-bottom: 9px; }
+.mc-src-top { display: flex; align-items: baseline; gap: 6px; }
+.mc-rows {
+  font: 500 12px/1.2 var(--mono); font-variant-numeric: tabular-nums; color: var(--text);
+}
+.mc-name { color: var(--focus); text-decoration: none; font-size: 9.5px; }
+.mc-name:hover { text-decoration: underline; }
+.mc-what { font-size: 9.5px; color: var(--text-faint); }
+.mc-span { font: 400 8.5px/1.4 var(--mono); color: var(--text-faint); }
+.mc-break, .mc-kv { list-style: none; margin: 4px 0 0; padding: 0; }
+.mc-break li, .mc-kv li {
+  display: flex; justify-content: space-between; gap: 8px;
+  font: 400 9px/1.6 var(--mono); color: var(--text-faint);
+}
+.mc-break li em, .mc-kv li em {
+  font-style: normal; color: var(--text); font-variant-numeric: tabular-nums;
+}
+.mc-kv li { font-size: 9.5px; }
+.mc-note { margin: 6px 0 0; font-size: 9.5px; color: var(--text-faint); }
+.mc-note strong { color: var(--text-dim); font-weight: 500; }
+
+/* Predicted against observed. The whole claim of the panel, so it is a table
+   and not a sentence: a reader checks a table and skims a sentence. */
+.mc-tab {
+  width: 100%; margin-top: 6px; border-collapse: collapse;
+  font: 400 9.5px/1.7 var(--mono); font-variant-numeric: tabular-nums;
+}
+.mc-tab th {
+  text-align: right; font: 500 8px/1.6 var(--sans); letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text-faint);
+  border-bottom: 1px solid var(--line); padding: 0 0 2px;
+}
+.mc-tab th:first-child { text-align: left; }
+.mc-tab td { text-align: right; color: var(--text-dim); padding: 1px 0; }
+.mc-tab td:first-child { text-align: left; color: var(--text); }
+.mc-tab tr[data-ok="1"] td:last-child { color: var(--ok); }
+.mc-tab tr[data-ok="0"] td:last-child { color: var(--alarm); }
+.mc-foot {
+  margin-top: 10px; padding-top: 6px; border-top: 1px solid var(--line-soft);
+  font: 400 8.5px/1.45 var(--mono); color: var(--text-faint);
+}
