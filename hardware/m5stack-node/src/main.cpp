@@ -244,8 +244,9 @@ static Reading sample() {
 
 static void encode(char *buf, size_t n, const Reading &r) {
   size_t off = snprintf(buf, n,
-      "{\"device_id\":\"%s\",\"node_id\":\"%s\",\"seq\":%lu,\"readings\":{",
-      deviceId, NODE_ID, (unsigned long)seq);
+      "{\"device_id\":\"%s\",\"node_id\":\"%s\",\"country\":\"%s\","
+      "\"seq\":%lu,\"readings\":{",
+      deviceId, NODE_ID, DEPOT_COUNTRY, (unsigned long)seq);
 
   if (r.bmeValid) {
     off += snprintf(buf + off, n - off,
@@ -302,8 +303,8 @@ void setup() {
   Serial.begin(115200);
   delay(200);
 
-  display::begin(NODE_ID);   // M5.begin() lives in here, and Port A's pins and
-                             // its 5V rail are only valid once it has run.
+  display::begin(NODE_ID, DEPOT_COUNTRY);   // M5.begin() lives in here, and Port A's
+                                            // pins and 5V rail are only valid after it.
 
 #if MQ2_ENABLED
   analogSetPinAttenuation(MQ2_ANALOG_PIN, ADC_11db);  // full ~0-3.1V span
@@ -317,8 +318,8 @@ void setup() {
 
   // Print the pins we actually used, not the ones we meant to. The whole reason
   // this line exists is that the two were different for an evening.
-  Serial.printf("# depot-node %s node=%s bme680=%s i2c=SDA%d/SCL%d dht11=GPIO%d mq2=GPIO%d\n",
-                deviceId, NODE_ID, bmeOk ? "ok" : "MISSING", sda, scl, DHT_PIN,
+  Serial.printf("# depot-node %s node=%s country=%s bme680=%s i2c=SDA%d/SCL%d dht11=GPIO%d mq2=GPIO%d\n",
+                deviceId, NODE_ID, DEPOT_COUNTRY, bmeOk ? "ok" : "MISSING", sda, scl, DHT_PIN,
                 MQ2_ENABLED ? MQ2_ANALOG_PIN : -1);
   display::boot(bmeOk ? "bme680  ok" : "bme680  MISSING");
   display::boot("dht11   init");   // begin() has no failure to report

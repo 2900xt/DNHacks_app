@@ -16,6 +16,7 @@ no runtime file paths, no env vars.
 | `bins.json` | Taha |
 | `backtest.json` | Nikhil |
 | `reroute.json` | Parth — `ml/aegis.py --write`. Every DMF holder per precursor, scored; the console re-ranks survivors itself |
+| `jurisdictions.json` | Yash — `ml/compliance.py --jurisdictions`. Buyer-side rule table: the WTO GPA parties (from FAR 25.003) and the buyers the console offers. `compliance.json` stays the US verdict; every other buyer's verdict is derived in the browser (`web/app/lib/compliance.ts`) |
 
 Nodes and edges from different producers are merged by the app, not by you.
 

@@ -13,7 +13,10 @@
 namespace display {
 
 // Bring up the LCD and paint the static chrome. Call after Serial.begin().
-void begin(const char *nodeId);
+//   country: ISO-2 of the depot this node reports into (DEPOT_COUNTRY). Shown
+//   on the face so a node in the wrong depot is caught by reading the screen,
+//   not by hunting for it in the console.
+void begin(const char *nodeId, const char *country);
 
 // A line of boot progress, while sensors are still coming up. Scrolls; replaced
 // by the live face on the first update().

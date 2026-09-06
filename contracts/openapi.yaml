@@ -47,9 +47,18 @@ paths:
         Every physical storage location, as graph nodes. The web UI renders these
         alongside the sourcing nodes — same graph, but these ones have a status
         that came from a sensor instead of from a sourcing model.
+      parameters:
+        - in: query
+          name: country
+          required: false
+          schema: { type: string }
+          description: |
+            ISO-2. Only the bins homed to this country's depot — depots are local
+            to a point of interest, not global, so the UI asks per country.
+            Omit for every bin.
       responses:
         "200":
-          description: All known depot bins, ordered worst-status first.
+          description: Matching depot bins, ordered worst-status first.
           content:
             application/json:
               schema:
