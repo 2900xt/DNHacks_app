@@ -90,8 +90,12 @@ CACHE = REPO / "data" / "cache"
 NDC_ZIP = CACHE / "openfda" / "ndc_bulk.zip"
 NDC_URL = "https://download.open.fda.gov/drug/ndc/drug-ndc-0001-of-0001.json.zip"
 SHORTAGE_URL = "https://api.fda.gov/drug/shortages.json?limit=1000&skip={skip}"
-NADAC_URL = ("https://download.medicaid.gov/data/"
-             "nadac-national-average-drug-acquisition-cost-{year}.csv")
+#: The NADAC download URL is NOT stable across years - 2022 is
+#: `nadac-national-average-drug-acquisition-cost-2022.csv` but 2021 is
+#: `national-average-drug-acquisition-cost-12-29-2021.csv`. Guessing the pattern
+#: 404s. Resolve it from the catalog instead.
+NADAC_CATALOG = ("https://data.medicaid.gov/api/1/metastore/schemas/dataset/"
+                 "items?show-reference-ids=true")
 UA = "Mozilla/5.0 (CHOKEPOINT/DNHacks research)"
 
 CUTOFF = date(2023, 1, 1)
@@ -172,6 +176,24 @@ def shortages_after(cutoff: date) -> set[str]:
     return hit
 
 
+def _nadac_url(year: int) -> str | None:
+    """Resolve the NADAC CSV for a calendar year from the CMS catalog."""
+    cat = CACHE / "nadac" / "catalog.json"
+    try:
+        fetch(NADAC_CATALOG, cat, 90)
+        items = json.loads(cat.read_text())
+    except (SystemExit, json.JSONDecodeError):
+        return None
+    for it in items:
+        title = (it.get("title") or "")
+        if "NADAC" in title and str(year) in title and "First Time" not in title:
+            for dist in it.get("distribution", []):
+                url = (dist.get("data", dist) or {}).get("downloadURL")
+                if url and url.endswith(".csv"):
+                    return url
+    return None
+
+
 def price_trend(year: int) -> dict[str, float]:
     """Median within-year NADAC price change per generic, from CMS.
 
@@ -184,7 +206,17 @@ def price_trend(year: int) -> dict[str, float]:
     bulk file's `packaging[].package_ndc`, zero-padding segments to 5-4-2.
     """
     import csv
-    fetch(NADAC_URL.format(year=year), CACHE / "nadac" / f"nadac_{year}.csv")
+    dest = CACHE / "nadac" / f"nadac_{year}.csv"
+    if not dest.exists():
+        url = _nadac_url(year)
+        if not url:
+            print(f"  ! NADAC {year} unavailable — price features will be empty")
+            return {}
+        try:
+            fetch(url, dest)
+        except SystemExit:
+            print(f"  ! NADAC {year} download failed — price features will be empty")
+            return {}
     with zipfile.ZipFile(NDC_ZIP) as z:
         recs = json.loads(z.read(z.namelist()[0]))["results"]
 
@@ -209,7 +241,7 @@ def price_trend(year: int) -> dict[str, float]:
 
     first: dict[str, tuple[str, float]] = {}
     last: dict[str, tuple[str, float]] = {}
-    with (CACHE / "nadac" / f"nadac_{year}.csv").open(newline="") as fh:
+    with dest.open(newline="") as fh:
         for row in csv.DictReader(fh):
             ndc = (row.get("NDC") or "").strip()
             if ndc not in ndc2gen:
