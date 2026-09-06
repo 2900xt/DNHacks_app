@@ -1,1 +1,149 @@
-[]
+[
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:amoxicillin-trihydrate",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:ampicillin",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:piperacillin",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:dicloxacillin-sodium",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:nafcillin-sodium",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "api:oxacillin-sodium",
+    "rel": "feeds",
+    "layer": 3,
+    "citation": "Council on Foreign Relations, 'The Pharma Choke Point' — 6-APA is the shared beta-lactam nucleus from which the semisynthetic penicillins are made. https://www.cfr.org/reports/the-pharma-choke-point"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:sandoz-gmbh",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 8757, holder 'SANDOZ GMBH', status A, Type II, SUBJECT '6-APA (6 AMINOPENICILLANIC ACID)'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sandoz-gmbh",
+    "dst": "country:at",
+    "rel": "incorporated_in",
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3002806523, 'Sandoz GmbH', address ends (AUT). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:antibioticos-sa",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 12348, holder 'ANTIBIOTICOS SA', status A, Type II, SUBJECT '6-AMINO PENICILLANIC ACID'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:pure-and-cure-healthcare-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 18525, holder 'PURE AND CURE HEALTHCARE PRIVATE LTD', status A, Type II, SUBJECT '6-AMINOPENICILLANIC ACID (6-APA)'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:pure-and-cure-healthcare-private-ltd",
+    "dst": "country:in",
+    "rel": "incorporated_in",
+    "layer": 3,
+    "citation": "DECRS cross-reference — DECRS = IND"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 19525, holder 'INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD', status A, Type II, SUBJECT '6-AMINOPENICILLANIC ACID'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3006272230, 'Inner Mongolia Changsheng Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:united-laboratories-chengdu-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 21994, holder 'UNITED LABORATORIES CHENGDU CO LTD', status A, Type II, SUBJECT '6-AMINO-PENICILLANIC ACID (6-APA)'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:united-laboratories-chengdu-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 3,
+    "citation": "DECRS cross-reference — partial — DECRS carries TUL Inner Mongolia and Zhuhai (both CHN), not the Chengdu site"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 27248, holder 'THE UNITED LABORATORIES INNER MONGOLIA CO LTD', status A, Type II, SUBJECT '6-AMINO-PENICILLANIC ACID (6-APA) BULK DRUG SUBSTANCE'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3010166895, 'The United Laboratories (Inner Mongolia) Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 30779, holder 'SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD', status A, Type II, SUBJECT '6-AMINOPENICILLANIC ACID'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+    "dst": "country:cn",
+    "rel": "incorporated_in",
+    "layer": 2,
+    "citation": "FDA DECRS drls_reg — FEI 3010166430, 'Sinopharm Weiqida Pharmaceutical Co., Ltd.', address ends (CHN). https://www.accessdata.fda.gov/cder/drls_reg.zip"
+  },
+  {
+    "src": "precursor:6-apa",
+    "dst": "company:name:apitoria-pharma-private-ltd",
+    "rel": "produced_by",
+    "layer": 2,
+    "citation": "FDA Type II DMF register, sheet 2Q2026-EXCEL — DMF 40387, holder 'APITORIA PHARMA PRIVATE LTD', status A, Type II, SUBJECT '6-AMINOPENICILLANIC ACID (6-APA)'. https://www.fda.gov/media/192069/download?attachment"
+  },
+  {
+    "src": "company:name:apitoria-pharma-private-ltd",
+    "dst": "country:in",
+    "rel": "incorporated_in",
+    "layer": 3,
+    "citation": "DECRS cross-reference — DECRS = IND"
+  }
+]
