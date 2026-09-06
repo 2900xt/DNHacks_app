@@ -50,7 +50,10 @@ class WebSocket:
         head = self._read_until(b"\r\n\r\n")
         if b" 101 " not in head.split(b"\r\n")[0]:
             raise LoaderError(f"websocket upgrade refused:\n{head.decode(errors='replace')[:400]}")
-        self.buf = b""
+        # The server may pack its first frames into the same TCP segment as the
+        # 101 response. Those bytes are already in `head` - keep them, or the
+        # first message is silently lost and every rpc() reply is off by one.
+        self.buf = head.split(b"\r\n\r\n", 1)[1]
         self._id = 0
 
     def _read_until(self, marker: bytes) -> bytes:

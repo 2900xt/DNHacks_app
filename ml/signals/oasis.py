@@ -80,7 +80,11 @@ def load() -> list[Signal]:
 
     rows = list(csv.DictReader(io.StringIO(raw)))
     stats = Counter()
-    out: list[Signal] = []
+    # One refusal can span many entry LINES (a shipment with 66 line items gave
+    # 66 identical signals - 995 redundant rows, 24% inflation, and the same
+    # evidence repeated 66 times in the UI). Collapse to one signal per
+    # (facility, date, charge, product) and keep the line count as evidence.
+    merged: dict[tuple, Signal] = {}
 
     for r in rows:
         stats["total"] += 1
@@ -111,7 +115,11 @@ def load() -> list[Signal]:
             stats["no_fei"] += 1
             continue
 
-        out.append(Signal(
+        dedupe_key = (fei, r["REFUSAL_DATE"], code, (r.get("PRODUCT_CODE") or "").strip())
+        if dedupe_key in merged:
+            merged[dedupe_key].payload["entry_lines"] += 1
+            continue
+        merged[dedupe_key] = Signal(
             node_id=f"facility:fei:{fei}",
             kind=kind,
             severity=severity,
@@ -123,12 +131,13 @@ def load() -> list[Signal]:
                      "product": (r.get("PRDCT_CODE_DESC_TEXT") or "").strip(),
                      "product_code": (r.get("PRODUCT_CODE") or "").strip(),
                      "charge": code, "charge_label": label,
-                     "ingredient": ingredient},
-        ))
+                     "ingredient": ingredient, "entry_lines": 1},
+        )
 
+    out = list(merged.values())
     print(f"  rows {stats['total']:,} -> drug {stats['drug']:,} -> "
           f"supply-chain {stats['signal']:,} + ingredient-gated paperwork "
-          f"{stats['paperwork']:,} -> emitted {len(out):,}")
+          f"{stats['paperwork']:,} -> {len(out):,} after collapsing entry lines")
     return require(out, "oasis", minimum=100)
 
 
