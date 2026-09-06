@@ -354,7 +354,8 @@ def main() -> int:
         elif name == "signals.json":
             referenced |= validate_signals(path, rep)
         elif name in ("backtest.json", "eo14336.citation.json", "cascade_rules.json",
-                      "audit.json", "audit.jsonl", "reroute.json", "jurisdictions.json"):
+                      "audit.json", "audit.jsonl", "reroute.json", "jurisdictions.json",
+                      "geo.json"):
             # Producer artifacts, not graph data. Each has an owner who defines its
             # shape; validating them here would mean duplicating that shape in two
             # places and letting the copies drift.
