@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
 import { BEATS, type BeatCtx, type NodeState } from '../lib/demo'
@@ -90,6 +90,12 @@ export default function Console({ payload }: { payload: Payload }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [beat, go])
 
+  // The rail scrolls, and it kept its offset across selections — so clicking a
+  // node could land you on its numbers with its name scrolled off the top, four
+  // readings with nothing saying what they are about.
+  const railRef = useRef<HTMLElement | null>(null)
+  useEffect(() => { railRef.current?.scrollTo({ top: 0 }) }, [selected, killed])
+
   const sel = selected ? byId.get(selected) ?? null : null
   const selEdges = useMemo(
     () => (selected ? edges.filter((e) => e.src === selected || e.dst === selected) : []),
@@ -145,6 +151,25 @@ export default function Console({ payload }: { payload: Payload }) {
         </div>
         <span className="sub">6-APA penicillin family</span>
         <div className="spacer" />
+        {/* The rail keeps its fill during a simulated failure and only recedes.
+            A cascade is a branch off the demo path, not a reset of it — blanking
+            the rail loses the one thing the operator needs, which is where Esc
+            puts them back. */}
+        <div className="progress" data-killed={killed ? '1' : '0'} role="group" aria-label="Demo beats">
+          {BEATS.map((x, i) => (
+            <button
+              key={x.key}
+              className="seg"
+              onClick={() => go(i)}
+              data-on={i <= beat ? '1' : '0'}
+              data-now={i === beat && !killed ? '1' : '0'}
+              title={`${i + 1}. ${x.label}`}
+              aria-label={`Beat ${i + 1} of ${BEATS.length}: ${x.label}`}
+              aria-current={i === beat && !killed ? 'step' : undefined}
+            />
+          ))}
+        </div>
+        <span className="sub beatname">{killed ? 'Simulated failure' : b.label}</span>
         <div className="steps">
           <button
             className="ctl"
@@ -153,9 +178,6 @@ export default function Console({ payload }: { payload: Payload }) {
           >
             Back
           </button>
-          <span className="step-label">
-            {killed ? 'Simulated failure' : `${b.n + 1}/${BEATS.length} · ${b.label}`}
-          </span>
           <button
             className="ctl"
             onClick={() => go(beat + 1)}
@@ -178,9 +200,29 @@ export default function Console({ payload }: { payload: Payload }) {
           selected={selected}
           onSelect={setSelected}
         />
+        {/* The beat's claim, on screen. It was already written — demo.ts carries
+            the presenter's exact wording and its evidence footnote — and until
+            now it rendered nowhere, so the demo video and the phone fallback
+            showed a diagram with no argument attached to it. */}
+        <div className="caption" data-killed={killed ? '1' : '0'}>
+          {killed ? (
+            <>
+              <p className="say">
+                {nodeLabel(killed)} goes down. {downstreamOf[killed] ?? lit.size - 1} nodes
+                downstream fail with it.
+              </p>
+              <p className="note">Esc returns to the demo path.</p>
+            </>
+          ) : (
+            <>
+              <p className="say">{b.say}</p>
+              {b.note && <p className="note">{b.note}</p>}
+            </>
+          )}
+        </div>
       </section>
 
-      <aside className="rail-r" aria-label="Selection">
+      <aside className="rail-r" ref={railRef} aria-label="Selection">
         <NodeMetrics
           overview={overview}
           node={sel}
@@ -200,8 +242,12 @@ export default function Console({ payload }: { payload: Payload }) {
         <div className="panel-tabs">
           <Image className="mark mark-sm" src="/ripple-mark.png" alt="" width={14} height={14} />
           <span className="tab" data-on="1">Sourcing graph</span>
-          <span className="tab-meta">{counts.nodes} nodes · {counts.edges} edges</span>
+          <span className="tab-meta">
+            {counts.nodes.toLocaleString()} nodes · {counts.edges.toLocaleString()} edges
+            {b.evidence && ` · ${counts.signals.toLocaleString()} signals · ${counts.compliance} compliance rows`}
+          </span>
           <div className="spacer" />
+          <EvidenceKey layerCounts={layerCounts} open={!!b.evidence} />
           <button
             className="ctl"
             onClick={() => setPanel((p) => !p)}
