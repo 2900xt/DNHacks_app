@@ -17,7 +17,10 @@ export const AMOX = 'drug:amoxicillin'
 export const AMOX_API = 'api:amoxicillin-trihydrate'
 export const APA = 'precursor:6-apa'
 
-export type NodeState = 'ok' | 'alarm' | 'focus' | 'plain'
+// 'warn' is the cascade's middle state: a node still supplied, but off a
+// thinner base than it had. Without it a half-lost precursor renders the
+// same as a dead one, which overstates the damage.
+export type NodeState = 'ok' | 'warn' | 'alarm' | 'focus' | 'plain'
 
 export interface Beat {
   n: number

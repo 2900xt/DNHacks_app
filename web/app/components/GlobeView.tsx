@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { GraphEdge, GraphNode, NodeId } from '../lib/types'
+import type { Route } from '../lib/supply-tree'
 
 interface Centroid { lat: number; lng: number }
 interface Feature { properties: { iso: string; name: string }; geometry: unknown }
@@ -13,6 +14,11 @@ interface Props {
   lit: Set<NodeId>
   selected: NodeId | null
   onSelect: (id: NodeId) => void
+  /** Supply split per jurisdiction, recomputed on every simulated failure. */
+  routes: Route[]
+  /** True once anything is switched off: the globe stops showing filing counts
+   *  and starts showing where the load actually went. */
+  rerouting: boolean
 }
 
 /** The buyer. Every arc terminates here — that is why the globe is worth drawing. */
@@ -26,7 +32,9 @@ const BUMP = '/globe/earth-topology.png'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Props) {
+export default function GlobeView({
+  nodes, edges, lit, selected, onSelect, routes, rerouting,
+}: Props) {
   const holder = useRef<HTMLDivElement | null>(null)
   const globeRef = useRef<any>(null)
   const [world, setWorld] = useState<WorldGlobe | null>(null)
@@ -97,7 +105,7 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
         .labelLat((d: any) => d.lat)
         .labelLng((d: any) => d.lng)
         .labelText((d: any) => d.text)
-        .labelSize(1.8)
+        .labelSize((d: any) => d.size ?? 1.8)
         .labelDotRadius((d: any) => d.dot)
         .labelColor((d: any) => d.color)
         .labelResolution(2)
@@ -140,27 +148,59 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
     return () => ro.disconnect()
   }, [ready])
 
-  // --- data that changes with the beat -------------------------------------
+  // --- data that changes with the beat, and with the cascade ---------------
+  //
+  // Two modes, one renderer. At rest the globe answers "where does this come
+  // from" and the number over each country is its count of active filings. The
+  // moment anything is switched off in the tree it answers a different question
+  // — "where does it come from NOW" — and the same number becomes that
+  // jurisdiction's share of the supply that is still standing. Arcs are drawn
+  // proportional to that share, so re-routing is a thing you watch happen
+  // rather than a caption claiming it did.
+  //
+  // The load is split evenly across surviving sources (see supply-tree.ts
+  // allocate()). There is no per-holder capacity data in any public dataset, and
+  // a weighted split would be a number we could not source.
   useEffect(() => {
     const g = globeRef.current
     if (!g || !world) return
+
+    const byIso = new Map(routes.map((r) => [r.iso, r]))
+    const anySupply = routes.some((r) => !r.down)
 
     const polys = world.features
       .filter((f) => jurisdictions.has(f.properties.iso) || f.properties.iso === DEST)
       .map((f) => {
         const iso = f.properties.iso
         const j = jurisdictions.get(iso)
+        const r = byIso.get(iso)
         const on = !!j && lit.has(j.node.id)
         const isDest = iso === DEST
+        // A jurisdiction that has gone dark reads as absent, not as alarming:
+        // grey, flat, no stroke to speak of. The alarm colour is reserved for
+        // the buyer's end of the chain when nothing is left to ship.
+        const dead = rerouting && !!r && r.down
+        const heat = rerouting && r && !r.down ? 0.24 + r.share * 0.5 : on ? 0.62 : 0.2
+
+        if (isDest) {
+          const starved = rerouting && !anySupply
+          return {
+            ...f,
+            nodeId: '',
+            cap: starved ? 'rgba(229,72,77,0.34)' : 'rgba(74,158,218,0.28)',
+            side: starved ? 'rgba(229,72,77,0.18)' : 'rgba(74,158,218,0.15)',
+            stroke: starved ? '#e5484d' : '#4a9eda',
+            alt: starved ? 0.03 : 0.012,
+          }
+        }
         return {
           ...f,
           nodeId: j?.node.id ?? '',
-          cap: isDest
-            ? 'rgba(74,158,218,0.28)'
-            : on ? 'rgba(229,72,77,0.62)' : 'rgba(229,72,77,0.20)',
-          side: isDest ? 'rgba(74,158,218,0.15)' : 'rgba(229,72,77,0.18)',
-          stroke: isDest ? '#4a9eda' : on ? '#ff6b70' : 'rgba(229,72,77,0.5)',
-          alt: on ? 0.026 : 0.012,
+          cap: dead ? 'rgba(120,132,148,0.16)' : `rgba(229,72,77,${heat.toFixed(2)})`,
+          side: dead ? 'rgba(120,132,148,0.10)' : 'rgba(229,72,77,0.18)',
+          stroke: dead ? 'rgba(120,132,148,0.45)'
+            : rerouting || on ? '#ff6b70' : 'rgba(229,72,77,0.5)',
+          alt: dead ? 0.004 : rerouting ? 0.014 + (r?.share ?? 0) * 0.05 : on ? 0.026 : 0.012,
         }
       })
     g.polygonsData(polys)
@@ -170,27 +210,52 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
       .filter(([, j]) => j.holders.length > 0)
       .map(([iso, j]) => {
         const src = world.centroids[iso]
+        const r = byIso.get(iso)
         const on = lit.has(j.node.id)
+        const dead = rerouting && !!r && r.down
+        if (dead) {
+          return {
+            startLat: src.lat, startLng: src.lng,
+            endLat: dest.lat, endLng: dest.lng,
+            colors: ['rgba(120,132,148,0.02)', 'rgba(120,132,148,0.18)', 'rgba(120,132,148,0.06)'],
+            stroke: 0.12,
+            speed: 0,
+          }
+        }
+        // Thickness is the share it now carries, so the survivors visibly
+        // fatten as their neighbours go dark.
+        const stroke = rerouting && r
+          ? 0.35 + r.share * 2.4
+          : on ? 0.4 + j.holders.length * 0.16 : 0.22
         return {
           startLat: src.lat, startLng: src.lng,
           endLat: dest.lat, endLng: dest.lng,
-          colors: on
+          colors: on || rerouting
             ? ['rgba(229,72,77,0.05)', 'rgba(229,72,77,0.95)', 'rgba(74,158,218,0.9)']
             : ['rgba(160,90,95,0.03)', 'rgba(160,90,95,0.40)', 'rgba(74,158,218,0.35)'],
-          stroke: on ? 0.4 + j.holders.length * 0.16 : 0.22,
-          speed: on ? 2200 : 6000,
+          stroke,
+          speed: rerouting ? 1400 : on ? 2200 : 6000,
         }
       })
     g.arcsData(arcs)
 
     const labels: any[] = [...jurisdictions.entries()].map(([iso, j]) => {
       const c = world.centroids[iso]
+      const r = byIso.get(iso)
       const on = lit.has(j.node.id)
+      const dead = rerouting && !!r && r.down
       return {
         lat: c.lat, lng: c.lng,
-        text: String(j.holders.length),
-        color: on ? '#ffd7d8' : 'rgba(205,218,232,0.62)',
-        dot: on ? 0.65 : 0.38,
+        text: rerouting && r
+          ? (r.down ? 'OFFLINE' : `${Math.round(r.share * 100)}%`)
+          : String(j.holders.length),
+        // A word needs to sit smaller than a two-character count or it swamps
+        // the country it is labelling.
+        size: dead ? 0.95 : rerouting ? 1.5 : 1.8,
+        color: dead ? 'rgba(150,162,178,0.7)'
+          : rerouting ? '#ffd7d8'
+          : on ? '#ffd7d8' : 'rgba(205,218,232,0.62)',
+        dot: dead ? 0.22 : rerouting && r ? 0.3 + r.share * 0.75 : on ? 0.65 : 0.38,
         nodeId: j.node.id,
       }
     })
@@ -202,7 +267,7 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
       nodeId: '',
     })
     g.labelsData(labels)
-  }, [ready, world, jurisdictions, lit])
+  }, [ready, world, jurisdictions, lit, routes, rerouting])
 
   // --- fly to the focused jurisdiction --------------------------------------
   useEffect(() => {
