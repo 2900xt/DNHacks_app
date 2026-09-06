@@ -1,8 +1,8 @@
-"""Re-route — when a supplier goes down, who else can make this?
+"""AEGIS — the pathfinder: when a supplier goes down, who else can make this?
 
-    python3 ml/reroute.py --facility 3004497364     # Centrient India goes down
-    python3 ml/reroute.py --substance "amoxicillin trihydrate"
-    python3 ml/reroute.py --demo                    # the 6-APA cascade
+    python3 ml/aegis.py --facility 3004497364     # Centrient India goes down
+    python3 ml/aegis.py --substance "amoxicillin trihydrate"
+    python3 ml/aegis.py --demo                    # the 6-APA cascade
 
 --------------------------------------------------------------------------------
 This is a RANKED SHORTLIST, not an optimiser. The distinction is the whole point.
@@ -44,6 +44,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 import zipfile
 from collections import Counter, defaultdict
@@ -52,10 +53,31 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from ml.entity_resolution import core_tokens, normalize  # noqa: E402
-from ml.upstream import DECRS_URL, DECRS_ZIP, EXCEL_EPOCH, fetch  # noqa: E402
 from ml.xlsx import rows as xlsx_rows  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
+CACHE = REPO / "data" / "cache"
+DECRS_URL = "https://www.accessdata.fda.gov/cder/drls_reg.zip"
+DECRS_ZIP = CACHE / "decrs" / "drls_reg.zip"
+DMF_URL = "https://www.fda.gov/media/192069/download?attachment"
+DMF_XLSX = CACHE / "dmf" / "dmf.xlsx"
+UA = "Mozilla/5.0 (CHOKEPOINT/DNHacks research)"
+
+
+def fetch(url: str, dest: Path, timeout: int = 180) -> Path:
+    """curl, not urllib - this python's framework install trusts no CA roots.
+
+    accessdata.fda.gov also serves an abuse-detection page to a bare user agent,
+    so the browser UA is required, not cosmetic.
+    """
+    if dest.exists() and dest.stat().st_size > 1000:
+        return dest
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    r = subprocess.run(["curl", "-sSL", "--fail", "-A", UA, "--max-time",
+                        str(timeout), url, "-o", str(dest)], capture_output=True)
+    if r.returncode != 0:
+        raise SystemExit(f"fetch failed: {url}\n{r.stderr.decode(errors='replace')[:300]}")
+    return dest
 
 #: China and India are NOT TAA-designated. Full list is 132 countries via FAR
 #: 25.003 (Yash's ml/load/load_taa.py). We carry the ISO3 codes our graph reaches
@@ -94,9 +116,8 @@ def dmf_holders(substance: str) -> tuple[dict[str, set[str]], list[str]]:
     An inactive DMF is not a supplier you can call - it is a firm that once filed.
     Reporting them together would inflate the shortlist with Hoechst and Beecham.
     """
-    fetch("https://www.fda.gov/media/192069/download?attachment",
-          REPO / "data" / "cache" / "dmf" / "dmf.xlsx")
-    it = xlsx_rows(REPO / "data" / "cache" / "dmf" / "dmf.xlsx")
+    fetch(DMF_URL, DMF_XLSX)
+    it = xlsx_rows(DMF_XLSX)
     next(it)
     want = squash(substance)
     out = {"active": set(), "inactive": set()}
@@ -110,6 +131,29 @@ def dmf_holders(substance: str) -> tuple[dict[str, set[str]], list[str]]:
         spellings.add(r[5].strip())
         out["active" if r[1] == "A" else "inactive"].add(r[4].strip())
     return out, sorted(spellings)
+
+
+def substances_for(firm: str) -> list[str]:
+    """Active Type II DMF subjects filed by a firm whose name matches `firm`.
+
+    Matched on the DISTINCTIVE core of the name, so `CENTRIENT PHARMACEUTICALS
+    INDIA PRIVATE LIMITED` finds `Centrient Pharmaceuticals India Pvt Ltd`
+    without a hand-written alias table.
+    """
+    fetch(DMF_URL, DMF_XLSX)
+    want = core_tokens(normalize(firm))
+    if not want:
+        return []
+    it = xlsx_rows(DMF_XLSX)
+    next(it)
+    found: dict[str, str] = {}
+    for r in it:
+        if len(r) < 6 or r[2] != "II" or r[1] != "A" or not (r[4] and r[5]):
+            continue
+        have = core_tokens(normalize(r[4]))
+        if have and len(want & have) / len(want | have) >= 0.5:
+            found.setdefault(squash(r[5]), r[5].strip())
+    return sorted(found.values())
 
 
 def decrs_rows() -> list[dict]:
@@ -264,7 +308,7 @@ def alternates(substance_key: str, exclude: str | None = None, cutoff: date | No
 
 def report(substance: str, result, disrupted: str | None) -> None:
     rows, groups, spellings = result
-    print(f"RE-ROUTE — alternate suppliers for {substance!r}")
+    print(f"AEGIS — alternate suppliers for {substance!r}")
     if disrupted:
         print(f"  disrupted supplier excluded: {disrupted}")
     print(f"  matched {len(spellings)} spelling variant(s) of this substance in the register")
@@ -314,15 +358,12 @@ def main() -> int:
         if not hit:
             raise SystemExit(f"FEI {fei} not in DECRS")
         name = hit.get("FIRM_NAME")
-        print(f"DISRUPTED: {name}  (FEI {fei}, {_iso3(hit.get('ADDRESS'))})\n")
-        subs = substances_before(date.today())
-        mine = [k for k, hs in subs.items()
-                if any(len(core_tokens(normalize(h)) & core_tokens(normalize(name)))
-                       >= max(1, len(core_tokens(normalize(name))) - 1) for h in hs)]
+        print(f"AEGIS — DISRUPTED: {name}  (FEI {fei}, {_iso3(hit.get('ADDRESS'))})\n")
+        mine = substances_for(name)
         if not mine:
-            raise SystemExit(f"no DMF substances traced to {name!r}")
-        print(f"holds DMFs for {len(mine)} substance(s): {', '.join(sorted(mine)[:6])}\n")
-        for s in sorted(mine)[:3]:
+            raise SystemExit(f"no active Type II DMF substances traced to {name!r}")
+        print(f"holds {len(mine)} active DMF substance(s): {', '.join(mine[:4])}\n")
+        for s in mine[:3]:
             report(s, alternates(s, exclude=name), name)
             print()
         return 0
