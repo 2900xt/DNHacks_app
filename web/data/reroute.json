@@ -1,194 +1,1380 @@
 {
-  "substance": "6-aminopenicillanic acid",
-  "graph_node": "precursor:6-apa",
-  "excluded": null,
-  "affected_drugs": [
-    "drug:amoxicillin",
-    "drug:ampicillin",
-    "drug:dicloxacillin",
-    "drug:nafcillin",
-    "drug:oxacillin",
-    "drug:piperacillin"
+  "generated_at": "2026-09-06",
+  "rule": "aegis-shortlist-v2",
+  "rule_text": "Ranked on public records only: +3 registered API manufacturer in DECRS (+1 registered, not flagged API); +2 every site outside CN/IN (+1 mixed footprint); +1.5 TAA-designated; -2 per own OAI or cGMP refusal. Score > 0 is a viable route. A holder DECRS cannot match, or matches ambiguously, scores 0 rather than inheriting another plant's history; a tie between registered sites is broken only when one site's full registered name spells the holder's.",
+  "not_modelled": [
+    "capacity",
+    "lead time",
+    "willingness to supply",
+    "current utilisation"
   ],
-  "affected_products": 760,
-  "alternates": [
+  "chokepoint_iso2": [
+    "cn",
+    "in"
+  ],
+  "precursors": [
     {
-      "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
-      "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
-      "countries": [
-        "CHN"
+      "node": "api:amoxicillin-trihydrate",
+      "substance": "Amoxicillin trihydrate",
+      "spellings": 15,
+      "active_holders": 9,
+      "inactive_holders": 25,
+      "affected_drugs": [
+        "drug:amoxicillin"
       ],
-      "feis": [
-        "3006272230"
-      ],
-      "score": 3.0,
-      "risk_flags": [],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (CHN)",
-        "not TAA-designated \u2014 VA/DoD cannot buy"
+      "affected_products": 502,
+      "viable": 4,
+      "holders": [
+        {
+          "node_id": "company:name:sandoz-gmbh",
+          "iso2": [
+            "at"
+          ],
+          "holder": "SANDOZ GMBH",
+          "matched_firm": "Sandoz GmbH",
+          "countries": [
+            "AUT"
+          ],
+          "feis": [
+            "3002806523",
+            "3004828473"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (AUT)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:teva-pharmaceutical-industries-ltd",
+          "iso2": [
+            "il"
+          ],
+          "holder": "TEVA PHARMACEUTICAL INDUSTRIES LTD",
+          "matched_firm": "Teva Pharmaceutical Industries Ltd.",
+          "countries": [
+            "ISR"
+          ],
+          "feis": [
+            "3002721084"
+          ],
+          "score": 4.5,
+          "risk_flags": [],
+          "why": [
+            "registered establishment, not flagged API",
+            "outside CN/IN (ISR)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
+          "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3006272230"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
+          "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3010166430"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "ANTIBIOTICOS DE LEON SLU",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "ANTIBIOTICOS SA",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "FERSINSA GB SA DE CV",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "SHANXI SHUANGYAN PHARMACEUTICAL CO LTD",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": "company:name:centrient-pharmaceuticals-netherlands-bv",
+          "iso2": [
+            "in"
+          ],
+          "holder": "CENTRIENT PHARMACEUTICALS NETHERLANDS BV",
+          "matched_firm": "CENTRIENT PHARMACEUTICALS INDIA PRIVATE LIMITED",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004497364"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2018-04-20",
+            "OAI 2022-07-01",
+            "OAI 2026-01-27"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2018-04-20, OAI 2022-07-01, OAI 2026-01-27"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
       ]
     },
     {
-      "holder": "PURE AND CURE HEALTHCARE PRIVATE LTD",
-      "matched_firm": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
-      "countries": [
-        "IND"
+      "node": "api:ampicillin",
+      "substance": "Ampicillin",
+      "spellings": 27,
+      "active_holders": 14,
+      "inactive_holders": 34,
+      "affected_drugs": [
+        "drug:ampicillin"
       ],
-      "feis": [
-        "3007577941",
-        "3008176882",
-        "3024206690"
-      ],
-      "score": 3.0,
-      "risk_flags": [],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (IND)",
-        "not TAA-designated \u2014 VA/DoD cannot buy"
+      "affected_products": 124,
+      "viable": 8,
+      "holders": [
+        {
+          "node_id": "company:name:acs-dobfar-spa",
+          "iso2": [
+            "it"
+          ],
+          "holder": "ACS DOBFAR SPA",
+          "matched_firm": "ACS DOBFAR SPA",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3002806293",
+            "3002806297",
+            "3002806298"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:fresenius-kabi-ipsum-srl",
+          "iso2": [
+            "it"
+          ],
+          "holder": "FRESENIUS KABI IPSUM SRL",
+          "matched_firm": "FRESENIUS KABI IPSUM SRL",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3017296713"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sandoz-gmbh",
+          "iso2": [
+            "at"
+          ],
+          "holder": "SANDOZ GMBH",
+          "matched_firm": "Sandoz GmbH",
+          "countries": [
+            "AUT"
+          ],
+          "feis": [
+            "3002806523",
+            "3004828473"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (AUT)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sandoz-industrial-products-sa",
+          "iso2": [
+            "es"
+          ],
+          "holder": "SANDOZ INDUSTRIAL PRODUCTS SA",
+          "matched_firm": "Sandoz Industrial Products S.A",
+          "countries": [
+            "ESP"
+          ],
+          "feis": [
+            "3005403245"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ESP)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+          "iso2": [
+            "it"
+          ],
+          "holder": "ISTITUTO BIOCHIMICO ITALIANO GIOVANNI LORENZINI SPA",
+          "matched_firm": "Istituto Biochimico Italiano Giovanni Lorenzini",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3002807242"
+          ],
+          "score": 4.5,
+          "risk_flags": [],
+          "why": [
+            "registered establishment, not flagged API",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sterile-india-pvt-ltd",
+          "iso2": [
+            "us"
+          ],
+          "holder": "STERILE INDIA PVT LTD",
+          "matched_firm": "Sharp Sterile Manufacturing, LLC",
+          "countries": [
+            "USA"
+          ],
+          "feis": [
+            "3012144557"
+          ],
+          "score": 4.5,
+          "risk_flags": [],
+          "why": [
+            "registered establishment, not flagged API",
+            "outside CN/IN (USA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
+          "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3006272230"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
+          "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3010166430"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "ADL BIOPHARMA SLU",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "ANTIBIOTICOS SA",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "EUMEDICA PHARMACEUTICALS INDUSTRIES SL",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "FERSINSA GB SA DE CV",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": "company:name:apitoria-pharma-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "APITORIA PHARMA PRIVATE LTD",
+          "matched_firm": "Apitoria Pharma Private Limited",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004021253",
+            "3004051616",
+            "3004086884"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2019-02-02",
+            "OAI 2019-02-09",
+            "OAI 2021-08-12"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        },
+        {
+          "node_id": "company:name:zhuhai-united-laboratories-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "ZHUHAI UNITED LABORATORIES CO LTD",
+          "matched_firm": "Zhuhai United Laboratories Co., Ltd",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3006531950"
+          ],
+          "score": -5.0,
+          "risk_flags": [
+            "OAI 2015-03-31",
+            "OAI 2017-09-15",
+            "OAI 2019-07-16",
+            "OAI 2023-08-03"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2015-03-31, OAI 2017-09-15, OAI 2019-07-16"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
       ]
     },
     {
-      "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
-      "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
-      "countries": [
-        "CHN"
+      "node": "api:dicloxacillin-sodium",
+      "substance": "Dicloxacillin sodium",
+      "spellings": 3,
+      "active_holders": 1,
+      "inactive_holders": 7,
+      "affected_drugs": [
+        "drug:dicloxacillin"
       ],
-      "feis": [
-        "3010166430"
-      ],
-      "score": 3.0,
-      "risk_flags": [],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (CHN)",
-        "not TAA-designated \u2014 VA/DoD cannot buy"
+      "affected_products": 13,
+      "viable": 0,
+      "holders": [
+        {
+          "node_id": "company:name:apitoria-pharma-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "APITORIA PHARMA PRIVATE LTD",
+          "matched_firm": "Apitoria Pharma Private Limited",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004021253",
+            "3004051616",
+            "3004086884"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2019-02-02",
+            "OAI 2019-02-09",
+            "OAI 2021-08-12"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
       ]
     },
     {
-      "holder": "ANTIBIOTICOS SA",
-      "matched_firm": null,
-      "countries": [],
-      "feis": [],
-      "score": 0.0,
-      "risk_flags": [],
-      "why": [
-        "not found in DECRS \u2014 capability unverified"
-      ]
-    },
-    {
-      "holder": "SANDOZ GMBH",
-      "matched_firm": null,
-      "countries": [],
-      "feis": [],
-      "score": 0.0,
-      "risk_flags": [],
-      "why": [
-        "\u26a0\ufe0f AMBIGUOUS in DECRS (2 firms tie: Sandoz GmbH, Sandoz Private Limited) \u2014 not attributing risk"
-      ]
-    },
-    {
-      "holder": "THE UNITED LABORATORIES INNER MONGOLIA CO LTD",
-      "matched_firm": null,
-      "countries": [],
-      "feis": [],
-      "score": 0.0,
-      "risk_flags": [],
-      "why": [
-        "\u26a0\ufe0f AMBIGUOUS in DECRS (2 firms tie: The United Laboratories (Inn, Zhuhai United Laboratories C) \u2014 not attributing risk"
-      ]
-    },
-    {
-      "holder": "UNITED LABORATORIES CHENGDU CO LTD",
-      "matched_firm": null,
-      "countries": [],
-      "feis": [],
-      "score": 0.0,
-      "risk_flags": [],
-      "why": [
-        "\u26a0\ufe0f AMBIGUOUS in DECRS (2 firms tie: The United Laboratories (Inn, Zhuhai United Laboratories C) \u2014 not attributing risk"
-      ]
-    },
-    {
-      "holder": "APITORIA PHARMA PRIVATE LTD",
-      "matched_firm": "Apitoria Pharma Private Limited",
-      "countries": [
-        "IND"
+      "node": "api:nafcillin-sodium",
+      "substance": "Nafcillin sodium",
+      "spellings": 7,
+      "active_holders": 3,
+      "inactive_holders": 5,
+      "affected_drugs": [
+        "drug:nafcillin"
       ],
-      "feis": [
-        "3004021253",
-        "3004051616",
-        "3004086884"
+      "affected_products": 24,
+      "viable": 2,
+      "holders": [
+        {
+          "node_id": "company:name:acs-dobfar-spa",
+          "iso2": [
+            "it"
+          ],
+          "holder": "ACS DOBFAR SPA",
+          "matched_firm": "ACS DOBFAR SPA",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3002806293",
+            "3002806297",
+            "3002806298"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:fresenius-kabi-ipsum-srl",
+          "iso2": [
+            "it"
+          ],
+          "holder": "FRESENIUS KABI IPSUM SRL",
+          "matched_firm": "FRESENIUS KABI IPSUM SRL",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3017296713"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:apitoria-pharma-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "APITORIA PHARMA PRIVATE LTD",
+          "matched_firm": "Apitoria Pharma Private Limited",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004021253",
+            "3004051616",
+            "3004086884"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2019-02-02",
+            "OAI 2019-02-09",
+            "OAI 2021-08-12"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
+      ]
+    },
+    {
+      "node": "api:oxacillin-sodium",
+      "substance": "Oxacillin sodium",
+      "spellings": 8,
+      "active_holders": 4,
+      "inactive_holders": 9,
+      "affected_drugs": [
+        "drug:oxacillin"
       ],
-      "score": -3.0,
-      "risk_flags": [
-        "OAI 2019-02-02",
-        "OAI 2019-02-09",
-        "OAI 2021-08-12"
+      "affected_products": 16,
+      "viable": 3,
+      "holders": [
+        {
+          "node_id": "company:name:fresenius-kabi-ipsum-srl",
+          "iso2": [
+            "it"
+          ],
+          "holder": "FRESENIUS KABI IPSUM SRL",
+          "matched_firm": "FRESENIUS KABI IPSUM SRL",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3017296713"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa",
+          "iso2": [
+            "it"
+          ],
+          "holder": "ISTITUTO BIOCHIMICO ITALIANO GIOVANNI LORENZINI SPA",
+          "matched_firm": "Istituto Biochimico Italiano Giovanni Lorenzini",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3002807242"
+          ],
+          "score": 4.5,
+          "risk_flags": [],
+          "why": [
+            "registered establishment, not flagged API",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:pure-and-cure-healthcare-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "PURE AND CURE HEALTHCARE PRIVATE LTD",
+          "matched_firm": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3007577941",
+            "3008176882",
+            "3024206690"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:apitoria-pharma-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "APITORIA PHARMA PRIVATE LTD",
+          "matched_firm": "Apitoria Pharma Private Limited",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004021253",
+            "3004051616",
+            "3004086884"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2019-02-02",
+            "OAI 2019-02-09",
+            "OAI 2021-08-12"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
+      ]
+    },
+    {
+      "node": "api:piperacillin",
+      "substance": "Piperacillin",
+      "spellings": 14,
+      "active_holders": 12,
+      "inactive_holders": 5,
+      "affected_drugs": [
+        "drug:piperacillin"
       ],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (IND)",
-        "not TAA-designated \u2014 VA/DoD cannot buy",
-        "\ud83d\udd34 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+      "affected_products": 81,
+      "viable": 10,
+      "holders": [
+        {
+          "node_id": "company:name:acs-dobfar-spa",
+          "iso2": [
+            "it"
+          ],
+          "holder": "ACS DOBFAR SPA",
+          "matched_firm": "ACS DOBFAR SPA",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3002806293",
+            "3002806297",
+            "3002806298"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:fresenius-kabi-ipsum-srl",
+          "iso2": [
+            "it"
+          ],
+          "holder": "FRESENIUS KABI IPSUM SRL",
+          "matched_firm": "FRESENIUS KABI IPSUM SRL",
+          "countries": [
+            "ITA"
+          ],
+          "feis": [
+            "3017296713"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ITA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sandoz-industrial-products-sa",
+          "iso2": [
+            "es"
+          ],
+          "holder": "SANDOZ INDUSTRIAL PRODUCTS SA",
+          "matched_firm": "Sandoz Industrial Products S.A",
+          "countries": [
+            "ESP"
+          ],
+          "feis": [
+            "3005403245"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (ESP)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:yuhan-chemical-inc",
+          "iso2": [
+            "kr"
+          ],
+          "holder": "YUHAN CHEMICAL INC",
+          "matched_firm": "Yuhan Chemical Inc.",
+          "countries": [
+            "KOR"
+          ],
+          "feis": [
+            "3004015296",
+            "3008853591"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (KOR)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sterile-india-pvt-ltd",
+          "iso2": [
+            "us"
+          ],
+          "holder": "STERILE INDIA PVT LTD",
+          "matched_firm": "Sharp Sterile Manufacturing, LLC",
+          "countries": [
+            "USA"
+          ],
+          "feis": [
+            "3012144557"
+          ],
+          "score": 4.5,
+          "risk_flags": [],
+          "why": [
+            "registered establishment, not flagged API",
+            "outside CN/IN (USA)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
+          "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3006272230"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:jiangxi-fushine-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "JIANGXI FUSHINE PHARMACEUTICAL CO LTD",
+          "matched_firm": "Jiangxi Fushine Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3008177143"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:shandong-anshun-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "SHANDONG ANSHUN PHARMACEUTICAL CO LTD",
+          "matched_firm": "Shandong Anshun Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3015326904"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:shandong-anxin-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "SHANDONG ANXIN PHARMACEUTICAL CO LTD",
+          "matched_firm": "Shandong Anxin Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3004229375"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:shandong-ruiying-pioneer-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "SHANDONG RUIYING PIONEER PHARMACEUTICAL CO LTD",
+          "matched_firm": "Shandong Ruiying Pioneer Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3008320758"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": null,
+          "iso2": [],
+          "holder": "RAJASTHAN ANTIBIOTICS LTD",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": "company:name:apitoria-pharma-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "APITORIA PHARMA PRIVATE LTD",
+          "matched_firm": "Apitoria Pharma Private Limited",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004021253",
+            "3004051616",
+            "3004086884"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2019-02-02",
+            "OAI 2019-02-09",
+            "OAI 2021-08-12"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
+      ]
+    },
+    {
+      "node": "precursor:6-apa",
+      "substance": "6-Aminopenicillanic acid",
+      "spellings": 11,
+      "active_holders": 8,
+      "inactive_holders": 17,
+      "affected_drugs": [
+        "drug:amoxicillin",
+        "drug:ampicillin",
+        "drug:dicloxacillin",
+        "drug:nafcillin",
+        "drug:oxacillin",
+        "drug:piperacillin"
+      ],
+      "affected_products": 760,
+      "viable": 5,
+      "holders": [
+        {
+          "node_id": "company:name:sandoz-gmbh",
+          "iso2": [
+            "at"
+          ],
+          "holder": "SANDOZ GMBH",
+          "matched_firm": "Sandoz GmbH",
+          "countries": [
+            "AUT"
+          ],
+          "feis": [
+            "3002806523",
+            "3004828473"
+          ],
+          "score": 6.5,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "outside CN/IN (AUT)",
+            "TAA-designated — federally procurable"
+          ],
+          "registered_api": true,
+          "in_chokepoint": false,
+          "taa": true,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
+          "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3006272230"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:pure-and-cure-healthcare-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "PURE AND CURE HEALTHCARE PRIVATE LTD",
+          "matched_firm": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3007577941",
+            "3008176882",
+            "3024206690"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:sinopharm-weiqida-pharmaceutical-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
+          "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3010166430"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:the-united-laboratories-inner-mongolia-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "THE UNITED LABORATORIES INNER MONGOLIA CO LTD",
+          "matched_firm": "The United Laboratories (Inner Mongolia) Co., Ltd.",
+          "countries": [
+            "CHN"
+          ],
+          "feis": [
+            "3010166895"
+          ],
+          "score": 3.0,
+          "risk_flags": [],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (CHN)",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": true
+        },
+        {
+          "node_id": "company:name:antibioticos-sa",
+          "iso2": [],
+          "holder": "ANTIBIOTICOS SA",
+          "matched_firm": null,
+          "countries": [],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "not found in DECRS — capability unverified"
+          ],
+          "registered_api": false,
+          "in_chokepoint": false,
+          "taa": null,
+          "viable": false
+        },
+        {
+          "node_id": "company:name:united-laboratories-chengdu-co-ltd",
+          "iso2": [
+            "cn"
+          ],
+          "holder": "UNITED LABORATORIES CHENGDU CO LTD",
+          "matched_firm": null,
+          "countries": [
+            "CHN"
+          ],
+          "feis": [],
+          "score": 0.0,
+          "risk_flags": [],
+          "why": [
+            "⚠️ AMBIGUOUS in DECRS (2 firms tie: The United Laboratories (Inn, Zhuhai United Laboratories C) — not attributing risk",
+            "site country from the graph record (CHN) — DECRS has no row, so no geography credit",
+            "not TAA-designated — VA/DoD cannot buy"
+          ],
+          "registered_api": false,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        },
+        {
+          "node_id": "company:name:apitoria-pharma-private-ltd",
+          "iso2": [
+            "in"
+          ],
+          "holder": "APITORIA PHARMA PRIVATE LTD",
+          "matched_firm": "Apitoria Pharma Private Limited",
+          "countries": [
+            "IND"
+          ],
+          "feis": [
+            "3004021253",
+            "3004051616",
+            "3004086884"
+          ],
+          "score": -3.0,
+          "risk_flags": [
+            "OAI 2019-02-02",
+            "OAI 2019-02-09",
+            "OAI 2021-08-12"
+          ],
+          "why": [
+            "registered API manufacturer",
+            "⚠️ same chokepoint region (IND)",
+            "not TAA-designated — VA/DoD cannot buy",
+            "🔴 own risk: OAI 2019-02-02, OAI 2019-02-09, OAI 2021-08-12"
+          ],
+          "registered_api": true,
+          "in_chokepoint": true,
+          "taa": false,
+          "viable": false
+        }
       ]
     }
-  ],
-  "viable": [
-    {
-      "holder": "INNER MONGOLIA CHANGSHENG PHARMACEUTICAL CO LTD",
-      "matched_firm": "Inner Mongolia Changsheng Pharmaceutical Co., Ltd.",
-      "countries": [
-        "CHN"
-      ],
-      "feis": [
-        "3006272230"
-      ],
-      "score": 3.0,
-      "risk_flags": [],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (CHN)",
-        "not TAA-designated \u2014 VA/DoD cannot buy"
-      ]
-    },
-    {
-      "holder": "PURE AND CURE HEALTHCARE PRIVATE LTD",
-      "matched_firm": "PURE AND CURE HEALTHCARE PRIVATE LIMITED",
-      "countries": [
-        "IND"
-      ],
-      "feis": [
-        "3007577941",
-        "3008176882",
-        "3024206690"
-      ],
-      "score": 3.0,
-      "risk_flags": [],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (IND)",
-        "not TAA-designated \u2014 VA/DoD cannot buy"
-      ]
-    },
-    {
-      "holder": "SINOPHARM WEIQIDA PHARMACEUTICAL CO LTD",
-      "matched_firm": "Sinopharm Weiqida Pharmaceutical Co., Ltd.",
-      "countries": [
-        "CHN"
-      ],
-      "feis": [
-        "3010166430"
-      ],
-      "score": 3.0,
-      "risk_flags": [],
-      "why": [
-        "registered API manufacturer",
-        "\u26a0\ufe0f same chokepoint region (CHN)",
-        "not TAA-designated \u2014 VA/DoD cannot buy"
-      ]
-    }
-  ],
-  "active_holders": 8,
-  "spellings": 11
+  ]
 }

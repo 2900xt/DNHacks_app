@@ -1,0 +1,216 @@
+{
+  "company:name:apitoria-pharma-private-ltd": {
+    "lat": 17.62477,
+    "lng": 78.08669,
+    "city": "Sangareddy",
+    "geo": "city",
+    "country": "in",
+    "evidence": "DECRS FEI 3004021253 address, city geocoded (GeoNames cities1000)",
+    "dmf": 19265,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN USP"
+  },
+  "company:name:inner-mongolia-changsheng-pharmaceutical-co-ltd": {
+    "lat": 40.81056,
+    "lng": 111.65222,
+    "city": "Huhehaote",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3006272230 address, city geocoded (GeoNames cities1000)",
+    "dmf": 35825,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN"
+  },
+  "company:name:pure-and-cure-healthcare-private-ltd": {
+    "lat": 30.58813,
+    "lng": 76.84498,
+    "city": "Derabassi",
+    "geo": "city",
+    "country": "in",
+    "evidence": "DECRS FEI 3007577941 address, city geocoded (GeoNames cities1000)",
+    "dmf": 24678,
+    "dmf_status": "A",
+    "dmf_subject": "OXACILLIN SODIUM USP"
+  },
+  "company:name:sandoz-gmbh": {
+    "lat": 47.46667,
+    "lng": 11.98333,
+    "city": "Kundl",
+    "geo": "city",
+    "country": "at",
+    "evidence": "DECRS FEI 3002806523 address, city geocoded (GeoNames cities1000)",
+    "dmf": 13754,
+    "dmf_status": "A",
+    "dmf_subject": "AMPICILLIN SODIUM (STERILE)"
+  },
+  "company:name:sinopharm-weiqida-pharmaceutical-co-ltd": {
+    "lat": 40.09361,
+    "lng": 113.29139,
+    "city": "Datong",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3010166430 address, city geocoded (GeoNames cities1000)",
+    "dmf": 38056,
+    "dmf_status": "A",
+    "dmf_subject": "AMPICILLIN TRIHYDRATE (POWDER)"
+  },
+  "company:name:the-united-laboratories-inner-mongolia-co-ltd": {
+    "lat": 40.74143,
+    "lng": 107.38599,
+    "city": "Bayan Nur",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3010166895 address, city geocoded (GeoNames cities1000)"
+  },
+  "company:name:united-laboratories-chengdu-co-ltd": {
+    "lat": 30.66667,
+    "lng": 104.06667,
+    "city": "CHENGDU",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "city named in the DMF holder name; DECRS has no row"
+  },
+  "company:name:centrient-pharmaceuticals-netherlands-bv": {
+    "lat": 31.1245,
+    "lng": 76.11613,
+    "city": "Nawanshahr",
+    "geo": "city",
+    "country": "in",
+    "evidence": "DECRS FEI 3004497364 address, city geocoded (GeoNames cities1000)",
+    "dmf": 16950,
+    "dmf_status": "A",
+    "dmf_subject": "AMOXICILLIN TRIHYDRATE (PURIMOX®)"
+  },
+  "company:name:teva-pharmaceutical-industries-ltd": {
+    "lat": 32.175,
+    "lng": 34.90694,
+    "city": "Kfar Saba",
+    "geo": "city",
+    "country": "il",
+    "evidence": "DECRS FEI 3002721084 address, city geocoded (GeoNames cities1000)",
+    "dmf": 13518,
+    "dmf_status": "A",
+    "dmf_subject": "AMOXICILLIN TRIHYDRATE USP"
+  },
+  "company:name:acs-dobfar-spa": {
+    "lat": 45.68762,
+    "lng": 9.76651,
+    "city": "Albano Sant'Alessandro",
+    "geo": "city",
+    "country": "it",
+    "evidence": "DECRS FEI 3002806293 address, city geocoded (GeoNames cities1000)",
+    "dmf": 36317,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN AND TAZOBACTAM (STERILE BULK)"
+  },
+  "company:name:fresenius-kabi-ipsum-srl": {
+    "lat": 45.07219,
+    "lng": 11.89899,
+    "city": "VILLADOSE",
+    "geo": "city",
+    "country": "it",
+    "evidence": "DECRS FEI 3017296713 address, city geocoded (GeoNames cities1000)",
+    "dmf": 25545,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN SODIUM/ TAZOBACTAM SODIUM (8:1) STERILE LYOPHILIZED"
+  },
+  "company:name:istituto-biochimico-italiano-giovanni-lorenzini-spa": {
+    "lat": 41.59452,
+    "lng": 12.65419,
+    "city": "Aprilia",
+    "geo": "city",
+    "country": "it",
+    "evidence": "DECRS FEI 3002807242 address, city geocoded (GeoNames cities1000)",
+    "dmf": 13743,
+    "dmf_status": "A",
+    "dmf_subject": "OXACILLIN SODIUM STERILE CRYSTALLINE (BULK)"
+  },
+  "company:name:sandoz-industrial-products-sa": {
+    "lat": 41.66667,
+    "lng": 2.75,
+    "city": "Palafolls",
+    "geo": "city",
+    "country": "es",
+    "evidence": "DECRS FEI 3005403245 address, city geocoded (GeoNames cities1000)",
+    "dmf": 18161,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN"
+  },
+  "company:name:sterile-india-pvt-ltd": {
+    "lat": 42.30425,
+    "lng": -73.24816,
+    "city": "Lee",
+    "geo": "city",
+    "country": "us",
+    "evidence": "DECRS FEI 3012144557 address, city geocoded (GeoNames cities1000)",
+    "dmf": 29994,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN & TAZOBACTAM SODIUM (STERILE)"
+  },
+  "company:name:zhuhai-united-laboratories-co-ltd": {
+    "lat": 22.27694,
+    "lng": 113.56778,
+    "city": "Zhuhai",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3006531950 address, city geocoded (GeoNames cities1000)",
+    "dmf": 22857,
+    "dmf_status": "A",
+    "dmf_subject": "AMPICILLIN TRIHYDRATE"
+  },
+  "company:name:jiangxi-fushine-pharmaceutical-co-ltd": {
+    "lat": 29.2947,
+    "lng": 117.20789,
+    "city": "Jingdezhen",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3008177143 address, city geocoded (GeoNames cities1000)",
+    "dmf": 32483,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN"
+  },
+  "company:name:shandong-anshun-pharmaceutical-co-ltd": {
+    "lat": 37.44661,
+    "lng": 116.36706,
+    "city": "Dezhou",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3015326904 address, city geocoded (GeoNames cities1000)",
+    "dmf": 33980,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN (NON-STERILE API)"
+  },
+  "company:name:shandong-anxin-pharmaceutical-co-ltd": {
+    "lat": 36.66833,
+    "lng": 116.99722,
+    "city": "Licheng",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3004229375 address, city geocoded (GeoNames cities1000)",
+    "dmf": 20432,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN SODIUM AND TAZOBACTAM SODIUM (8:1)"
+  },
+  "company:name:shandong-ruiying-pioneer-pharmaceutical-co-ltd": {
+    "lat": 35.23929,
+    "lng": 115.47358,
+    "city": "Heze",
+    "geo": "city",
+    "country": "cn",
+    "evidence": "DECRS FEI 3008320758 address, city geocoded (GeoNames cities1000)",
+    "dmf": 23614,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN"
+  },
+  "company:name:yuhan-chemical-inc": {
+    "lat": 37.32361,
+    "lng": 126.82194,
+    "city": "Ansan-si",
+    "geo": "city",
+    "country": "kr",
+    "evidence": "DECRS FEI 3004015296 address, city geocoded (GeoNames cities1000)",
+    "dmf": 16841,
+    "dmf_status": "A",
+    "dmf_subject": "PIPERACILLIN MONOHYDRATE"
+  }
+}

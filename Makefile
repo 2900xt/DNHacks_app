@@ -45,6 +45,14 @@ depot-demo: ## Replay 24h of storage history into a running API (no hardware nee
 	@./hardware/m5stack-node/replay.py --api $${API:-http://localhost:8000} \
 	  synth --scenario $${SCENARIO:-breach}
 
+.PHONY: sites
+sites: ## Resolve API-tier DMF holders through DECRS and geocode every plant -> web/data/{nodes,edges}.sites.json, geo.json
+	@python3 ml/sites.py
+
+.PHONY: aegis
+aegis: ## Re-score every API's and precursor's DMF holders -> web/data/reroute.json (run `make sites` first)
+	@python3 ml/aegis.py --write
+
 .PHONY: status
 status: ## What actually exists in this repo right now
 	@for c in $(COMPONENTS); do \

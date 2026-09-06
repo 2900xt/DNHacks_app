@@ -12,6 +12,13 @@ This lane does not run a model. It builds the graph artifacts in `web/data/` fro
 openFDA and the official lists, and it owns the transparent risk rules
 (`cascade_rules.py`, decision 0003) rather than a learned scorer.
 
+The AEGIS pathfinder (`aegis.py`) is the one piece the console consumes as a
+scored artifact: `make aegis` (or `python3 ml/aegis.py --write`) scores every
+active DMF holder of every `precursor:` node and writes `web/data/reroute.json`,
+keyed by graph node ids. The console re-ranks survivors itself as nodes are
+switched off, so nothing on stage calls Python or the network. Re-run it after
+`nodes.curated.json` changes; it warns about any holder with no company node.
+
 Storage evaluation lives in `services/api/depot.py`, against
 [`../contracts/schemas/depot.schema.json`](../contracts/schemas/depot.schema.json).
 
