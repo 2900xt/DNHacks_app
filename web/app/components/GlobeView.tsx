@@ -37,6 +37,10 @@ export default function GlobeView({
 }: Props) {
   const holder = useRef<HTMLDivElement | null>(null)
   const globeRef = useRef<any>(null)
+  /** The CSS media query kills transitions and keyframes; a WebGL ring is
+   *  neither, so it has to be asked separately. */
+  const reduced = typeof window !== 'undefined'
+    && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
   const [world, setWorld] = useState<WorldGlobe | null>(null)
   const [ready, setReady] = useState(false)
 
@@ -88,14 +92,36 @@ export default function GlobeView({
         .showAtmosphere(true)
         .atmosphereColor('#4a9eda')
         .atmosphereAltitude(0.15)
-        // Only the jurisdictions we model get a polygon. Highlighting three
-        // countries is reliable; hexifying all 175 was not.
-        .polygonCapColor((d: any) => d.cap)
-        .polygonSideColor((d: any) => d.side)
+        // Outlines, not fills. A whole country flooded red says "China makes
+        // this", which is both too big a claim and too blunt a picture: the
+        // thing that matters is a handful of POINTS. The polygon survives only
+        // as a hairline, to say which jurisdiction a source sits in and to keep
+        // a click target the size of a country.
+        .polygonCapColor(() => 'rgba(0,0,0,0)')
+        .polygonSideColor(() => 'rgba(0,0,0,0)')
         .polygonStrokeColor((d: any) => d.stroke)
-        .polygonAltitude((d: any) => d.alt)
+        .polygonAltitude(() => 0.004)
         .polygonsTransitionDuration(600)
         .onPolygonClick((d: any) => d.nodeId && onSelect(d.nodeId))
+        // The sources themselves. Red where it comes from, blue where it goes.
+        .pointLat((d: any) => d.lat)
+        .pointLng((d: any) => d.lng)
+        .pointColor((d: any) => d.color)
+        .pointAltitude((d: any) => d.alt)
+        .pointRadius((d: any) => d.radius)
+        .pointsTransitionDuration(500)
+        .onPointClick((d: any) => d.nodeId && onSelect(d.nodeId))
+        // The ripple. Named for it, so it had better be here: each live source
+        // pushes a ring out across the surface, and the period is the thing you
+        // read — a jurisdiction carrying more of the supply pulses faster.
+        .ringLat((d: any) => d.lat)
+        .ringLng((d: any) => d.lng)
+        .ringAltitude(0.006)
+        .ringColor((d: any) => d.colorFn)
+        .ringMaxRadius((d: any) => d.maxR)
+        .ringPropagationSpeed((d: any) => d.speed)
+        .ringRepeatPeriod((d: any) => d.period)
+        .ringResolution(72)
         .arcColor((d: any) => d.colors)
         .arcAltitudeAutoScale(0.45)
         .arcStroke((d: any) => d.stroke)
@@ -167,6 +193,7 @@ export default function GlobeView({
 
     const byIso = new Map(routes.map((r) => [r.iso, r]))
     const anySupply = routes.some((r) => !r.down)
+    const dest = world.centroids[DEST]
 
     const polys = world.features
       .filter((f) => jurisdictions.has(f.properties.iso) || f.properties.iso === DEST)
@@ -176,36 +203,85 @@ export default function GlobeView({
         const r = byIso.get(iso)
         const on = !!j && lit.has(j.node.id)
         const isDest = iso === DEST
-        // A jurisdiction that has gone dark reads as absent, not as alarming:
-        // grey, flat, no stroke to speak of. The alarm colour is reserved for
-        // the buyer's end of the chain when nothing is left to ship.
         const dead = rerouting && !!r && r.down
-        const heat = rerouting && r && !r.down ? 0.24 + r.share * 0.5 : on ? 0.62 : 0.2
-
-        if (isDest) {
-          const starved = rerouting && !anySupply
-          return {
-            ...f,
-            nodeId: '',
-            cap: starved ? 'rgba(229,72,77,0.34)' : 'rgba(74,158,218,0.28)',
-            side: starved ? 'rgba(229,72,77,0.18)' : 'rgba(74,158,218,0.15)',
-            stroke: starved ? '#e5484d' : '#4a9eda',
-            alt: starved ? 0.03 : 0.012,
-          }
-        }
         return {
           ...f,
           nodeId: j?.node.id ?? '',
-          cap: dead ? 'rgba(120,132,148,0.16)' : `rgba(229,72,77,${heat.toFixed(2)})`,
-          side: dead ? 'rgba(120,132,148,0.10)' : 'rgba(229,72,77,0.18)',
-          stroke: dead ? 'rgba(120,132,148,0.45)'
-            : rerouting || on ? '#ff6b70' : 'rgba(229,72,77,0.5)',
-          alt: dead ? 0.004 : rerouting ? 0.014 + (r?.share ?? 0) * 0.05 : on ? 0.026 : 0.012,
+          // Faint enough to read as context, not as a claim about the country.
+          stroke: isDest ? 'rgba(74,158,218,0.26)'
+            : dead ? 'rgba(120,132,148,0.16)'
+            : on || rerouting ? 'rgba(229,72,77,0.30)' : 'rgba(229,72,77,0.14)',
         }
       })
     g.polygonsData(polys)
 
-    const dest = world.centroids[DEST]
+    // --- the points, and the ripples off them --------------------------------
+    //
+    // WHERE THESE SIT, precisely. Every one of the eight active filings resolves
+    // to a COUNTRY and no further: DECRS carries `decrs_address_iso3` (CHN, AUT,
+    // IND) and no street, city or coordinate, and none of the eight nodes has a
+    // `city` attribute. So each source point is anchored at its jurisdiction's
+    // centroid, and the country keeps a hairline outline to say the point means
+    // "somewhere in here" rather than "at this spot". Scattering the eight into
+    // invented plant locations would look better and would be a lie on a screen
+    // whose whole claim is that nothing on it is a guess. Drop real site
+    // coordinates into this list and the renderer needs no changes.
+    const points: any[] = []
+    const rings: any[] = []
+
+    for (const [iso, j] of jurisdictions) {
+      const c = world.centroids[iso]
+      if (!c || j.holders.length === 0) continue
+      const r = byIso.get(iso)
+      const on = lit.has(j.node.id)
+      const dead = rerouting && !!r && r.down
+      const share = rerouting && r && !r.down ? r.share : 0
+      const weight = rerouting ? share : j.holders.length / 8
+
+      points.push({
+        lat: c.lat, lng: c.lng,
+        color: dead ? 'rgba(120,132,148,0.55)'
+          : on || rerouting ? '#e5484d' : 'rgba(229,72,77,0.55)',
+        radius: dead ? 0.22 : 0.3 + weight * 0.55,
+        alt: 0.012,
+        nodeId: j.node.id,
+      })
+
+      // A dark source does not ripple. That absence is the whole point of the
+      // cascade: the map goes quiet where the supply stopped.
+      if (dead || reduced) continue
+      rings.push({
+        lat: c.lat, lng: c.lng,
+        maxR: 3.2 + weight * 4.2,
+        speed: 1.5 + weight * 1.1,
+        period: on || rerouting ? 1500 - weight * 550 : 3200,
+        colorFn: (t: number) => `rgba(229,72,77,${(1 - t) * (on || rerouting ? 0.62 : 0.26)})`,
+      })
+    }
+
+    const starvedDest = rerouting && !anySupply
+    points.push({
+      lat: dest.lat, lng: dest.lng,
+      color: starvedDest ? '#e5484d' : '#4a9eda',
+      radius: 0.5,
+      alt: 0.012,
+      nodeId: '',
+    })
+    if (!reduced) {
+      rings.push({
+        lat: dest.lat, lng: dest.lng,
+        maxR: 4.5,
+        speed: 1.1,
+        period: starvedDest ? 900 : 2600,
+        colorFn: (t: number) => (starvedDest
+          ? `rgba(229,72,77,${(1 - t) * 0.6})`
+          : `rgba(74,158,218,${(1 - t) * 0.5})`),
+      })
+    }
+
+    g.pointsData(points)
+    g.ringsData(rings)
+
     const arcs = [...jurisdictions.entries()]
       .filter(([, j]) => j.holders.length > 0)
       .map(([iso, j]) => {
@@ -255,7 +331,9 @@ export default function GlobeView({
         color: dead ? 'rgba(150,162,178,0.7)'
           : rerouting ? '#ffd7d8'
           : on ? '#ffd7d8' : 'rgba(205,218,232,0.62)',
-        dot: dead ? 0.22 : rerouting && r ? 0.3 + r.share * 0.75 : on ? 0.65 : 0.38,
+        // The points layer draws the marker now; a second dot here would sit
+        // inside the first one and fight it.
+        dot: 0,
         nodeId: j.node.id,
       }
     })
@@ -263,11 +341,11 @@ export default function GlobeView({
       lat: dest.lat, lng: dest.lng,
       text: '',
       color: 'rgba(150,200,235,0.9)',
-      dot: 0.42,
+      dot: 0,
       nodeId: '',
     })
     g.labelsData(labels)
-  }, [ready, world, jurisdictions, lit, routes, rerouting])
+  }, [ready, world, jurisdictions, lit, routes, rerouting, reduced])
 
   // --- fly to the focused jurisdiction --------------------------------------
   useEffect(() => {

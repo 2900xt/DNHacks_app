@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
 import { AMOX, BEATS, type BeatCtx, type NodeState } from '../lib/demo'
@@ -13,6 +13,8 @@ import GlobeView from './GlobeView'
 import NodeMetrics from './NodeMetrics'
 import DepotPanel from './DepotPanel'
 import EvidenceKey from './EvidenceKey'
+import Readout from './Readout'
+import AuditLog, { type AuditEntry, type AuditKind } from './AuditLog'
 
 export interface Payload {
   nodes: GraphNode[]
@@ -42,6 +44,20 @@ export default function Console({ payload }: { payload: Payload }) {
   /** Everything the operator has switched off. The failure simulation IS this set. */
   const [compromised, setCompromised] = useState<Set<NodeId>>(new Set())
   const [view, setView] = useState<'tree' | 'graph'>('tree')
+
+  /** The console's paper trail. Appended from effects rather than from the
+   *  handlers, so a state change logs once no matter which control caused it —
+   *  the keyboard, a tab, the tree, or the globe. Consecutive duplicates are
+   *  dropped because StrictMode runs every effect twice in development. */
+  const [audit, setAudit] = useState<AuditEntry[]>([])
+  const log = useCallback((kind: AuditKind, text: string) => {
+    setAudit((a) => {
+      const last = a[a.length - 1]
+      if (last && last.kind === kind && last.text === text) return a
+      const t = new Date().toLocaleTimeString('en-GB', { hour12: false })
+      return [...a.slice(-299), { t, kind, text }]
+    })
+  }, [])
 
   const byId = useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes])
   const nodeLabel = useCallback((id: NodeId) => byId.get(id)?.label ?? id, [byId])
@@ -133,6 +149,45 @@ export default function Console({ payload }: { payload: Payload }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [beat, go, restoreAll])
 
+  // --- what goes in the log --------------------------------------------------
+  //
+  // Guarded on a ref of the previous value rather than on the dependency array
+  // alone: StrictMode runs every effect twice in development, and an audit log
+  // that reports each action twice is worse than no audit log.
+  const prevBeat = useRef<number | null>(null)
+  useEffect(() => {
+    if (prevBeat.current === beat) return
+    prevBeat.current = beat
+    log('beat', `Beat ${beat + 1} — ${BEATS[beat].label}`)
+  }, [beat, log])
+
+  const prevRoot = useRef<NodeId | null>(null)
+  useEffect(() => {
+    if (prevRoot.current === root) return
+    prevRoot.current = root
+    log('select', `Tree rooted at ${nodeLabel(root)}`)
+  }, [root, log, nodeLabel])
+
+  const prevSel = useRef<NodeId | null>(null)
+  useEffect(() => {
+    if (prevSel.current === selected) return
+    prevSel.current = selected
+    if (selected) log('select', `Inspect ${nodeLabel(selected)}`)
+  }, [selected, log, nodeLabel])
+
+  const prevOff = useRef<Set<NodeId>>(new Set())
+  useEffect(() => {
+    const prev = prevOff.current
+    if (prev.size === compromised.size && [...compromised].every((id) => prev.has(id))) return
+    for (const id of compromised) {
+      if (!prev.has(id)) log('cascade', `${nodeLabel(id)} switched offline`)
+    }
+    for (const id of prev) {
+      if (!compromised.has(id)) log('reset', `${nodeLabel(id)} restored`)
+    }
+    prevOff.current = new Set(compromised)
+  }, [compromised, log, nodeLabel])
+
   const sel = selected ? byId.get(selected) ?? null : null
   const selEdges = useMemo(
     () => (selected ? edges.filter((e) => e.src === selected || e.dst === selected) : []),
@@ -185,96 +240,9 @@ export default function Console({ payload }: { payload: Payload }) {
 
   return (
     <div className="console" data-panel={panel ? 'open' : 'closed'}>
-      <header className="head">
-        <div className="brand">
-          <Image className="mark" src="/ripple-mark.png" alt="" width={20} height={20} priority />
-          <h1>RIPPLE</h1>
-        </div>
-        <span className="sub">6-APA penicillin family</span>
-        <div className="spacer" />
-        <div className="progress" role="group" aria-label="Demo beats">
-          {BEATS.map((x, i) => (
-            <button
-              key={x.key}
-              className="seg"
-              onClick={() => go(i)}
-              data-on={i <= beat ? '1' : '0'}
-              data-now={i === beat ? '1' : '0'}
-              title={`${i + 1}. ${x.label}`}
-              aria-label={`Beat ${i + 1} of ${BEATS.length}: ${x.label}`}
-              aria-current={i === beat ? 'step' : undefined}
-            />
-          ))}
-        </div>
-        <span className="sub beatname">{rerouting ? 'Rerouting' : b.label}</span>
-        <div className="steps">
-          <button className="ctl" onClick={() => go(beat - 1)} disabled={beat === 0}>
-            Back
-          </button>
-          <button
-            className="ctl"
-            onClick={() => go(beat + 1)}
-            disabled={beat === BEATS.length - 1}
-          >
-            Next
-          </button>
-        </div>
-      </header>
-
-      <aside className="rail-l" aria-label="Depot readings">
-        <DepotPanel onBreach={onBreach} />
-      </aside>
-
-      <section className="map-wrap" aria-label="World map">
-        <GlobeView
-          nodes={nodes}
-          edges={edges}
-          lit={lit}
-          selected={selected}
-          onSelect={setSelected}
-          routes={routes}
-          rerouting={rerouting}
-        />
-        {/* The beat's claim, on screen — and once anything is switched off, the
-            consequence instead. Both are live text, not a caption written in
-            advance: the numbers in the failure line are the same ones the tree
-            and the globe are drawing. */}
-        <div className="caption" data-killed={rerouting ? '1' : '0'} aria-live="polite">
-          {rerouting ? (
-            <>
-              <p className="say">{impact}</p>
-              <p className="note">
-                Load is split evenly across surviving qualified sources — there is no
-                public per-holder capacity figure to weight it with. Esc restores.
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="say">{b.say}</p>
-              {b.note && <p className="note">{b.note}</p>}
-            </>
-          )}
-        </div>
-      </section>
-
-      <aside className="rail-r" aria-label="Selection">
-        <NodeMetrics
-          overview={overview}
-          node={sel}
-          edges={selEdges}
-          signals={selected ? signals[selected] ?? [] : []}
-          compliance={selected ? compliance[selected] ?? null : null}
-          nodeLabel={nodeLabel}
-          onSelect={setSelected}
-          onCascade={toggle}
-          offline={selected ? compromised.has(selected) : false}
-          rollup={selected ? rollups.get(selected) : undefined}
-          downstream={downstream}
-          ndc={selected ? ndcCount[selected] : undefined}
-          labelers={selected ? labelerCount[selected] : undefined}
-        />
-      </aside>
-
+      {/* The nodes, vertical, in the third of the screen next to the map.
+          Material flows DOWN the column — jurisdiction to drug product — and the
+          map answers "where", so the two read as one sentence left to right. */}
       <section className="graph-panel" aria-label="Sourcing graph">
         <div className="panel-tabs">
           <Image className="mark mark-sm" src="/ripple-mark.png" alt="" width={14} height={14} />
@@ -293,20 +261,23 @@ export default function Console({ payload }: { payload: Payload }) {
           >
             Full graph
           </button>
+          <div className="spacer" />
+          <button
+            className="ctl"
+            onClick={() => setPanel((p) => !p)}
+            aria-expanded={panel}
+            title="Collapse the node column (g)"
+          >
+            {panel ? '◂' : '▸'}
+          </button>
+        </div>
+        <div className="panel-sub">
           <span className="tab-meta">
             {counts.nodes.toLocaleString()} nodes · {counts.edges.toLocaleString()} edges
             {b.evidence && ` · ${counts.signals.toLocaleString()} signals · ${counts.compliance} compliance rows`}
           </span>
           <div className="spacer" />
           <EvidenceKey layerCounts={layerCounts} open={!!b.evidence} />
-          <button
-            className="ctl"
-            onClick={() => setPanel((p) => !p)}
-            aria-expanded={panel}
-            title="Toggle graph panel (g)"
-          >
-            {panel ? '▾' : '▴'}
-          </button>
         </div>
         {panel && (
           <div className="panel-body">
@@ -343,6 +314,91 @@ export default function Console({ payload }: { payload: Payload }) {
             )}
           </div>
         )}
+      </section>
+
+      <section className="map-wrap" aria-label="World map">
+        {/* The way back. The collapse control lives INSIDE the node column, so
+            collapsing it took the control with it and left the keyboard as the
+            only way back — a shortcut nobody can see. This tab is the door on
+            the outside of the door. */}
+        {!panel && (
+          <button
+            className="reopen"
+            onClick={() => setPanel(true)}
+            title="Show the node column (g)"
+            aria-label="Show the node column"
+          >
+            ▸ Nodes
+          </button>
+        )}
+
+        <GlobeView
+          nodes={nodes}
+          edges={edges}
+          lit={lit}
+          selected={selected}
+          onSelect={setSelected}
+          routes={routes}
+          rerouting={rerouting}
+        />
+
+        {/* The physical half and the inspector float over the globe rather than
+            taking columns off it. The globe is mostly empty ocean at the edges,
+            and neither of these is on screen for the whole story: the depot
+            carries beats 0–2, the inspector only exists once you ask it a
+            question. */}
+        <aside className="ov ov-depot" aria-label="Depot readings">
+          <DepotPanel onBreach={onBreach} />
+        </aside>
+
+        {sel && (
+          <aside className="ov ov-node" aria-label="Selection">
+            <NodeMetrics
+              node={sel}
+              edges={selEdges}
+              signals={selected ? signals[selected] ?? [] : []}
+              compliance={selected ? compliance[selected] ?? null : null}
+              nodeLabel={nodeLabel}
+              onSelect={setSelected}
+              onCascade={toggle}
+              onClose={() => setSelected(null)}
+              offline={selected ? compromised.has(selected) : false}
+              rollup={selected ? rollups.get(selected) : undefined}
+              downstream={downstream}
+              ndc={selected ? ndcCount[selected] : undefined}
+              labelers={selected ? labelerCount[selected] : undefined}
+            />
+          </aside>
+        )}
+
+        {/* Bottom right: the numbers, then the claim they support. The beat's
+            own wording — and once anything is switched off, the consequence
+            instead. Both are live text, not a caption written in advance: the
+            numbers in the failure line are the same ones the tree and the globe
+            are drawing. */}
+        <div className="ov-read">
+          <Readout overview={overview} />
+          <div className="caption" data-killed={rerouting ? '1' : '0'} aria-live="polite">
+            {rerouting ? (
+              <>
+                <p className="say">{impact}</p>
+                <p className="note">
+                  Load is split evenly across surviving qualified sources — there is no
+                  public per-holder capacity figure to weight it with. Esc restores.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="say">{b.say}</p>
+                {b.note && <p className="note">{b.note}</p>}
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="audit-wrap">
+        <AuditLog entries={audit} />
       </section>
 
     </div>

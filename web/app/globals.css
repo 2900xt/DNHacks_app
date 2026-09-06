@@ -26,6 +26,8 @@
   --layer2:    #8494a6;
   --layer3:    #a97fd9;
 
+  --audit-h:  108px;
+
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -42,68 +44,101 @@ html, body {
 
 /* ---- shell ---------------------------------------------------------------- */
 
+/* One third nodes, two thirds map. The node column runs the FULL height beside
+   the map, so the vertical chain and the geography sit adjacent and read as one
+   sentence: what the chain is, and where it comes from. The audit strip takes
+   the bottom of the map side only — the column keeps its height, because a
+   graph cut short to make room for a log is the wrong trade. */
+
 .console {
   display: grid;
-  grid-template-columns: 208px minmax(0, 1fr) 272px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   grid-template-areas:
-    "head  head  head"
-    "left  map   right"
-    "graph graph graph";
+    "graph map"
+    "graph audit";
+  grid-template-rows: minmax(0, 1fr) var(--audit-h);
   height: 100vh;
   gap: 1px;
   background: var(--line-soft);
 }
-.console[data-panel="open"]   { grid-template-rows: 38px minmax(0,1fr) 47vh; }
-.console[data-panel="closed"] { grid-template-rows: 38px minmax(0,1fr) 30px; }
+/* Collapsed, the column gets out of the way entirely and the globe takes the
+   screen. Nothing is hidden behind a scroll — it is either there or it is not. */
+.console[data-panel="closed"] { grid-template-columns: 0 minmax(0, 1fr); }
 
-.head {
-  grid-area: head; background: var(--panel);
-  display: flex; align-items: center; gap: 14px; padding: 0 14px;
-}
-.head .brand { display: flex; align-items: center; gap: 8px; }
-.head h1 { font: 600 12px/1 var(--sans); letter-spacing: .22em; margin: 0; }
+/* No header row. The demo is driven from the keyboard — space and the arrows
+   move between beats, r resets, g collapses the node column — and a bar that
+   only restated which beat you were on was 38px spent saying what the caption
+   already says out loud. The mark lives on the node column's tab bar. */
 
-/* The wordmark. /ripple-mark.png is the R cut square out of the full RIPPLE
-   lockup — the lockup's own wordmark is dropped because the <h1> next to it
-   already says RIPPLE. White-and-blue on transparent, which is why it is only
-   ever placed on these dark panels. Kept small on purpose; the header is an
-   instrument label, not a brand banner. */
-.mark { display: block; width: 20px; height: 20px; opacity: .95; flex: none; }
-.mark-sm { width: 14px; height: 14px; opacity: .8; margin-right: -4px; }
-.head .sub { color: var(--text-faint); font-size: 11px; }
-.head .spacer { flex: 1; }
-.beatname { text-transform: uppercase; letter-spacing: .12em; font-size: 10px !important; }
-
-/* One step at a time, forwards or back. Arrow keys and space still work as an
-   accelerator, but nothing requires them. */
-.steps { display: flex; align-items: center; gap: 10px; }
-
-/* Beat rail. The demo is one chronological argument, so position inside it is
-   real information — seven segments read at a glance, not a "4/7" you have to
-   parse. Each is a jump target, because the question a judge asks is always
-   "go back to the one before that". The 14px button carries a 3px mark: a
-   usable hit area without a control that looks like it wants clicking. */
-.progress { display: flex; gap: 3px; }
-.progress .seg {
-  width: 26px; height: 14px; padding: 0; border: 0; background: none;
-  display: grid; align-items: center; cursor: pointer;
-}
-.progress .seg::before {
-  content: ""; display: block; height: 3px; border-radius: 2px;
-  background: var(--line); transition: background .3s;
-}
-.progress .seg[data-on="1"]::before { background: var(--focus); }
-.progress .seg[data-now="1"]::before { background: var(--text); }
-.progress .seg:hover::before { background: var(--text-faint); }
-.progress[data-killed="1"] { opacity: .4; }
-.progress .seg:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
-button.ctl:disabled { opacity: .35; cursor: default; }
-button.ctl:disabled:hover { color: var(--text-dim); border-color: var(--line); }
-
-.rail-l { grid-area: left;  background: var(--panel); overflow-y: auto; }
-.rail-r { grid-area: right; background: var(--panel); overflow-y: auto; }
 .map-wrap { grid-area: map; background: var(--bg); position: relative; overflow: hidden; }
-.graph-panel { grid-area: graph; background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
+.graph-panel {
+  grid-area: graph; background: var(--panel);
+  display: flex; flex-direction: column; min-height: 0; min-width: 0; overflow: hidden;
+}
+.audit-wrap { grid-area: audit; background: var(--panel); min-height: 0; overflow: hidden; }
+
+/* ---- overlays on the map --------------------------------------------------
+
+   Panels, not glass. A blur filter over a live WebGL globe costs frames on a
+   demo laptop, and the console's whole visual argument is flat instrument
+   surfaces — so these are the same panel colour at 92%, with the same hairline
+   border as everything else. */
+
+.ov {
+  position: absolute; z-index: 3; width: 234px;
+  max-height: calc(100% - 210px);
+  overflow-y: auto; overscroll-behavior: contain;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border: 1px solid var(--line); border-radius: 4px;
+}
+/* Shown only when the node column is collapsed. Bottom-left, not mid-left: the
+   depot overlay owns the top-left corner and a control hiding behind another
+   panel is the same bug as a control that is not there. */
+.reopen {
+  position: absolute; z-index: 4; left: 12px; bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; cursor: pointer;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border: 1px solid var(--line); border-radius: 4px;
+  color: var(--text-dim);
+  font: 500 10.5px/1 var(--sans); letter-spacing: .04em;
+}
+.reopen:hover { color: var(--text); border-color: var(--text-faint); }
+.reopen:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.ov-depot { top: 12px; left: 12px; }
+.ov-node  { top: 12px; right: 12px; }
+/* The overlay scrolls, and the browser keeps the focused control in view — so
+   pressing "Simulate failure" near the bottom used to scroll the node's NAME off
+   the top, leaving a panel of numbers about nothing. The header stays put. */
+.ov .rail-head {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.ov-close {
+  background: none; border: 0; cursor: pointer; padding: 0 0 0 6px;
+  color: var(--text-faint); font: 400 12px/1 var(--sans);
+}
+.ov-close:hover { color: var(--text); }
+.ov-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Bottom right: the numbers, then the claim they support. */
+.ov-read {
+  position: absolute; z-index: 2; right: 22px; bottom: 16px; left: 22px;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  pointer-events: none;
+}
+.readout { display: flex; gap: 22px; align-items: flex-end; }
+.ro { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.ro b {
+  font: 500 21px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text);
+  text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg);
+}
+.ro span {
+  font: 500 8.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
+}
+.ro[data-tone="alarm"] b { color: var(--alarm); }
 
 /* ---- rails ---------------------------------------------------------------- */
 
@@ -216,18 +251,16 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    the one element carrying the argument — and it is what the demo video and the
    phone fallback have instead of a presenter. Shadowed, not boxed: a panel here
    would cut the globe in half. */
-.caption {
-  position: absolute; left: 22px; right: 22px; bottom: 16px;
-  pointer-events: none; z-index: 2;
-}
+.caption { text-align: right; }
 .caption .say {
   margin: 0; font: 400 17px/1.35 var(--sans); color: var(--text);
-  max-width: 58ch; text-wrap: balance;
+  max-width: 52ch; margin-left: auto; text-wrap: balance;
   text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg), 0 1px 2px var(--bg);
 }
 .caption .note {
   margin: 7px 0 0; font: 400 11.5px/1.5 var(--mono); color: var(--text-dim);
-  max-width: 78ch; text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
+  max-width: 66ch; margin-left: auto;
+  text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
 }
 .caption[data-killed="1"] .say { color: #ffb8ba; }
 
@@ -262,11 +295,32 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
 /* ---- graph panel (VS Code terminal pattern) -------------------------------- */
 
+/* The wordmark. The asset is the favicon: a black disc with a white triangle,
+   transparent outside the disc — so on these panels the disc reads as a faint
+   well and the triangle carries the mark. */
+.mark { display: block; opacity: .95; flex: none; }
+.mark-sm { width: 14px; height: 14px; opacity: .8; margin-right: -4px; }
+
 .panel-tabs {
   display: flex; align-items: center; gap: 12px; height: 30px; padding: 0 10px;
-  border-bottom: 1px solid var(--line); flex: none;
+  flex: none;
 }
-.panel-tabs .spacer { flex: 1; }
+.panel-tabs .spacer, .panel-sub .spacer { flex: 1; }
+
+/* The column is a third of the screen; the header does not fit on one line, so
+   what it IS goes on the first line and what it MEANS goes on the second. */
+/* Stacked, not spaced. Side by side these two ran into each other the moment
+   the counts grew a digit — a flex spacer distributes slack, it does not stop
+   two nowrap runs from colliding once there is none. Two short lines always
+   fit; one long line only fits sometimes. */
+.panel-sub {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+  padding: 0 10px 7px; border-bottom: 1px solid var(--line); flex: none;
+  min-width: 0;
+}
+.panel-sub .spacer { display: none; }
+.panel-sub .tab-meta, .panel-sub .legend { max-width: 100%; }
+.legend { flex-wrap: wrap; row-gap: 3px; }
 .tab {
   font: 600 10px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
   color: var(--text-faint); padding: 8px 0; border: 0; border-bottom: 2px solid transparent;
@@ -314,7 +368,63 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .gedge[data-lit="off"] { opacity: .15; }
 .gedge[data-lit="on"] { opacity: .95; stroke-width: 1.8; }
 
-.col-label { font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; fill: var(--text-faint); }
+/* Band header. Left says what stage this is, right says what the arrows coming
+   into it DO. The relation between two adjacent bands is uniform, so stating it
+   once on the header beats stamping the same verb on ten converging arrows. */
+.band-label {
+  font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
+  fill: var(--text-faint);
+}
+.band-count { fill: var(--text-faint); opacity: .65; letter-spacing: .06em; }
+.band-rel {
+  font: 500 10px/1 var(--mono); letter-spacing: .02em; fill: var(--text-dim);
+}
+.band-rel[data-layer="1"] { fill: var(--layer1); }
+.band-rel[data-layer="2"] { fill: var(--layer2); }
+.band-rel[data-layer="3"] { fill: var(--layer3); }
+
+/* Per-edge verbs, but only for the node under inspection — where the question
+   is "how is THIS attached" rather than "what is this diagram". Punched out of
+   the line it sits on rather than boxed. */
+.gedge-label {
+  font: 500 9.5px/1 var(--mono); fill: var(--text);
+  paint-order: stroke; stroke: var(--panel); stroke-width: 3.5px;
+}
+.gedge-label[data-layer="1"] { fill: var(--layer1); }
+.gedge-label[data-layer="2"] { fill: var(--text-dim); }
+.gedge-label[data-layer="3"] { fill: var(--layer3); }
+
+/* ---- audit log ------------------------------------------------------------
+
+   Reserved and running. The pitch is that nothing on screen is a model
+   guessing, and the next question after "where did this number come from" is
+   "who looked at it, and when". */
+
+.audit { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.audit-head {
+  display: flex; align-items: center; gap: 8px; padding: 6px 12px 5px;
+  border-bottom: 1px solid var(--line-soft); flex: none;
+}
+.audit-title {
+  font: 600 8.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.audit-count {
+  font: 500 9px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text-faint);
+}
+.audit-body { flex: 1; min-height: 0; overflow-y: auto; padding: 3px 0 4px; }
+.audit-row {
+  display: grid; grid-template-columns: 62px 62px 1fr; align-items: baseline; gap: 8px;
+  padding: 2px 12px; font: 400 10.5px/1.5 var(--mono); color: var(--text-dim);
+}
+.a-t { color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.a-kind {
+  font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint);
+}
+.audit-row[data-kind="cascade"] .a-kind, .audit-row[data-kind="cascade"] .a-text { color: var(--alarm); }
+.audit-row[data-kind="reset"] .a-kind { color: var(--ok); }
+.audit-row[data-kind="beat"] .a-text { color: var(--text); }
+.a-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 
 /* ---- supply tree ----------------------------------------------------------
@@ -331,24 +441,30 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 
 .tree-wrap { display: flex; flex-direction: column; height: 100%; min-height: 0; }
 
+/* The strip wraps rather than scrolls, and it stays SHORT: every row it takes
+   comes straight off the tree's height, and the tree is what the column is for.
+   Six chips, a label and a hint fit in two lines at this size. */
 .tree-strip {
-  display: flex; align-items: center; gap: 6px; flex: none;
-  padding: 7px 12px; border-bottom: 1px solid var(--line-soft);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 5px; flex: none;
+  padding: 5px 10px 6px; border-bottom: 1px solid var(--line-soft);
 }
-.tree-strip .spacer { flex: 1; }
+.tree-strip .spacer { flex-basis: 100%; height: 0; margin: 0; }
 .strip-label {
-  font: 500 8.5px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
-  color: var(--text-faint); margin-right: 2px;
+  font: 500 8px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-faint); margin-right: 1px;
 }
-.strip-hint { font: 400 10px/1 var(--mono); color: var(--text-faint); }
+.strip-hint {
+  font: 400 9.5px/1.4 var(--mono); color: var(--text-faint);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 
 /* Every chip here runs through the same precursor, so they all change colour
    together the moment it degrades. That simultaneity is the fan-out argument —
    six drugs, one point of failure — made without a sentence. */
 .drug-chip {
-  font: 500 11px/1 var(--sans); letter-spacing: .02em;
+  font: 500 10.5px/1 var(--sans); letter-spacing: .02em;
   background: var(--panel-2); color: var(--text-dim);
-  border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 3px; padding: 4px 7px; cursor: pointer;
   transition: color .3s, border-color .3s, background .3s;
 }
 .drug-chip:hover { color: var(--text); border-color: var(--text-faint); }
@@ -365,7 +481,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .tree { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 .tlevel {
-  font: 600 9.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  font: 600 8.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
   fill: var(--text-faint); dominant-baseline: middle;
 }
 
@@ -450,29 +566,27 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   .console[data-panel="open"],
   .console[data-panel="closed"] {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "head" "map" "graph" "left" "right";
-    grid-template-rows: auto 42vh auto auto auto;
+    grid-template-areas: "map" "graph" "audit";
+    grid-template-rows: 46vh auto var(--audit-h);
     height: auto; min-height: 100vh;
   }
 
-  .head { flex-wrap: wrap; padding: 8px 12px; row-gap: 8px; }
-  .head .sub:not(.beatname) { display: none; }
-  .head .spacer { flex-basis: 100%; }
+  .graph-panel { height: 62vh; }
 
-  .graph-panel { height: 46vh; }
-  .tree-strip { flex-wrap: wrap; row-gap: 6px; }
-  .strip-hint { display: none; }
-  .rail-l, .rail-r { overflow-y: visible; }
-
-  /* The tab bar is a single 30px line of five things. At this width it becomes
-     five things on top of each other, so it drops to the two that still earn
-     their place: what the panel is, and what its colours mean. */
-  .panel-tabs { height: auto; padding: 6px 10px; gap: 8px; }
-  .panel-tabs .mark-sm, .tab-meta { display: none; }
-  .legend { gap: 9px; font-size: 9px; }
-
-  .caption { left: 14px; right: 14px; bottom: 12px; }
+  /* The overlays have nowhere to float at this width — they would cover the
+     globe entirely. The phone fallback is "graph only, no telemetry" anyway. */
+  .ov-depot, .ov-node { display: none; }
+  .ov-read { left: 14px; right: 14px; bottom: 12px; }
+  .readout { gap: 14px; }
+  .ro b { font-size: 17px; }
   .caption .say { font-size: 15px; }
+
+  .panel-tabs { height: auto; padding: 6px 10px; gap: 8px; }
+  .panel-tabs .mark-sm { display: none; }
+  .panel-sub { font-size: 9px; }
+  .legend { gap: 9px; }
+  .audit-row { grid-template-columns: 58px 1fr; }
+  .audit-row .a-kind { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

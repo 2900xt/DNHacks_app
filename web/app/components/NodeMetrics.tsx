@@ -2,10 +2,10 @@
 
 import type { Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
 import type { Rollup } from '../lib/supply-tree'
+import { relVerb } from '../lib/graph-layout'
 import Metric from './Metric'
 
 interface Props {
-  overview: { jurisdictions: number; filings: number; drugs: number; concentration: string }
   node: GraphNode | null
   edges: GraphEdge[]
   signals: Signal[]
@@ -14,6 +14,8 @@ interface Props {
   onSelect: (id: NodeId) => void
   /** Switch this node off, or back on. */
   onCascade: (id: NodeId) => void
+  /** Dismiss the inspector. It is an overlay now, so it needs a way out. */
+  onClose: () => void
   /** True when this node is one of the switched-off ones. */
   offline: boolean
   /** Its standing in the current tree, when it is part of one. */
@@ -38,27 +40,18 @@ const TILES: Record<string, [string, string, string?][]> = {
   api: [],
 }
 
+/**
+ * The inspector, now an overlay on the map rather than a standing rail.
+ *
+ * It renders only when a node is selected. The resting summary moved to the
+ * bottom-right readout, which never leaves the screen — so this panel no longer
+ * has to be two things at once, and it can be absent instead of empty.
+ */
 export default function NodeMetrics({
-  overview, node, edges, signals, compliance, nodeLabel, onSelect, onCascade, offline,
+  node, edges, signals, compliance, nodeLabel, onSelect, onCascade, onClose, offline,
   rollup, downstream, ndc, labelers,
 }: Props) {
-  // Resting state is not empty state: with nothing selected the rail answers the
-  // question the operator already has — how concentrated is this supply?
-  if (!node) {
-    return (
-      <>
-        <div className="rail-head">
-          <span className="rail-title">Supply concentration</span>
-        </div>
-        <Metric label="Jurisdictions" value={overview.jurisdictions} sub="that make 6-APA" />
-        <Metric label="Active DMF filings" value={overview.filings} sub="to supply 6-APA" />
-        <Metric label="Drugs downstream" value={overview.drugs} tone="alarm"
-          sub="every US penicillin" />
-        <Metric label="Top jurisdiction" value={overview.concentration}
-          sub={`of the ${overview.filings} active filings`} />
-      </>
-    )
-  }
+  if (!node) return null
 
   const a = (node.attrs ?? {}) as Record<string, unknown>
   const tiles = (TILES[node.type] ?? []).filter(([k]) => a[k] != null && a[k] !== '')
@@ -69,6 +62,7 @@ export default function NodeMetrics({
       <div className="rail-head">
         <span className="rail-title">{node.label ?? node.id}</span>
         <span className="tag" data-t="dim">{node.type}</span>
+        <button className="ov-close" onClick={onClose} aria-label="Close inspector">✕</button>
       </div>
 
       <div className="chips">
@@ -131,7 +125,7 @@ export default function NodeMetrics({
             >
               <span className={`pill l${e.layer}`}><i /></span>
               <span className="lr-name">{nodeLabel(other)}</span>
-              <span className="lr-rel">{e.rel}</span>
+              <span className="lr-rel">{relVerb(e.rel)}</span>
             </button>
           )
         })}
