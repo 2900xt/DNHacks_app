@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useDepot, useTicker } from '../lib/useDepot'
-import { API_BASE, STATUS_LABEL, fmt, type DepotNode } from '../lib/depot'
+import { API_BASE, STATUS_LABEL, causeOf, fmt, type DepotNode } from '../lib/depot'
 import Metric from './Metric'
 
 const TONE: Record<string, 'ok' | 'warn' | 'alarm' | 'plain'> = {
@@ -47,6 +47,27 @@ export default function DepotPanel({ onBreach }: { onBreach?: (drugs: string[]) 
   const overCeiling =
     active?.mkt_c != null && spec.mkt_c_max != null && active.mkt_c > spec.mkt_c_max
 
+  // MKT above the ceiling is not yet a condemnation. The service deliberately
+  // refuses to latch a breach on a window shorter than an hour, because MKT is a
+  // multi-hour metric — so an un-latched bin showed a red number directly under
+  // an "In specification" tag, and the panel read as contradicting itself on the
+  // one question it exists to answer. Amber is the honest third state, and the
+  // reason it is amber is the best line in the demo: say it on the tile.
+  const ceiling = `ceiling ${fmt(spec.mkt_c_max, 1)}°C`
+  const mktTone = breached ? 'alarm' : overCeiling ? 'warn' : 'ok'
+  const mktSub = breached
+    ? `${ceiling} · does not clear when the room cools`
+    : overCeiling
+      ? `${ceiling} · ${fmt(active?.window_h, 1)} h window, not condemned yet`
+      : `mean ${fmt(active?.mean_c)}°C · ${ceiling}`
+  // Only where the tile above does not already explain itself. On a condemned
+  // bin the MKT sub-line says the same thing in fewer words, and the rail is
+  // 208px wide — two components saying it twice just pushes readings off screen.
+  const cause =
+    active && active.status !== 'ok' && active.status !== 'mkt_breach'
+      ? causeOf(active.reason)
+      : ''
+
   return (
     <>
       <div className="rail-head">
@@ -85,9 +106,15 @@ export default function DepotPanel({ onBreach }: { onBreach?: (drugs: string[]) 
             label="Mean kinetic temp"
             value={fmt(active.mkt_c)}
             unit="°C"
-            tone={overCeiling ? 'alarm' : 'ok'}
-            sub={`mean ${fmt(active.mean_c)}°C · ceiling ${fmt(spec.mkt_c_max, 1)}°C`}
+            tone={mktTone}
+            sub={mktSub}
           />
+          {cause && (
+            <div className="metric">
+              <span className="m-label">Cause</span>
+              <span className="m-sub">{cause}</span>
+            </div>
+          )}
           <Metric label="Temperature" value={fmt(r.temp_c)} unit="°C"
             sub={`band ${fmt(spec.temp_c_min, 0)}–${fmt(spec.temp_c_max, 0)}°C`} />
           <Metric label="Cross-check" value={fmt(r.temp_c_xcheck)} unit="°C" sub="DHT11" />

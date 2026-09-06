@@ -4,7 +4,7 @@ import type { Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/ty
 import Metric from './Metric'
 
 interface Props {
-  overview: { jurisdictions: number; holders: number; drugs: number; concentration: string }
+  overview: { jurisdictions: number; filings: number; drugs: number; concentration: string }
   node: GraphNode | null
   edges: GraphEdge[]
   signals: Signal[]
@@ -44,10 +44,12 @@ export default function NodeMetrics({
         <div className="rail-head">
           <span className="rail-title">Supply concentration</span>
         </div>
-        <Metric label="Jurisdictions" value={overview.jurisdictions} />
-        <Metric label="Active DMF filings" value={overview.holders} sub="for 6-APA" />
-        <Metric label="Drugs downstream" value={overview.drugs} tone="alarm" />
-        <Metric label="Top jurisdiction" value={overview.concentration} />
+        <Metric label="Jurisdictions" value={overview.jurisdictions} sub="that make 6-APA" />
+        <Metric label="Active DMF filings" value={overview.filings} sub="to supply 6-APA" />
+        <Metric label="Drugs downstream" value={overview.drugs} tone="alarm"
+          sub="every US penicillin" />
+        <Metric label="Top jurisdiction" value={overview.concentration}
+          sub={`of the ${overview.filings} active filings`} />
       </>
     )
   }

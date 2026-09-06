@@ -95,6 +95,7 @@ html, body {
 .progress .seg[data-on="1"]::before { background: var(--focus); }
 .progress .seg[data-now="1"]::before { background: var(--text); }
 .progress .seg:hover::before { background: var(--text-faint); }
+.progress[data-killed="1"] { opacity: .4; }
 .progress .seg:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 button.ctl:disabled { opacity: .35; cursor: default; }
 button.ctl:disabled:hover { color: var(--text-dim); border-color: var(--line); }
@@ -146,7 +147,13 @@ button.ctl:disabled:hover { color: var(--text-dim); border-color: var(--line); }
   color: var(--text); word-break: break-all;
 }
 .m-value em { font-style: normal; font-size: 11px; color: var(--text-dim); margin-left: 3px; }
-.m-sub { font: 400 9.5px/1.35 var(--mono); color: var(--text-faint); }
+.m-sub {
+  font: 400 9.5px/1.35 var(--mono); color: var(--text-faint);
+  /* A reading's caption explains the number above it. Past three lines it has
+     stopped captioning and started pushing the next reading off a 208px rail. */
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  overflow: hidden;
+}
 .metric[data-tone="alarm"] .m-value { color: var(--alarm); }
 .metric[data-tone="ok"]    .m-value { color: var(--ok); }
 .metric[data-tone="warn"]  .m-value { color: var(--warn); }
@@ -303,5 +310,42 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .gedge[data-lit="on"] { opacity: .95; stroke-width: 1.8; }
 
 .col-label { font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; fill: var(--text-faint); }
+
+/* ---- the phone fallback --------------------------------------------------- */
+
+/* DEMO_PATH rehearses one: the Vercel link on a handset if the laptop will not
+   project. The console is a three-column instrument and it does not survive
+   375px, so narrow viewports get a stack instead — globe and its caption, then
+   the graph, then the readings. Behind a media query, so the machine the demo
+   actually runs on is untouched by any of it. */
+@media (max-width: 860px) {
+  html, body { overflow: auto; height: auto; }
+
+  .console,
+  .console[data-panel="open"],
+  .console[data-panel="closed"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "head" "map" "graph" "left" "right";
+    grid-template-rows: auto 42vh auto auto auto;
+    height: auto; min-height: 100vh;
+  }
+
+  .head { flex-wrap: wrap; padding: 8px 12px; row-gap: 8px; }
+  .head .sub:not(.beatname) { display: none; }
+  .head .spacer { flex-basis: 100%; }
+
+  .graph-panel { height: 46vh; }
+  .rail-l, .rail-r { overflow-y: visible; }
+
+  /* The tab bar is a single 30px line of five things. At this width it becomes
+     five things on top of each other, so it drops to the two that still earn
+     their place: what the panel is, and what its colours mean. */
+  .panel-tabs { height: auto; padding: 6px 10px; gap: 8px; }
+  .panel-tabs .mark-sm, .tab-meta { display: none; }
+  .legend { gap: 9px; font-size: 9px; }
+
+  .caption { left: 14px; right: 14px; bottom: 12px; }
+  .caption .say { font-size: 15px; }
+}
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
