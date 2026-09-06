@@ -107,3 +107,8 @@ data/cache/federal-register/text-*.txt
 # Bulk registers it re-fetches on demand; too large to commit.
 data/cache/dmf/*.xlsx
 data/cache/decrs/*.zip
+
+# --- next-failure model (ml/risk/) ---
+# Source registers and the derived tables; all re-fetched by the loaders.
+# `make risk` rebuilds web/data/risk.json from them in about a minute.
+data/cache/risk/
