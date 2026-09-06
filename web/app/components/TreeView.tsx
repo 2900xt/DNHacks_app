@@ -40,8 +40,10 @@ interface Props {
   states: Record<NodeId, NodeState>
   /** The AEGIS rank and score per supplier, re-ranked against the failures. */
   aegis: Map<NodeId, Alternate>
-  /** Drug → API → precursor → route holder. Empty until a route exists. */
-  routePath: Set<NodeId>
+  /** TreeNode keys on the best path — drug, API, precursor and both plants.
+   *  Keys, not ids: one company can sit in the tree twice. Empty when no
+   *  path is shown. */
+  routePath: Set<string>
 }
 
 function truncate(s: string, max: number): string {
@@ -250,7 +252,7 @@ export default function TreeView({
                     className="tbranch"
                     data-trunk="1"
                     data-health={pr?.up === 0 ? 'down' : pr?.health ?? 'ok'}
-                    data-route={routePath.has(p.t.id) && sups.some((c) => routePath.has(c.id)) ? '1' : '0'}
+                    data-route={routePath.has(p.t.key) && sups.some((c) => routePath.has(c.key)) ? '1' : '0'}
                     style={{ '--d': p.t.depth } as React.CSSProperties}
                     d={trunkPath(p, supPlaced)}
                   />
@@ -269,7 +271,7 @@ export default function TreeView({
                       className="tbranch"
                       data-feed={feed ? '1' : '0'}
                       data-health={r?.up === 0 ? 'down' : r?.health ?? 'ok'}
-                      data-route={routePath.has(p.t.id) && routePath.has(c.id) ? '1' : '0'}
+                      data-route={routePath.has(p.t.key) && routePath.has(c.key) ? '1' : '0'}
                       style={{ '--d': p.t.depth } as React.CSSProperties}
                       d={d}
                     />
@@ -301,8 +303,10 @@ export default function TreeView({
             // The pathfinder's verdict sits on the supplier box itself, so the
             // rank a buyer would call in is read off the tree, not a side table.
             const alt = t.kind === 'supplier' ? aegis.get(t.id) : undefined
+            const onPath = routePath.has(t.key)
+            const pathTag = onPath ? (failures ? 'NEW PATH · ' : 'BEST PATH · ') : ''
             const aegisTxt = alt && alt.standing
-              ? `${alt.recommended ? 'NEW ROUTE · ' : ''}#${alt.rank} · score ${alt.score > 0 ? '+' : ''}${alt.score.toFixed(1)}`
+              ? `${pathTag}#${alt.rank} · score ${alt.score > 0 ? '+' : ''}${alt.score.toFixed(1)}`
               : null
             const geo = [
               aegisTxt,
@@ -320,7 +324,7 @@ export default function TreeView({
                 data-sel={selected === t.id ? '1' : '0'}
                 data-beat={beat ?? 'plain'}
                 data-viable={alt ? (alt.viable ? '1' : '0') : undefined}
-                data-route={alt?.recommended ? '1' : '0'}
+                data-route={onPath ? '1' : '0'}
                 data-halt={halted ? '1' : '0'}
                 style={{ '--d': t.depth } as React.CSSProperties}
                 transform={`translate(${p.x},${p.y})`}

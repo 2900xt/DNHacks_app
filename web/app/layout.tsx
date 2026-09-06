@@ -7,7 +7,7 @@ import "./globals.css";
 // product's, not the instrument's. The console overrides both in
 // app/app/page.tsx.
 export const metadata: Metadata = {
-  title: "RIPPLE — supply chain monitoring for medicines",
+  title: "RIPPLE Medicine",
   description:
     "We track where the world's drugs are actually made, notice when something goes wrong, and show you who else could make it instead.",
 };
