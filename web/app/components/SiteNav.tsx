@@ -19,8 +19,6 @@ export default function SiteNav() {
       </Link>
 
       <div className="nav-links">
-        <a href="#how">How it works</a>
-        <a href="#plans">Pricing</a>
         <Link href="/app">Console</Link>
       </div>
 

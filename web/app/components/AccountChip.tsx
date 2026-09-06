@@ -118,7 +118,6 @@ export default function AccountChip({ medicines, sessionEvents }: {
             <dt>Plan</dt>
             <dd>
               <span className="tag" data-t={plan.trial ? 'dim' : 'focus'}>{plan.name}</span>
-              {' '}<Link href="/#plans" className="acct-link">Change</Link>
             </dd>
             <dt>Member since</dt>
             <dd>{when(user?.created_at)}</dd>
@@ -157,7 +156,6 @@ export default function AccountChip({ medicines, sessionEvents }: {
 
           <div className="acct-foot">
             <Link href="/" className="acct-link">Home</Link>
-            <Link href="/#plans" className="acct-link">Pricing</Link>
             <span className="spacer" />
             {email ? (
               <button className="acct-out" onClick={leave} disabled={busy}>
