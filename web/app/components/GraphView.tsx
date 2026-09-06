@@ -129,7 +129,7 @@ export default function GraphView({
             >
               <rect width={NODE_W} height={NODE_H} rx="3" />
               <text x="9" y={sub ? 16 : 23}>
-                {truncate(p.node.label ?? p.id, 24)}
+                {truncate(p.node.label ?? p.id, 25)}
               </text>
               {sub && <text className="n-sub" x="9" y="28">{sub}</text>}
             </g>

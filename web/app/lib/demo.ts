@@ -56,7 +56,7 @@ export const BEATS: Beat[] = [
     label: 'On the table',
     say: 'A real bin, a real sensor, reading nominal.',
     note: 'The node on the table is live. Storage class CRT, mean kinetic temperature under the USP <659> ceiling.',
-    lit: () => new Set([AMOX]),
+    lit: (c) => all(c),
     states: () => ({ [AMOX]: 'ok' }),
   },
   {
@@ -65,7 +65,7 @@ export const BEATS: Beat[] = [
     label: 'Her pallet',
     say: 'A hospital group’s supply manager is holding a pallet of amoxicillin. Green. This is her whole job — is my stock good?',
     note: 'Amoxicillin is on the EO 13944 essential medicines list (Oct 30 2020), liquid / oral API only.',
-    lit: () => new Set([AMOX]),
+    lit: (c) => all(c),
     states: () => ({ [AMOX]: 'ok' }),
   },
   {
@@ -75,7 +75,7 @@ export const BEATS: Beat[] = [
     say: 'We heat the bin. Mean kinetic temperature breaches the ceiling — and MKT does not clear when the room cools. The stock is condemned.',
     note: 'A cold-chain company can tell you the box got hot. Only this tells you the box getting hot is unrecoverable.',
     breach: true,
-    lit: () => new Set([AMOX]),
+    lit: (c) => all(c),
     states: () => ({ [AMOX]: 'alarm' }),
   },
   {

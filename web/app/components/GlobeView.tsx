@@ -97,7 +97,7 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
         .labelLat((d: any) => d.lat)
         .labelLng((d: any) => d.lng)
         .labelText((d: any) => d.text)
-        .labelSize(1.4)
+        .labelSize(1.8)
         .labelDotRadius((d: any) => d.dot)
         .labelColor((d: any) => d.color)
         .labelResolution(2)
@@ -188,7 +188,7 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
       const on = lit.has(j.node.id)
       return {
         lat: c.lat, lng: c.lng,
-        text: `${j.node.label ?? iso}  ${j.holders.length}`,
+        text: String(j.holders.length),
         color: on ? '#ffd7d8' : 'rgba(205,218,232,0.62)',
         dot: on ? 0.65 : 0.38,
         nodeId: j.node.id,
@@ -196,7 +196,7 @@ export default function GlobeView({ nodes, edges, lit, selected, onSelect }: Pro
     })
     labels.push({
       lat: dest.lat, lng: dest.lng,
-      text: 'Point of care',
+      text: '',
       color: 'rgba(150,200,235,0.9)',
       dot: 0.42,
       nodeId: '',

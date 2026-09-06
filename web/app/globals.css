@@ -48,39 +48,61 @@ html, body {
   grid-template-areas:
     "head  head  head"
     "left  map   right"
-    "graph graph graph"
-    "bar   bar   bar";
+    "graph graph graph";
   height: 100vh;
   gap: 1px;
   background: var(--line-soft);
 }
-.console[data-panel="open"]   { grid-template-rows: 38px minmax(0,1fr) 42vh auto; }
-.console[data-panel="closed"] { grid-template-rows: 38px minmax(0,1fr) 30px auto; }
+.console[data-panel="open"]   { grid-template-rows: 38px minmax(0,1fr) 47vh; }
+.console[data-panel="closed"] { grid-template-rows: 38px minmax(0,1fr) 30px; }
 
 .head {
   grid-area: head; background: var(--panel);
   display: flex; align-items: center; gap: 14px; padding: 0 14px;
 }
+.head .brand { display: flex; align-items: center; gap: 8px; }
 .head h1 { font: 600 12px/1 var(--sans); letter-spacing: .22em; margin: 0; }
+
+/* The wordmark. /ripple-mark.png is the R cut square out of the full RIPPLE
+   lockup — the lockup's own wordmark is dropped because the <h1> next to it
+   already says RIPPLE. White-and-blue on transparent, which is why it is only
+   ever placed on these dark panels. Kept small on purpose; the header is an
+   instrument label, not a brand banner. */
+.mark { display: block; width: 20px; height: 20px; opacity: .95; flex: none; }
+.mark-sm { width: 14px; height: 14px; opacity: .8; margin-right: -4px; }
 .head .sub { color: var(--text-faint); font-size: 11px; }
 .head .spacer { flex: 1; }
 .beatname { text-transform: uppercase; letter-spacing: .12em; font-size: 10px !important; }
 
-/* Beat progress. Replaces a row of buttons: the demo is driven with the
-   spacebar, so the header only has to say where you are, not offer seven ways
-   to get somewhere else. */
+/* One step at a time, forwards or back. Arrow keys and space still work as an
+   accelerator, but nothing requires them. */
+.steps { display: flex; align-items: center; gap: 10px; }
+
+/* Beat rail. The demo is one chronological argument, so position inside it is
+   real information — seven segments read at a glance, not a "4/7" you have to
+   parse. Each is a jump target, because the question a judge asks is always
+   "go back to the one before that". The 14px button carries a 3px mark: a
+   usable hit area without a control that looks like it wants clicking. */
 .progress { display: flex; gap: 3px; }
 .progress .seg {
-  width: 26px; height: 3px; border-radius: 2px; background: var(--line);
-  transition: background .3s;
+  width: 26px; height: 14px; padding: 0; border: 0; background: none;
+  display: grid; align-items: center; cursor: pointer;
 }
-.progress .seg[data-on="1"] { background: var(--focus); }
+.progress .seg::before {
+  content: ""; display: block; height: 3px; border-radius: 2px;
+  background: var(--line); transition: background .3s;
+}
+.progress .seg[data-on="1"]::before { background: var(--focus); }
+.progress .seg[data-now="1"]::before { background: var(--text); }
+.progress .seg:hover::before { background: var(--text-faint); }
+.progress .seg:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+button.ctl:disabled { opacity: .35; cursor: default; }
+button.ctl:disabled:hover { color: var(--text-dim); border-color: var(--line); }
 
 .rail-l { grid-area: left;  background: var(--panel); overflow-y: auto; }
 .rail-r { grid-area: right; background: var(--panel); overflow-y: auto; }
 .map-wrap { grid-area: map; background: var(--bg); position: relative; overflow: hidden; }
 .graph-panel { grid-area: graph; background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
-.bar { grid-area: bar; background: var(--panel); }
 
 /* ---- rails ---------------------------------------------------------------- */
 
@@ -92,6 +114,24 @@ html, body {
 .chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 12px 4px; }
 .rail-foot { display: flex; gap: 6px; padding: 10px 12px; flex-wrap: wrap; }
 .rail-list { border-top: 1px solid var(--line); }
+
+.bin-list { border-bottom: 1px solid var(--line); }
+.bin-row {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px;
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  padding: 7px 12px; color: var(--text-dim); font: 400 11.5px/1.3 var(--sans);
+  border-left: 2px solid transparent;
+}
+.bin-row:hover { background: var(--panel-2); color: var(--text); }
+.bin-row[data-active="1"] { background: var(--panel-2); color: var(--text); }
+.bin-row[data-pinned="1"] { border-left-color: var(--focus); }
+.bin-row:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.bin-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bin-temp { font: 500 11px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--text-faint); }
+.bin-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
+.bin-dot[data-t="ok"] { background: var(--ok); }
+.bin-dot[data-t="warn"] { background: var(--warn); }
+.bin-dot[data-t="alarm"] { background: var(--alarm); box-shadow: 0 0 6px var(--alarm); }
 
 .metric {
   padding: 5px 12px; border-bottom: 1px solid var(--line-soft);
@@ -163,6 +203,27 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
   background: radial-gradient(ellipse at 50% 40%, #0d141d 0%, #070a0e 75%); }
 .map-empty { display: grid; place-items: center; height: 100%; color: var(--text-faint); font: 11px var(--mono); }
 
+/* The beat's claim, in the presenter's own words, across the bottom of the map.
+   Every other string on this screen sits between 8.5px and 13px, which means
+   nothing has priority. This is the one element given real size, because it is
+   the one element carrying the argument — and it is what the demo video and the
+   phone fallback have instead of a presenter. Shadowed, not boxed: a panel here
+   would cut the globe in half. */
+.caption {
+  position: absolute; left: 22px; right: 22px; bottom: 16px;
+  pointer-events: none; z-index: 2;
+}
+.caption .say {
+  margin: 0; font: 400 17px/1.35 var(--sans); color: var(--text);
+  max-width: 58ch; text-wrap: balance;
+  text-shadow: 0 0 14px var(--bg), 0 0 30px var(--bg), 0 1px 2px var(--bg);
+}
+.caption .note {
+  margin: 7px 0 0; font: 400 11.5px/1.5 var(--mono); color: var(--text-dim);
+  max-width: 78ch; text-shadow: 0 0 12px var(--bg), 0 0 24px var(--bg);
+}
+.caption[data-killed="1"] .say { color: #ffb8ba; }
+
 .country { fill: #1a2432; stroke: #26333f; stroke-width: 0.6; transition: fill .4s, stroke .4s; }
 .country[data-role="source"] { fill: #35485d; stroke: #4a6076; }
 .country[data-role="source"][data-lit="on"] { fill: #3a1e24; stroke: var(--alarm); stroke-width: 1.2; }
@@ -192,10 +253,6 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .pin[data-sel="1"] .pin-dot { fill: var(--focus); stroke-width: 3; }
 .pin[data-sel="1"] { opacity: 1; }
 
-.caption { position: absolute; left: 20px; right: 20px; bottom: 14px; pointer-events: none; }
-.caption .say { margin: 0; font: 400 17px/1.35 var(--sans); color: var(--text); max-width: 60ch; text-wrap: balance; }
-.caption .note { margin: 5px 0 0; font-size: 11.5px; color: var(--text-dim); max-width: 72ch; }
-
 /* ---- graph panel (VS Code terminal pattern) -------------------------------- */
 
 .panel-tabs {
@@ -209,17 +266,27 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 }
 .tab[data-on="1"] { color: var(--text); border-bottom-color: var(--focus); }
 .tab-meta { font: 400 10px/1 var(--mono); color: var(--text-faint); }
+
+/* Three edge colours were on screen for six beats with nothing to read them
+   against. The key is permanent rather than a beat-6 reveal: a legend you only
+   get after the diagram it explains is a legend that arrived too late. */
+.legend { display: flex; align-items: center; gap: 13px; }
+.legend .pill { white-space: nowrap; }
+.legend .pill b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.pill.l3 i {
+  background: repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px);
+}
 .panel-body { flex: 1; min-height: 0; overflow: hidden; }
 
 .graph { width: 100%; height: 100%; display: block; }
 
 .gnode rect { fill: var(--panel-2); stroke: var(--line); stroke-width: 1; transition: fill .25s, stroke .25s; }
-.gnode text { font-family: var(--mono); font-size: 10.5px; fill: var(--text-dim); transition: fill .25s; }
-.gnode .n-sub { font-size: 9px; fill: var(--text-faint); }
+.gnode text { font-family: var(--mono); font-size: 12px; fill: var(--text-dim); transition: fill .25s; }
+.gnode .n-sub { font-size: 10px; fill: var(--text-faint); }
 .gnode { cursor: pointer; transition: opacity .3s; }
 .gnode:focus-visible { outline: none; }
 .gnode:focus-visible rect { stroke: var(--focus); stroke-width: 2; }
-.gnode[data-lit="off"] { opacity: .22; }
+.gnode[data-lit="off"] { opacity: .28; }
 .gnode[data-lit="on"] rect { stroke: var(--text-faint); }
 .gnode[data-lit="on"] text { fill: var(--text); }
 .gnode[data-state="alarm"] rect { fill: #2a1114; stroke: var(--alarm); stroke-width: 1.5; }
@@ -232,17 +299,9 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .gedge[data-layer="1"] { stroke: var(--layer1); }
 .gedge[data-layer="2"] { stroke: var(--layer2); }
 .gedge[data-layer="3"] { stroke: var(--layer3); stroke-dasharray: 4 3; }
-.gedge[data-lit="off"] { opacity: .12; }
+.gedge[data-lit="off"] { opacity: .15; }
 .gedge[data-lit="on"] { opacity: .95; stroke-width: 1.8; }
 
-.col-label { font: 600 9px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; fill: var(--text-faint); }
-
-/* ---- evidence bar --------------------------------------------------------- */
-
-.evbar { display: flex; align-items: center; gap: 20px; padding: 7px 14px; flex-wrap: wrap; }
-.evbar .stat { display: flex; align-items: baseline; gap: 5px; }
-.evbar .stat b { font: 600 14px/1 var(--mono); font-variant-numeric: tabular-nums; }
-.evbar .stat span { font-size: 10px; color: var(--text-faint); letter-spacing: .08em; text-transform: uppercase; }
-.evbar .legend { display: flex; gap: 12px; margin-left: auto; }
+.col-label { font: 600 10px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; fill: var(--text-faint); }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

@@ -1,13 +1,14 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import Image from 'next/image'
 import type { BacktestResult, Compliance, GraphEdge, GraphNode, NodeId, Signal } from '../lib/types'
 import { BEATS, type BeatCtx, type NodeState } from '../lib/demo'
 import GraphView from './GraphView'
 import GlobeView from './GlobeView'
 import NodeMetrics from './NodeMetrics'
 import DepotPanel from './DepotPanel'
-import EvidenceBar from './EvidenceBar'
+import EvidenceKey from './EvidenceKey'
 
 export interface Payload {
   nodes: GraphNode[]
@@ -43,7 +44,7 @@ function reachable(edges: GraphEdge[], from: NodeId): Set<NodeId> {
 }
 
 export default function Console({ payload }: { payload: Payload }) {
-  const { nodes, edges, compliance, signals, counts, layerCounts, backtest,
+  const { nodes, edges, compliance, signals, counts, layerCounts,
           ndcCount, labelerCount, downstreamOf, ctx } = payload
 
   const [beat, setBeat] = useState(0)
@@ -96,25 +97,38 @@ export default function Console({ payload }: { payload: Payload }) {
   )
   const downstream = selected ? downstreamOf[selected] ?? 0 : 0
 
-  /** Resting-state summary for the right rail. */
+  /** Resting-state summary for the right rail.
+   *
+   *  Counts FILINGS, not company boxes. "8 active US filings to supply this
+   *  precursor" is a locked line in DEMO_PATH, and the spine carries ten
+   *  company nodes — the extra two are FEI site operators with no DMF of their
+   *  own. Counting nodes puts 10 on the projector while the presenter says 8.
+   *  The concentration figure shares the same denominator for the same reason:
+   *  a percentage whose base is a different set than its label is a wrong
+   *  number that happens to look right. */
   const overview = useMemo(() => {
+    const filers = new Set(
+      nodes
+        .filter((n) => (n.attrs as Record<string, unknown> | undefined)?.dmf_status === 'A')
+        .map((n) => n.id),
+    )
     const byCountry = new Map<string, number>()
     for (const e of edges) {
-      if (e.rel !== 'incorporated_in') continue
+      if (e.rel !== 'incorporated_in' || !filers.has(e.src)) continue
       const c = byId.get(e.dst)?.country
       if (c) byCountry.set(c, (byCountry.get(c) ?? 0) + 1)
     }
-    const holders = ctx.companies.length
+    const filings = filers.size
     const top = [...byCountry.entries()].sort((a, b) => b[1] - a[1])[0]
     return {
       jurisdictions: ctx.countries.length,
-      holders,
+      filings,
       drugs: ctx.drugs.length,
-      concentration: top
-        ? `${top[0].toUpperCase()} ${Math.round((top[1] / holders) * 100)}%`
+      concentration: top && filings
+        ? `${top[0].toUpperCase()} ${Math.round((top[1] / filings) * 100)}%`
         : '—',
     }
-  }, [edges, byId, ctx])
+  }, [nodes, edges, byId, ctx])
 
   const onCascade = useCallback((id: NodeId) => setKilled(id), [])
   const onBreach = useCallback((drugs: string[]) => {
@@ -125,20 +139,31 @@ export default function Console({ payload }: { payload: Payload }) {
   return (
     <div className="console" data-panel={panel ? 'open' : 'closed'}>
       <header className="head">
-        <h1>CHOKEPOINT</h1>
+        <div className="brand">
+          <Image className="mark" src="/ripple-mark.png" alt="" width={20} height={20} priority />
+          <h1>RIPPLE</h1>
+        </div>
         <span className="sub">6-APA penicillin family</span>
         <div className="spacer" />
-        <div className="progress" role="group" aria-label={`Beat ${b.n} of ${BEATS.length - 1}`}>
-          {BEATS.map((x, i) => (
-            <span
-              key={x.key}
-              className="seg"
-              data-on={i <= beat && !killed ? '1' : '0'}
-              title={`${x.n} · ${x.label}`}
-            />
-          ))}
+        <div className="steps">
+          <button
+            className="ctl"
+            onClick={() => go(beat - 1)}
+            disabled={beat === 0 && !killed}
+          >
+            Back
+          </button>
+          <span className="step-label">
+            {killed ? 'Simulated failure' : `${b.n + 1}/${BEATS.length} · ${b.label}`}
+          </span>
+          <button
+            className="ctl"
+            onClick={() => go(beat + 1)}
+            disabled={beat === BEATS.length - 1 && !killed}
+          >
+            Next
+          </button>
         </div>
-        <span className="sub beatname">{killed ? 'simulated failure' : b.label}</span>
       </header>
 
       <aside className="rail-l" aria-label="Depot readings">
@@ -153,22 +178,6 @@ export default function Console({ payload }: { payload: Payload }) {
           selected={selected}
           onSelect={setSelected}
         />
-        <div className="caption">
-          {killed ? (
-            <>
-              <p className="say">
-                {nodeLabel(killed)} goes down — {downstreamOf[killed] ?? lit.size - 1} downstream
-                nodes affected, {lit.size - 1} of them on this map.
-              </p>
-              <p className="note">Esc to return to the demo path.</p>
-            </>
-          ) : (
-            <>
-              <p className="say">{b.say}</p>
-              {b.note && <p className="note">{b.note}</p>}
-            </>
-          )}
-        </div>
       </section>
 
       <aside className="rail-r" aria-label="Selection">
@@ -189,6 +198,7 @@ export default function Console({ payload }: { payload: Payload }) {
 
       <section className="graph-panel" aria-label="Sourcing graph">
         <div className="panel-tabs">
+          <Image className="mark mark-sm" src="/ripple-mark.png" alt="" width={14} height={14} />
           <span className="tab" data-on="1">Sourcing graph</span>
           <span className="tab-meta">{counts.nodes} nodes · {counts.edges} edges</span>
           <div className="spacer" />
@@ -218,14 +228,6 @@ export default function Console({ payload }: { payload: Payload }) {
         )}
       </section>
 
-      <footer className="bar">
-        <EvidenceBar
-          counts={counts}
-          layerCounts={layerCounts}
-          backtest={backtest}
-          open={!!b.evidence}
-        />
-      </footer>
     </div>
   )
 }

@@ -27,15 +27,21 @@ export const COLUMN_LABEL: Record<string, string> = {
   product: 'NDC',
 }
 
-export const NODE_W = 168
+// Sized against how the diagram actually lands on screen, not against the page.
+// The SVG is fitted `meet` into a panel roughly 4.5:1, while the diagram is
+// about 2:1 — so the HEIGHT is what sets the scale, and every pixel of viewBox
+// height is paid for at ~0.6x on the projector. Rows are therefore tight and
+// columns are generous: widening the diagram is free until it becomes the
+// limiting dimension, and it buys ~25 characters of label instead of 21.
+export const NODE_W = 200
 export const NODE_H = 38
-export const COL_GAP = 214
-export const ROW_GAP = 56
-export const PAD_X = 26
-export const PAD_TOP = 42
-// The caption is an HTML overlay on .main, not part of the SVG, so the diagram
-// only needs breathing room here — not a reserved caption band.
-export const PAD_BOTTOM = 28
+export const COL_GAP = 256
+export const ROW_GAP = 46
+export const PAD_X = 18
+export const PAD_TOP = 34
+// The caption is an HTML overlay on .map-wrap, not part of the SVG, so the
+// diagram only needs breathing room here — not a reserved caption band.
+export const PAD_BOTTOM = 14
 
 export interface Placed {
   id: NodeId
