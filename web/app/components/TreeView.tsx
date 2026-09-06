@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import type { Compliance, NodeId } from '../lib/types'
+import type { NodeId } from '../lib/types'
+import type { Verdict } from '../lib/compliance'
 import type { NodeState } from '../lib/demo'
 import {
   branchPath, elbowPath, feedPath, layoutTree, trunkPath, UNRESOLVED,
@@ -31,7 +32,8 @@ interface Props {
   rootHealth: Health
   onRoot: (id: NodeId) => void
   onReset: () => void
-  compliance: Record<NodeId, Compliance>
+  /** Procurement verdicts for the current buyer, keyed by node. */
+  verdicts: Record<NodeId, Verdict>
   ndcCount: Record<NodeId, number>
   showCompliance: boolean
   /** Beat highlighting. Never health — health is only ever the cascade. */
@@ -99,7 +101,7 @@ function capacity(r: Rollup | undefined, kind: TreeNode['kind']): string {
 
 export default function TreeView({
   tree, rollups, compromised, onToggle, onToggleGroup, selected, onSelect,
-  drugs, rootHealth, onRoot, onReset, compliance, ndcCount, showCompliance, states,
+  drugs, rootHealth, onRoot, onReset, verdicts, ndcCount, showCompliance, states,
   aegis, routePath,
 }: Props) {
   const L = useMemo(() => layoutTree(tree), [tree])
@@ -285,14 +287,11 @@ export default function TreeView({
             const r = rollups.get(t.id)
             const off = compromised.has(t.id)
             const halted = !off && !!t.countryId && compromised.has(t.countryId)
-            const comp = compliance[t.id]
             const sub = subtitle(t, ndcCount[t.id])
             const cap = capacity(r, t.kind)
             const frac = r && r.total ? r.up / r.total : 0
             const beat = states[t.id]
-            const taa = showCompliance && comp?.taa_pass !== undefined
-              ? (comp.taa_pass ? 'TAA PASS' : 'TAA FAIL')
-              : null
+            const taa = showCompliance ? verdicts[t.id]?.tag ?? null : null
 
             const nameFont = t.kind === 'drug' ? 15 : 13
             const nameMax = fits(p.w - TEXT_X - KILL_GUTTER, nameFont)

@@ -1,0 +1,286 @@
+{
+  "generated_at": "2026-09-06T09:01:22+00:00",
+  "source": {
+    "far": "25.003",
+    "url": "https://www.acquisition.gov/far/25.003",
+    "bucket": "wto_gpa",
+    "parties": 48
+  },
+  "gpa_parties": [
+    "am",
+    "at",
+    "au",
+    "aw",
+    "be",
+    "bg",
+    "ca",
+    "ch",
+    "cy",
+    "cz",
+    "de",
+    "dk",
+    "ee",
+    "es",
+    "fi",
+    "fr",
+    "gb",
+    "gr",
+    "hk",
+    "hr",
+    "hu",
+    "ie",
+    "il",
+    "is",
+    "it",
+    "jp",
+    "kr",
+    "li",
+    "lt",
+    "lu",
+    "lv",
+    "md",
+    "me",
+    "mk",
+    "mt",
+    "nl",
+    "no",
+    "nz",
+    "pl",
+    "pt",
+    "ro",
+    "se",
+    "sg",
+    "si",
+    "sk",
+    "tw",
+    "ua",
+    "us"
+  ],
+  "rules": {
+    "us": {
+      "label": "US federal buyer (VA / DoD)",
+      "checks": [
+        "taa",
+        "1260h"
+      ],
+      "citation": "FAR 25.003 designated countries; DoD 1260H, 91 FR 35189"
+    },
+    "gpa": {
+      "label": "WTO GPA party — reciprocal access",
+      "checks": [
+        "gpa_reciprocity"
+      ],
+      "citation": "WTO Agreement on Government Procurement (revised 2012), Art. IV non-discrimination; party list as carried in FAR 25.003, 'WTO GPA country'"
+    },
+    "none": {
+      "label": "No procurement rule on record",
+      "checks": []
+    }
+  },
+  "buyers": [
+    {
+      "iso2": "us",
+      "label": "United States"
+    },
+    {
+      "iso2": "am",
+      "label": "Armenia"
+    },
+    {
+      "iso2": "aw",
+      "label": "Aruba"
+    },
+    {
+      "iso2": "au",
+      "label": "Australia"
+    },
+    {
+      "iso2": "at",
+      "label": "Austria"
+    },
+    {
+      "iso2": "be",
+      "label": "Belgium"
+    },
+    {
+      "iso2": "bg",
+      "label": "Bulgaria"
+    },
+    {
+      "iso2": "ca",
+      "label": "Canada"
+    },
+    {
+      "iso2": "hr",
+      "label": "Croatia"
+    },
+    {
+      "iso2": "cy",
+      "label": "Cyprus"
+    },
+    {
+      "iso2": "cz",
+      "label": "Czech Republic"
+    },
+    {
+      "iso2": "dk",
+      "label": "Denmark"
+    },
+    {
+      "iso2": "ee",
+      "label": "Estonia"
+    },
+    {
+      "iso2": "fi",
+      "label": "Finland"
+    },
+    {
+      "iso2": "fr",
+      "label": "France"
+    },
+    {
+      "iso2": "de",
+      "label": "Germany"
+    },
+    {
+      "iso2": "gr",
+      "label": "Greece"
+    },
+    {
+      "iso2": "hk",
+      "label": "Hong Kong"
+    },
+    {
+      "iso2": "hu",
+      "label": "Hungary"
+    },
+    {
+      "iso2": "is",
+      "label": "Iceland"
+    },
+    {
+      "iso2": "ie",
+      "label": "Ireland"
+    },
+    {
+      "iso2": "il",
+      "label": "Israel"
+    },
+    {
+      "iso2": "it",
+      "label": "Italy"
+    },
+    {
+      "iso2": "jp",
+      "label": "Japan"
+    },
+    {
+      "iso2": "kr",
+      "label": "Korea"
+    },
+    {
+      "iso2": "lv",
+      "label": "Latvia"
+    },
+    {
+      "iso2": "li",
+      "label": "Liechtenstein"
+    },
+    {
+      "iso2": "lt",
+      "label": "Lithuania"
+    },
+    {
+      "iso2": "lu",
+      "label": "Luxembourg"
+    },
+    {
+      "iso2": "mt",
+      "label": "Malta"
+    },
+    {
+      "iso2": "md",
+      "label": "Moldova"
+    },
+    {
+      "iso2": "me",
+      "label": "Montenegro"
+    },
+    {
+      "iso2": "nl",
+      "label": "Netherlands"
+    },
+    {
+      "iso2": "nz",
+      "label": "New Zealand"
+    },
+    {
+      "iso2": "mk",
+      "label": "North Macedonia"
+    },
+    {
+      "iso2": "no",
+      "label": "Norway"
+    },
+    {
+      "iso2": "pl",
+      "label": "Poland"
+    },
+    {
+      "iso2": "pt",
+      "label": "Portugal"
+    },
+    {
+      "iso2": "ro",
+      "label": "Romania"
+    },
+    {
+      "iso2": "sg",
+      "label": "Singapore"
+    },
+    {
+      "iso2": "sk",
+      "label": "Slovak Republic"
+    },
+    {
+      "iso2": "si",
+      "label": "Slovenia"
+    },
+    {
+      "iso2": "es",
+      "label": "Spain"
+    },
+    {
+      "iso2": "se",
+      "label": "Sweden"
+    },
+    {
+      "iso2": "ch",
+      "label": "Switzerland"
+    },
+    {
+      "iso2": "tw",
+      "label": "Taiwan"
+    },
+    {
+      "iso2": "ua",
+      "label": "Ukraine"
+    },
+    {
+      "iso2": "gb",
+      "label": "United Kingdom"
+    },
+    {
+      "iso2": "in",
+      "label": "India"
+    },
+    {
+      "iso2": "cn",
+      "label": "China"
+    },
+    {
+      "iso2": "br",
+      "label": "Brazil"
+    }
+  ]
+}
