@@ -99,6 +99,13 @@ risk of the worst plant behind them, propagated along the graph and named in
 takes its worst site: a second supplier does not cover the first one's shutdown
 unless it can absorb the volume, and nothing in these files says whether it can.
 
+Each such node also ships `upstream_plants`. The propagated figure is the worst
+plant behind the node, which answers *"will one of this node's suppliers hit
+trouble"* — not *"will this node run out"*. The second question needs volumes
+nobody in this repo has, so the count sits next to the number and the reader can
+see the difference: 46% behind one plant is a shortage, 46% behind fifty-two is a
+Tuesday. `api:dicloxacillin-sodium` has 4 upstream, `api:ampicillin` 18.
+
 That propagation caught a real error. `core_tokens` strips place names by design
 — the WuXi lesson — but stripping them makes `UNITED LABORATORIES CHENGDU` and
 `Zhuhai United Laboratories` the identical core `{united, laboratories}` and a
