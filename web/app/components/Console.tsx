@@ -68,7 +68,9 @@ export default function Console({ payload }: { payload: Payload }) {
    *  party list, and a buyer with no loaded rule says so. */
   // Fixed to the US. The buyer picker was a dropdown of every WTO GPA party;
   // the console is a US procurement instrument, and every other buyer's
-  // verdict was derived from a reciprocity list, not a loaded rule.
+  // verdict was derived from a reciprocity list, not a loaded rule. The strip
+  // no longer names the buyer either: with nothing to choose, "United States"
+  // was a readout of a constant, and the audit log's first line says it.
   const buyer = 'us'
   const verdicts = useMemo(
     () => computeVerdicts(nodes, compliance, buyer, jurisdictions),
@@ -440,13 +442,6 @@ export default function Console({ payload }: { payload: Payload }) {
             {b.evidence && ` · ${counts.signals.toLocaleString()} signals · ${counts.compliance} compliance rows`}
           </span>
           <div className="spacer" />
-          <span className="strip-label">Buyer</span>
-          <span
-            className="buyer-fixed"
-            title="Whose procurement rules the PASS/FAIL verdicts are judged against"
-          >
-            {buyerLabel}
-          </span>
           <button
             className="ctl"
             data-on={riskOverlay ? '1' : '0'}

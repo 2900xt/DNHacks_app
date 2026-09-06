@@ -131,6 +131,11 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .rail {
   position: absolute; z-index: 3; right: 12px; top: 12px; bottom: 12px; width: 300px;
   display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+  /* The rail's type is set per element in px, most of it under 11px, and it
+     was hard to read across a table. One scale on the column lifts all of it
+     together — text, padding, the 300px width — instead of forty font rules
+     drifting apart. */
+  zoom: 1.12;
 }
 .sec {
   pointer-events: auto; display: flex; flex-direction: column; min-height: 0; flex: 0 1 auto;
@@ -221,8 +226,6 @@ html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 .rr-w::before { content: '– '; }
 .rr-iso { font: 500 9px/1 var(--mono); color: var(--text-faint); letter-spacing: .08em; }
 .rr-why { font: 400 9.5px/1.35 var(--mono); color: var(--text-faint); white-space: normal; }
-/* The buyer, stated rather than chosen. */
-.buyer-fixed { font: 500 11px/1 var(--mono); color: var(--text); padding: 5px 2px; white-space: nowrap; }
 .rr-score {
   font: 500 11px/1.5 var(--mono); font-variant-numeric: tabular-nums;
 }
@@ -1265,7 +1268,7 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    the section titles, the big readings, the node names, the caption, the
    landing headline. Everything else stays regular. No capitals, no tracking. */
 .tab, .sec-title, .m-value, .tnode .t-name, .tgroup-label, .hero h1, .plan-price,
-.caption .say, .rr-name, .buyer-fixed, .drug-select, .strip-hint,
+.caption .say, .rr-name, .drug-select, .strip-hint,
 .login h1, .plans h2, h1, h2 { font-family: var(--display); font-weight: 600; letter-spacing: -.01em; }
 .tab { font-weight: 500; font-size: 14px; }
 .sec-title { font-weight: 500; font-size: 13px; }

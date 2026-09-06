@@ -22,11 +22,13 @@ interface Props {
  * and re-ranked here against the current failures. The score is shown WITH its
  * reason: a judge's next question after a number is always "why that number".
  *
- * Folded, a row carries the supplier's first reason. Clicking it unfolds the
- * whole name and EVERY reason the scorer gave, as text on the rail — these used
- * to live in a hover tooltip, which does not exist on a projector, a phone, or
- * a keyboard. The click also selects the supplier, so the globe and the tree
- * go to it at the same time.
+ * Folded, a row is one line: rank, name, score. Clicking it unfolds the whole
+ * name and EVERY reason the scorer gave, as text on the rail — these used to
+ * live in a hover tooltip, which does not exist on a projector, a phone, or a
+ * keyboard. (A folded row used to carry the first reason too; at nine and a
+ * half pixels of grey under every name it read as noise, so nothing shows
+ * until the row is opened.) The click also selects the supplier, so the globe
+ * and the tree go to it at the same time.
  */
 export default function ReroutePanel({ sl, nodeLabel, selected, onSelect }: Props) {
   const [open, setOpen] = useState<Set<NodeId>>(new Set())
@@ -82,10 +84,8 @@ export default function ReroutePanel({ sl, nodeLabel, selected, onSelect }: Prop
                   {iso && <span className="rr-iso"> {iso}</span>}
                   {a.recommended && <span className="tag" data-t="route">best</span>}
                 </span>
-                {!a.standing && <span className="rr-why">not shipping — disrupted</span>}
-                {isOpen
-                  ? reasons.map((w, i) => <span key={i} className="rr-why rr-w">{w}</span>)
-                  : a.standing && <span className="rr-why">{reasons[0] ?? ''}</span>}
+                {isOpen && !a.standing && <span className="rr-why">not shipping — disrupted</span>}
+                {isOpen && reasons.map((w, i) => <span key={i} className="rr-why rr-w">{w}</span>)}
               </span>
               <span className="rr-score" data-v={a.viable ? '1' : '0'}>
                 {a.score > 0 ? '+' : ''}{a.score.toFixed(1)}
