@@ -35,12 +35,17 @@
 * { box-sizing: border-box; }
 
 html, body {
-  margin: 0; padding: 0; height: 100%;
+  margin: 0; padding: 0;
   background: var(--bg); color: var(--text);
   font: 13px/1.5 var(--sans);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
 }
+
+/* The console is a fixed instrument and must not scroll; every other route
+   (landing, login) is a document and must. Scoped to the page that actually
+   owns the viewport rather than set globally, so adding a prose route no
+   longer means fighting a body rule written for the grid. */
+html:has(.console), body:has(.console) { height: 100%; overflow: hidden; }
 
 /* ---- shell ---------------------------------------------------------------- */
 
@@ -564,7 +569,9 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    the graph, then the readings. Behind a media query, so the machine the demo
    actually runs on is untouched by any of it. */
 @media (max-width: 860px) {
-  html, body { overflow: auto; height: auto; }
+  /* Must out-specify the `html:has(.console)` lock at the top of this file,
+     or the phone fallback renders a stacked layout it cannot scroll. */
+  html:has(.console), body:has(.console) { overflow: auto; height: auto; }
 
   .console,
   .console[data-panel="open"],
@@ -680,4 +687,241 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
 .aegis-limit {
   margin: 8px 0 0; padding-top: 7px; border-top: 1px solid var(--line);
   color: var(--dim); font-size: 10px; line-height: 1.45;
+}
+
+/* ============================================================================
+   LANDING + AUTH
+
+   The marketing surface, built out of the console's own tokens rather than a
+   second palette: same background, same hairline, same mono for anything
+   numeric, one accent (--focus). A landing page in a different visual language
+   than the product it sells makes the product look bought.
+
+   Held to two screens — a hero and one scroll — so every measurement below is
+   deliberately tight. If something new has to go on this page, something else
+   comes off it.
+   ========================================================================== */
+
+.site { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ---- nav ------------------------------------------------------------------ */
+
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  display: flex; align-items: center; gap: 24px;
+  padding: 13px 26px;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-mark {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text);
+  font: 600 12px/1 var(--sans); letter-spacing: .16em;
+}
+.nav-links { display: flex; gap: 22px; margin-left: 8px; }
+.nav-links a {
+  color: var(--text-dim); text-decoration: none;
+  font: 500 12px/1 var(--sans); letter-spacing: .03em;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-auth { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+.nav-who {
+  font: 400 11px/1 var(--mono); color: var(--text-faint);
+  max-width: 20ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ---- buttons --------------------------------------------------------------
+   One shape, two weights. `.ctl` already exists for the console's instrument
+   chrome; these are the page-level equivalents and are intentionally larger. */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font: 600 12px/1 var(--sans); letter-spacing: .02em; text-decoration: none;
+  border-radius: 4px; padding: 9px 15px; cursor: pointer; white-space: nowrap;
+  border: 1px solid transparent; transition: background .15s, color .15s, border-color .15s;
+}
+.btn-primary { background: var(--text); color: #070a0e; }
+.btn-primary:hover { background: #fff; }
+.btn-ghost { background: transparent; color: var(--text-dim); border-color: var(--line); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-faint); }
+.btn-lg { padding: 12px 22px; font-size: 13px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---- hero ----------------------------------------------------------------- */
+
+.hero {
+  position: relative; display: flex; align-items: center;
+  min-height: 100svh; overflow: hidden; background: #04070b;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url(/globe/earth-night.jpg) center 45% / cover no-repeat;
+  opacity: .8; filter: saturate(.85) contrast(1.05);
+}
+/* Two gradients, not one: the horizontal keeps the copy legible over the
+   bright side of the globe, the vertical seals both edges so the fixed nav and
+   the next band do not sit on a hard seam. */
+.hero-veil {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(4,7,11,.95) 0%, rgba(4,7,11,.72) 46%, rgba(4,7,11,.1) 100%),
+    linear-gradient(180deg, rgba(4,7,11,.92) 0%, transparent 24%, transparent 62%, var(--bg) 100%);
+}
+.hero-in { position: relative; z-index: 2; padding: 0 26px; max-width: 1180px; margin: 0 auto; width: 100%; }
+
+.eyebrow {
+  margin: 0 0 16px; font: 600 10px/1 var(--mono);
+  letter-spacing: .22em; text-transform: uppercase; color: var(--text-faint);
+}
+.hero h1 {
+  margin: 0; font-weight: 500; font-size: clamp(38px, 5.6vw, 74px); line-height: 1.04;
+  letter-spacing: -.025em; color: #fff; max-width: 16ch;
+}
+.hero h1 em { font-style: normal; color: var(--text-faint); }
+.hero-sub {
+  margin: 20px 0 0; color: var(--text-dim); max-width: 54ch;
+  font: 400 15px/1.6 var(--sans);
+}
+.hero-cta { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.hero-src {
+  margin: 26px 0 0; font: 500 10px/1.6 var(--mono);
+  letter-spacing: .13em; text-transform: uppercase; color: var(--text-faint);
+}
+
+/* ---- bands ---------------------------------------------------------------- */
+
+.band { padding: 44px 26px; border-top: 1px solid var(--line-soft); }
+.band > * { max-width: 1180px; margin-left: auto; margin-right: auto; }
+.band-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 22px; }
+.band-head h2 {
+  margin: 0; font: 500 22px/1.1 var(--sans); letter-spacing: -.02em; color: #fff;
+}
+.band-head p { margin: 0; color: var(--text-faint); font-size: 13px; }
+
+/* Capability strip. Three readings, not three paragraphs — this is the console
+   summarised, so it uses the console's number-over-caption shape. */
+.how-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 6px;
+  overflow: hidden;
+}
+.how-cell { background: var(--bg); padding: 20px 22px; }
+.how-step {
+  margin: 0 0 12px; font: 600 9.5px/1 var(--mono);
+  letter-spacing: .18em; text-transform: uppercase; color: var(--focus);
+}
+.how-n {
+  margin: 0 0 9px; font: 500 27px/1 var(--mono); font-variant-numeric: tabular-nums; color: #fff;
+}
+.how-n span { font: 500 11px/1 var(--mono); color: var(--text-faint); letter-spacing: .02em; }
+.how-t { margin: 0; color: var(--text-dim); font-size: 12.5px; line-height: 1.55; }
+
+/* ---- plans ---------------------------------------------------------------- */
+
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.plan {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+  padding: 20px 20px 18px;
+}
+.plan[data-featured="1"] { border-color: var(--focus); background: var(--panel-2); }
+.plan-flag {
+  position: absolute; top: -8px; right: 16px;
+  background: var(--focus); color: #05080c; border-radius: 3px; padding: 3px 7px;
+  font: 600 8.5px/1 var(--sans); letter-spacing: .13em; text-transform: uppercase;
+}
+.plan-name {
+  margin: 0 0 10px; font: 600 10px/1 var(--sans);
+  letter-spacing: .18em; text-transform: uppercase; color: var(--text-faint);
+}
+.plan-price {
+  margin: 0 0 10px; font: 500 30px/1 var(--mono);
+  font-variant-numeric: tabular-nums; color: #fff;
+}
+.plan-price span { font: 400 12px/1 var(--mono); color: var(--text-faint); margin-left: 2px; }
+.plan-line { margin: 0 0 14px; color: var(--text-dim); font-size: 12.5px; line-height: 1.5; }
+.plan-feat { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 6px; }
+.plan-feat li {
+  position: relative; padding-left: 15px;
+  font: 400 12px/1.45 var(--sans); color: var(--text-dim);
+}
+.plan-feat li::before {
+  content: ""; position: absolute; left: 0; top: .55em;
+  width: 7px; height: 1px; background: var(--text-faint);
+}
+/* Pushed to the bottom rail so three cards of different length still line their
+   buttons up — a pricing table whose CTAs stagger reads as three unrelated cards. */
+.plan-cta { margin-top: auto; width: 100%; }
+.plans-fine {
+  margin: 18px 0 0; font: 400 11px/1.6 var(--mono); color: var(--text-faint);
+}
+
+/* ---- footer --------------------------------------------------------------- */
+
+.site-foot {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  padding: 20px 26px; border-top: 1px solid var(--line-soft);
+  font-size: 11.5px; color: var(--text-faint);
+}
+.site-foot p { margin: 0; max-width: 62ch; line-height: 1.55; }
+.site-foot > a:last-child { margin-left: auto; color: var(--text-dim); text-decoration: none; }
+.site-foot > a:last-child:hover { color: var(--text); }
+
+/* ---- auth ----------------------------------------------------------------- */
+
+.auth { min-height: 100svh; display: grid; place-items: center; padding: 40px 22px; }
+.auth-card {
+  width: 100%; max-width: 366px; display: flex; flex-direction: column;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 26px;
+}
+.auth-mark {
+  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  text-decoration: none; color: var(--text-dim);
+  font: 600 11px/1 var(--sans); letter-spacing: .16em; margin-bottom: 22px;
+}
+.auth-card h1 { margin: 0 0 5px; font: 500 20px/1.2 var(--sans); letter-spacing: -.015em; color: #fff; }
+.auth-sub { margin: 0 0 20px; color: var(--text-faint); font-size: 12.5px; }
+.auth-flag {
+  margin: 0 0 18px; padding: 10px 11px; border-radius: 4px;
+  background: #241a0e; border: 1px solid rgba(217,144,58,.35);
+  color: #f0c489; font: 400 11px/1.55 var(--sans);
+}
+.auth-flag code { font: 500 10.5px/1 var(--mono); color: var(--warn); }
+.auth-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 13px; }
+.auth-field span {
+  font: 500 9px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--text-faint);
+}
+.auth-field input {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 4px;
+  padding: 9px 11px; color: var(--text); font: 400 13px/1.3 var(--sans);
+}
+.auth-field input:focus { outline: 2px solid var(--focus); outline-offset: -1px; border-color: transparent; }
+.auth-field input:disabled { opacity: .5; }
+.auth-err { margin: 0 0 12px; color: var(--alarm); font: 400 11.5px/1.5 var(--sans); }
+.auth-note { margin: 0 0 12px; color: var(--ok); font: 400 11.5px/1.5 var(--sans); }
+.auth-go { width: 100%; padding: 11px; }
+.auth-swap {
+  background: none; border: 0; cursor: pointer; padding: 14px 0 0;
+  color: var(--text-dim); font: 400 11.5px/1 var(--sans); text-align: center;
+}
+.auth-swap:hover { color: var(--text); }
+.auth-skip {
+  margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--line-soft);
+  text-align: center; color: var(--text-faint); font-size: 11px; text-decoration: none;
+}
+.auth-skip:hover { color: var(--text-dim); }
+
+/* ---- narrow --------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .nav { padding: 11px 16px; gap: 12px; }
+  .nav-links, .nav-who { display: none; }
+  .hero-in { padding: 0 16px; }
+  .hero-bg { background-position: 68% 45%; }
+  .band { padding: 34px 16px; }
+  .how-row, .plans { grid-template-columns: 1fr; }
+  .site-foot { padding: 18px 16px; }
+  .site-foot > a:last-child { margin-left: 0; }
 }
