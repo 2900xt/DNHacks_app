@@ -9,7 +9,26 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import SiteNav from './components/SiteNav'
-import { counts } from './lib/graph'
+import LandingGlobe, { type Jurisdiction } from './components/LandingGlobe'
+import { counts, loadGraph } from './lib/graph'
+
+/** Where the eight active filings actually sit, counted off the merged graph.
+ *  Same derivation the console's globe uses (country node + `incorporated_in`),
+ *  so the backdrop and the instrument cannot tell different stories. */
+function sourceJurisdictions(): Jurisdiction[] {
+  const g = loadGraph()
+  const nodes = [...g.nodes.values()]
+  const iso = new Map<string, string>()
+  for (const n of nodes) if (n.type === 'country' && n.country) iso.set(n.id, n.country)
+
+  const tally = new Map<string, number>()
+  for (const e of g.edges) {
+    if (e.rel !== 'incorporated_in') continue
+    const c = iso.get(e.dst)
+    if (c) tally.set(c, (tally.get(c) ?? 0) + 1)
+  }
+  return [...tally].map(([iso, holders]) => ({ iso, holders }))
+}
 
 const fmt = (n: number) => n.toLocaleString('en-US')
 
@@ -45,13 +64,14 @@ const PLANS = [
 
 export default function Landing() {
   const c = counts()
+  const sources = sourceJurisdictions()
 
   return (
     <div className="site">
       <SiteNav />
 
       <header className="hero">
-        <div className="hero-bg" />
+        <LandingGlobe sources={sources} />
         <div className="hero-veil" />
         <div className="hero-in">
           <p className="eyebrow">Sourcing risk console</p>
@@ -118,8 +138,8 @@ export default function Landing() {
         </div>
 
         <p className="plans-fine">
-          Built at DNHacks 2026. Pricing is illustrative — no billing is wired up, and the
-          console is open to anyone with the link.
+          Built at DNHacks 2026. Pricing is illustrative — no billing is wired up. The
+          console is behind a sign-in; the data under it is all public record.
         </p>
       </section>
 
