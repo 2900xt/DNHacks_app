@@ -18,12 +18,10 @@ interface Props {
  *  on this map terminates here, which is the whole point of drawing it. */
 const DEST = { iso: 'us', cx: 498, cy: 287 }
 
-/** The visible window into the 2000x1000 equirectangular plate. Every
- *  jurisdiction we model, plus the buyer, sits between about 0N and 72N —
- *  showing the southern ocean would waste half the panel. Zoom centring must
- *  use THIS box's centre, not the plate's, or a focused country lands on the
- *  bottom edge. */
-const VIEW = { x: 0, y: 70, w: 2000, h: 500 }
+/** The whole plate. An earlier version cropped to the northern hemisphere to
+ *  save panel space and silently amputated southern Africa and South America.
+ *  Zoom centring uses THIS box's centre. */
+const VIEW = { x: 0, y: 0, w: 2000, h: 1000 }
 const CX = VIEW.x + VIEW.w / 2
 const CY = VIEW.y + VIEW.h / 2
 
@@ -102,7 +100,7 @@ export default function MapView({ nodes, edges, lit, selected, onSelect }: Props
     <svg
       className="map"
       viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="xMidYMid meet"
       role="group"
       aria-label="World map of sourcing jurisdictions"
     >

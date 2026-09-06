@@ -5,11 +5,6 @@ import nodesOpenfda from '@/data/nodes.openfda.json'
 import edgesOpenfda from '@/data/edges.openfda.json'
 import nodesCurated from '@/data/nodes.curated.json'
 import edgesCurated from '@/data/edges.curated.json'
-// Demo bridge: the api: layer. Nikhil's openFDA lane owns the real one — delete these
-// two imports the moment nodes.openfda.json ships api:/product: nodes. Without them the
-// six `feeds` edges dangle and beat 4 lights nothing. See web/data/README.md.
-import nodesBridge from '@/data/nodes.bridge.json'
-import edgesBridge from '@/data/edges.bridge.json'
 import complianceRaw from '@/data/compliance.json'
 import signalsRaw from '@/data/signals.json'
 import binsRaw from '@/data/bins.json'
@@ -40,7 +35,7 @@ export function loadGraph(): Graph {
   if (cached) return cached
 
   const nodes = new Map<NodeId, GraphNode>()
-  for (const n of [...nodesOpenfda, ...nodesCurated, ...nodesBridge] as GraphNode[]) {
+  for (const n of [...nodesOpenfda, ...nodesCurated] as GraphNode[]) {
     if (nodes.has(n.id)) {
       console.warn(`[graph] duplicate node id: ${n.id} — last write wins`)
     }
@@ -49,7 +44,7 @@ export function loadGraph(): Graph {
 
   const seen = new Set<string>()
   const edges: GraphEdge[] = []
-  for (const e of [...edgesOpenfda, ...edgesCurated, ...edgesBridge] as GraphEdge[]) {
+  for (const e of [...edgesOpenfda, ...edgesCurated] as GraphEdge[]) {
     if (e.layer === 3 && !e.citation) {
       console.warn(`[graph] layer-3 edge without citation, dropped: ${e.src} -> ${e.dst}`)
       continue

@@ -14,11 +14,12 @@
 import type { GraphEdge, GraphNode, NodeId, NodeType } from './types'
 
 export const COLUMNS: NodeType[] = [
-  'country', 'company', 'precursor', 'api', 'drug', 'product',
+  'country', 'facility', 'company', 'precursor', 'api', 'drug', 'product',
 ]
 
 export const COLUMN_LABEL: Record<string, string> = {
   country: 'Jurisdiction',
+  facility: 'Site',
   company: 'DMF holder',
   precursor: 'Precursor',
   api: 'Active ingredient',
@@ -67,7 +68,8 @@ export function flowOf(e: GraphEdge): [NodeId, NodeId] {
     case 'produced_by':      // precursor <- company
     case 'incorporated_in':  // company   <- country
       return [e.dst, e.src]
-    default:                 // feeds, formulated_into: already material order
+    default:
+      // feeds, active_in, hosts, operated_by are already in material order.
       return [e.src, e.dst]
   }
 }

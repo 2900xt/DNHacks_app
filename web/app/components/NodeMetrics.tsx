@@ -13,6 +13,8 @@ interface Props {
   onSelect: (id: NodeId) => void
   onCascade: (id: NodeId) => void
   downstream: number
+  ndc?: number
+  labelers?: number
 }
 
 /** Numeric attributes worth a tile, per node type. Order is the order an
@@ -32,6 +34,7 @@ const TILES: Record<string, [string, string, string?][]> = {
 
 export default function NodeMetrics({
   overview, node, edges, signals, compliance, nodeLabel, onSelect, onCascade, downstream,
+  ndc, labelers,
 }: Props) {
   // Resting state is not empty state: with nothing selected the rail answers the
   // question the operator already has — how concentrated is this supply?
@@ -78,6 +81,9 @@ export default function NodeMetrics({
         <Metric key={k} label={label} value={String(a[k])} />
       ))}
 
+      {ndc !== undefined && ndc > 0 && (
+        <Metric label="NDCs" value={ndc} sub={labelers ? `${labelers} labelers` : undefined} />
+      )}
       <Metric label="Downstream" value={downstream} sub="nodes depend on this"
         tone={downstream > 0 ? 'alarm' : 'plain'} />
       <Metric label="Edges" value={edges.length} />
