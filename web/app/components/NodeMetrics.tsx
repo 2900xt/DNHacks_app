@@ -83,7 +83,7 @@ export default function NodeMetrics({
         {a.eo13944_listed === true && <span className="tag" data-t="warn">EO 13944</span>}
         {alt && !offline && !halted && (
           <span className="tag" data-t={alt.recommended ? 'route' : alt.viable ? 'ok' : 'alarm'}>
-            {alt.recommended ? 'best backup' : alt.viable ? 'usable backup' : 'not usable'}
+            {alt.recommended ? 'best route' : alt.viable ? 'usable backup' : 'not usable'}
           </span>
         )}
         {where && <span className="tag" data-t="dim">{where}</span>}
