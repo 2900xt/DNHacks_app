@@ -376,14 +376,22 @@ def main() -> int:
     nodes = sorted(g.nodes.values(), key=lambda n: (n["type"], n["id"]))
     for n in nodes:
         n["attrs"]["openfda_rows"] = n.pop("_rows", 1)
-    edges = sorted(g.edges.values(), key=lambda e: (e["layer"], e["rel"], e["src"], e["dst"]))
+
+    # Omit optional keys rather than emitting null. types.ts declares them `?: T`
+    # (undefined, not null), and ml/load/validate.py fails the build on nulls.
+    # `critical: false` is a real value and stays; only None is dropped.
+    def strip_nulls(rows: list[dict]) -> list[dict]:
+        return [{k: v for k, v in row.items() if v is not None} for row in rows]
+
+    nodes = strip_nulls(nodes)
+    edges = strip_nulls(sorted(g.edges.values(), key=lambda e: (e["layer"], e["rel"], e["src"], e["dst"])))
     NODES_OUT.write_text(json.dumps(nodes, indent=2))
     EDGES_OUT.write_text(json.dumps(edges, indent=2))
 
     by_type: dict[str, int] = defaultdict(int)
     for n in nodes:
         by_type[n["type"]] += 1
-    fuzzy = sum(1 for n in nodes if n["resolved_by"] == "fuzzy")
+    fuzzy = sum(1 for n in nodes if n.get("resolved_by") == "fuzzy")
 
     print(f"\nwrote {NODES_OUT.relative_to(REPO_ROOT)}  {len(nodes)} nodes")
     for t, c in sorted(by_type.items()):
