@@ -70,15 +70,24 @@ VALID_LAYERS = {1, 2, 3}
 # `instance_of` and `markets` were added Sat 20:50 after reconciling against
 # nikhil/openfda-graph; without them his 1,526 legitimate edges warn and drown
 # the real findings.
+#
+# Sun 00:05: reconciled again against what the artifacts actually contain.
+# `formulated_from` -> `formulated_into` and `instance_of` -> `marketed_as`
+# (Nikhil's rename), and `operated_by` / `hosts` arrived with Parth's signal
+# lane. All four were in the data and none were in this set, which is why the
+# validator was emitting 1,532 warnings — every one of them vocabulary drift
+# rather than a data fault. `labeled_by` is kept though currently unused.
 KNOWN_RELS = {
     "feeds",            # precursor -> api          (Yash, layer 3)
-    "produced_by",      # precursor/api -> company
-    "formulated_from",  # product -> api            (Nikhil)
-    "instance_of",      # product -> drug           (Nikhil)
+    "produced_by",      # precursor/api/drug -> company/facility
+    "formulated_into",  # api -> product            (Nikhil)
+    "marketed_as",      # drug -> product           (Nikhil)
     "markets",          # company -> product        (Nikhil)
     "incorporated_in",  # company -> country
     "active_in",        # company -> country        (Nikhil)
     "labeled_by",       # product -> company
+    "operated_by",      # facility -> company       (Parth, layer 2 via ER)
+    "hosts",            # country/company -> facility
 }
 
 # Evidence has to carry a source. A PASS/FAIL with no citation is exactly what
@@ -344,10 +353,19 @@ def main() -> int:
             referenced |= validate_bins(path, rep)
         elif name == "signals.json":
             referenced |= validate_signals(path, rep)
-        elif name in ("backtest.json", "eo14336.citation.json", "cascade_rules.json"):
-            # backtest.json is a single object and Nikhil owns its shape.
-            # eo14336.citation.json is a pinned citation, deliberately not graph data.
-            # cascade_rules.json is Parth's thresholds for graph.ts, not graph data.
+        elif name in ("backtest.json", "eo14336.citation.json", "cascade_rules.json",
+                      "audit.json", "audit.jsonl", "reroute.json"):
+            # Producer artifacts, not graph data. Each has an owner who defines its
+            # shape; validating them here would mean duplicating that shape in two
+            # places and letting the copies drift.
+            #   backtest.json          a single object, Nikhil owns its shape
+            #   eo14336.citation.json  a pinned citation, deliberately not graph data
+            #   cascade_rules.json     Parth's risk thresholds, consumed by graph.ts
+            #   audit.json/.jsonl      Nikhil's tamper-evident chain; ml/audit.py
+            #                          --verify checks it far more strictly than a
+            #                          shape check could, and a naive rewrite here
+            #                          would break the hash chain
+            #   reroute.json           AEGIS route output, emitted by ml/aegis.py --write
             continue
         else:
             rep.warn(name, "not a file the contract names — nothing validated")

@@ -8,9 +8,16 @@ Things that will go wrong at 3am, and what to do.
 
 ## The UI shows nothing
 1. `curl localhost:8000/health`
-2. Check `PUBLIC_API_URL` in `.env` — on a second machine it must be the LAN IP,
-   not `localhost`.
-3. CORS: the API must allow the UI's origin. This bites every single time.
+2. Check **`NEXT_PUBLIC_API_BASE`** in `.env` — on a second machine it must be the
+   LAN IP, not `localhost`. This is the one the browser actually reads
+   (`web/app/lib/depot.ts`). `PUBLIC_API_URL` is also in `.env.example` and is read
+   by **nothing** — setting it and expecting the dashboard to move costs you twenty
+   minutes at 4am. Next.js only exposes vars prefixed `NEXT_PUBLIC_` to the client.
+3. CORS: already handled — the API sets `allow_origins=["*"]`. Verified with a
+   preflight, so if the dashboard is empty it is not CORS. Check 2 first.
+4. Vercel renders "No bins. Is the API up?" — expected. That deploy has no API to
+   reach; `NEXT_PUBLIC_API_BASE` points at a localhost the browser cannot see.
+   The Vercel link is the graph-only fallback (DEMO_PATH), not the telemetry demo.
 
 ## The device isn't showing up
 1. `ls /dev/ttyUSB* /dev/ttyACM*`

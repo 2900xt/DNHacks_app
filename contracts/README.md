@@ -21,7 +21,7 @@ two people building against different assumptions about the same JSON.
 |------|-----------------|
 | `openapi.yaml` | HTTP surface of `services/api` |
 | `schemas/telemetry.schema.json` | What a device emits upstream |
-| `schemas/detection.schema.json` | What the model emits, and what the UI renders |
+| `schemas/depot.schema.json` | A storage bin's evaluated state, as the UI renders it |
 
 ## These are placeholders
 
