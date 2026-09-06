@@ -5362,14 +5362,14 @@
     "citation": "openFDA /drug/ndc.json"
   },
   {
-    "src": "company:fei:3002807979",
+    "src": "company:fei:3004446312",
     "dst": "country:in",
     "rel": "incorporated_in",
     "layer": 1,
     "citation": "FDA FEI registration"
   },
   {
-    "src": "company:fei:3004446312",
+    "src": "company:fei:3004497364",
     "dst": "country:in",
     "rel": "incorporated_in",
     "layer": 1,
@@ -10696,18 +10696,18 @@
     "citation": "openFDA /drug/ndc.json"
   },
   {
-    "src": "company:fei:3002807979",
-    "dst": "product:ndc:70269-100",
-    "rel": "markets",
+    "src": "facility:fei:3004446312",
+    "dst": "country:in",
+    "rel": "located_in",
     "layer": 1,
-    "citation": "openFDA /drug/ndc.json"
+    "citation": "FDA FEI registration"
   },
   {
-    "src": "company:fei:3002807979",
-    "dst": "product:ndc:70269-120",
-    "rel": "markets",
+    "src": "facility:fei:3004497364",
+    "dst": "country:in",
+    "rel": "located_in",
     "layer": 1,
-    "citation": "openFDA /drug/ndc.json"
+    "citation": "FDA FEI registration"
   },
   {
     "src": "company:fei:3004446312",
@@ -10936,6 +10936,20 @@
   {
     "src": "company:fei:3004446312",
     "dst": "product:ndc:65862-707",
+    "rel": "markets",
+    "layer": 1,
+    "citation": "openFDA /drug/ndc.json"
+  },
+  {
+    "src": "company:fei:3004497364",
+    "dst": "product:ndc:70269-100",
+    "rel": "markets",
+    "layer": 1,
+    "citation": "openFDA /drug/ndc.json"
+  },
+  {
+    "src": "company:fei:3004497364",
+    "dst": "product:ndc:70269-120",
     "rel": "markets",
     "layer": 1,
     "citation": "openFDA /drug/ndc.json"
@@ -16016,11 +16030,18 @@
     "citation": "openFDA /drug/ndc.json"
   },
   {
-    "src": "company:fei:3002807979",
-    "dst": "api:amoxicillin-trihydrate",
-    "rel": "produced_by",
+    "src": "facility:fei:3004446312",
+    "dst": "company:fei:3004446312",
+    "rel": "operated_by",
     "layer": 1,
-    "citation": "openFDA /drug/ndc.json"
+    "citation": "FDA FEI registration"
+  },
+  {
+    "src": "facility:fei:3004497364",
+    "dst": "company:fei:3004497364",
+    "rel": "operated_by",
+    "layer": 1,
+    "citation": "FDA FEI registration"
   },
   {
     "src": "company:fei:3004446312",
@@ -16060,6 +16081,13 @@
   {
     "src": "company:fei:3004446312",
     "dst": "api:piperacillin",
+    "rel": "produced_by",
+    "layer": 1,
+    "citation": "openFDA /drug/ndc.json"
+  },
+  {
+    "src": "company:fei:3004497364",
+    "dst": "api:amoxicillin-trihydrate",
     "rel": "produced_by",
     "layer": 1,
     "citation": "openFDA /drug/ndc.json"

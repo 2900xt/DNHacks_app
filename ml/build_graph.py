@@ -51,11 +51,14 @@ ON_EO_13944 = {"amoxicillin", "ampicillin", "piperacillin"}
 # FEI, so these come from the brain's verified facility research. A labeler that appears
 # here resolves exactly; everything else falls back to a fuzzy name id.
 #   Aurobindo:  FEI 3004446312, OAI 09/05/2025 -- the hero node.
-#   Centrient:  FEI 3002807979, OAI 01/27/2026 -- the amoxicillin precursor maker.
+#   Centrient:  FEI 3004497364, OAI 01/27/2026 -- the amoxicillin precursor maker.
+#               NOT 3002807979 -- that is Sun Pharmaceutical, Mohali. The two Sun Pharma
+#               FEIs (…977 Dewas, …979 Mohali) sit one digit apart and nowhere near
+#               Centrient's. Caught by Parth Sat 21:34, verified against signals.json.
 # Source: project/datasets/fda-inspection-classification.md, briefs/README.md
 KNOWN_FEI: dict[str, dict[str, str]] = {
     "aurobindo pharma limited": {"fei": "3004446312", "country": "IN", "label": "Aurobindo Pharma Limited"},
-    "centrient pharmaceuticals india private limited": {"fei": "3002807979", "country": "IN", "label": "Centrient Pharmaceuticals India Private Limited"},
+    "centrient pharmaceuticals india private limited": {"fei": "3004497364", "country": "IN", "label": "Centrient Pharmaceuticals India Private Limited"},
 }
 
 COUNTRY_LABELS = {"in": "India", "cn": "China", "us": "United States"}
@@ -150,6 +153,20 @@ class GraphBuilder:
             country_id = self.node(f"country:{iso2}", "country", COUNTRY_LABELS.get(iso2, iso2.upper()),
                                    country=iso2)
             self.edge(node_id, country_id, "incorporated_in", layer=1, citation="FDA FEI registration")
+
+            # 🔴 THE SEAM. Parth's signals attach to `facility:fei:*` (an inspection is of
+            # a SITE), but openFDA gives us labelers, which are companies. Without a
+            # facility node and this edge, `facility:fei:3004446312` in signals.json has
+            # nothing to land on and the hero node renders green with an OAI sitting
+            # right next to it. Both id forms are legal per briefs/README.md; nobody was
+            # creating the facility half. Same FEI, so the join is exact -- no fuzzy hop.
+            facility_id = self.node(f"facility:fei:{known['fei']}", "facility",
+                                    f"{known['label']} (site)", country=iso2,
+                                    resolved_by="fei", attrs={"fei": known["fei"]})
+            self.edge(facility_id, node_id, "operated_by", layer=1,
+                      citation="FDA FEI registration")
+            self.edge(facility_id, country_id, "located_in", layer=1,
+                      citation="FDA FEI registration")
             return node_id
 
         node_id = f"company:name:{slug(labeler_name)}"
@@ -273,7 +290,34 @@ def verify(g: GraphBuilder) -> bool:
     print(f"  {status} 6-APA -> {len(api_nodes)} API nodes -> {len(reached)} drugs (expected 6)")
     print(f"       fan-out: {', '.join(sorted(n.split(':')[1] for n in reached))}")
 
-    # 3. Every company:name: id must be marked fuzzy.
+    # 3. The seam: every signal node this graph is supposed to carry must actually exist
+    # as a node. Reads Parth's signals.json if it has landed; skips quietly if not.
+    signals_file = OUT_DIR / "signals.json"
+    if signals_file.exists():
+        signals = json.loads(signals_file.read_text() or "[]")
+        # `mine` = this facility has openFDA products under it, so the node is ours to
+        # emit. Sun Pharma Dewas is not an amoxicillin labeler in openFDA at all (its
+        # refusals are on imported API, not finished product), so it has no product chain
+        # here and its node belongs to whoever owns the signal source. Flagged, not faked.
+        anchors = {"facility:fei:3004446312": ("Aurobindo", True),
+                   "facility:fei:3004497364": ("Centrient", True),
+                   "facility:fei:3002807977": ("Sun Pharma Dewas", False)}
+        for node_id, (name, mine) in sorted(anchors.items(), key=lambda kv: kv[1][0]):
+            n_sig = sum(1 for s in signals if s.get("node_id") == node_id)
+            present = node_id in g.nodes
+            if present:
+                status, note = "OK ", "node exists"
+            elif mine:
+                status, note, ok = "FAIL", "MISSING -- signal has nothing to land on", False
+            else:
+                status = "⚠️ "
+                note = "no node -- not ours (no openFDA product chain); needs an owner"
+            print(f"  {status} {name:18} {n_sig} signals -> {note}")
+        orphans = {s["node_id"] for s in signals} - set(g.nodes)
+        print(f"  -- {len(orphans)} signal node_ids not in this file "
+              f"(Yash's + Parth's own to create)")
+
+    # 4. Every company:name: id must be marked fuzzy.
     bad = [n for n, v in g.nodes.items() if n.startswith("company:name:") and v["resolved_by"] != "fuzzy"]
     status = "OK " if not bad else "FAIL"
     if bad:
