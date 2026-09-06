@@ -694,6 +694,9 @@ button.ctl:focus-visible, a.ctl:focus-visible { outline: 2px solid var(--focus);
    a dependency, not a source — and red when the gate is shut. */
 .tbranch[data-feed="1"] { stroke: var(--layer2); stroke-dasharray: 4 4; opacity: .7; }
 .tbranch[data-feed="1"][data-health="down"] { stroke: var(--alarm); opacity: .9; }
+/* On the path, the feed is a hop the material takes: solid green, like the
+   rest of the line. After the feed rules, so it wins. */
+.tbranch[data-feed="1"][data-route="1"] { stroke: var(--route); stroke-dasharray: none; opacity: .95; stroke-width: 2.2; }
 
 /* Re-rooting. The svg is keyed on the root, so a new drug redraws the whole
    chain; each level enters a beat after the one above it, top-down, in the
