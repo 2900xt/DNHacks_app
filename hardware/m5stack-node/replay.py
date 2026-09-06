@@ -39,6 +39,11 @@ import urllib.request
 
 DEFAULT_API = "http://localhost:8000"
 DEFAULT_NODE = "sns-depot-01-bin-a"
+# ISO-2 of the depot the synthetic node reports from. Depots are local to a
+# country, and the console lists a bin only under its own — so a replay that
+# said nothing here would land wherever the seed put the bin, which is fine
+# until someone rehearses "the node in India" and it shows up under the US.
+DEFAULT_COUNTRY = "us"
 
 
 def post(api: str, payload: dict) -> str:
@@ -91,7 +96,7 @@ def cmd_synth(a: argparse.Namespace) -> int:
     t0 = time.time() - span_s
     mean = sum(temps) / len(temps)
     print(f"→ {a.scenario}: {len(temps)} samples over {a.span_h}h "
-          f"into {a.api} as {a.node}")
+          f"into {a.api} as {a.node} (depot: {a.country.upper()})")
     print(f"  arithmetic mean {mean:.2f} C — this is what a naive dashboard shows")
     for i, t in enumerate(temps):
         ts = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t0 + i * step))
@@ -102,6 +107,7 @@ def cmd_synth(a: argparse.Namespace) -> int:
         status = post(a.api, {
             "device_id": "replay-synth",
             "node_id": a.node,
+            "country": a.country,
             "ts": ts,
             "seq": i,
             "readings": {
@@ -152,6 +158,9 @@ def main() -> int:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--api", default=DEFAULT_API)
     p.add_argument("--node", default=DEFAULT_NODE)
+    p.add_argument("--country", default=DEFAULT_COUNTRY,
+                   help="ISO-2 of the depot the node reports from (synth only; "
+                        "a real device sends its own DEPOT_COUNTRY)")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("synth", help="play a fabricated history — no hardware")

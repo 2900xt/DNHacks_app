@@ -1,11 +1,17 @@
 'use client'
 
+import { useState } from 'react'
 import type { Compliance, GraphEdge, GraphNode, NodeId } from '../lib/types'
 import type { Alternate, Rollup } from '../lib/supply-tree'
 import { relVerb } from '../lib/graph-layout'
 import Metric from './Metric'
-import { Info } from './Rail'
+import { Disclosure } from './Rail'
 import { plain } from '../lib/plain'
+
+/** What each evidence layer means, for an edge that carries no citation. */
+const LAYER_NAME: Record<number, string> = {
+  1: 'live API record', 2: 'official list', 3: 'hand-curated',
+}
 
 interface Props {
   node: GraphNode | null
@@ -42,6 +48,9 @@ export default function NodeMetrics({
   node, edges, compliance, nodeLabel, onSelect, onCascade, offline, halted,
   rollup, downstream, ndc, labelers, alt,
 }: Props) {
+  /** Which connection row is unfolded. One at a time: the rail is narrow and
+   *  an unfolded row is the full name plus its citation. */
+  const [openRow, setOpenRow] = useState<string | null>(null)
   if (!node) return null
   const a = (node.attrs ?? {}) as Record<string, unknown>
   const where = [a.city, node.country ? String(node.country).toUpperCase() : null]
@@ -79,16 +88,18 @@ export default function NodeMetrics({
       </div>
 
       {alt && (
-        <div className="metric-row">
+        <>
           <Metric
             label="Supplier score"
             value={`${alt.score > 0 ? '+' : ''}${alt.score.toFixed(1)}`}
             sub={alt.rank ? `#${alt.rank} of the suppliers still shipping` : offline ? 'not shipping' : 'cut off upstream'}
             tone={alt.viable ? 'ok' : 'alarm'}
           />
-          <Info label="Why this score">
-            <b>Why {alt.score > 0 ? '+' : ''}{alt.score.toFixed(1)}</b>
-            <ul>
+          {/* The reasons, as text under the number. They were a hover tip on
+              a circled i; a judge's next question after a score is always
+              "why", and the answer should not need a mouse. */}
+          <Disclosure label={`Why ${alt.score > 0 ? '+' : ''}${alt.score.toFixed(1)}`}>
+            <ul className="disc-list">
               {alt.holder.why.map((w) => <li key={w}>{plain(w)}</li>)}
               {alt.deltaWhy && (
                 <li data-delta={alt.delta > 0 ? 'up' : alt.delta < 0 ? 'down' : 'none'}>
@@ -96,8 +107,8 @@ export default function NodeMetrics({
                 </li>
               )}
             </ul>
-          </Info>
-        </div>
+          </Disclosure>
+        </>
       )}
 
       {ndc !== undefined && ndc > 0 && (
@@ -124,19 +135,45 @@ export default function NodeMetrics({
 
       {edges.length > 0 && (
         <div className="rail-list">
+          {/* Connections. A click unfolds the row — the whole name, and the
+              citation that used to hide in a tooltip — rather than jumping to
+              the other node, which replaced this panel before the name could
+              be read. The jump is the button inside the unfolded row. */}
           {edges.slice(0, 8).map((e, i) => {
             const other = e.src === node.id ? e.dst : e.src
+            const key = `${e.src}|${e.dst}|${e.rel}|${i}`
+            const open = openRow === key
+            const flip = () => setOpenRow(open ? null : key)
             return (
-              <button
-                key={`${e.src}|${e.dst}|${e.rel}|${i}`}
+              <div
+                key={key}
                 className="link-row"
-                onClick={() => onSelect(other)}
-                title={e.citation ?? e.rel}
+                data-open={open ? '1' : '0'}
+                role="button"
+                tabIndex={0}
+                aria-expanded={open}
+                onClick={flip}
+                onKeyDown={(ev) => {
+                  if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); flip() }
+                }}
               >
                 <span className={`pill l${e.layer}`}><i /></span>
                 <span className="lr-name">{nodeLabel(other)}</span>
                 <span className="lr-rel">{relVerb(e.rel)}</span>
-              </button>
+                {open && (
+                  <span className="lr-more">
+                    <span className="lr-cite">
+                      {e.citation ?? `${LAYER_NAME[e.layer] ?? `layer ${e.layer}`} · no citation attached to this edge`}
+                    </span>
+                    <button
+                      className="ctl"
+                      onClick={(ev) => { ev.stopPropagation(); onSelect(other) }}
+                    >
+                      Inspect ›
+                    </button>
+                  </span>
+                )}
+              </div>
             )
           })}
           {edges.length > 8 && (

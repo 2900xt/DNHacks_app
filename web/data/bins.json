@@ -9,11 +9,13 @@
       "drug:dicloxacillin",
       "drug:nafcillin",
       "drug:oxacillin"
-    ]
+    ],
+    "country": "us"
   },
   {
     "id": "sns-depot-01-bin-c",
     "label": "SNS Depot 01 — Bin C (cold room)",
-    "covers_drugs": []
+    "covers_drugs": [],
+    "country": "us"
   }
 ]
