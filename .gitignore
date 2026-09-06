@@ -102,7 +102,13 @@ data/cache/_ca/
 data/cache/federal-register/text-*.txt
 !data/cache/federal-register/text-2026-11571.txt
 !data/cache/fda-inspections/*.csv
+
+# --- AEGIS pathfinder (ml/aegis.py) ---
+# Bulk registers it re-fetches on demand; too large to commit.
+# AEGIS emits this on --write. Not committed until it is named in the data
+# contract (briefs/README.md) and validate.py's skip list, or it shows up as
+# an unvalidated-file warning in a tool everyone runs.
+web/data/reroute.json
+
 data/cache/dmf/*.xlsx
-data/cache/openfda/ndc_bulk.zip
-data/cache/nadac/*.csv
 data/cache/decrs/*.zip
