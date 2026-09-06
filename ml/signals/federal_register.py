@@ -18,13 +18,18 @@ from .common import Signal, cache_dir, fetch, iso, require
 BASE = "https://www.federalregister.gov/api/v1/documents.json"
 
 #: Queries pinned because they were live-verified to return real, on-topic hits.
+#: `country_in_body`: may a country node fire on a mention anywhere in the
+#: document, or only in the title/abstract? True only for queries already scoped
+#: to pharmaceuticals - the broad BIS sweep returns things like "Framework for
+#: Artificial Intelligence Diffusion", which mentions pharma once and China
+#: throughout, and is not a drug supply-chain signal.
 QUERIES = [
-    {"key": "s232-pharma", "params": {
+    {"key": "s232-pharma", "country_in_body": True, "params": {
         "conditions[term]": '"pharmaceuticals and pharmaceutical ingredients"',
         "conditions[publication_date][gte]": "2025-01-01", "per_page": "20"}},
-    {"key": "dod-1260h", "params": {
+    {"key": "dod-1260h", "country_in_body": True, "params": {
         "conditions[docket_id]": "DOD-2026-OS-1288", "per_page": "20"}},
-    {"key": "bis-actions", "params": {
+    {"key": "bis-actions", "country_in_body": False, "params": {
         "conditions[agencies][]": "industry-and-security-bureau",
         "conditions[term]": "pharmaceutical", "per_page": "20"}},
 ]
@@ -46,7 +51,12 @@ COMPANIES = {
 COUNTRIES = {"china": "country:cn", "chinese": "country:cn", "india": "country:in", "indian": "country:in"}
 
 
-def _severity(doc: dict) -> str:
+def _severity(doc: dict, query_key: str) -> str:
+    # A 1260H designation is filed as a "Notice", but it is the most
+    # contract-relevant document this feed can return - BIOSECURE restricts
+    # federal contracting with anything on that list. Type alone under-rates it.
+    if query_key == "dod-1260h":
+        return "high"
     t = (doc.get("type") or "").lower()
     if t in {"presidential document", "rule"}:
         return "high"
@@ -63,8 +73,11 @@ def _full_text(doc: dict, cache) -> str:
         return dest.read_text(errors="replace")
     try:
         return fetch(url, dest, timeout=45).decode(errors="replace")
-    except Exception:
-        return ""   # a missing body must not kill the whole loader
+    except Exception as e:
+        # A missing body must not kill the loader, but it must not be silent
+        # either - a swallowed 502 looks identical to "no companies mentioned".
+        print(f"  ! full text unavailable for {doc['document_number']}: {e}")
+        return ""
 
 
 def load() -> list[Signal]:
@@ -86,7 +99,11 @@ def load() -> list[Signal]:
             body_text = _full_text(doc, cache)
             hay_full = hay + " " + body_text.lower()
             targets = {node for name, node in COMPANIES.items() if name in hay_full}
-            targets |= {node for name, node in COUNTRIES.items() if name in hay}
+            # Country in the BODY counts too, but only because every query above
+            # is already scoped to pharmaceutical/BIS/1260H documents. Matching
+            # "China" across the whole Federal Register would be pure noise.
+            country_hay = hay_full if q.get("country_in_body") else hay
+            targets |= {node for name, node in COUNTRIES.items() if name in country_hay}
             if not targets:
                 continue
             for node in targets:
@@ -97,14 +114,16 @@ def load() -> list[Signal]:
                 out.append(Signal(
                     node_id=node,
                     kind="regulatory_action",
-                    severity=_severity(doc),
+                    severity=_severity(doc, q["key"]),
                     source="Federal Register",
                     observed_at=iso(doc["publication_date"], "%Y-%m-%d"),
                     url=doc.get("html_url"),
                     payload={"document_number": doc["document_number"],
                              "title": doc.get("title"), "type": doc.get("type"),
                              "citation": doc.get("citation"), "query": q["key"],
-                             "matched_in": "full_text" if node.startswith("company:") else "summary"},
+                             "matched_in": "summary" if any(
+                                 n in hay for n, v in COUNTRIES.items() if v == node
+                             ) else "full_text"},
                 ))
 
     return require(out, "federal_register")
