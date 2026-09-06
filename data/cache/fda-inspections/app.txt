@@ -1,0 +1,27 @@
+// id     = Inspection Dashboard
+// idf    = Inspection 483 Dashboard
+// cd     = Compliance Dashboard
+// rd     = Recalls Dashboard
+// ir     = Import Refusal Dashboard
+// fs, fp = Firm Search Dashboard, Profile
+// is     = Import Summary Dashboard
+// tp 	  = TPP Dasboard
+// vd	  = VQIP Dasboard
+// ie     = Imports Entry Dashboard
+// fpd    = Firm Profile Dashboard
+// laaf   = LAAF Dashboard
+
+//Prod - Prod
+prod.cd=45786682-21b2-47e8-8b20-0a456fbfa2cb
+prod.fs=014ac7de-39bb-450e-8254-65c68c8279fa
+prod.fp=ba44bb2c-a2dc-4d6a-9c45-2a65e9d72a94
+prod.ir=d7eefe8c-28fa-4ed1-86fa-0e8a27440a4d
+prod.is=17f217ad-59f1-4f25-9c57-1a58ffd62336
+prod.id=31eda7a2-4357-4166-a69b-7b933cd98012
+prod.idf=65528174-8744-4274-9479-79f4532ba321
+prod.rd=a469b1b3-14e2-438d-82fe-979ecf96247c
+prod.tp=137da870-9d38-41c3-abb2-ab577e2fcbd9
+prod.vd=6fd052a7-7602-4929-a259-021a4ef30a3f
+prod.ie=223727f1-dcc6-4c75-a3ff-4070faee81b2
+prod.fpd=0eda1067-04a3-4b34-9e82-14ced89cc899
+prod.laaf=2c6de3b9-0325-4f64-89f8-7894a907c0b2
